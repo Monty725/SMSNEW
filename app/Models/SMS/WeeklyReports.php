@@ -95,7 +95,7 @@ class WeeklyReports extends Model
 
     public function toDateForm1(){
         $fieldsToSum =  [
-            'manufactured', 'A', 'B', 'C', 'C1', 'D', 'DX', 'DE', 'DR', 'total_issuance', 'prev_manufactured', 'prev_A', 'prev_B', 'prev_C', 'prev_C1', 'prev_D', 'prev_DX', 'prev_DE', 'prev_DR', 'prev_total_issuance', 'tdc', 'gtcm', 'lkgtc_gross', 'share_planter', 'share_miller', 'tds','egtcm', 'lkgtc_gross_syrup',
+            'manufactured', 'A', 'B', 'C', 'C1', 'D', 'DX', 'DE', 'DR', 'total_issuance', 'prev_manufactured', 'prev_A', 'prev_B', 'prev_C', 'prev_C1', 'prev_D', 'prev_DX', 'prev_DE', 'prev_DR', 'prev_total_issuance', 'tdc', 'gtcm', 'lkgtc_gross', 'share_planter', 'share_miller', 'tds','egtcm', 'lkgtc_gross_syrup', 'prev_transfers_to_refinery', 'transfers_to_refinery',
         ];
         foreach ($fieldsToSum as $key => $field){
             $fieldsToSum[$key] = ' sum('.$field.') as '.$field;
@@ -118,7 +118,7 @@ class WeeklyReports extends Model
 
     public function form1ToDateAsOf($report_no){
         $fieldsToSum =  [
-            'manufactured', 'A', 'B', 'C', 'C1', 'D', 'DX', 'DE', 'DR', 'total_issuance', 'prev_manufactured', 'prev_A', 'prev_B', 'prev_C', 'prev_C1', 'prev_D', 'prev_DX', 'prev_DE', 'prev_DR', 'prev_total_issuance', 'tdc', 'gtcm', 'lkgtc_gross', 'share_planter', 'share_miller', 'tds','egtcm', 'lkgtc_gross_syrup',
+            'manufactured', 'A', 'B', 'C', 'C1', 'D', 'DX', 'DE', 'DR', 'total_issuance', 'prev_manufactured', 'prev_A', 'prev_B', 'prev_C', 'prev_C1', 'prev_D', 'prev_DX', 'prev_DE', 'prev_DR', 'prev_total_issuance', 'tdc', 'gtcm', 'lkgtc_gross', 'share_planter', 'share_miller', 'tds','egtcm', 'lkgtc_gross_syrup', 'prev_transfers_to_refinery', 'transfers_to_refinery',
         ];
         foreach ($fieldsToSum as $key => $field){
             $fieldsToSum[$key] = ' sum('.$field.') as '.$field;
@@ -240,7 +240,7 @@ class WeeklyReports extends Model
 
     public function form2ToDateAsOf($report_no){
         $fieldsToSum = [
-            'weekly_report_slug', 'carryOver', 'coveredBySro', 'notCoveredBySro', 'otherMills', 'imported', 'melted', 'rawWithdrawals', 'prev_refinedCarryOver', 'prodDomestic', 'prodImported', 'prodReturn', 'prev_carryOver', 'prev_coveredBySro', 'prev_notCoveredBySro', 'prev_otherMills', 'prev_imported', 'prev_melted', 'prev_rawWithdrawals', 'prev_prodDomestic', 'prev_prodImported', 'prev_prodReturn',
+            'weekly_report_slug', 'carryOver', 'coveredBySro', 'notCoveredBySro', 'otherMills', 'imported', 'melted', 'rawWithdrawals', 'prev_refinedCarryOver', 'prodDomestic', 'prodImported', 'overage', 'prodReturn', 'prev_carryOver', 'prev_coveredBySro', 'prev_notCoveredBySro', 'prev_otherMills', 'prev_imported', 'prev_melted', 'prev_rawWithdrawals', 'prev_prodDomestic', 'prev_prodImported', 'prev_overage', 'prev_prodReturn', 'prev_unquedanned',
         ];
         foreach ($fieldsToSum as $key => $field){
             $fieldsToSum[$key] = ' sum('.$field.') as '.$field;

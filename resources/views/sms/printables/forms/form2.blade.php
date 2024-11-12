@@ -1,7 +1,8 @@
 <div id="form2" style="break-after: page">
     @include('sms.printables.forms.header',['formName' => 'SMS Form No. 2'])
     <h4 class="no-margin"><b>WEEKLY REPORT ON REFINED SUGAR</b></h4>
-    <p class="no-margin"><i>(Figures in 50-Kg Bags)</i></p>
+{{--    <p class="no-margin"><i>(Figures in 50-Kg Bags)</i></p>--}}
+    <p class="no-margin"><i>(Figures in Metric Tons)</i></p>
     <table class="table-bordered " style="width: 100%">
         <thead>
         <tr >
@@ -251,13 +252,13 @@
                 {{ \App\Swep\Helpers\Helper::toNumber($toDateForm2['production']['domestic']['current'] ?? null,3)  }}
             </td>
             <td class="text-right">
-                {{ \App\Swep\Helpers\Helper::toNumber($form2['production']['domestic']['prev'] ?? null,3)  }}
+                {{ \App\Swep\Helpers\Helper::toNumber($form2['production']['domesticPrev'] ?? null,3)  }}
             </td>
             <td class="text-right">
-                {{ \App\Swep\Helpers\Helper::toNumber($prevToDateForm2['production']['domestic']['prev'] ?? null,3)  }}
+                {{ \App\Swep\Helpers\Helper::toNumber($prevToDateForm2['production']['domesticPrev'] ?? null,3)  }}
             </td>
             <td class="text-right">
-                {{ \App\Swep\Helpers\Helper::toNumber($toDateForm2['production']['domestic']['prev'] ?? null,3)  }}
+                {{ \App\Swep\Helpers\Helper::toNumber($toDateForm2['production']['domesticPrev'] ?? null,3)  }}
             </td>
         </tr>
 
@@ -273,13 +274,13 @@
                 {{ \App\Swep\Helpers\Helper::toNumber($toDateForm2['production']['imported']['current'] ?? null,3)  }}
             </td>
             <td class="text-right">
-                {{ \App\Swep\Helpers\Helper::toNumber($form2['production']['imported']['prev'] ?? null,3)  }}
+                {{ \App\Swep\Helpers\Helper::toNumber($form2['production']['importedPrev'] ?? null,3)  }}
             </td>
             <td class="text-right">
-                {{ \App\Swep\Helpers\Helper::toNumber($prevToDateForm2['production']['imported']['prev'] ?? null,3)  }}
+                {{ \App\Swep\Helpers\Helper::toNumber($prevToDateForm2['production']['importedPrev'] ?? null,3)  }}
             </td>
             <td class="text-right">
-                {{ \App\Swep\Helpers\Helper::toNumber($toDateForm2['production']['imported']['prev'] ?? null,3)  }}
+                {{ \App\Swep\Helpers\Helper::toNumber($toDateForm2['production']['importedPrev'] ?? null,3)  }}
             </td>
         </tr>
         <tr>
@@ -294,13 +295,13 @@
                 {{ \App\Swep\Helpers\Helper::toNumber($toDateForm2['production']['overage']['current'] ?? null,3)  }}
             </td>
             <td class="text-right">
-                {{ \App\Swep\Helpers\Helper::toNumber($form2['production']['overage']['prev'] ?? null,3)  }}
+                {{ \App\Swep\Helpers\Helper::toNumber($form2['production']['overagePrev'] ?? null,3)  }}
             </td>
             <td class="text-right">
-                {{ \App\Swep\Helpers\Helper::toNumber($prevToDateForm2['production']['overage']['prev'] ?? null,3)  }}
+                {{ \App\Swep\Helpers\Helper::toNumber($prevToDateForm2['production']['overagePrev'] ?? null,3)  }}
             </td>
             <td class="text-right">
-                {{ \App\Swep\Helpers\Helper::toNumber($toDateForm2['production']['overage']['prev'] ?? null,3)  }}
+                {{ \App\Swep\Helpers\Helper::toNumber($toDateForm2['production']['overagePrev'] ?? null,3)  }}
             </td>
         </tr>
         <tr>
@@ -336,13 +337,13 @@
                 {{ \App\Swep\Helpers\Helper::toNumber($toDateForm2['production']['returnToProcess']['current'] ?? null,3)  }}
             </td>
             <td class="text-right">
-                {{ \App\Swep\Helpers\Helper::toNumber($form2['production']['returnToProcess']['prev'] ?? null,3)  }}
+                {{ \App\Swep\Helpers\Helper::toNumber($form2['production']['returnToProcessPrev'] ?? null,3)  }}
             </td>
             <td class="text-right">
-                {{ \App\Swep\Helpers\Helper::toNumber($prevToDateForm2['production']['returnToProcess']['prev'] ?? null,3)  }}
+                {{ \App\Swep\Helpers\Helper::toNumber($prevToDateForm2['production']['returnToProcessPrev'] ?? null,3)  }}
             </td>
             <td class="text-right">
-                {{ \App\Swep\Helpers\Helper::toNumber($toDateForm2['production']['returnToProcess']['prev'] ?? null,3)  }}
+                {{ \App\Swep\Helpers\Helper::toNumber($toDateForm2['production']['returnToProcessPrev'] ?? null,3)  }}
             </td>
         </tr>
         <tr>

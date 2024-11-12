@@ -325,7 +325,8 @@ class __html{
             'ACCTG' => 'ACCOUNTING',
             'HR' => 'HUMAN RESOURCE',
             'RECORDS' => 'RECORDS',
-            'PPU' => 'PPU'
+            'PPU' => 'PPU',
+            'PM' => 'PRICE MONITORING'
         ];
 
         if(isset($labels[$acronym])){

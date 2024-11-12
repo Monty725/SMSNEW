@@ -19,7 +19,7 @@ class CreateWeeklyReportsTable extends Migration
             $table->string('crop_year');
             $table->date('week_ending')->nullable();
             $table->string('report_no');
-            $table->string('dist_no');
+//            $table->string('dist_no');
             $table->string('remarks')->nullable();
             $table->string('user_created')->nullable();
             $table->string('user_updated')->nullable();

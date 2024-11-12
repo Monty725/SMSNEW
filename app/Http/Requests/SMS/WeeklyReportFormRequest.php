@@ -45,7 +45,8 @@ class WeeklyReportFormRequest extends FormRequest
                   return $query->where('mill_code' ,'=',$mill_code);
                 }),
             ],
-            'dist_no' => 'required|string',
+            //LOUIS 1-22-2024 Removal of Distribution Number Requirement
+            //'dist_no' => 'required|string',
         ];
     }
     public function messages()

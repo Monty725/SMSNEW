@@ -1,0 +1,20 @@
+{
+    "hundin": {
+        "normal": "hundin_normal_53d276e5f3b210e5fc6fe5702b589b5e"
+    },
+    "os-condenesed-bold": {
+        "normal": "os_condenesed_bold_normal_832169640abb2ba2016de5c81378cc85"
+    },
+    "os-condenesed-light": {
+        "normal": "os_condenesed_light_normal_6bd565e0ac88e2e6fd6c4ff0d15832da"
+    },
+    "glyphicons halflings": {
+        "normal": "glyphicons_halflings_normal_3bc02ae576b26a568ae6d76489b668d4"
+    },
+    "fontawesome": {
+        "normal": "fontawesome_normal_6eca2abbd5602a195385e55bd0f1cc98"
+    },
+    "calibri": {
+        "normal": "calibri_normal_5769ccde954a031807dbb1b572a51303"
+    }
+}

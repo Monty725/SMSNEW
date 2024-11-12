@@ -2,6 +2,7 @@
 
 /** Auth **/
 
+use App\Models\SMS\Form5\Deliveries;
 use App\Models\SMS\InputFields;
 use App\Swep\Helpers\Helper;
 use Rats\Zkteco\Lib\ZKTeco;
@@ -297,4 +298,11 @@ Route::get('assignCalendarId',function (){
     }
     return 1;
 });
+
+Route::get('getForm1/{slug}',\App\Http\Controllers\GetForms\GetForm1Controller::class.'@getForm1');
+Route::get('getForm2/{slug}',\App\Http\Controllers\GetForms\GetForm2Controller::class.'@getForm2');
+Route::get('getForm3/{slug}',\App\Http\Controllers\GetForms\GetForm3Controller::class.'@getForm3');
+
+
+
 

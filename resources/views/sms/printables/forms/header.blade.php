@@ -7,7 +7,8 @@
                 <p class="no-margin text-left" style="font-size: 14px"> <b>SUGAR REGULATORY ADMINISTRATION</b></p>
                 <p class="no-margin text-left" style="font-size: 12px; margin-bottom: 15px"> Sugar Monitoring System</p>
                 <p class="no-margin text-left" style="font-size: 14px"> <b>{{(!empty($formName)) ? $formName : null}}</b></p>
-                <p class="no-margin text-left" style="font-size: 12px"> August 2022</p>
+                <p class="no-margin text-left" style="font-size: 12px"> August 2008</p>
+{{--                <p class="no-margin text-left" style="font-size: 12px"> August 2022</p>--}}
             </td>
             <td style="text-align: right; vertical-align: top">
                 @if($wr->status == 1)

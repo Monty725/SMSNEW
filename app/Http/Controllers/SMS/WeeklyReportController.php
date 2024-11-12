@@ -95,7 +95,12 @@ class WeeklyReportController extends Controller
         return view('sms.weekly_report.create');
     }
 
+    public function displayToDateForm1()
+    {
+        $toDateForm1 = $this->toDateForm1();
 
+        return view('sms.weekly_report.sms_forms.form_1', compact('toDateForm1'));
+    }
 
     public function store(WeeklyReportFormRequest $request){
         $calendar = $this->calendarService->findBySlug($request->calendar_slug);
@@ -106,7 +111,7 @@ class WeeklyReportController extends Controller
         $weekly_report->week_ending = $calendar->week_ending;
         $weekly_report->report_no = $calendar->report_no;
         $weekly_report->calendar_slug = $calendar->slug;
-        $weekly_report->dist_no = $request->dist_no;
+//        $weekly_report-> dist_no = $request->dist_no;
         if($weekly_report->save()){
             Form1Details::insert(['weekly_report_slug' => $weekly_report->slug]);
             Form2Details::insert(['weekly_report_slug' => $weekly_report->slug]);
@@ -129,6 +134,11 @@ class WeeklyReportController extends Controller
         return view('sms.weekly_report.edit')->with([
             'wr' => $weekly_report,
             'formArray' => $weeklyReportService->computation($slug),
+//3-21-2024 LOUIS
+//            'formArray_current_prev' => $weeklyReportService->computation($slug,'toDate',$weekly_report->report_no * 1 -1),
+//            'formArray_current_toDate' => $weeklyReportService->computation($slug,'toDate',$weekly_report->report_no * 1),
+
+
             'form2Array' => $weeklyReportService->form2Computation($slug),
             'form3Array' => $weeklyReportService->form3Computation($slug),
             'subsidiaries' => $weeklyReportService->subsidiaries($slug),
@@ -709,8 +719,6 @@ class WeeklyReportController extends Controller
             'toDateForm1' => $this->weeklyReportService->computation($slug,'toDate'),
             'form1' => $this->weeklyReportService->computation($slug),
             'prevForm1' => $prevForm1,
-
-
             'prevToDateForm1' => $this->weeklyReportService->computation($slug,'toDate', $weekly_report->report_no - 1),
 
             'form2' => $this->weeklyReportService->form2Computation($slug),

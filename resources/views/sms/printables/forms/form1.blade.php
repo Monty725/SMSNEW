@@ -2,8 +2,8 @@
     @include('sms.printables.forms.header',['formName' => 'SMS Form No. 1'])
 
     <h4 class="no-margin"><b>WEEKLY REPORT ON RAW SUGAR</b></h4>
-    <p class="no-margin"><i>(Figures in 50-Kg Bags)</i></p>
-
+{{--    <p class="no-margin"><i>(Figures in 50-Kg Bags)</i></p>--}}
+    <p class="no-margin"><i>(Figures in Metric Tons)</i></p>
     <table class="table-bordered " style="width: 100%">
         <thead>
         <tr >
@@ -32,23 +32,29 @@
             <td class="text-right">
                 {{\App\Swep\Helpers\Helper::toNumber($toDateForm1['manufactured']['current'] ?? null ,3)}}
             </td>
-            <td></td>
-            <td></td>
-            <td></td>
-
+            <td class="text-right">
+                {{ \App\Swep\Helpers\Helper::toNumber($form1['manufactured']['prev'] ?? null,3) }}
+            </td>
+            <td class="text-right">
+                {{ \App\Swep\Helpers\Helper::toNumber($prevToDateForm1['manufactured']['prev'] ?? null,3) }}
+            </td>
+            <td class="text-right">
+            {{\App\Swep\Helpers\Helper::toNumber($toDateForm1['manufactured']['prev'] ?? null ,3)}}
+            </td>
         </tr>
 
         <tr>
+{{--            LOUIS 11-20-2023 ISSUANCE TOTAL ERROR--}}
             <td colspan="4">2. ISSUANCES/CARRY-OVER</td>
-            <td class="text-right">
-                {{ \App\Swep\Helpers\Helper::toNumber($form1['issuancesTotal']['prev'] ?? null, 3) }}
-            </td>
-            <td class="text-right">
-                {{ \App\Swep\Helpers\Helper::toNumber($prevToDateForm1['issuancesTotal']['prev'] ?? null, 3) }}
-            </td>
-            <td class="text-right">
-                {{\App\Swep\Helpers\Helper::toNumber($toDateForm1['issuancesTotal']['prev'] ?? null ,3)}}
-            </td>
+{{--            <td class="text-right">--}}
+{{--                {{ \App\Swep\Helpers\Helper::toNumber($form1['issuancesTotal']['prev'] ?? null, 3) }}--}}
+{{--            </td>--}}
+{{--            <td class="text-right">--}}
+{{--                {{ \App\Swep\Helpers\Helper::toNumber($prevToDateForm1['issuancesTotal']['prev'] ?? null, 3) }}--}}
+{{--            </td>--}}
+{{--            <td class="text-right">--}}
+{{--                {{\App\Swep\Helpers\Helper::toNumber($toDateForm1['issuancesTotal']['prev'] ?? null ,3)}}--}}
+{{--            </td>--}}
         </tr>
 
         @if(isset($form1['issuances']) || isset($prevToDateForm1['issuances']) || isset($toDateForm1['issuances']))

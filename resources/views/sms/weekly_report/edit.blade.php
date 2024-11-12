@@ -54,8 +54,9 @@
                                 <dd><span style="font-size: 18px">{{$wr->report_no}}</span></dd>
                                 <hr>
 
-                                <dt>Distribution No.:</dt>
-                                <dd><span style="font-size: 18px">{{$wr->dist_no}}</span></dd>
+{{--                                LOUIS 1-22-2024 DISTRIBUTION NO. UI IN WEEKLY REPORT INPUT--}}
+{{--                                <dt>Distribution No.:</dt>--}}
+{{--                                <dd><span style="font-size: 18px">{{$wr->dist_no}}</span></dd>--}}
                             </dl>
 
                         </div>
@@ -686,14 +687,14 @@
             })
         }
 
-        updateForm2(null);
-        updateForm1(null);
-        updateForm3(null);
+        //updateForm2(null);
+        // updateForm1(null);
+        // updateForm3(null);
         updateForm3a(null);
         updateForm4(null);
         updateForm4a(null);
 
-        $("#form2").submit(function (e) {
+        $("#form22").submit(function (e) {
             e.preventDefault();
             let form = $(this);
             $("#form2PreviewTable tr.computation").each(function () {
@@ -725,75 +726,12 @@
 
 
         function updateForm1(form = null,type = 'updateOnly'){
-            let uri = '{{route("dashboard.sms_form1.store")}}?wr={{$wr->slug}}';
-            let formData = null;
-            if(type === 'updateOnly'){
-                uri = uri+'&type=updateOnly';
-                formData = null;
-            }else{
-                formData = form.serialize();
-            }
 
-            $.ajax({
-                url : uri,
-                data : formData,
-                type: 'POST',
-                headers: {
-                    {!! __html::token_header() !!}
-                },
-                success: function (res) {
-                    $(".newAppend").each(function () {
-                        $(this).remove();
-                    })
-                    $.each(res,function (i,item) {
-                        $("#form1PreviewTable tr[for='"+i+"']").children('td').eq(1).html($.number(item.current,3));
-                        $("#form1PreviewTable tr[for='"+i+"']").children('td').eq(2).html($.number(item.prev,3));
-                    });
-                    $.each(res.withdrawals, function (i,item) {
-                        $("#form1PreviewTable tr[for='withdrawalsTotal']").before('' +
-                            '<tr class="newAppend">' +
-                            '<td><span class="indent"></span>' + i + '</td>'+
-                            '<td class="text-right">' + $.number(item.current,3) + '</td>'+
-                            '<td class="text-right">' + $.number(item.prev,3) + '</td>'+
-                            '</tr>')
-                    });
-                    $.each(res.balances, function (i,item) {
-                        $("#form1PreviewTable tr[for='balancesTotal']").before('' +
-                            '<tr class="newAppend">' +
-                            '<td><span class="indent"></span>' + i + '</td>'+
-                            '<td class="text-right">' + $.number(item.current,3) + '</td>'+
-                            '<td class="text-right">' + $.number(item.prev,3) + '</td>'+
-                            '</tr>')
-                    });
-                    $.each(res.fieldsToFill, function (i,item) {
-                        console.log(i);
-                        $("#form1 input[name='"+i+"']").val(item);
-                    });
-                    if(type !== 'updateOnly'){
-                        toast('Changes were auto saved.');
-                    }
-                },
-                error: function (res) {
-                    $("#form1PreviewTable tr.computation").each(function () {
-                        $(this).children('td').eq(1).html('<span class="text-danger"><i class="fa fa-exclamation-triangle"></i></span>');
-                        $(this).children('td').eq(2).html('<span class="text-danger"><i class="fa fa-exclamation-triangle"></i></span>');
-                    })
-                }
-            })
         }
 
 
 
-        $("#form1").submit(function (e) {
-            e.preventDefault();
-            let form = $(this);
-            $("#form1PreviewTable tr.computation").each(function () {
-                $(this).children('td').eq(1).html('<i class="fa fa-spin fa-refresh"></i>');
-                $(this).children('td').eq(2).html('<i class="fa fa-spin fa-refresh"></i>');
-            })
 
-            updateForm1(form,'insert');
-        })
 
         $("#form1").on('change','.form1-input',function () {
             $("#form1").submit();
@@ -806,7 +744,7 @@
         })
 
 
-        function updateForm3(form = null,type = 'updateOnly'){
+        function updateForm33(form = null,type = 'updateOnly'){
             let uri = '{{route("dashboard.sms_form3.store")}}?wr={{$wr->slug}}';
             let formData = null;
             if(type === 'updateOnly'){
@@ -865,7 +803,7 @@
             $("#form3").submit();
         })
 
-        $("#form3").submit(function (e) {
+        $("#form33").submit(function (e) {
             e.preventDefault();
             let form = $(this);
             $("#form3PreviewTable tr.computation").each(function () {
@@ -1114,7 +1052,249 @@
             })
         }
 
+        /////////-------------------------------------------------------------------------- NEW CODE START ----------------------------------------------
 
+        function smsNumberFormat(number){
+            if(number === null){
+                return '0.000';
+            }else{
+                return $.number(number,3);
+            }
+        }
+
+        function updateForm1Data(){
+            $("#form1 .updatable").each(function () {
+                $(this).html('<i class="fa fa-spin fa-refresh"></i>');
+                $(this).html('<i class="fa fa-spin fa-refresh"></i>');
+            })
+
+            $.ajax({
+                url : '/getForm1/{{$wr->slug}}',
+                type : 'GET',
+                success: function (res) {
+                    console.log()
+                    $(".updatable").each(function (){
+                        $(this).html(res["values"][$(this).attr("for")])
+                    })
+                    $("#form1PreviewTable .removable").each(function (){
+                        $(this).remove();
+                    })
+                    // console.log(res.rows);
+                    $.each(res.rows,function (type, sugarClasses){
+                        $.each(sugarClasses,function (sugarClass,values){
+                            $("."+type+"_header").after('' +
+                                // UI FOR ISSUANCE AND BALANCE FORM 1 LOUIS
+                                '<tr class="removable">' +
+                                '<td>'+sugarClass.replaceAll("_"," ")+'</td>' +
+                                '<td class="text-right">'+smsNumberFormat(values.currentCrop.thisWeek)+'</td>' +
+                                '<td class="text-right">'+smsNumberFormat(values.currentCrop.prevWeek)+'</td>' +
+                                '<td class="text-right">'+smsNumberFormat(values.currentCrop.toDate)+'</td>' +
+                                // '<td class="text-right">'+smsNumberFormat(values.prevCrop.thisWeek)+'</td>' +
+                                // '<td class="text-right">'+smsNumberFormat(values.prevCrop.prevWeek)+'</td>' +
+                                '<td class="text-right"></td>' +
+                                '<td class="text-right"></td>' +
+                                '<td class="text-right">'+smsNumberFormat(values.prevCrop.toDate)+'</td>' +
+                                '</tr>');
+                        })
+                    });
+                    // console.log(res.rows);
+                },
+                error : function (res) {
+                    console.log(res);
+                }
+            })
+        }
+
+
+        $("body").on("change",".formChanger",function () {
+            updateForm1Data();
+        })
+
+
+        $("#form1").submit(function (e) {
+            e.preventDefault();
+            let form = $(this);
+
+
+            let uri = '{{route("dashboard.sms_form1.store")}}?wr={{$wr->slug}}';
+            let formData = null;
+
+            $.ajax({
+                url : uri,
+                data : form.serialize(),
+                type: 'POST',
+                headers: {
+                    {!! __html::token_header() !!}
+                },
+                success: function (res) {
+                    updateForm1Data();
+                    toast('Changes were auto saved.');
+                },
+                error: function (res) {
+                    $("#form1PreviewTable tr.computation").each(function () {
+                        $(this).children('td').eq(1).html('<span class="text-danger"><i class="fa fa-exclamation-triangle"></i></span>');
+                        $(this).children('td').eq(2).html('<span class="text-danger"><i class="fa fa-exclamation-triangle"></i></span>');
+                    })
+                }
+            })
+        })
+
+        function updateForm2Data(){
+            $("#form2 .updatable").each(function () {
+                $(this).html('<i class="fa fa-spin fa-refresh"></i>');
+                $(this).html('<i class="fa fa-spin fa-refresh"></i>');
+            })
+
+            $.ajax({
+                url : '/getForm2/{{$wr->slug}}',
+                type : 'GET',
+                success: function (res) {
+                    console.log()
+                    $(".updatable").each(function (){
+                        $(this).html(res["values"][$(this).attr("for")])
+                    })
+                    $("#form2PreviewTable .removable").each(function (){
+                        $(this).remove();
+                    })
+                    // console.log(res.rows);
+                    $.each(res.rows,function (type, sugarClasses){
+                        $.each(sugarClasses,function (sugarClass,values){
+                            $("."+type+"_header").after('' +
+                                '<tr class="removable">' +
+                                '<td>'+sugarClass+'</td>' +
+                                '<td class="text-right">'+smsNumberFormat(values.currentCrop.thisWeek)+'</td>' +
+                                '<td class="text-right">'+smsNumberFormat(values.currentCrop.prevWeek)+'</td>' +
+                                '<td class="text-right">'+smsNumberFormat(values.currentCrop.toDate)+'</td>' +
+                                '<td class="text-right">'+smsNumberFormat(values.prevCrop.thisWeek)+'</td>' +
+                                '<td class="text-right">'+smsNumberFormat(values.prevCrop.prevWeek)+'</td>' +
+                                '<td class="text-right">'+smsNumberFormat(values.prevCrop.toDate)+'</td>' +
+                                '</tr>');
+                        })
+                    });
+                    // console.log(res.rows);
+                },
+                error : function (res) {
+                    console.log(res);
+                }
+            })
+        }
+
+
+        $("#form2").submit(function (e) {
+            e.preventDefault();
+            let form = $(this);
+
+
+            let uri = '{{route("dashboard.sms_form2.store")}}?wr={{$wr->slug}}';
+            let formData = null;
+
+            $.ajax({
+                url : uri,
+                data : form.serialize(),
+                type: 'POST',
+                headers: {
+                    {!! __html::token_header() !!}
+                },
+                success: function (res) {
+                    updateForm2Data();
+                    toast('Changes were auto saved.');
+                },
+                error: function (res) {
+                    $("#form2PreviewTable tr.computation").each(function () {
+                        $(this).children('td').eq(1).html('<span class="text-danger"><i class="fa fa-exclamation-triangle"></i></span>');
+                        $(this).children('td').eq(2).html('<span class="text-danger"><i class="fa fa-exclamation-triangle"></i></span>');
+                    })
+                }
+            })
+        })
+
+        function updateForm3Data(){
+            $("#form3 .updatable").each(function () {
+                $(this).html('<i class="fa fa-spin fa-refresh"></i>');
+                $(this).html('<i class="fa fa-spin fa-refresh"></i>');
+            })
+
+            $.ajax({
+                url : '/getForm3/{{$wr->slug}}',
+                type : 'GET',
+                success: function (res) {
+                    console.log()
+                    $(".updatable").each(function (){
+                        $(this).html(res["values"][$(this).attr("for")])
+                    })
+                    $("#form3PreviewTable .removable").each(function (){
+                        $(this).remove();
+                    })
+                    // console.log(res.rows);
+                    $.each(res.rows,function (type, sugarClasses){
+                        $.each(sugarClasses,function (sugarClass,values){
+                            $("."+type+"_header").after('' +
+                                '<tr class="removable">' +
+                                '<td>'+sugarClass+'</td>' +
+                                '<td class="text-right">'+smsNumberFormat(values.currentCrop.thisWeek)+'</td>' +
+                                '<td class="text-right">'+smsNumberFormat(values.currentCrop.prevWeek)+'</td>' +
+                                '<td class="text-right">'+smsNumberFormat(values.currentCrop.toDate)+'</td>' +
+                                '<td class="text-right">'+smsNumberFormat(values.prevCrop.thisWeek)+'</td>' +
+                                '<td class="text-right">'+smsNumberFormat(values.prevCrop.prevWeek)+'</td>' +
+                                '<td class="text-right">'+smsNumberFormat(values.prevCrop.toDate)+'</td>' +
+                                '</tr>');
+                        })
+                    });
+                    // console.log(res.rows);
+                },
+                error : function (res) {
+                    console.log(res);
+                }
+            })
+        }
+
+
+        $("#form3").submit(function (e) {
+            e.preventDefault();
+            let form = $(this);
+
+
+            let uri = '{{route("dashboard.sms_form3.store")}}?wr={{$wr->slug}}';
+            let formData = null;
+
+            $.ajax({
+                url : uri,
+                data : form.serialize(),
+                type: 'POST',
+                headers: {
+                    {!! __html::token_header() !!}
+                },
+                success: function (res) {
+                    updateForm3Data();
+                    toast('Changes were auto saved.');
+                },
+                error: function (res) {
+                    $("#form3PreviewTable tr.computation").each(function () {
+                        $(this).children('td').eq(1).html('<span class="text-danger"><i class="fa fa-exclamation-triangle"></i></span>');
+                        $(this).children('td').eq(2).html('<span class="text-danger"><i class="fa fa-exclamation-triangle"></i></span>');
+                    })
+                }
+            })
+        })
+
+    </script>
+
+    <script>
+        $(document).ready(function(){
+            updateForm1Data();
+            $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+                // Get the target tab pane id
+                var target = $(e.target).attr('href');
+
+                // Your function to run when switching tabs
+                console.log("Switched to tab:", target);
+                updateForm1Data();
+                updateForm2Data();
+                updateForm3Data();
+                    // Run your function here, for example:
+                // myFunction();
+            });
+        });
     </script>
 
 @endsection

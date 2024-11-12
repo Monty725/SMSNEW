@@ -44,16 +44,18 @@ class WeeklyReportService
         foreach (Arrays::sugarClasses() as $sugarClass){
             $valuesStructure[$sugarClass] = [
                 'current' => null,
+                'current_prevweek' => null,
                 'prev' => null,
             ];
         }
 
-        $toDate =  $weekly_report->toDateForm1();
 
+//        $toDate =  $weekly_report->toDateForm1();
 
         if($get == 'toDate'){
             //LOUIS 11-7-2023 2:28PM
             $relation = $weekly_report->form1ToDateAsOf($report_no != 0 ? $report_no : $weekly_report->report_no * 1);
+            $prevweek = $weekly_report->form1ToDateAsOf($report_no != 0 ? $report_no : $weekly_report->report_no * 1 - 1);
 
         }else{
             $relation = $weekly_report->form1;
@@ -64,7 +66,7 @@ class WeeklyReportService
 
 
 //        $formArray['manufactured']['current'] = $get=='toDate' ? $toDate->manufactured : $weekly_report->form1->manufactured ?? null;
-//        $formArray['manufactured']['prev'] = $get=='toDate' ? $toDate->prev_manufactured  : $weekly_report->form1->prev_manufactured ?? null;
+        $formArray['manufactured']['prev'] = $get=='toDate' ? $relation->prev_manufactured  : $weekly_report->form1->prev_manufactured ?? null;
 
 
         //ISSUANCES
@@ -73,7 +75,7 @@ class WeeklyReportService
             foreach (Arrays::sugarClasses() as $sugarClass){
 //                $formArray['issuances'][$sugarClass]['current'] = $get=='toDate' ? $toDate->$sugarClass :  $weekly_report->form1->$sugarClass;
 //                $formArray['issuances'][$sugarClass]['prev'] = $get=='toDate'  ? $toDate->{'prev_'.$sugarClass} : $weekly_report->form1->{'prev_'.$sugarClass};
-                $formArray['issuances'][$sugarClass] = $this->makeCurrentPrev($relation->$sugarClass ?? null, $relation->{'prev_'.$sugarClass} ?? null);
+                $formArray['issuances'][$sugarClass] = $this->makeCurrentPrev($relation->$sugarClass ?? null, $prevweek->{'prev_'.$sugarClass} ?? null,$relation->{'prev_'.$sugarClass} ?? null);
             }
         }
 
@@ -82,6 +84,7 @@ class WeeklyReportService
 
 
         $formArray['issuancesTotal']['current'] = array_sum(array_column($formArray['issuances'],'current'));
+        $formArray['issuancesTotal']['current_prevweek'] = array_sum(array_column($formArray['issuances'],'current_prevweek'));
         $formArray['issuancesTotal']['prev'] = array_sum(array_column($formArray['issuances'],'prev'));
         $formArray['withdrawals'] = $valuesStructure;
         $formArray['forRefining'] = $valuesStructure;
@@ -158,13 +161,14 @@ class WeeklyReportService
         ];
 
 
-        //STOCK BALANCE = Manufactured - Withdrawals
+        //STOCK BALANCE = Manufactured - Withdrawals OLD
 //        $formArray['stockBalance'] = [
 //            'current' => $formArray['manufactured']['current'] - $formArray['withdrawalsTotal']['current'] - $formArray['forRefiningTotal']['current'],
-////            'prev' => $formArray['manufactured']['prev'] - $formArray['withdrawalsTotal']['prev'] - $formArray['forRefiningTotal']['prev'],
+//            'prev' => $formArray['manufactured']['prev'] - $formArray['withdrawalsTotal']['prev'] - $formArray['forRefiningTotal']['prev'],
 //            'prev' => $formArray['issuancesTotal']['prev'] - $formArray['withdrawalsTotal']['prev'] - $formArray['forRefiningTotal']['prev'],
 //        ];
 
+        //STOCK BALANCE = TotalBalance + UNQUEDANNED
         $formArray['stockBalance'] = [
             'current' => $formArray['balancesTotal']['current'] + $formArray['unquedanned']['current'],
             'prev' => $formArray['balancesTotal']['prev'] + $formArray['unquedanned']['prev'],
@@ -176,13 +180,22 @@ class WeeklyReportService
         }else{
             $form2Relation = $weekly_report->form2;
         }
-        $formArray['transfersToRefinery'] = $this->makeCurrentPrev($form2Relation->notCoveredBySro ?? null, $form2Relation->prev_notCoveredBySro ?? null);
+//        $formArray['transfersToRefinery'] = $this->makeCurrentPrev($form2Relation->notCoveredBySro ?? null, $form2Relation->prev_notCoveredBySro ?? null);
+//        $formArray['transfersToRefinery'] = $this->makeCurrentPrev($form2Relation->transfers_to_refinery ?? null, $form2Relation->prev_transfers_to_refinery ?? null);
+        $formArray['transfersToRefinery'] = $this->makeCurrentPrev($relation->transfers_to_refinery ?? null, $relation->prev_transfers_to_refinery ?? null);
+        $formArray['transfersToRefinery']['prev'] = $get=='toDate' ? $relation->prev_transfers_to_refinery  : $weekly_report->form1->prev_transfers_to_refinery ?? null;
 
         //PHYSICAL STOCK = STOCK BALANCE - TRANSFERS TO REFINERY
+//        $formArray['physicalStock'] = [
+//            'current' => $formArray['stockBalance']['current'] - $formArray['transfersToRefinery']['current'],
+//            'prev' => $formArray['stockBalance']['prev'] - $formArray['transfersToRefinery']['prev'],
+//        ];
         $formArray['physicalStock'] = [
-            'current' => $formArray['stockBalance']['current'] - $formArray['transfersToRefinery']['current'],
-            'prev' => $formArray['stockBalance']['prev'] - $formArray['transfersToRefinery']['prev'],
+            'current' => $formArray['transfersToRefinery']['current'] - $formArray['stockBalance']['current'],
+            'prev' => $formArray['transfersToRefinery']['prev'] - $formArray['stockBalance']['prev'],
         ];
+
+
         //TONS DUE CANE
         $formArray['tdc']['current'] = $relation->tdc ?? null;
         $formArray['gtcm']['current'] = $relation->gtcm ?? null;
@@ -256,9 +269,10 @@ class WeeklyReportService
 
     }
 
-    private function makeCurrentPrev($current = null, $previous = null){
+    private function makeCurrentPrev($current = null,$current_prevweek = null, $previous = null){
         return [
             'current' => $current,
+            'current_prevweek' => $current_prevweek,
             'prev' => $previous,
         ];
     }
@@ -272,13 +286,26 @@ class WeeklyReportService
         }else{
             $relation = $weekly_report->form2;
         }
-        //carryOver
+        //FORM2 CARRYOVER COMPUTATION
         $formArray['carryOver'] = $this->makeCurrentPrev($relation->carryOver ?? null, $relation->prev_carryOver ?? null);
-        //coveredBySro
+        $formArray['carryOver']['prev'] = $get=='toDate' ? $relation->prev_carryOver  : $weekly_report->form2->prev_carryOver ?? null;
+
+        //FORM2 COVEREDBYSRO COMPUTATION
         $formArray['coveredBySro'] = $this->makeCurrentPrev($relation->coveredBySro ?? null, $relation->prev_coveredBySro ?? null);
+        $formArray['coveredBySro']['prev'] = $get=='toDate' ? $relation->prev_coveredBySro  : $weekly_report->form2->prev_coveredBySro ?? null;
+
+        //FORM2 NOTCOVEREDBYSRO COMPUTATION
         $formArray['notCoveredBySro'] = $this->makeCurrentPrev($relation->notCoveredBySro ?? null, $relation->prev_notCoveredBySro ?? null);
+        $formArray['notCoveredBySro']['prev'] = $get=='toDate' ? $relation->prev_notCoveredBySro  : $weekly_report->form2->prev_notCoveredBySro ?? null;
+
+        //FORM2 OTHERMILLS COMPUTATION
         $formArray['otherMills'] = $this->makeCurrentPrev($relation->otherMills ?? null, $relation->prev_otherMills ?? null);
+        $formArray['otherMills']['prev'] = $get=='toDate' ? $relation->prev_otherMills  : $weekly_report->form2->prev_otherMills ?? null;
+
+        //FORM2 IMPORTED COMPUTATION
         $formArray['imported'] = $this->makeCurrentPrev($relation->imported ?? null, $relation->prev_imported ?? null);
+        $formArray['imported']['prev'] = $get=='toDate' ? $relation->prev_imported  : $weekly_report->form2->prev_imported ?? null;
+
 
         //receipts
         $formArray['receipts'] = [
@@ -291,8 +318,14 @@ class WeeklyReportService
         $formArray['totalReceipts']['current'] = array_sum(array_column($formArray['receipts'],'current'));
         $formArray['totalReceipts']['prev'] = array_sum(array_column($formArray['receipts'],'prev'));
 
+        //FORM2 MELTED COMPUTATION
         $formArray['melted'] = $this->makeCurrentPrev($relation->melted ?? null, $relation->prev_melted ?? null);;
+        $formArray['melted']['prev'] = $get=='toDate' ? $relation->prev_melted  : $weekly_report->form2->prev_melted ?? null;
+
+        //FORM2 RAWWITHDRAWALS COMPUTATION
         $formArray['rawWithdrawals'] = $this->makeCurrentPrev($relation->rawWithdrawals ?? null, $relation->prev_rawWithdrawals ?? null);;
+        $formArray['rawWithdrawals']['prev'] = $get=='toDate' ? $relation->prev_rawWithdrawals  : $weekly_report->form2->prev_rawWithdrawals ?? null;
+
         $formArray['rawBalance']['current'] = $formArray['totalReceipts']['current'] - $formArray['melted']['current'] - $formArray['rawWithdrawals']['current'];
         $formArray['rawBalance']['prev'] = $formArray['totalReceipts']['prev'] - $formArray['melted']['prev'] - $formArray['rawWithdrawals']['prev'];
 
@@ -300,9 +333,16 @@ class WeeklyReportService
         //production
         $formArray['production'] = [
             'domestic' => $this->makeCurrentPrev($relation->prodDomestic ?? null,$relation->prev_prodDomestic ?? null),
+            'domesticPrev' => $get=='toDate' ? $relation->prev_prodDomestic  : $weekly_report->form2->prev_prodDomestic ?? null,
+
             'imported' => $this->makeCurrentPrev($relation->prodImported ?? null,$relation->prev_prodImported ?? null),
+            'importedPrev' => $get=='toDate' ? $relation->prev_prodImported  : $weekly_report->form2->prev_prodImported ?? null,
+
             'overage' => $this->makeCurrentPrev($relation->overage ?? null,$relation->prev_overage ?? null),
+            'overagePrev' => $get=='toDate' ? $relation->prev_overage  : $weekly_report->form2->prev_overage ?? null,
+
             'returnToProcess' => $this->makeCurrentPrev($relation->prodReturn ?? null,$relation->prev_prodReturn ?? null),
+            'returnToProcessPrev' => $get=='toDate' ? $relation->prev_prodReturn  : $weekly_report->form2->prev_prodReturn ?? null,
         ];
 
         //carry Over
@@ -324,7 +364,7 @@ class WeeklyReportService
         //TOTAL REFINED
         $formArray['totalRefined'] = [
             'current' => $formArray['production']['domestic']['current'] + $formArray['production']['imported']['current'] + $formArray['production']['overage']['current'],
-            'prev' => $formArray['production']['domestic']['prev'] + $formArray['production']['imported']['prev'] + $formArray['production']['overage']['prev'],
+            'prev' => $formArray['production']['domesticPrev'] + $formArray['production']['importedPrev'] + $formArray['production']['overagePrev'],
         ];
 
         $formArray['totalProduction'] = [
@@ -423,9 +463,13 @@ class WeeklyReportService
             'prev' => isset($formArray['withdrawals']) ?  array_sum(array_column($formArray['withdrawals'],'prev')) : null,
         ];
         //STOCK BALANCE = ISSUANCE - WITHDRAWALS
+//        $formArray['stockBalance'] = [
+//            'current' => $formArray['issuancesTotal']['current'] - $formArray['withdrawalTotal']['current'],
+//            'prev' => $formArray['refinedCarryOver']['prev'] + $formArray['issuancesTotal']['prev'] - $formArray['withdrawalTotal']['prev'],
+//        ];
         $formArray['stockBalance'] = [
             'current' => $formArray['issuancesTotal']['current'] - $formArray['withdrawalTotal']['current'],
-            'prev' => $formArray['refinedCarryOver']['prev'] + $formArray['issuancesTotal']['prev'] - $formArray['withdrawalTotal']['prev'],
+            'prev' => $formArray['issuancesTotal']['prev'] - $formArray['withdrawalTotal']['prev'],
         ];
 
         //UNQEUDANNED = PROD NET - ISSUANCES
@@ -433,6 +477,11 @@ class WeeklyReportService
             'current' => $formArray['totalProduction']['current'] - $formArray['issuancesTotal']['current'],
             'prev' => $formArray['totalProduction']['prev'] - $formArray['issuancesTotal']['prev'],
         ];
+
+//        DRY RUN EDIT
+        $formArray['unquedanned'] = $this->makeCurrentPrev($relation->unquedanned ?? null, $relation->prev_unquedanned ?? null);
+        $formArray['unquedanned']['prev'] = $get=='toDate' ? $relation->prev_unquedanned  : $weekly_report->form2->prev_unquedanned ?? null;
+
         \Hash::make('dds');
         //STOCK ON HAND = PROD NET - WITHDRAWALS
 //        $formArray['stockOnHand'] = [

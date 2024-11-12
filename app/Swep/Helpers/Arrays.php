@@ -53,6 +53,15 @@ class Arrays
         return $scsArr;
     }
 
+    public static function sugarClassesCharging(){
+        $scs = SugarClass::query()->whereNull('swapping')->get();
+        $scsArr = [];
+        foreach ($scs as $sc){
+            $scsArr[$sc->sugar_class] = $sc->charge;
+        }
+        return $scsArr;
+    }
+
     public static function form2SugarClasses(){
         return [
             'PREMIUM' => 'PREMIUM',
@@ -193,4 +202,6 @@ class Arrays
         }
         return $arr;
     }
+
+
 }

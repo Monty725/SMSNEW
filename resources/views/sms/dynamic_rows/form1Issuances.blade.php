@@ -26,12 +26,24 @@
         $current ?? null
         ) !!}
     </td>
+    <td></td>
+    <td></td>
+{{--    ISSUANCES ROW UI FORM1 LOUIS--}}
     <td>
         {!! \App\Swep\ViewHelpers\__form2::textboxOnly('issuances[prevValues]['.$rand.']',[
             'class' => 'form1-input input-sm text-right autonumber_mt autonumber_mt_'.$rand
         ],
-        $prev ?? null
+        $current_prevweek ?? null
         ) !!}
+    </td>
+    <td></td>
+    <td></td>
+    <td>
+{{--        {!! \App\Swep\ViewHelpers\__form2::textboxOnly('issuances[prevValues]['.$rand.']',[--}}
+{{--            'class' => 'form1-input input-sm text-right autonumber_mt autonumber_mt_'.$rand--}}
+{{--        ],--}}
+{{--        $prev ?? null--}}
+{{--        ) !!}--}}
     </td>
 </tr>
 

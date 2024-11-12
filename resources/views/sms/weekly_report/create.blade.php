@@ -41,16 +41,17 @@
 {{--                            'step' => 1,--}}
 {{--                        ]) !!}--}}
                         {!! \App\Swep\ViewHelpers\__form2::select('calendar_slug',[
-                            'label' => 'Report No.',
+                            'label' => 'Report No. - Week Ending',
                             'cols' => 12,
                             'options' => \App\Swep\Helpers\Arrays::calendar(),
                         ]) !!}
-                        {!! \App\Swep\ViewHelpers\__form2::textbox('dist_no',[
-                            'label' => 'Distribution No:*',
-                            'cols' => 12,
-                            'type' => 'number',
-                            'step' => 1,
-                        ]) !!}
+{{--                        LOUIS 1-22-2024 WEEKLY REPORT CREATE NEW UI--}}
+{{--                        {!! \App\Swep\ViewHelpers\__form2::textbox('dist_no',[--}}
+{{--                            'label' => 'Distribution No:*',--}}
+{{--                            'cols' => 12,--}}
+{{--                            'type' => 'number',--}}
+{{--                            'step' => 1,--}}
+{{--                        ]) !!}--}}
                     </div>
                 <button type="submit" class="btn btn-primary btn-block btn-flat">
                     <i class="fa fa-check"> </i> SAVE

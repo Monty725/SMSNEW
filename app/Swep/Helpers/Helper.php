@@ -33,13 +33,33 @@ class Helper
         ];
     }
 
-    public static function toNumber($number,$places = 2,$placeholder = ''){
-        if($number == null || $number == 0){
-            return $placeholder;
-        }else{
-            return number_format($number,$places);
+//    public static function toNumber($number,$places = 2,$placeholder = ''){
+//        if($number == null || $number == 0){
+//            return $placeholder;
+//        }else{
+//            return number_format($number,$places);
+//        }
+//    }
+
+    //LOUIS 8-19-2024
+
+    public static function toNumber($value, $decimals = 2)
+    {
+        if (is_null($value)) {
+            return null;
         }
+
+        $formattedNumber = number_format($value, $decimals);
+
+        if ($value < 0) {
+            return '(' . str_replace('-', '', $formattedNumber) . ')';
+        }
+
+        return $formattedNumber;
     }
+
+    //END
+
     public static function online_badge($lastActivity,$fullwidth = true){
 
         if($fullwidth == true){

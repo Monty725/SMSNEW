@@ -21,7 +21,61 @@ class Form3Controller extends Controller
     }
 
     public function store(Request $request){
+
         $wr = $this->weeklyReportService->findWeeklyReportBySlug($request->wr);
+        Form3Details::updateOrCreate(
+            ['weekly_report_slug' => $request->wr],
+            [
+                'manufacturedRaw' => Helper::sanitizeAutonum($request->manufacturedRaw),
+                'rao' => Helper::sanitizeAutonum($request->rao),
+                'manufacturedRefined' => Helper::sanitizeAutonum($request->manufacturedRefined),
+                'raoRefined' => Helper::sanitizeAutonum($request->raoRefined),
+                'sharePlanter' => Helper::sanitizeAutonum($request->sharePlanter),
+                'shareMiller' => Helper::sanitizeAutonum($request->shareMiller),
+                'refineryMolasses' => Helper::sanitizeAutonum($request->refineryMolasses),
+
+                'prev_manufacturedRaw' => Helper::sanitizeAutonum($request->prev_manufacturedRaw),
+                'prev_rao' => Helper::sanitizeAutonum($request->prev_rao),
+                'prev_manufacturedRefined' => Helper::sanitizeAutonum($request->prev_manufacturedRefined),
+                'prev_raoRefined' => Helper::sanitizeAutonum($request->prev_raoRefined),
+                'prev_sharePlanter' => Helper::sanitizeAutonum($request->prev_sharePlanter),
+                'prev_shareMiller' => Helper::sanitizeAutonum($request->prev_shareMiller),
+                'prev_refineryMolasses' => Helper::sanitizeAutonum($request->prev_refineryMolasses),
+                'prev_notCoveredByMsc' => Helper::sanitizeAutonum($request->prev_notCoveredByMsc),
+
+                'price' => Helper::sanitizeAutonum($request->price),
+                'priceRaw' => Helper::sanitizeAutonum($request->priceRaw),
+                'priceRefined' => Helper::sanitizeAutonum($request->priceRefined),
+
+                'storageCertRaw' => $request->storageCertRaw,
+                'storageCertRefined' => $request->storageCertRefined,
+                'distFactor' => Helper::sanitizeAutonum($request->distFactor),
+                'remarks' => $request->remarks,
+            ]
+        );
+        $arr = [];
+        if(!empty($request->seriesNos)){
+            foreach ($request->seriesNos['sugarClass'] as $key => $value){
+                array_push($arr,[
+                    'slug' => Str::random(),
+                    'weekly_report_slug' => $request->wr,
+                    'sugarClass' => $value,
+                    'seriesFrom' => $request->seriesNos['seriesFrom'][$key],
+                    'seriesTo' => $request->seriesNos['seriesTo'][$key],
+                    'noOfPcs' => $request->seriesNos['seriesTo'][$key] - $request->seriesNos['seriesFrom'][$key] + 1,
+                    'type' => 'MOLASSES',
+                    'sugarType' => $request->seriesNos['sugarType'][$key],
+                ]);
+            }
+        }
+        $wr->molassesSeriesNos()->delete();
+        if(count($arr) > 0){
+            SeriesNos::insert($arr);
+        }
+
+        return true;
+
+
         if($request->type != 'updateOnly'){
             Form3Details::updateOrCreate(
                 ['weekly_report_slug' => $request->wr],

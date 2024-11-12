@@ -50,3 +50,6 @@ Route::get('/department/textbox_department_ByDepartmentId/{dept_id}', 'Api\ApiDe
 		->name('textboxDepartmentByDepartmentId');
 
 
+//API SMS FOR BULLETIN 10-14-2024 LOUIS
+use App\Http\Controllers\GetForm2Controller;
+Route::get('/form-data', [GetForm2Controller::class, 'getAllData']);

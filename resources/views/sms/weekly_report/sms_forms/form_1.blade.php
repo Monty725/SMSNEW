@@ -5,18 +5,155 @@
         </h4>
     </div>
 
+{{--    LOUIS 1-24-2024 FORM 1 UI OLD--}}
+{{--    <div class="row">--}}
+{{--        <div class="col-md-12">--}}
+{{--            <table class="table table-bordered preview-table" id="form1PreviewTable" style="transition: background-color 0.2s linear;">--}}
+{{--                <thead>--}}
+{{--                <tr>--}}
+{{--                    <th></th>--}}
+{{--                    <th>Current Crop</th>--}}
+{{--                </tr>--}}
+{{--                    </thead>--}}
+{{--                    <tbody>--}}
+{{--                    <tr>--}}
+{{--                        <th></th>--}}
+{{--                        <th style="width: 200px;">This Week</th>--}}
+{{--                        <th style="width: 200px;">Previous</th>--}}
+{{--                        <th style="width: 200px;">To Date</th>--}}
+{{--                    </tr>--}}
+{{--                    <tr>--}}
+{{--                        <td class="text-strong">1. MANUFACTURED</td>--}}
+{{--                        <td>--}}
+{{--                            {!! \App\Swep\ViewHelpers\__form2::textboxOnly('manufactured',[--}}
+{{--                                'class' => 'form1-input input-sm text-right autonumber_mt'--}}
+{{--                            ],--}}
+{{--                            $wr->form1->manufactured ?? null--}}
+{{--                            ) !!}--}}
+{{--                        </td>--}}
+{{--                        <td>--}}
+{{--                            {!! \App\Swep\ViewHelpers\__form2::textboxOnly('prev_manufactured',[--}}
+{{--                                'class' => 'form1-input input-sm text-right autonumber_mt'--}}
+{{--                            ],--}}
+{{--                            $wr->form1->prev_manufactured ?? null) !!}--}}
+{{--                        </td>--}}
+{{--                    </tr>--}}
+{{--                    <tr class="issuanceTr">--}}
+{{--                        <td colspan="3" class="text-strong">--}}
+{{--                            2. ISSUANCES/CARRY-OVER--}}
+{{--                            <button class="btn btn-xs btn-success pull-right" id="addIssuanceButton" type="button"><i class="fa fa-plus"></i> ADD</button>--}}
+{{--                        </td>--}}
+{{--                    </tr>--}}
+{{--                    @foreach(\App\Swep\Helpers\Arrays::sugarClasses() as $sugarClass)--}}
+{{--                        @if(!empty($wr->form1->$sugarClass) || !empty($wr->form1->{'prev_'.$sugarClass}))--}}
+{{--                            @include('sms.dynamic_rows.form1Issuances',[--}}
+{{--                                'sugarClass' => $sugarClass,--}}
+{{--                                'current' => $wr->form1->$sugarClass,--}}
+{{--                                'prev' => $wr->form1->{'prev_'.$sugarClass},--}}
+{{--                                ])--}}
+{{--                        @endif--}}
+{{--                    @endforeach--}}
+{{--                    <tr for="issuancesTotal" class="totalIssuanceTr computation">--}}
+{{--                        <td class="text-strong text-right">--}}
+{{--                            TOTAL--}}
+{{--                        </td>--}}
+{{--                        <td class="text-strong text-right"></td>--}}
+{{--                        <td class="text-strong text-right"></td>--}}
+{{--                    </tr>--}}
+
+{{--                    <tr class="withdrawals">--}}
+{{--                        <td colspan="3" class="text-strong">--}}
+{{--                            3. WITHDRAWALS--}}
+{{--                        </td>--}}
+{{--                    </tr>--}}
+
+{{--                    <tr for="withdrawalsTotal" class="computation">--}}
+{{--                        <td class="text-strong text-right">--}}
+{{--                            TOTAL--}}
+{{--                        </td>--}}
+{{--                        <td class="text-right text-strong"></td>--}}
+{{--                        <td class="text-right text-strong"></td>--}}
+{{--                    </tr>--}}
+
+{{--                    <tr class="">--}}
+{{--                        <td colspan="3" class="text-strong">--}}
+{{--                            4. BALANCES--}}
+{{--                        </td>--}}
+{{--                    </tr>--}}
+
+{{--                    <tr for="balancesTotal" class="computation">--}}
+{{--                        <td class="text-strong text-right">--}}
+{{--                            TOTAL--}}
+{{--                        </td>--}}
+{{--                        <td class="text-right text-strong"></td>--}}
+{{--                        <td class="text-right text-strong"></td>--}}
+{{--                    </tr>--}}
+
+
+{{--                    <tr for="unquedanned" class="computation">--}}
+{{--                        <td class="text-strong">--}}
+{{--                            5. UNQUEDANNED--}}
+{{--                        </td>--}}
+{{--                        <td class="text-right"></td>--}}
+{{--                        <td class="text-right"></td>--}}
+{{--                    </tr>--}}
+{{--                    <tr for="stockBalance" class="computation">--}}
+{{--                        <td class="text-strong">--}}
+{{--                            6. STOCK BALANCE--}}
+{{--                        </td>--}}
+{{--                        <td class="text-right"></td>--}}
+{{--                        <td class="text-right"></td>--}}
+{{--                    </tr>--}}
+
+{{--                    <tr for="transfersToRefinery" class="computation">--}}
+{{--                        <td class="text-strong">--}}
+{{--                            7. TRANSFERS TO REFINERY--}}
+{{--                        </td>--}}
+{{--                        <td class="text-right"></td>--}}
+{{--                        <td class="text-right"></td>--}}
+{{--                    </tr>--}}
+{{--                    <tr for="physicalStock" class="computation">--}}
+{{--                        <td class="text-strong">--}}
+{{--                            8. PHYSICAL STOCK--}}
+{{--                        </td>--}}
+{{--                        <td class="text-right"></td>--}}
+{{--                        <td class="text-right"></td>--}}
+{{--                    </tr>--}}
+{{--                </tbody>--}}
+{{--            </table>--}}
+{{--        </div>--}}
+{{--    </div>--}}
+
+    {{--    LOUIS 1-24-2024 FORM 1 UI NEW--}}
+    <script>
+        document.addEventListener("DOMContentLoaded", function(event) {
+            updateForm1Data();
+            updateForm2Data();
+            updateForm3Data();
+        });
+    </script>
     <div class="row">
         <div class="col-md-12">
             <table class="table table-bordered preview-table" id="form1PreviewTable" style="transition: background-color 0.2s linear;">
                 <thead>
-                <tr>
-                    <th></th>
-                    <th>Current Crop</th>
-                    <th>Previous Crop</th>
-                </tr>
+                       <tr>
+                           <th></th>
+{{--                           <th>Current Crop</th>--}}
+                           <td colspan="3" class="text-strong text-center">CURRENT CROP</td>
+                           <td colspan="3" class="text-strong text-center">PREVIOUS CROP</td>
+                       </tr>
                 </thead>
                 <tbody>
                 <tr>
+                    <th style="width: 200px;"></th>
+                    <th style="width: 200px;">This Week</th>
+                    <th style="width: 200px;">Previous</th>
+                    <th style="width: 200px;">To Date</th>
+                    <th style="width: 200px;">This Week</th>
+                    <th style="width: 200px;">Previous</th>
+                    <th style="width: 200px;">To Date</th>
+                </tr>
+                <tr class="manufactured_header">
                     <td class="text-strong">1. MANUFACTURED</td>
                     <td>
                         {!! \App\Swep\ViewHelpers\__form2::textboxOnly('manufactured',[
@@ -25,15 +162,21 @@
                         $wr->form1->manufactured ?? null
                         ) !!}
                     </td>
+                    {{--LOUIS 3-15-2024 To Date in Weekly Report Edit--}}
+                    <td class="text-right updatable" for="manufactured.currentCrop.prevWeek"></td>
+                    <td class="text-right updatable" for="manufactured.currentCrop.toDate"></td>
                     <td>
-                        {!! \App\Swep\ViewHelpers\__form2::textboxOnly('prev_manufactured',[
-                            'class' => 'form1-input input-sm text-right autonumber_mt'
-                        ],
-                        $wr->form1->prev_manufactured ?? null) !!}
+{{--                        {!! \App\Swep\ViewHelpers\__form2::textboxOnly('prev_manufactured',[--}}
+{{--                            'class' => 'form1-input input-sm text-right autonumber_mt'--}}
+{{--                        ],--}}
+{{--                        $wr->form1->prev_manufactured ?? null--}}
+{{--                        ) !!}--}}
                     </td>
+                    <td> </td>
+                    <td class="text-right updatable" for="manufactured.prevCrop.toDate"></td>
                 </tr>
-                <tr class="issuanceTr">
-                    <td colspan="3" class="text-strong">
+                <tr class="issuanceTr issuances_header">
+                    <td colspan="7" class="text-strong">
                         2. ISSUANCES/CARRY-OVER
                         <button class="btn btn-xs btn-success pull-right" id="addIssuanceButton" type="button"><i class="fa fa-plus"></i> ADD</button>
                     </td>
@@ -44,6 +187,8 @@
                             'sugarClass' => $sugarClass,
                             'current' => $wr->form1->$sugarClass,
                             'prev' => $wr->form1->{'prev_'.$sugarClass},
+//                            'current_prevweek' => $wr->form1ToDateAsOf($wr->report_no-1)->$sugarClass,
+//                            'prev' => $wr->form1ToDateAsOf($wr->report_no)->$sugarClass,
                             ])
                     @endif
                 @endforeach
@@ -51,26 +196,62 @@
                     <td class="text-strong text-right">
                         TOTAL
                     </td>
-                    <td class="text-strong text-right"></td>
-                    <td class="text-strong text-right"></td>
+                    <td class="text-strong text-right updatable" for="totalIssuances.currentCrop.thisWeek"></td>
+                    <td class="text-strong text-right updatable" for="totalIssuances.currentCrop.prevWeek"></td>
+                    <td class="text-strong text-right updatable" for="totalIssuances.currentCrop.toDate"></td>
+                    <td></td>
+                    <td></td>
+                    <td class="text-strong text-right updatable" for="totalIssuances.prevCrop.toDate"></td>
                 </tr>
 
                 <tr class="withdrawals">
-                    <td colspan="3" class="text-strong">
+                    <td colspan="7" class="text-strong">
                         3. WITHDRAWALS
                     </td>
                 </tr>
 
+                <tr class="withdrawals_header">
+                    <td colspan="7"><span class="indent"></span> 3.1. Exports/Domestic/World</td>
+                </tr>
                 <tr for="withdrawalsTotal" class="computation">
                     <td class="text-strong text-right">
-                        TOTAL
+                        3.1 TOTAL
                     </td>
-                    <td class="text-right text-strong"></td>
-                    <td class="text-right text-strong"></td>
+                    <td class="text-strong text-right updatable" for="totalWithdraw.currentCrop.thisWeek"></td>
+                    <td class="text-strong text-right updatable" for="totalWithdraw.currentCrop.prevWeek"></td>
+                    <td class="text-strong text-right updatable" for="totalWithdraw.currentCrop.toDate"></td>
+                    <td class="text-strong text-right updatable" for="totalWithdraw.prevCrop.thisWeek"></td>
+                    <td class="text-strong text-right updatable" for="totalWithdraw.prevCrop.prevWeek"></td>
+                    <td class="text-strong text-right updatable" for="totalWithdraw.prevCrop.toDate"></td>
                 </tr>
 
-                <tr class="">
-                    <td colspan="3" class="text-strong">
+                <tr  class="withdrawals_for_refining_header">
+                    <td colspan="7"><span class="indent"></span>3.2. For Refining:</td>
+                </tr>
+                <tr for="withdrawalsTotal" class="computation">
+                    <td class="text-strong text-right">
+                        3.2 TOTAL
+                    </td>
+                    <td class="text-strong text-right updatable" for="totalWithdrawRef.currentCrop.thisWeek"></td>
+                    <td class="text-strong text-right updatable" for="totalWithdrawRef.currentCrop.prevWeek"></td>
+                    <td class="text-strong text-right updatable" for="totalWithdrawRef.currentCrop.toDate"></td>
+                    <td class="text-strong text-right updatable" for="totalWithdrawRef.prevCrop.thisWeek"></td>
+                    <td class="text-strong text-right updatable" for="totalWithdrawRef.prevCrop.prevWeek"></td>
+                    <td class="text-strong text-right updatable" for="totalWithdrawRef.prevCrop.toDate"></td>
+                </tr>
+                <tr for="withdrawalsTotal" class="computation">
+                    <td class="text-strong text-right">
+                        TOTAL WITHDRAWALS
+                    </td>
+                    <td class="text-strong text-right updatable" for="totalAllWithdraw.currentCrop.thisWeek"></td>
+                    <td class="text-strong text-right updatable" for="totalAllWithdraw.currentCrop.prevWeek"></td>
+                    <td class="text-strong text-right updatable" for="totalAllWithdraw.currentCrop.toDate"></td>
+                    <td class="text-strong text-right updatable" for="totalAllWithdraw.prevCrop.thisWeek"></td>
+                    <td class="text-strong text-right updatable" for="totalAllWithdraw.prevCrop.prevWeek"></td>
+                    <td class="text-strong text-right updatable" for="totalAllWithdraw.prevCrop.toDate"></td>
+                </tr>
+                <tr class="balance_header">
+                    <td colspan="7" class="text-strong">
                         4. BALANCES
                     </td>
                 </tr>
@@ -79,8 +260,12 @@
                     <td class="text-strong text-right">
                         TOTAL
                     </td>
-                    <td class="text-right text-strong"></td>
-                    <td class="text-right text-strong"></td>
+                    <td></td>
+                    <td class="text-right text-strong updatable" for="totalBalance.currentCrop.prevWeek"></td>
+                    <td class="text-right text-strong updatable" for="totalBalance.currentCrop.toDate"></td>
+                    <td></td>
+                    <td class="text-strong text-right updatable" for="totalBalance.prevCrop.prevWeek"></td>
+                    <td class="text-strong text-right updatable" for="totalBalance.prevCrop.toDate"></td>
                 </tr>
 
 
@@ -88,35 +273,87 @@
                     <td class="text-strong">
                         5. UNQUEDANNED
                     </td>
-                    <td class="text-right"></td>
-                    <td class="text-right"></td>
+                    <td class="text-right updatable" for="unquedanned.currentCrop.thisWeek"></td>
+                    <td class="text-right updatable" for="unquedanned.currentCrop.prevWeek"></td>
+                    <td class="text-right updatable" for="unquedanned.currentCrop.toDate"></td>
+                    <td class="text-strong text-right updatable" for="unquedanned.prevCrop.thisWeek"></td>
+                    <td class="text-strong text-right updatable" for="unquedanned.prevCrop.prevWeek"></td>
+                    <td class="text-strong text-right updatable" for="unquedanned.prevCrop.toDate"></td>
                 </tr>
                 <tr for="stockBalance" class="computation">
                     <td class="text-strong">
                         6. STOCK BALANCE
                     </td>
-                    <td class="text-right"></td>
-                    <td class="text-right"></td>
+                    <td class="text-right updatable" for="stockBal.currentCrop.thisWeek"></td>
+                    <td class="text-right updatable" for="stockBal.currentCrop.prevWeek"></td>
+                    <td class="text-right updatable" for="stockBal.currentCrop.toDate"></td>
+                    <td class="text-strong text-right updatable" for="stockBal.prevCrop.thisWeek"></td>
+                    <td class="text-strong text-right updatable" for="stockBal.prevCrop.prevWeek"></td>
+                    <td class="text-strong text-right updatable" for="stockBal.prevCrop.toDate"></td>
                 </tr>
 
                 <tr for="transfersToRefinery" class="computation">
                     <td class="text-strong">
                         7. TRANSFERS TO REFINERY
                     </td>
-                    <td class="text-right"></td>
-                    <td class="text-right"></td>
+                    <td class="text-right updatable" for="transfersToRef.currentCrop.thisWeek"></td>
+                    <td class="text-right updatable" for="transfersToRef.currentCrop.prevWeek"></td>
+                    <td class="text-right updatable" for="transfersToRef.currentCrop.toDate"></td>
+                    <td>
+                        {!! \App\Swep\ViewHelpers\__form2::textboxOnly('prev_transfers_to_refinery',[
+                            'class' => 'form1-input input-sm text-right autonumber_mt'
+                        ],
+                        $wr->form1->prev_transfers_to_refinery ?? null
+                        ) !!}
+                    </td>
+{{--                    <td class="text-strong text-right updatable" for="transfersToRef.prevCrop.thisWeek"></td>--}}
+                    <td class="text-strong text-right updatable" for="transfersToRef.prevCrop.prevWeek"></td>
+                    <td class="text-strong text-right updatable" for="transfersToRef.prevCrop.toDate"></td>
+{{--                    <td>--}}
+{{--                        {!! \App\Swep\ViewHelpers\__form2::textboxOnly('manufactured',[--}}
+{{--                            'class' => 'form1-input input-sm text-right autonumber_mt'--}}
+{{--                        ],--}}
+{{--                        $wr->form1->manufactured ?? null--}}
+{{--                        ) !!}--}}
+{{--                    </td>--}}
+{{--                    <td class="text-right"></td>--}}
+{{--                    <td class="text-right"></td>--}}
+{{--                    <td>--}}
+{{--                        {!! \App\Swep\ViewHelpers\__form2::textboxOnly('manufactured',[--}}
+{{--                            'class' => 'form1-input input-sm text-right autonumber_mt'--}}
+{{--                        ],--}}
+{{--                        $wr->form1->manufactured ?? null--}}
+{{--                        ) !!}--}}
+{{--                    </td>--}}
+{{--                    <td class="text-strong text-right"></td>--}}
+{{--                    <td class="text-strong text-right"></td>--}}
                 </tr>
                 <tr for="physicalStock" class="computation">
                     <td class="text-strong">
                         8. PHYSICAL STOCK
                     </td>
-                    <td class="text-right"></td>
-                    <td class="text-right"></td>
+                    <td class="text-right updatable" for="physicalStock.currentCrop.thisWeek"></td>
+                    <td class="text-right updatable" for="physicalStock.currentCrop.prevWeek"></td>
+                    <td class="text-right updatable" for="physicalStock.currentCrop.toDate"></td>
+                    <td class="text-strong text-right updatable" for="physicalStock.prevCrop.thisWeek"></td>
+                    <td class="text-strong text-right updatable" for="physicalStock.prevCrop.prevWeek"></td>
+                    <td class="text-strong text-right updatable" for="physicalStock.prevCrop.toDate"></td>
+
+                    {{--                    <td>--}}
+{{--                        {!! \App\Swep\ViewHelpers\__form2::textboxOnly('physicalStock',[--}}
+{{--                            'class' => 'form1-input input-sm text-right autonumber_mt'--}}
+{{--                        ],--}}
+{{--                        $wr->form1->physicalStockPrev ?? null--}}
+{{--                        ) !!}--}}
+{{--                    </td>--}}
                 </tr>
                 </tbody>
             </table>
         </div>
     </div>
+
+
+
     <div class="row">
         <div class="col-md-12">
             <div class="row">
@@ -152,14 +389,40 @@
                                     ],
                                     $wr->form1->gtcm ?? null
                                     ) !!}
+{{--                                    DRY RUN ADDITION--}}
+                                    {!! \App\Swep\ViewHelpers\__form2::textbox('ntcm',[
+                                        'label' => "10a. Net Tons Cane Milled",
+                                        'cols' => 4,
+                                        'class' => 'form1-input text-right autonumber_mt',
+                                        'container_class' => 'ntcm',
+                                    ],
+                                    $wr->form1->ntcm ?? null
+                                    ) !!}
+                                </div>
+
+                                <p class="page-header-sm text-info" style="border-bottom: 1px solid #cedbe1">
+                                    <b>LKG/TC</b>
+                                </p>
+
+                                <div class="row">
                                     {!! \App\Swep\ViewHelpers\__form2::textbox('lkgtcGross',[
-                                        'label' => "11. LKG/TC Gross",
+                                            'label' => "11A. LKG/TC Gross",
+                                            'cols' => 4,
+                                            'class' => 'form1-input text-right',
+                                            'container_class' => 'lkgtc_gross',
+                                            'readonly' => 'readonly',
+                                        ],
+                                        $wr->form1->lkgtc_gross ?? null
+                                        ) !!}
+{{--                                    DRY RUN ADDITION--}}
+                                    {!! \App\Swep\ViewHelpers\__form2::textbox('lkgtcNet',[
+                                        'label' => "11B. LKG/TC NET",
                                         'cols' => 4,
                                         'class' => 'form1-input text-right',
-                                        'container_class' => 'lkgtc_gross',
+                                        'container_class' => 'lkgtc_net',
                                         'readonly' => 'readonly',
                                     ],
-                                    $wr->form1->lkgtc_gross ?? null
+                                    $wr->form1->lkgtc_net ?? null
                                     ) !!}
                                 </div>
 
