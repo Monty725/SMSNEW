@@ -28,9 +28,15 @@ class Form1Controller extends Controller
     public function store(Request $request){
         $wr = $this->weeklyReportService->findWeeklyReportBySlug($request->wr);
         $lkgtc_gross = null;
+        $lkgtc_net = null;
         $lkgtc_gross_syrup = null;
         if($request->gtcm != 0) {
             $lkgtc_gross = Helper::sanitizeAutonum($request->tdc) * 20 / Helper::sanitizeAutonum($request->gtcm);
+        }
+
+        //NTCM FORMULA 11-15-2024
+        if($request->ntcm != 0) {
+            $lkgtc_net = Helper::sanitizeAutonum($request->tdc) * 20 / Helper::sanitizeAutonum($request->ntcm);
         }
 
         if($request->egtcm != 0) {
@@ -42,11 +48,20 @@ class Form1Controller extends Controller
             'manufactured' => Helper::sanitizeAutonum($request->manufactured),
             'transfers_to_refinery' => Helper::sanitizeAutonum($request->transfers_to_refinery),
             'prev_transfers_to_refinery' => Helper::sanitizeAutonum($request->prev_transfers_to_refinery),
+            'form1_prev_unquedanned' => Helper::sanitizeAutonum($request->form1_prev_unquedanned),
+            'form1_unquedanned' => Helper::sanitizeAutonum($request->form1_unquedanned),
             'prev_manufactured' => Helper::sanitizeAutonum($request->prev_manufactured),
             'tdc' => !empty($request->tdc) ? Helper::sanitizeAutonum($request->tdc) : null,
             'gtcm' => !empty($request->gtcm) ? Helper::sanitizeAutonum($request->gtcm) : null,
+            'ntcm' => !empty($request->ntcm) ? Helper::sanitizeAutonum($request->ntcm) : null,
 //                    'lkgtc_gross' => !empty($request->lkgtcGross) ? Helper::sanitizeAutonum($request->lkgtcGross) : null,
-            'lkgtc_gross' => number_format($lkgtc_gross,2),
+
+            //OLD LKGTC_GROSS FORMULA 11-15-2024
+//                  'lkgtc_gross' => number_format($lkgtc_gross,2),
+
+            //NEW LKGTC_GROSS AND NET FORMULA 11-15-2024
+            'lkgtc_gross' => number_format($lkgtc_gross,3),
+            'lkgtc_net' => number_format($lkgtc_net,3),
 
             'tds' => !empty($request->tds) ? Helper::sanitizeAutonum($request->tds) : null,
             'egtcm' => !empty($request->egtcm) ? Helper::sanitizeAutonum($request->egtcm) : null,
@@ -114,9 +129,15 @@ class Form1Controller extends Controller
         if($request->type != 'updateOnly'){
             $wr = $this->weeklyReportService->findWeeklyReportBySlug($request->wr);
             $lkgtc_gross = null;
+            $lkgtc_net = null;
             $lkgtc_gross_syrup = null;
             if($request->gtcm != 0) {
                 $lkgtc_gross = Helper::sanitizeAutonum($request->tdc) * 20 / Helper::sanitizeAutonum($request->gtcm);
+            }
+
+            //NTCM FORMULA 11-15-2024
+            if($request->ntcm != 0) {
+                $lkgtc_net = Helper::sanitizeAutonum($request->tdc) * 20 / Helper::sanitizeAutonum($request->ntcm);
             }
 
             if($request->egtcm != 0) {
@@ -131,8 +152,15 @@ class Form1Controller extends Controller
                 'prev_manufactured' => Helper::sanitizeAutonum($request->prev_manufactured),
                     'tdc' => !empty($request->tdc) ? Helper::sanitizeAutonum($request->tdc) : null,
                     'gtcm' => !empty($request->gtcm) ? Helper::sanitizeAutonum($request->gtcm) : null,
+                    'ntcm' => !empty($request->ntcm) ? Helper::sanitizeAutonum($request->ntcm) : null,
 //                    'lkgtc_gross' => !empty($request->lkgtcGross) ? Helper::sanitizeAutonum($request->lkgtcGross) : null,
-                    'lkgtc_gross' => number_format($lkgtc_gross,2),
+
+                    //OLD LKGTC_GROSS FORMULA 11-15-2024
+//                  'lkgtc_gross' => number_format($lkgtc_gross,2),
+
+                    //NEW LKGTC_GROSS AND NET FORMULA 11-15-2024
+                    'lkgtc_gross' => number_format($lkgtc_gross,3),
+                    'lkgtc_net' => number_format($lkgtc_net,3),
 
                     'tds' => !empty($request->tds) ? Helper::sanitizeAutonum($request->tds) : null,
                     'egtcm' => !empty($request->egtcm) ? Helper::sanitizeAutonum($request->egtcm) : null,

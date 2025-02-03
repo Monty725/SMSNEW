@@ -171,8 +171,13 @@
 {{--                        ],--}}
 {{--                        $wr->form1->prev_manufactured ?? null--}}
 {{--                        ) !!}--}}
+                        @if($wr->report_no == 0)
+                            {!! \App\Swep\ViewHelpers\__form2::textboxOnly('prev_manufactured', [
+                                'class' => 'form1-input input-sm text-right autonumber_mt',
+                            ], $wr->form1->prev_manufactured ?? null) !!}
+                        @endif
                     </td>
-                    <td> </td>
+                    <td class="text-right updatable" for="manufactured.prevCrop.prevWeek"></td>
                     <td class="text-right updatable" for="manufactured.prevCrop.toDate"></td>
                 </tr>
                 <tr class="issuanceTr issuances_header">
@@ -199,8 +204,8 @@
                     <td class="text-strong text-right updatable" for="totalIssuances.currentCrop.thisWeek"></td>
                     <td class="text-strong text-right updatable" for="totalIssuances.currentCrop.prevWeek"></td>
                     <td class="text-strong text-right updatable" for="totalIssuances.currentCrop.toDate"></td>
-                    <td></td>
-                    <td></td>
+                    <td class="text-strong text-right updatable" for="totalIssuances.prevCrop.thisWeek"></td>
+                    <td class="text-strong text-right updatable" for="totalIssuances.prevCrop.prevWeek"></td>
                     <td class="text-strong text-right updatable" for="totalIssuances.prevCrop.toDate"></td>
                 </tr>
 
@@ -260,10 +265,10 @@
                     <td class="text-strong text-right">
                         TOTAL
                     </td>
-                    <td></td>
+                    <td class="text-right text-strong updatable" for="totalBalance.currentCrop.thisWeek"></td>
                     <td class="text-right text-strong updatable" for="totalBalance.currentCrop.prevWeek"></td>
                     <td class="text-right text-strong updatable" for="totalBalance.currentCrop.toDate"></td>
-                    <td></td>
+                    <td class="text-strong text-right updatable" for="totalBalance.prevCrop.thisWeek"></td>
                     <td class="text-strong text-right updatable" for="totalBalance.prevCrop.prevWeek"></td>
                     <td class="text-strong text-right updatable" for="totalBalance.prevCrop.toDate"></td>
                 </tr>
@@ -276,7 +281,15 @@
                     <td class="text-right updatable" for="unquedanned.currentCrop.thisWeek"></td>
                     <td class="text-right updatable" for="unquedanned.currentCrop.prevWeek"></td>
                     <td class="text-right updatable" for="unquedanned.currentCrop.toDate"></td>
-                    <td class="text-strong text-right updatable" for="unquedanned.prevCrop.thisWeek"></td>
+
+                    <td>
+                        {!! \App\Swep\ViewHelpers\__form2::textboxOnly('form1_prev_unquedanned',[
+                            'class' => 'form1-input input-sm text-right autonumber_mt'
+                        ],
+                        $wr->form1->form1_prev_unquedanned ?? null
+                        ) !!}
+                    </td>
+{{--                    <td class="text-strong text-right updatable" for="unquedanned.prevCrop.thisWeek"></td>--}}
                     <td class="text-strong text-right updatable" for="unquedanned.prevCrop.prevWeek"></td>
                     <td class="text-strong text-right updatable" for="unquedanned.prevCrop.toDate"></td>
                 </tr>
@@ -296,7 +309,14 @@
                     <td class="text-strong">
                         7. TRANSFERS TO REFINERY
                     </td>
-                    <td class="text-right updatable" for="transfersToRef.currentCrop.thisWeek"></td>
+                    <td>
+                        {!! \App\Swep\ViewHelpers\__form2::textboxOnly('transfers_to_refinery',[
+                            'class' => 'form1-input input-sm text-right autonumber_mt'
+                        ],
+                        $wr->form1->transfers_to_refinery ?? null
+                        ) !!}
+                    </td>
+{{--                    <td class="text-right updatable" for="transfersToRef.currentCrop.thisWeek"></td>--}}
                     <td class="text-right updatable" for="transfersToRef.currentCrop.prevWeek"></td>
                     <td class="text-right updatable" for="transfersToRef.currentCrop.toDate"></td>
                     <td>
@@ -372,6 +392,7 @@
                                     <span class="pull-right text-danger"><i class="fa fa-warning"></i> <b>Items 9-11: Units must be in METRIC TONS</b></span>
                                 </p>
 
+{{--                                <td class="text-right updatable" for="manufactured.currentCrop.prevWeek"></td>--}}
                                 <div class="row">
                                     {!! \App\Swep\ViewHelpers\__form2::textbox('tdc',[
                                         'label' => "9. Tons Due Cane",
@@ -408,19 +429,22 @@
                                     {!! \App\Swep\ViewHelpers\__form2::textbox('lkgtcGross',[
                                             'label' => "11A. LKG/TC Gross",
                                             'cols' => 4,
-                                            'class' => 'form1-input text-right',
+                                            'class' => 'form1-input text-right updatable',
                                             'container_class' => 'lkgtc_gross',
                                             'readonly' => 'readonly',
+                                            'for' => 'lkgtc_gross'
                                         ],
-                                        $wr->form1->lkgtc_gross ?? null
+                                        isset($wr->form1->lkgtc_gross) ? number_format($wr->form1->lkgtc_gross, 3) : null
                                         ) !!}
+
 {{--                                    DRY RUN ADDITION--}}
-                                    {!! \App\Swep\ViewHelpers\__form2::textbox('lkgtcNet',[
+                                    {!! \App\Swep\ViewHelpers\__form2::textbox('lkgtc_net',[
                                         'label' => "11B. LKG/TC NET",
                                         'cols' => 4,
-                                        'class' => 'form1-input text-right',
+                                        'class' => 'form1-input text-right updatable',
                                         'container_class' => 'lkgtc_net',
                                         'readonly' => 'readonly',
+                                        'for' => 'lkgtc_net'
                                     ],
                                     $wr->form1->lkgtc_net ?? null
                                     ) !!}
@@ -504,7 +528,7 @@
                                 <table class="table table-bordered table-condensed" id="form1_raw_sugar_{{$a}}">
                                     <thead>
                                     <tr>
-                                        @foreach(\App\Swep\Helpers\Arrays::sugarClasses() as $sugarClass)
+                                        @foreach(collect(\App\Swep\Helpers\Arrays::sugarClasses())->slice(0, 4) as $sugarClass)
                                             <th class="text-center">{{$sugarClass}}</th>
                                         @endforeach
                                     </tr>
@@ -512,7 +536,7 @@
                                     <tbody>
 
                                     <tr>
-                                        @foreach(\App\Swep\Helpers\Arrays::sugarClasses() as $sugarClass)
+                                        @foreach(collect(\App\Swep\Helpers\Arrays::sugarClasses())->slice(0, 4) as $sugarClass)
                                             <td>
                                                 <div class="row">
                                                     @php

@@ -7,9 +7,9 @@ use Illuminate\Http\Request;
 use App\Models\SMS\Form3b\IssuancesOfMro;
 use App\Models\SMS\Form3b\Deliveries;
 
-class GetForm3Controller extends Controller
+class GetForm3AController extends Controller
 {
-    public function getForm3($slug){
+    public function getForm3a($slug){
         $weeklyReport = \App\Models\SMS\WeeklyReports::query()->where("slug","=",$slug)->first();
         $currentReportNo = $weeklyReport->report_no * 1;
         $arr=[];
@@ -26,9 +26,9 @@ class GetForm3Controller extends Controller
             ],
         ];
 
-        $thisWeek = $weeklyReport->form3;
-        $prevWeek = $weeklyReport->form3ToDateAsOf($currentReportNo-1);
-        $toDate = $weeklyReport->form3ToDateAsOf($currentReportNo);
+        $thisWeek = $weeklyReport->form3a;
+        $prevWeek = $weeklyReport->form3aToDateAsOf($currentReportNo-1);
+        $toDate = $weeklyReport->form3aToDateAsOf($currentReportNo);
 
         $withRawDomCTotalThisWeek = 0.000;
         $withRawDomPTotalThisWeek = 0.000;

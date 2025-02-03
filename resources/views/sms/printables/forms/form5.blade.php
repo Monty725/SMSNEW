@@ -13,7 +13,7 @@
     @endphp
     @include('sms.printables.forms.header',['formName' => 'SMS Form No. 5'])
     <h4 class="no-margin"><b>SUGAR RELEASE ORDER AND DELIVERY REPORT - RAW</b> </h4>
-    <p class="no-margin"><i>(Figures in 50-Kg Bags)</i></p>
+    <p class="no-margin"><i>(Figures in MT)</i></p>
 
     <p class="text-left">A. Issuances of SRO</p>
     <table class="table-bordered details-top-right-table" style="width: 100%">
@@ -24,7 +24,8 @@
             <th class="text-center">Date of Issue</th>
             <th class="text-center">Liens OR #.</th>
             <th class="text-center">Sugar Class</th>
-            <th class="text-center">Qty 50-Kg Bags</th>
+{{--            <th class="text-center">Qty 50-Kg Bags</th>--}}
+            <th class="text-center">Qty MT</th>
         </tr>
         </thead>
         <tbody>

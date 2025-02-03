@@ -62,6 +62,15 @@ class Arrays
         return $scsArr;
     }
 
+    public static function sugarClassesChargingForm1Issuance(){
+        $scs = SugarClass::query()->whereNull('swapping')->get();
+        $scsArr = [];
+        foreach ($scs as $sc){
+            $scsArr[$sc->sugar_class] = $sc->charge;
+        }
+        return array_unique($scsArr);
+    }
+
     public static function form2SugarClasses(){
         return [
             'PREMIUM' => 'PREMIUM',
@@ -193,6 +202,7 @@ class Arrays
     public static function calendar(){
         $arr = [];
         $calendar = Calendar::query()
+            ->orderBy('crop_year', 'desc')
             ->orderBy('report_no','asc')
             ->get();
         if(count($calendar) > 0){

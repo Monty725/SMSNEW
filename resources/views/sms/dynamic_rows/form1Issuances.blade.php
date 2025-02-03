@@ -7,8 +7,17 @@
             <div class="col-md-2">
                 <button type="button" class="btn btn-sm btn-danger removeBtn"><i class="fa fa-times"></i></button>
             </div>
+{{--            {!! \App\Swep\ViewHelpers\__form2::selectOnly('issuances[sugarClasses]['.$rand.']',[--}}
+{{--                'options' => \App\Swep\Helpers\Arrays::sugarClasses(),--}}
+{{--                'class' => 'form1-input input-sm ',--}}
+{{--                'cols' => 10 ,--}}
+{{--                'container_class' => 'no-margin dynamic-select',--}}
+{{--            ],--}}
+{{--            $sugarClass ?? null--}}
+{{--            ) !!}--}}
+
             {!! \App\Swep\ViewHelpers\__form2::selectOnly('issuances[sugarClasses]['.$rand.']',[
-                'options' => \App\Swep\Helpers\Arrays::sugarClasses(),
+                'options' => \App\Swep\Helpers\Arrays::sugarClassesChargingForm1Issuance(),
                 'class' => 'form1-input input-sm ',
                 'cols' => 10 ,
                 'container_class' => 'no-margin dynamic-select',

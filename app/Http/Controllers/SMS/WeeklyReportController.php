@@ -131,13 +131,13 @@ class WeeklyReportController extends Controller
             abort(510,'This report has already been cancelled.');
         }
 
+
         return view('sms.weekly_report.edit')->with([
             'wr' => $weekly_report,
             'formArray' => $weeklyReportService->computation($slug),
 //3-21-2024 LOUIS
 //            'formArray_current_prev' => $weeklyReportService->computation($slug,'toDate',$weekly_report->report_no * 1 -1),
 //            'formArray_current_toDate' => $weeklyReportService->computation($slug,'toDate',$weekly_report->report_no * 1),
-
 
             'form2Array' => $weeklyReportService->form2Computation($slug),
             'form3Array' => $weeklyReportService->form3Computation($slug),
@@ -488,13 +488,14 @@ class WeeklyReportController extends Controller
             }
         }
 
-        if($this->findPreviousReport($slug) == null){
-            $prevForm1 = [];
-        }else{
-            $prevForm1 = $this->weeklyReportService->computation($this->findPreviousReport($slug)->slug,'toDate');
-        }
+//        if($this->findPreviousReport($slug) == null){
+//            $prevForm1 = [];
+//        }else{
+//            $prevForm1 = $this->weeklyReportService->computation($this->findPreviousReport($slug)->slug,'toDate');
+//        }
 
-//        dd($this->weeklyReportService->form3Computation($slug,'toDate', $weekly_report->report_no - 1));
+
+
 
         return view('sms.printables.formAll')->with([
             'wr' => $weekly_report,
@@ -505,7 +506,7 @@ class WeeklyReportController extends Controller
             //LOUIS 11-7-2023 2:28PM
             'toDateForm1' => $this->weeklyReportService->computation($slug,'toDate',$weekly_report->report_no * 1),
             'form1' => $this->weeklyReportService->computation($slug),
-            'prevForm1' => $prevForm1,
+//            'prevForm1' => $prevForm1,
 
             'prevToDateForm1' => $this->weeklyReportService->computation($slug,'toDate', $weekly_report->report_no - 1),
 
@@ -543,9 +544,9 @@ class WeeklyReportController extends Controller
     }
 
     public function cancel($slug, Request $request){
-        if(!$request->has('reason') || $request->reason == null | $request->reason == ''){
-            abort(503,'Please indicate your reason for cancellation');
-        }
+//        if(!$request->has('reason') || $request->reason == null | $request->reason == ''){
+//            abort(503,'Please indicate your reason for cancellation');
+//        }
         $wr = $this->weeklyReportService->findWeeklyReportBySlug($slug);
         if($wr->requestsForCancellationNoAction()->count() > 0){
             abort(503,'This report has a pending request for cancellation.');
@@ -562,6 +563,7 @@ class WeeklyReportController extends Controller
         $c->cancelled_at = Carbon::now();
         $c->cancelled_by = Auth::user()->user_id;
         $cancel = $this->weeklyReportService->cancellationFilePath($wr);
+
         $c->filename = $cancel['filename'];
         $c->full_path = $cancel['full_path'];
         $this->pdf($wr->slug,$cancel['full_path']);
@@ -675,6 +677,7 @@ class WeeklyReportController extends Controller
     }
 
     public function pdf($slug,$full_path){
+
         $weekly_report = $this->findBySlug($slug);
 
         if($weekly_report->mill_code != Auth::user()->mill_code){
@@ -682,10 +685,12 @@ class WeeklyReportController extends Controller
                 abort(404,'This report does not belong to your mill code.');
             }
         }
+
         $details_arr = [];
         $input_fields_arr = [];
         $this->weeklyReportService->updateSignatories($weekly_report->slug);
         $ifs = InputFields::query()->get();
+
         if(!empty($ifs)){
             foreach ($ifs as $if){
                 $input_fields_arr[$if->field] = [

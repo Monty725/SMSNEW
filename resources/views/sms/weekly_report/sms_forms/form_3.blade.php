@@ -467,12 +467,13 @@
             <td> <span class="indent"></span>
                 Distillery
             </td>
-            <td class="text-right updatable" for="withRawDistillery.currentCrop.thisWeek"></td>
-            <td class="text-right updatable" for="withRawDistillery.currentCrop.prevWeek"></td>
-            <td class="text-right updatable" for="withRawDistillery.currentCrop.toDate"></td>
-            <td class="text-right updatable" for="withRawDistillery.prevCrop.thisWeek"></td>
-            <td class="text-right updatable" for="withRawDistillery.prevCrop.prevWeek"></td>
-            <td class="text-right updatable" for="withRawDistillery.prevCrop.toDate"></td>
+{{--            1-27-2025 REMOVED UPDATABLE TEMPORARILY LOUIS--}}
+            <td class="text-right" for="withRawDistillery.currentCrop.thisWeek"></td>
+            <td class="text-right" for="withRawDistillery.currentCrop.prevWeek"></td>
+            <td class="text-right" for="withRawDistillery.currentCrop.toDate"></td>
+            <td class="text-right" for="withRawDistillery.prevCrop.thisWeek"></td>
+            <td class="text-right" for="withRawDistillery.prevCrop.prevWeek"></td>
+            <td class="text-right" for="withRawDistillery.prevCrop.toDate"></td>
         </tr>
         <tr>
             <td> <span class="indent"></span>
@@ -551,15 +552,15 @@
             <td class="text-strong">
                 4. NOT COVERED BY MSC
             </td>
+            <td class="text-strong text-right updatable" for="notCoveredByMsc.currentCrop.thisWeek"></td>
+            <td class="text-strong text-right updatable" for="notCoveredByMsc.currentCrop.prevWeek"></td>
+            <td class="text-strong text-right updatable" for="notCoveredByMsc.currentCrop.toDate"></td>
             <td class="text-right except">
                 {!! \App\Swep\ViewHelpers\__form2::textboxOnly('prev_notCoveredByMsc',[
                     'class' => 'form3-input input-sm text-right autonumber_mt'
                 ],
                 $wr->form3->prev_notCoveredByMsc ?? null) !!}
             </td>
-            <td class="text-strong text-right updatable" for="notCoveredByMsc.currentCrop.prevWeek"></td>
-            <td class="text-strong text-right updatable" for="notCoveredByMsc.currentCrop.toDate"></td>
-            <td class="text-strong text-right updatable" for="notCoveredByMsc.prevCrop.thisWeek"></td>
             <td class="text-strong text-right updatable" for="notCoveredByMsc.prevCrop.prevWeek"></td>
             <td class="text-strong text-right updatable" for="notCoveredByMsc.prevCrop.toDate"></td>
         </tr>
@@ -591,16 +592,16 @@
             <td class="text-right updatable" for="refinedBalance.prevCrop.toDate"></td>
         </tr>
 
-        <tr class="computation" for="totalBalance">
+        <tr class="computation" for="totalBalance3">
             <td class="text-right text-strong">
                 TOTAL BALANCE
             </td>
-            <td class="text-strong text-right updatable" for="totalBalance.currentCrop.thisWeek"></td>
-            <td class="text-strong text-right updatable" for="totalBalance.currentCrop.prevWeek"></td>
-            <td class="text-strong text-right updatable" for="totalBalance.currentCrop.toDate"></td>
-            <td class="text-strong text-right updatable" for="totalBalance.prevCrop.thisWeek"></td>
-            <td class="text-strong text-right updatable" for="totalBalance.prevCrop.prevWeek"></td>
-            <td class="text-strong text-right updatable" for="totalBalance.prevCrop.toDate"></td>
+            <td class="text-strong text-right updatable" for="totalBalance3.currentCrop.thisWeek"></td>
+            <td class="text-strong text-right updatable" for="totalBalance3.currentCrop.prevWeek"></td>
+            <td class="text-strong text-right updatable" for="totalBalance3.currentCrop.toDate"></td>
+            <td class="text-strong text-right updatable" for="totalBalance3.prevCrop.thisWeek"></td>
+            <td class="text-strong text-right updatable" for="totalBalance3.prevCrop.prevWeek"></td>
+            <td class="text-strong text-right updatable" for="totalBalance3.prevCrop.toDate"></td>
         </tr>
 
         </tbody>

@@ -37,6 +37,7 @@ class Form2Controller extends Controller
                 'prodImported'=> Helper::sanitizeAutonum($request->prodImported),
                 'overage'=> Helper::sanitizeAutonum($request->overage),
                 'prodReturn'=> Helper::sanitizeAutonum($request->prodReturn),
+                'form2_unquedanned'=> Helper::sanitizeAutonum($request->form2_unquedanned),
 
                 'prev_carryOver'=> Helper::sanitizeAutonum($request->prev_carryOver),
                 'prev_coveredBySro'=> Helper::sanitizeAutonum($request->prev_coveredBySro),
@@ -51,6 +52,7 @@ class Form2Controller extends Controller
                 'prev_prodImported'=> Helper::sanitizeAutonum($request->prev_prodImported),
                 'prev_overage'=> Helper::sanitizeAutonum($request->prev_overage),
                 'prev_prodReturn'=> Helper::sanitizeAutonum($request->prev_prodReturn),
+                'form2_prev_unquedanned'=> Helper::sanitizeAutonum($request->form2_prev_unquedanned),
 
                 'remarks' => $request->remarks,
             ]

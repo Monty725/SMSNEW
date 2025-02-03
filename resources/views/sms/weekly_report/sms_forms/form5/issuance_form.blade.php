@@ -46,7 +46,7 @@
     (!empty($issuance)) ? $issuance : null
     ) !!}
     {!! \App\Swep\ViewHelpers\__form2::textbox('qty',[
-        'label' => 'Qty. (LKG Bag)',
+        'label' => 'Qty. (MT)',
         'cols' => 6,
         'class' => 'autonumber_mt_'.$rand,
     ],

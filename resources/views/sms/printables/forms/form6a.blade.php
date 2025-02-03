@@ -54,6 +54,38 @@
     <br>
     <p class="text-left">B. Quedan Registry</p>
 
+{{--    <table class="table-bordered" style="width: 100%">--}}
+{{--        <thead>--}}
+{{--        <tr>--}}
+{{--            <th>Ref SRO No.</th>--}}
+{{--            <th>Trader/Tollee</th>--}}
+{{--            <th>Refined Quedan SN.</th>--}}
+{{--            <th>Refined Sugar (Lkg)</th>--}}
+{{--        </tr>--}}
+{{--            @if(!empty($wr->form5aIssuancesOfSro))--}}
+{{--                @php--}}
+{{--                    $refinedTotal = 0;--}}
+{{--                @endphp--}}
+{{--                @foreach($wr->form5aIssuancesOfSro as $data)--}}
+{{--                    @php--}}
+{{--                        $refinedTotal = $refinedTotal + $data->refined_qty + $data->prev_refined_qty;--}}
+{{--                    @endphp--}}
+{{--                    <tr>--}}
+{{--                        <td>{{$data->sro_no}}</td>--}}
+{{--                        <td>{{$data->trader}}</td>--}}
+{{--                        <td>{{$data->rsq_no}}</td>--}}
+{{--                        <td class="text-right">{{($data->refined_qty != null ? number_format($data->refined_qty,3) : number_format($data->prev_refined_qty,3) )}}</td>--}}
+{{--                    </tr>--}}
+{{--                @endforeach--}}
+{{--                <tr >--}}
+{{--                    <td colspan="3" class="text-strong">TOTAL</td>--}}
+{{--                    <td class="text-right text-strong">{{number_format($refinedTotal,2)}}</td>--}}
+{{--                </tr>--}}
+{{--            @endif--}}
+{{--        </thead>--}}
+{{--    </table>--}}
+
+{{--    DRY RUN NEW UI LOUIS FORM 6a--}}
     <table class="table-bordered" style="width: 100%">
         <thead>
         <tr>
@@ -62,26 +94,46 @@
             <th>Refined Quedan SN.</th>
             <th>Refined Sugar (Lkg)</th>
         </tr>
-            @if(!empty($wr->form5aIssuancesOfSro))
+        @if(!empty($wr->form5aIssuancesOfSro))
+            @php
+                $refinedTotal = 0;
+            @endphp
+            <tr>
+                <td colspan="4"><strong>Current crop</strong></td>
+            </tr>
+            @foreach($wr->form5aIssuancesOfSro as $data)
                 @php
-                    $refinedTotal = 0;
+                    $refinedTotal = $refinedTotal + $data->refined_qty + $data->prev_refined_qty;
                 @endphp
-                @foreach($wr->form5aIssuancesOfSro as $data)
-                    @php
-                        $refinedTotal = $refinedTotal + $data->refined_qty + $data->prev_refined_qty;
-                    @endphp
+                @if($data->refined_qty != null && $data->refined_qty != 0)
                     <tr>
                         <td>{{$data->sro_no}}</td>
                         <td>{{$data->trader}}</td>
                         <td>{{$data->rsq_no}}</td>
-                        <td class="text-right">{{($data->refined_qty != null ? number_format($data->refined_qty,3) : number_format($data->prev_refined_qty,3) )}}</td>
+                        <td class="text-right">{{number_format($data->refined_qty, 3)}}</td>
                     </tr>
-                @endforeach
-                <tr >
-                    <td colspan="3" class="text-strong">TOTAL</td>
-                    <td class="text-right text-strong">{{number_format($refinedTotal,2)}}</td>
-                </tr>
-            @endif
+                @endif
+            @endforeach
+            <tr>
+                <td colspan="4"><strong>Previous crop</strong></td>
+            </tr>
+
+            {{-- Display rows with only prev_refined_qty --}}
+            @foreach($wr->form5aIssuancesOfSro as $data)
+                @if($data->prev_refined_qty != null && $data->prev_refined_qty != 0)
+                    <tr>
+                        <td>{{$data->sro_no}}</td>
+                        <td>{{$data->trader}}</td>
+                        <td>{{$data->rsq_no}}</td>
+                        <td class="text-right">{{number_format($data->prev_refined_qty, 3)}}</td>
+                    </tr>
+                @endif
+            @endforeach
+            <tr >
+                <td colspan="3" class="text-strong">TOTAL</td>
+                <td class="text-right text-strong">{{number_format($refinedTotal,2)}}</td>
+            </tr>
+        @endif
         </thead>
     </table>
 

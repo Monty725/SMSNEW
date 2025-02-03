@@ -97,12 +97,14 @@
             <td colspan="7"><span class="indent"></span> 3.1. Exports/Domestic/World</td>
         </tr>
 
+{{--        {{dd($prevToDateForm1)}}--}}
         @if(isset($form1['withdrawals']) || isset($prevToDateForm1['withdrawals']) || isset($toDateForm1['withdrawals']))
             @php
                 $common = array_keys(array_merge($form1['withdrawals'],$prevToDateForm1['withdrawals'] ?? [] ,$toDateForm1['withdrawals'] ));
                 sort($common);
             @endphp
             @foreach($common as $value)
+{{--                {{dd($prevToDateForm1['withdrawals'][$value]['current'])}}--}}
                 <tr>
                     <td><span class="indent"></span><span class="indent"></span> {{$value}}</td>
                     <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($form1['withdrawals'][$value]['current'] ?? null,3)}}</td>
@@ -481,15 +483,15 @@
         <tr>
             <td><span class="indent"></span>A:</td>
             <td>
-                {{ \App\Swep\Helpers\Helper::toNumber($wr->form1->price_A ?? 0,2) }}
+                ₱{{ \App\Swep\Helpers\Helper::toNumber($wr->form1->price_A ?? 0,2) }}
             </td>
-            <td>C1:</td>
+            <td>C:</td>
             <td>
-                {{ \App\Swep\Helpers\Helper::toNumber($wr->form1->price_C1 ?? 0,2) }}
+                ₱{{ \App\Swep\Helpers\Helper::toNumber($wr->form1->price_C ?? 0,2) }}
             </td>
             <td>DE:</td>
             <td>
-                {{ \App\Swep\Helpers\Helper::toNumber($wr->form1->price_DE ?? 0,2) }}
+                ₱{{ \App\Swep\Helpers\Helper::toNumber($wr->form1->price_DE ?? 0,2) }}
             </td>
             <td>RAW:</td>
             <td>
@@ -504,15 +506,15 @@
         <tr>
             <td><span class="indent"></span>B:</td>
             <td>
-                {{ \App\Swep\Helpers\Helper::toNumber($wr->form1->price_B ?? 0,2) }}
+                ₱{{ \App\Swep\Helpers\Helper::toNumber($wr->form1->price_B ?? 0,2) }}
             </td>
             <td>D:</td>
             <td>
-                {{ \App\Swep\Helpers\Helper::toNumber($wr->form1->price_D ?? 0,2) }}
+                ₱{{ \App\Swep\Helpers\Helper::toNumber($wr->form1->price_D ?? 0,2) }}
             </td>
             <td>DR:</td>
             <td>
-                {{ \App\Swep\Helpers\Helper::toNumber($wr->form1->price_DR ?? 0,2) }}
+                ₱{{ \App\Swep\Helpers\Helper::toNumber($wr->form1->price_DR ?? 0,2) }}
             </td>
             <td>REFINED:</td>
             <td>
@@ -533,9 +535,29 @@
         <tr>
             <td>15. Remarks: </td>
             <td colspan="9">
+                @php
+                    $currentNet = \App\Swep\Helpers\Helper::toNumber($form1['lkgtc_net']['current'] ?? 0, 3);
+                @endphp
+
+                @if ($currentNet !== '0.000')
+                    LKGTC/NET:
+                    Current: {{ $currentNet }} ||&nbsp;
+                    Previous: {{ \App\Swep\Helpers\Helper::toNumber($prevToDateForm1['lkgtc_net']['current'] ?? 0, 3) }} ||&nbsp;
+                    To Date: {{ \App\Swep\Helpers\Helper::toNumber($toDateForm1['lkgtc_net']['current'] ?? 0, 3) }} ||&nbsp;
+                @endif
                 {{ $wr->form1->remarks ?? null}}
             </td>
         </tr>
+
+{{--        <td class="text-right">--}}
+{{--            {{ \App\Swep\Helpers\Helper::toNumber($form1['lkgtc_gross']['current']?? null,4) }}--}}
+{{--        </td>--}}
+{{--        <td class="text-right">--}}
+{{--            {{ \App\Swep\Helpers\Helper::toNumber($prevToDateForm1['lkgtc_gross']['current'] ?? null,4) }}--}}
+{{--        </td>--}}
+{{--        <td class="text-right">--}}
+{{--            {{ \App\Swep\Helpers\Helper::toNumber($toDateForm1['lkgtc_gross']['current'] ?? null,4) }}--}}
+{{--        </td>--}}
 
     </table>
     <table class="sign-table cols-3">

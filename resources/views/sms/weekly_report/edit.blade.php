@@ -138,11 +138,11 @@
 
                                     </div>
 
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <button class="btn btn-primary pull-right" type="submit"><i class=" fa fa-check"></i> Save as Draft</button>
-                                        </div>
-                                    </div>
+{{--                                    <div class="row">--}}
+{{--                                        <div class="col-md-12">--}}
+{{--                                            <button class="btn btn-primary pull-right" type="submit"><i class=" fa fa-check"></i> Save as Draft</button>--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
                                     <br>
                                 </div>
                             </fieldset>
@@ -167,8 +167,29 @@
 
 
 @section('modals')
+{{--<div class="modal fade" id="add_issuances_modal" tabindex="-1" role="dialog" aria-labelledby="add_issuances_modal_label">--}}
+{{--  <div class="modal-dialog" role="document">--}}
+{{--        <div class="modal-content">--}}
+{{--            <form id="form5_add_issuance_form">--}}
+{{--                @csrf--}}
+{{--                <input value="{{$wr->slug}}" name="weekly_report_slug" hidden>--}}
+{{--                <div class="modal-header">--}}
+{{--                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>--}}
+{{--                    <h4 class="modal-title" id="myModalLabel">Issuances of SRO</h4>--}}
+{{--                </div>--}}
+{{--                <div class="modal-body">--}}
+{{--                    @include('sms.weekly_report.sms_forms.form5.issuance_form')--}}
+{{--                </div>--}}
+{{--                <div class="modal-footer">--}}
+{{--                    <button type="submit" class="btn btn-primary btn-sm"><i class="fa fa-check"></i> Save</button>--}}
+{{--                </div>--}}
+{{--            </form>--}}
+{{--        </div>--}}
+{{--  </div>--}}
+{{--</div>--}}
+
 <div class="modal fade" id="add_issuances_modal" tabindex="-1" role="dialog" aria-labelledby="add_issuances_modal_label">
-  <div class="modal-dialog" role="document">
+    <div class="modal-dialog" role="document">
         <div class="modal-content">
             <form id="form5_add_issuance_form">
                 @csrf
@@ -185,7 +206,7 @@
                 </div>
             </form>
         </div>
-  </div>
+    </div>
 </div>
 
 <div class="modal fade" id="add_delivery_modal" tabindex="-1" role="dialog" aria-labelledby="add_delivery_modal_label">
@@ -243,6 +264,27 @@
                 </div>
                 <div class="modal-body">
                     @include('sms.weekly_report.sms_forms.form5a.issuance_form')
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary btn-sm"><i class="fa fa-check"></i> Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="add_form6a_issuances_modal" tabindex="-1" role="dialog" aria-labelledby="add_form6a_issuances_modal_label">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form id="form6a_add_issuance_form">
+                @csrf
+                <input value="{{$wr->slug}}" name="weekly_report_slug" hidden>
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Issuances of SRO</h4>
+                </div>
+                <div class="modal-body">
+                    @include('sms.weekly_report.sms_forms.form6a.issuance_form6a')
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary btn-sm"><i class="fa fa-check"></i> Save</button>
@@ -452,6 +494,7 @@
     <script type="text/javascript">
         modal_loader = $("#modal_loader").parent('div').html();
     </script>
+{{--    @include('sms.weekly_report.scripts.9form6a_issuance_script')--}}
     @include('sms.weekly_report.scripts.83form3b_servedSro_script')
     @include('sms.weekly_report.scripts.82form3b_delivery_script')
     @include('sms.weekly_report.scripts.8form3b_issuance_script')
@@ -1064,8 +1107,8 @@
 
         function updateForm1Data(){
             $("#form1 .updatable").each(function () {
-                $(this).html('<i class="fa fa-spin fa-refresh"></i>');
-                $(this).html('<i class="fa fa-spin fa-refresh"></i>');
+                // $(this).html('<i class="fa fa-spin fa-refresh"></i>');
+                // $(this).html('<i class="fa fa-spin fa-refresh"></i>');
             })
 
             $.ajax({
@@ -1074,7 +1117,8 @@
                 success: function (res) {
                     console.log()
                     $(".updatable").each(function (){
-                        $(this).html(res["values"][$(this).attr("for")])
+                        $(this).html(res["values"][$(this).attr("for")]);
+                        $(this).val(res["values"][$(this).attr("for")]);
                     })
                     $("#form1PreviewTable .removable").each(function (){
                         $(this).remove();
@@ -1089,10 +1133,10 @@
                                 '<td class="text-right">'+smsNumberFormat(values.currentCrop.thisWeek)+'</td>' +
                                 '<td class="text-right">'+smsNumberFormat(values.currentCrop.prevWeek)+'</td>' +
                                 '<td class="text-right">'+smsNumberFormat(values.currentCrop.toDate)+'</td>' +
-                                // '<td class="text-right">'+smsNumberFormat(values.prevCrop.thisWeek)+'</td>' +
-                                // '<td class="text-right">'+smsNumberFormat(values.prevCrop.prevWeek)+'</td>' +
-                                '<td class="text-right"></td>' +
-                                '<td class="text-right"></td>' +
+                                '<td class="text-right">'+smsNumberFormat(values.prevCrop.thisWeek)+'</td>' +
+                                '<td class="text-right">'+smsNumberFormat(values.prevCrop.prevWeek)+'</td>' +
+                                // '<td class="text-right"></td>' +
+                                // '<td class="text-right"></td>' +
                                 '<td class="text-right">'+smsNumberFormat(values.prevCrop.toDate)+'</td>' +
                                 '</tr>');
                         })
@@ -1106,9 +1150,9 @@
         }
 
 
-        $("body").on("change",".formChanger",function () {
-            updateForm1Data();
-        })
+        // $("body").on("change",".formChanger",function () {
+        //     updateForm1Data();
+        // })
 
 
         $("#form1").submit(function (e) {
@@ -1281,7 +1325,7 @@
 
     <script>
         $(document).ready(function(){
-            updateForm1Data();
+            // updateForm1Data();
             $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
                 // Get the target tab pane id
                 var target = $(e.target).attr('href');

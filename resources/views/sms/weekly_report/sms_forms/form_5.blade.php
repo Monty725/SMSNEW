@@ -43,7 +43,8 @@
                             <th>Date of Issue</th>
                             <th>Liens OR</th>
                             <th>Sugar Class</th>
-                            <th>QTY (LKG)</th>
+{{--                            <th>QTY (LKG)</th>--}}
+                            <th>QTY</th>
                             <th>Action</th>
                         </tr>
                         </thead>
@@ -119,7 +120,7 @@
         <div class="panel">
             <div class="box box-sm box-default box-solid">
                 <div class="box-header with-border" style="background-color: #4e984a;color: white;">
-                    <p class="no-margin">Delivery (CURRENT CROP YEAR)<small id="filter-notifier" class="label bg-blue blink"></small></p>
+                    <p class="no-margin">Delivery<small id="filter-notifier" class="label bg-blue blink"></small></p>
                 </div>
 
                 <div class="box-body" style="">
@@ -169,59 +170,59 @@
     </div>
 </div>
 
-<div class="row">
-    <div class="col-md-12">
-        <div class="panel">
-            <div class="box box-sm box-default box-solid">
-                <div class="box-header with-border" style="background-color: #4e984a;color: white;">
-                    <p class="no-margin">Delivery (PREVIOUS CROP YEAR)<small id="filter-notifier" class="label bg-blue blink"></small></p>
-                </div>
+{{--<div class="row">--}}
+{{--    <div class="col-md-12">--}}
+{{--        <div class="panel">--}}
+{{--            <div class="box box-sm box-default box-solid">--}}
+{{--                <div class="box-header with-border" style="background-color: #4e984a;color: white;">--}}
+{{--                    <p class="no-margin">Delivery (PREVIOUS CROP YEAR)<small id="filter-notifier" class="label bg-blue blink"></small></p>--}}
+{{--                </div>--}}
 
-                <div class="box-body" style="">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <dl>
-                                <dd>TOTAL:</dd>
-                                <dt  for="form5TotalDelivery"></dt>
-                            </dl>
-                        </div>
-                        <div class="col-md-3">
-                            <dl>
-                                <dd>TOTAL Current Crop:</dd>
-                                <dt  for="form5TotalDeliveryCurrent"></dt>
-                            </dl>
-                        </div>
-                        <div class="col-md-3">
-                            <dl>
-                                <dd>TOTAL Previous Crop:</dd>
-                                <dt  for="form5TotalDeliveryPrev"></dt>
-                            </dl>
-                        </div>
-                        <div class="col-md-3">
-                            <button type="button" data-target="#add_delivery_modal" data-toggle="modal" class="btn btn-success btn-sm pull-right"><i class="fa fa-plus"></i> Add Delivery</button>
-                        </div>
-                    </div>
-                    <table style="width: 100%;" class="table table-condensed table-bordered" id="form5_deliveries_table">
-                        <thead>
-                        <tr>
-                            <th>SRO No.</th>
-                            <th>Trader/Owner</th>
-                            <th>Start of W/drawal</th>
-                            <th>Sugar Class</th>
-                            <th>Qty</th>
-                            <th>Action</th>
-                        </tr>
-                        </thead>
-                        <tbody>
+{{--                <div class="box-body" style="">--}}
+{{--                    <div class="row">--}}
+{{--                        <div class="col-md-3">--}}
+{{--                            <dl>--}}
+{{--                                <dd>TOTAL:</dd>--}}
+{{--                                <dt  for="form5TotalDelivery"></dt>--}}
+{{--                            </dl>--}}
+{{--                        </div>--}}
+{{--                        <div class="col-md-3">--}}
+{{--                            <dl>--}}
+{{--                                <dd>TOTAL Current Crop:</dd>--}}
+{{--                                <dt  for="form5TotalDeliveryCurrent"></dt>--}}
+{{--                            </dl>--}}
+{{--                        </div>--}}
+{{--                        <div class="col-md-3">--}}
+{{--                            <dl>--}}
+{{--                                <dd>TOTAL Previous Crop:</dd>--}}
+{{--                                <dt  for="form5TotalDeliveryPrev"></dt>--}}
+{{--                            </dl>--}}
+{{--                        </div>--}}
+{{--                        <div class="col-md-3">--}}
+{{--                            <button type="button" data-target="#add_delivery_modal" data-toggle="modal" class="btn btn-success btn-sm pull-right"><i class="fa fa-plus"></i> Add Delivery</button>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                    <table style="width: 100%;" class="table table-condensed table-bordered" id="form5_deliveries_table">--}}
+{{--                        <thead>--}}
+{{--                        <tr>--}}
+{{--                            <th>SRO No.</th>--}}
+{{--                            <th>Trader/Owner</th>--}}
+{{--                            <th>Start of W/drawal</th>--}}
+{{--                            <th>Sugar Class</th>--}}
+{{--                            <th>Qty</th>--}}
+{{--                            <th>Action</th>--}}
+{{--                        </tr>--}}
+{{--                        </thead>--}}
+{{--                        <tbody>--}}
 
-                        </tbody>
-                    </table>
-                </div>
+{{--                        </tbody>--}}
+{{--                    </table>--}}
+{{--                </div>--}}
 
-            </div>
-        </div>
-    </div>
-</div>
+{{--            </div>--}}
+{{--        </div>--}}
+{{--    </div>--}}
+{{--</div>--}}
 
 
 {{--2-7-2024 LOUIS SERVED SRO UI--}}

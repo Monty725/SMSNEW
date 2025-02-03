@@ -1,5 +1,6 @@
 <?php
-
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\GetForm1Controller;
 
 
 // Employee
@@ -51,5 +52,8 @@ Route::get('/department/textbox_department_ByDepartmentId/{dept_id}', 'Api\ApiDe
 
 
 //API SMS FOR BULLETIN 10-14-2024 LOUIS
-use App\Http\Controllers\GetForm2Controller;
-Route::get('/form-data', [GetForm2Controller::class, 'getAllData']);
+//use App\Http\Controllers\GetForm2Controller;
+//Route::get('/form-data', [GetForm2Controller::class, 'getAllData']);
+
+//API SMS FOR BULLETIN 11-13-2024 LOUIS
+Route::get('/form1-data', [\App\Http\Controllers\Api\ApiForm1Controller::class, 'sendData']);

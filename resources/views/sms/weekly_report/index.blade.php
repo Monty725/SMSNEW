@@ -61,7 +61,7 @@
                             <th >Week Ending</th>
                             <th class="th-20">Crop Year</th>
                             <th >Report No.</th>
-                            <th >Dist. No.</th>
+{{--                            <th >Dist. No.</th>--}}
                             <th >Status</th>
                             <th >Details</th>
                             <th class="action">Action</th>
@@ -121,7 +121,7 @@
                 { "data": "week_ending" },
                 { "data": "crop_year" },
                 { "data": "report_no" },
-                { "data": "dist_no" },
+                // { "data": "dist_no" },
                 { "data": "status" },
                 { "data": "details"},
                 { "data": "action"},
@@ -131,24 +131,24 @@
             ],
             "columnDefs":[
                 {
-                    "targets" : 6,
+                    "targets" : 5,
                     "orderable" : false,
                     "searchable": false,
                     "class" : 'action4'
                 },
                 {
-                    "targets" : 4,
+                    "targets" : 3,
                     "orderable" : false,
                     "searchable": false,
                     "class" : 'w-8p'
                 },
                 {
-                    "targets" : [2,3],
+                    "targets" : [1,2],
                     "class" : 'w-8p'
                 },
                 {
-                    "targets" : 5,
-                    "class" : 'w-25p'
+                    "targets" : 4,
+                    "class" : 'w-35p'
                 },
             ],
             "order":[[0,'desc']],

@@ -168,17 +168,17 @@ class GetForm2Controller extends Controller
         //WITHDRAWAL COMPUTATION ------------------------------------------------------- START
         //GET THIS WEEK VALUES FOR WITHDRAWALS
         $deliveries = $weeklyReport->form5aDeliveries()
-            ->selectRaw('consumption,sum(qty_total) as currentTotal, sum(qty_prev) as prevTotal')
+            ->selectRaw('consumption,sum(qty_current) as currentTotal, sum(qty_prev) as prevTotal')
             ->get();
         foreach ($deliveries as $delivery){
             if($delivery->consumption == "DOMESTIC"){
-                //IF DOMESTIC ISSUANCE
+                //IF DOMESTIC WITHDRAWAL
                 $arr["withdrawalDomestic"]["currentCrop"]["thisWeek"] = $delivery->currentTotal;
                 $arr["withdrawalDomestic"]["prevCrop"]["thisWeek"] = $delivery->prevTotal;
                 $withdrawalDomCTotalThisWeek += $arr["withdrawalDomestic"]["currentCrop"]["thisWeek"];
                 $withdrawalDomPTotalThisWeek += $arr["withdrawalDomestic"]["prevCrop"]["thisWeek"];
             }else{
-                //IF IMPORTED ISSUANCE
+                //IF IMPORTED WITHDRAWAL
                 $arr["withdrawalImported"]["currentCrop"]["thisWeek"] = $delivery->currentTotal;
                 $arr["withdrawalImported"]["prevCrop"]["thisWeek"] = $delivery->prevTotal;
                 $withdrawalImpCTotalThisWeek += $arr["withdrawalImported"]["currentCrop"]["thisWeek"];
@@ -275,61 +275,61 @@ class GetForm2Controller extends Controller
         $arr["carryOver"]["prevCrop"]["toDate"]=number_format($toDate->prev_carryOver ?? 0, 3, '.', ',');
 
         //COVERED BY SRO COMPUTATION
-        $arr["coveredBySro"]["currentCrop"]["thisWeek"]=$thisWeek->coveredBySro;
-        $arr["coveredBySro"]["currentCrop"]["prevWeek"]=$prevWeek->coveredBySro;
-        $arr["coveredBySro"]["currentCrop"]["toDate"]=$toDate->coveredBySro;
-        $arr["coveredBySro"]["prevCrop"]["thisWeek"]=$thisWeek->prev_coveredBySro;
-        $arr["coveredBySro"]["prevCrop"]["prevWeek"]=$prevWeek->prev_coveredBySro;
-        $arr["coveredBySro"]["prevCrop"]["toDate"]=$toDate->prev_coveredBySro;
+        $arr["coveredBySro"]["currentCrop"]["thisWeek"]=number_format($thisWeek->coveredBySro, 3, '.', ',');
+        $arr["coveredBySro"]["currentCrop"]["prevWeek"]=number_format($prevWeek->coveredBySro, 3, '.', ',');
+        $arr["coveredBySro"]["currentCrop"]["toDate"]=number_format($toDate->coveredBySro, 3, '.', ',');
+        $arr["coveredBySro"]["prevCrop"]["thisWeek"]=number_format($thisWeek->prev_coveredBySro, 3, '.', ',');
+        $arr["coveredBySro"]["prevCrop"]["prevWeek"]=number_format($prevWeek->prev_coveredBySro, 3, '.', ',');
+        $arr["coveredBySro"]["prevCrop"]["toDate"]=number_format($toDate->prev_coveredBySro, 3, '.', ',');
 
         //NOT COVERED BY SRO COMPUTATION
-        $arr["notCoveredBySro"]["currentCrop"]["thisWeek"]=$thisWeek->notCoveredBySro;
-        $arr["notCoveredBySro"]["currentCrop"]["prevWeek"]=$prevWeek->notCoveredBySro;
-        $arr["notCoveredBySro"]["currentCrop"]["toDate"]=$toDate->notCoveredBySro;
-        $arr["notCoveredBySro"]["prevCrop"]["thisWeek"]=$thisWeek->prev_notCoveredBySro;
-        $arr["notCoveredBySro"]["prevCrop"]["prevWeek"]=$prevWeek->prev_notCoveredBySro;
-        $arr["notCoveredBySro"]["prevCrop"]["toDate"]=$toDate->prev_notCoveredBySro;
+        $arr["notCoveredBySro"]["currentCrop"]["thisWeek"]=number_format($thisWeek->notCoveredBySro, 3, '.', ',');
+        $arr["notCoveredBySro"]["currentCrop"]["prevWeek"]=number_format($prevWeek->notCoveredBySro, 3, '.', ',');
+        $arr["notCoveredBySro"]["currentCrop"]["toDate"]=number_format($toDate->notCoveredBySro, 3, '.', ',');
+        $arr["notCoveredBySro"]["prevCrop"]["thisWeek"]=number_format($thisWeek->prev_notCoveredBySro, 3, '.', ',');
+        $arr["notCoveredBySro"]["prevCrop"]["prevWeek"]=number_format($prevWeek->prev_notCoveredBySro, 3, '.', ',');
+        $arr["notCoveredBySro"]["prevCrop"]["toDate"]=number_format($toDate->prev_notCoveredBySro, 3, '.', ',');
 
         //OTHER MILLS COMPUTATION
-        $arr["otherMills"]["currentCrop"]["thisWeek"]=$thisWeek->otherMills;
-        $arr["otherMills"]["currentCrop"]["prevWeek"]=$prevWeek->otherMills;
-        $arr["otherMills"]["currentCrop"]["toDate"]=$toDate->otherMills;
-        $arr["otherMills"]["prevCrop"]["thisWeek"]=$thisWeek->prev_otherMills;
-        $arr["otherMills"]["prevCrop"]["prevWeek"]=$prevWeek->prev_otherMills;
-        $arr["otherMills"]["prevCrop"]["toDate"]=$toDate->prev_otherMills;
+        $arr["otherMills"]["currentCrop"]["thisWeek"]=number_format($thisWeek->otherMills, 3, '.', ',');
+        $arr["otherMills"]["currentCrop"]["prevWeek"]=number_format($prevWeek->otherMills, 3, '.', ',');
+        $arr["otherMills"]["currentCrop"]["toDate"]=number_format($toDate->otherMills, 3, '.', ',');
+        $arr["otherMills"]["prevCrop"]["thisWeek"]=number_format($thisWeek->prev_otherMills, 3, '.', ',');
+        $arr["otherMills"]["prevCrop"]["prevWeek"]=number_format($prevWeek->prev_otherMills, 3, '.', ',');
+        $arr["otherMills"]["prevCrop"]["toDate"]=number_format($toDate->prev_otherMills, 3, '.', ',');
 
         //IMPORTED COMPUTATION
-        $arr["imported"]["currentCrop"]["thisWeek"]=$thisWeek->imported;
-        $arr["imported"]["currentCrop"]["prevWeek"]=$prevWeek->imported;
-        $arr["imported"]["currentCrop"]["toDate"]=$toDate->imported;
-        $arr["imported"]["prevCrop"]["thisWeek"]=$thisWeek->prev_imported;
-        $arr["imported"]["prevCrop"]["prevWeek"]=$prevWeek->prev_imported;
-        $arr["imported"]["prevCrop"]["toDate"]=$toDate->prev_imported;
+        $arr["imported"]["currentCrop"]["thisWeek"]=number_format($thisWeek->imported, 3, '.', ',');
+        $arr["imported"]["currentCrop"]["prevWeek"]=number_format($prevWeek->imported, 3, '.', ',');
+        $arr["imported"]["currentCrop"]["toDate"]=number_format($toDate->imported, 3, '.', ',');
+        $arr["imported"]["prevCrop"]["thisWeek"]=number_format($thisWeek->prev_imported, 3, '.', ',');
+        $arr["imported"]["prevCrop"]["prevWeek"]=number_format($prevWeek->prev_imported, 3, '.', ',');
+        $arr["imported"]["prevCrop"]["toDate"]=number_format($toDate->prev_imported, 3, '.', ',');
 
         //MELTED COMPUTATION
-        $arr["melted"]["currentCrop"]["thisWeek"]=$thisWeek->melted;
-        $arr["melted"]["currentCrop"]["prevWeek"]=$prevWeek->melted;
-        $arr["melted"]["currentCrop"]["toDate"]=$toDate->melted;
+        $arr["melted"]["currentCrop"]["thisWeek"]=number_format($thisWeek->melted, 3, '.', ',');
+        $arr["melted"]["currentCrop"]["prevWeek"]=number_format($prevWeek->melted, 3, '.', ',');
+        $arr["melted"]["currentCrop"]["toDate"]=number_format($toDate->melted, 3, '.', ',');
         $arr["melted"]["prevCrop"]["thisWeek"]=number_format($thisWeek->prev_melted ?? 0, 3, '.', ',');
-        $arr["melted"]["prevCrop"]["prevWeek"]=$prevWeek->prev_melted;
-        $arr["melted"]["prevCrop"]["toDate"]=$toDate->prev_melted;
+        $arr["melted"]["prevCrop"]["prevWeek"]=number_format($prevWeek->prev_melted, 3, '.', ',');
+        $arr["melted"]["prevCrop"]["toDate"]=number_format($toDate->prev_melted, 3, '.', ',');
 
         //RAW WITHDRAWALS COMPUTATION
-        $arr["rawWithdrawals"]["currentCrop"]["thisWeek"]=$thisWeek->rawWithdrawals;
-        $arr["rawWithdrawals"]["currentCrop"]["prevWeek"]=$prevWeek->rawWithdrawals;
-        $arr["rawWithdrawals"]["currentCrop"]["toDate"]=$toDate->rawWithdrawals;
-        $arr["rawWithdrawals"]["prevCrop"]["thisWeek"]=$thisWeek->prev_rawWithdrawals;
-        $arr["rawWithdrawals"]["prevCrop"]["prevWeek"]=$prevWeek->prev_rawWithdrawals;
-        $arr["rawWithdrawals"]["prevCrop"]["toDate"]=$toDate->prev_rawWithdrawals;
+        $arr["rawWithdrawals"]["currentCrop"]["thisWeek"]=number_format($thisWeek->rawWithdrawals, 3, '.', ',');
+        $arr["rawWithdrawals"]["currentCrop"]["prevWeek"]=number_format($prevWeek->rawWithdrawals, 3, '.', ',');
+        $arr["rawWithdrawals"]["currentCrop"]["toDate"]=number_format($toDate->rawWithdrawals, 3, '.', ',');
+        $arr["rawWithdrawals"]["prevCrop"]["thisWeek"]=number_format($thisWeek->prev_rawWithdrawals, 3, '.', ',');
+        $arr["rawWithdrawals"]["prevCrop"]["prevWeek"]=number_format($prevWeek->prev_rawWithdrawals, 3, '.', ',');
+        $arr["rawWithdrawals"]["prevCrop"]["toDate"]=number_format($toDate->prev_rawWithdrawals, 3, '.', ',');
 
 
         //PRODUCTION DOMESTIC
-        $arr["prodDomestic"]["currentCrop"]["thisWeek"]=$thisWeek->prodDomestic;
-        $arr["prodDomestic"]["currentCrop"]["prevWeek"]=$prevWeek->prodDomestic;
-        $arr["prodDomestic"]["currentCrop"]["toDate"]=$toDate->prodDomestic;
-        $arr["prodDomestic"]["prevCrop"]["thisWeek"]=$thisWeek->prev_prodDomestic;
-        $arr["prodDomestic"]["prevCrop"]["prevWeek"]=$prevWeek->prev_prodDomestic;
-        $arr["prodDomestic"]["prevCrop"]["toDate"]=$toDate->prev_prodDomestic;
+        $arr["prodDomestic"]["currentCrop"]["thisWeek"]=number_format($thisWeek->prodDomestic, 3, '.', ',');
+        $arr["prodDomestic"]["currentCrop"]["prevWeek"]=number_format($prevWeek->prodDomestic, 3, '.', ',');
+        $arr["prodDomestic"]["currentCrop"]["toDate"]=number_format($toDate->prodDomestic, 3, '.', ',');
+        $arr["prodDomestic"]["prevCrop"]["thisWeek"]=number_format($thisWeek->prev_prodDomestic, 3, '.', ',');
+        $arr["prodDomestic"]["prevCrop"]["prevWeek"]=number_format($prevWeek->prev_prodDomestic, 3, '.', ',');
+        $arr["prodDomestic"]["prevCrop"]["toDate"]=number_format($toDate->prev_prodDomestic, 3, '.', ',');
 
         //PRODUCTION IMPORTED
 //        $arr["prodImported"]["currentCrop"]["thisWeek"]=number_format($thisWeek->prodImported ?? 0, 3, '.', ',');
@@ -340,20 +340,20 @@ class GetForm2Controller extends Controller
 //        $arr["prodImported"]["prevCrop"]["toDate"]=number_format($toDate->prev_prodImported ?? 0, 3, '.', ',');
 
         //PRODUCTION IMPORTED
-        $arr["prodImported"]["currentCrop"]["thisWeek"]=$thisWeek->prodImported;
-        $arr["prodImported"]["currentCrop"]["prevWeek"]=$prevWeek->prodImported;
-        $arr["prodImported"]["currentCrop"]["toDate"]=$toDate->prodImported;
-        $arr["prodImported"]["prevCrop"]["thisWeek"]=$thisWeek->prev_prodImported;
-        $arr["prodImported"]["prevCrop"]["prevWeek"]=$prevWeek->prev_prodImported;
-        $arr["prodImported"]["prevCrop"]["toDate"]=$toDate->prev_prodImported;
+        $arr["prodImported"]["currentCrop"]["thisWeek"]=number_format($thisWeek->prodImported, 3, '.', ',');
+        $arr["prodImported"]["currentCrop"]["prevWeek"]=number_format($prevWeek->prodImported, 3, '.', ',');
+        $arr["prodImported"]["currentCrop"]["toDate"]=number_format($toDate->prodImported, 3, '.', ',');
+        $arr["prodImported"]["prevCrop"]["thisWeek"]=number_format($thisWeek->prev_prodImported, 3, '.', ',');
+        $arr["prodImported"]["prevCrop"]["prevWeek"]=number_format($prevWeek->prev_prodImported, 3, '.', ',');
+        $arr["prodImported"]["prevCrop"]["toDate"]=number_format($toDate->prev_prodImported, 3, '.', ',');
 
         //PRODUCTION OVERAGES
-        $arr["overage"]["currentCrop"]["thisWeek"]=$thisWeek->overage;
-        $arr["overage"]["currentCrop"]["prevWeek"]=$prevWeek->overage;
-        $arr["overage"]["currentCrop"]["toDate"]=$toDate->overage;
-        $arr["overage"]["prevCrop"]["thisWeek"]=$thisWeek->prev_overage;
-        $arr["overage"]["prevCrop"]["prevWeek"]=$prevWeek->prev_overage;
-        $arr["overage"]["prevCrop"]["toDate"]=$toDate->prev_overage;
+        $arr["overage"]["currentCrop"]["thisWeek"]=number_format($thisWeek->overage, 3, '.', ',');
+        $arr["overage"]["currentCrop"]["prevWeek"]=number_format($prevWeek->overage, 3, '.', ',');
+        $arr["overage"]["currentCrop"]["toDate"]=number_format($toDate->overage, 3, '.', ',');
+        $arr["overage"]["prevCrop"]["thisWeek"]=number_format($thisWeek->prev_overage, 3, '.', ',');
+        $arr["overage"]["prevCrop"]["prevWeek"]=number_format($prevWeek->prev_overage, 3, '.', ',');
+        $arr["overage"]["prevCrop"]["toDate"]=number_format($toDate->prev_overage, 3, '.', ',');
 
 
         //TOTAL REFINED
@@ -385,9 +385,9 @@ class GetForm2Controller extends Controller
 
 
         //RETURN TO PROCESS
-        $arr["prodReturn"]["currentCrop"]["thisWeek"]=$thisWeek->prodReturn;
+        $arr["prodReturn"]["currentCrop"]["thisWeek"]=number_format($thisWeek->prodReturn, 3, '.', ',');
         $arr["prodReturn"]["currentCrop"]["prevWeek"]=number_format($prevWeek->prodReturn ?? 0, 3, '.', ',');
-        $arr["prodReturn"]["currentCrop"]["toDate"]=$toDate->prodReturn;
+        $arr["prodReturn"]["currentCrop"]["toDate"]=number_format($toDate->prodReturn, 3, '.', ',');
         $arr["prodReturn"]["prevCrop"]["thisWeek"]=number_format($thisWeek->prev_prodReturn ?? 0, 3, '.', ',');
         $arr["prodReturn"]["prevCrop"]["prevWeek"]=number_format($prevWeek->prev_prodReturn ?? 0, 3, '.', ',');
         $arr["prodReturn"]["prevCrop"]["toDate"]=number_format($toDate->prev_prodReturn ?? 0, 3, '.', ',');
@@ -395,43 +395,56 @@ class GetForm2Controller extends Controller
         //PRODUCTION NET
         $arr["prodNet"] = [
             "currentCrop"=>[
-                "thisWeek"=>($thisWeek->prodDomestic + $thisWeek->prodImported + $thisWeek->overage) - $thisWeek->prodReturn,
-                "prevWeek"=>($prevWeek->prodDomestic + $prevWeek->prodImported + $prevWeek->overage) - $prevWeek->prodReturn,
-                "toDate"=>($toDate->prodDomestic + $toDate->prodImported + $toDate->overage) - $toDate->prodReturn,
+                "thisWeek"=>number_format(($thisWeek->prodDomestic + $thisWeek->prodImported + $thisWeek->overage) - $thisWeek->prodReturn, 3, '.', ','),
+                "prevWeek"=>number_format(($prevWeek->prodDomestic + $prevWeek->prodImported + $prevWeek->overage) - $prevWeek->prodReturn, 3, '.', ','),
+                "toDate"=>number_format(($toDate->prodDomestic + $toDate->prodImported + $toDate->overage) - $toDate->prodReturn, 3, '.', ','),
             ],
             "prevCrop"=>[
-                "thisWeek"=>($thisWeek->prev_prodDomestic + $thisWeek->prev_prodImported + $thisWeek->prev_overage) - $thisWeek->prev_prodReturn,
-                "prevWeek"=>($prevWeek->prev_prodDomestic + $prevWeek->prev_prodImported + $prevWeek->prev_overage) - $prevWeek->prev_prodReturn,
-                "toDate"=>($toDate->prev_prodDomestic + $toDate->prev_prodImported + $toDate->prev_overage) - $toDate->prev_prodReturn,
+                "thisWeek"=>number_format(($thisWeek->prev_prodDomestic + $thisWeek->prev_prodImported + $thisWeek->prev_overage) - $thisWeek->prev_prodReturn, 3, '.', ','),
+                "prevWeek"=>number_format(($prevWeek->prev_prodDomestic + $prevWeek->prev_prodImported + $prevWeek->prev_overage) - $prevWeek->prev_prodReturn, 3, '.', ','),
+                "toDate"=>number_format(($toDate->prev_prodDomestic + $toDate->prev_prodImported + $toDate->prev_overage) - $toDate->prev_prodReturn, 3, '.', ','),
             ],
         ];
 
-        //TOTAL RECEIPT
+        //OLD TOTAL RECEIPT
+//        $arr["totalReceipt"] = [
+//            "currentCrop"=>[
+//                "thisWeek"=>number_format($arr["coveredBySro"]["currentCrop"]["thisWeek"] + $arr["otherMills"]["currentCrop"]["thisWeek"] + $arr["imported"]["currentCrop"]["thisWeek"] + $arr["notCoveredBySro"]["currentCrop"]["thisWeek"], 3, '.', ','),
+//                "prevWeek"=>number_format($arr["coveredBySro"]["currentCrop"]["prevWeek"] + $arr["otherMills"]["currentCrop"]["prevWeek"] + $arr["imported"]["currentCrop"]["prevWeek"] + $arr["notCoveredBySro"]["currentCrop"]["prevWeek"], 3, '.', ','),
+//                "toDate"=>number_format($arr["coveredBySro"]["currentCrop"]["toDate"] + $arr["otherMills"]["currentCrop"]["toDate"] + $arr["imported"]["currentCrop"]["toDate"] + $arr["notCoveredBySro"]["currentCrop"]["toDate"], 3, '.', ','),
+//            ],
+//            "prevCrop"=>[
+//                "thisWeek"=>number_format($arr["coveredBySro"]["prevCrop"]["thisWeek"] + $arr["otherMills"]["prevCrop"]["thisWeek"] + $arr["imported"]["prevCrop"]["thisWeek"] + $arr["notCoveredBySro"]["prevCrop"]["thisWeek"], 3, '.', ','),
+//                "prevWeek"=>number_format($arr["coveredBySro"]["prevCrop"]["prevWeek"] + $arr["otherMills"]["prevCrop"]["prevWeek"] + $arr["imported"]["prevCrop"]["prevWeek"] + $arr["notCoveredBySro"]["prevCrop"]["prevWeek"], 3, '.', ','),
+//                "toDate"=>number_format($arr["coveredBySro"]["prevCrop"]["toDate"] + $arr["otherMills"]["prevCrop"]["toDate"] + $arr["imported"]["prevCrop"]["toDate"] + $arr["notCoveredBySro"]["prevCrop"]["toDate"], 3, '.', ','),
+//            ],
+//        ];
+
+        //NEW TOTAL RECEIPT
         $arr["totalReceipt"] = [
             "currentCrop"=>[
-                "thisWeek"=>number_format($arr["coveredBySro"]["currentCrop"]["thisWeek"] + $arr["otherMills"]["currentCrop"]["thisWeek"] + $arr["imported"]["currentCrop"]["thisWeek"] + $arr["notCoveredBySro"]["currentCrop"]["thisWeek"], 3, '.', ','),
-                "prevWeek"=>number_format($arr["coveredBySro"]["currentCrop"]["prevWeek"] + $arr["otherMills"]["currentCrop"]["prevWeek"] + $arr["imported"]["currentCrop"]["prevWeek"] + $arr["notCoveredBySro"]["currentCrop"]["prevWeek"], 3, '.', ','),
-                "toDate"=>number_format($arr["coveredBySro"]["currentCrop"]["toDate"] + $arr["otherMills"]["currentCrop"]["toDate"] + $arr["imported"]["currentCrop"]["toDate"] + $arr["notCoveredBySro"]["currentCrop"]["toDate"], 3, '.', ','),
+                "thisWeek"=>number_format($thisWeek->coveredBySro + $thisWeek->otherMills + $thisWeek->imported + $thisWeek->notCoveredBySro, 3, '.', ','),
+                "prevWeek"=>number_format($prevWeek->coveredBySro + $prevWeek->otherMills + $prevWeek->imported + $prevWeek->notCoveredBySro, 3, '.', ','),
+                "toDate"=>number_format($toDate->coveredBySro + $toDate->otherMills + $toDate->imported + $toDate->notCoveredBySro, 3, '.', ','),
             ],
             "prevCrop"=>[
-                "thisWeek"=>number_format($arr["coveredBySro"]["prevCrop"]["thisWeek"] + $arr["otherMills"]["prevCrop"]["thisWeek"] + $arr["imported"]["prevCrop"]["thisWeek"] + $arr["notCoveredBySro"]["prevCrop"]["thisWeek"], 3, '.', ','),
-                "prevWeek"=>number_format($arr["coveredBySro"]["prevCrop"]["prevWeek"] + $arr["otherMills"]["prevCrop"]["prevWeek"] + $arr["imported"]["prevCrop"]["prevWeek"] + $arr["notCoveredBySro"]["prevCrop"]["prevWeek"], 3, '.', ','),
-                "toDate"=>number_format($arr["coveredBySro"]["prevCrop"]["toDate"] + $arr["otherMills"]["prevCrop"]["toDate"] + $arr["imported"]["prevCrop"]["toDate"] + $arr["notCoveredBySro"]["prevCrop"]["toDate"], 3, '.', ','),
+                "thisWeek"=>number_format($thisWeek->prev_coveredBySro + $thisWeek->prev_otherMills + $thisWeek->prev_imported + $thisWeek->prev_notCoveredBySro, 3, '.', ','),
+                "prevWeek"=>number_format($prevWeek->prev_coveredBySro + $prevWeek->prev_otherMills + $prevWeek->prev_imported + $prevWeek->prev_notCoveredBySro, 3, '.', ','),
+                "toDate"=>number_format($toDate->prev_coveredBySro + $toDate->prev_otherMills + $toDate->prev_imported + $toDate->prev_notCoveredBySro, 3, '.', ','),
             ],
         ];
-
 
         //BALANCE RAW
         $arr["balanceRaw"] = [
             "currentCrop"=>[
-                "thisWeek"=>number_format(($arr["coveredBySro"]["currentCrop"]["thisWeek"] + $arr["otherMills"]["currentCrop"]["thisWeek"] + $arr["imported"]["currentCrop"]["thisWeek"] + $arr["notCoveredBySro"]["currentCrop"]["thisWeek"]) - ($arr["melted"]["currentCrop"]["thisWeek"]=$thisWeek->melted) - ($arr["rawWithdrawals"]["currentCrop"]["thisWeek"]=$thisWeek->rawWithdrawals), 3, '.', ','),
-                "prevWeek"=>number_format(($arr["coveredBySro"]["currentCrop"]["prevWeek"] + $arr["otherMills"]["currentCrop"]["prevWeek"] + $arr["imported"]["currentCrop"]["prevWeek"] + $arr["notCoveredBySro"]["currentCrop"]["prevWeek"]) - ($arr["melted"]["currentCrop"]["prevWeek"]=$prevWeek->melted) - ($arr["rawWithdrawals"]["currentCrop"]["prevWeek"]=$prevWeek->rawWithdrawals), 3, '.', ','),
-                "toDate"=>number_format(($arr["coveredBySro"]["currentCrop"]["toDate"] + $arr["otherMills"]["currentCrop"]["toDate"] + $arr["imported"]["currentCrop"]["toDate"] + $arr["notCoveredBySro"]["currentCrop"]["toDate"]) - ($arr["melted"]["currentCrop"]["toDate"]=$toDate->melted) - ($arr["rawWithdrawals"]["currentCrop"]["toDate"]=$toDate->rawWithdrawals), 3, '.', ','),
+                "thisWeek"=>number_format(($thisWeek->coveredBySro + $thisWeek->otherMills + $thisWeek->imported + $thisWeek->notCoveredBySro) - ($thisWeek->melted) - ($thisWeek->rawWithdrawals), 3, '.', ','),
+                "prevWeek"=>number_format(($prevWeek->coveredBySro + $prevWeek->otherMills + $prevWeek->imported + $prevWeek->notCoveredBySro) - ($prevWeek->melted) - ($prevWeek->rawWithdrawals), 3, '.', ','),
+                "toDate"=>number_format(($toDate->coveredBySro + $toDate->otherMills + $toDate->imported + $toDate->notCoveredBySro) - ($toDate->melted) - ($toDate->rawWithdrawals), 3, '.', ','),
             ],
             "prevCrop"=>[
-                "thisWeek"=>number_format(($arr["carryOver"]["prevCrop"]["thisWeek"]=$thisWeek->prev_carryOver ?? 0) - ($arr["melted"]["prevCrop"]["thisWeek"]=$thisWeek->prev_melted) - ($arr["rawWithdrawals"]["prevCrop"]["thisWeek"]=$thisWeek->prev_rawWithdrawals), 3, '.', ','),
-                "prevWeek"=>number_format(($arr["carryOver"]["prevCrop"]["prevWeek"]=$prevWeek->prev_carryOver ?? 0) - ($arr["melted"]["prevCrop"]["prevWeek"]=$prevWeek->prev_melted) - ($arr["rawWithdrawals"]["prevCrop"]["prevWeek"]=$prevWeek->prev_rawWithdrawals), 3, '.', ','),
-                "toDate"=>number_format(($arr["carryOver"]["prevCrop"]["toDate"]=$toDate->prev_carryOver ?? 0) - ($arr["melted"]["prevCrop"]["toDate"]=$toDate->prev_melted) - ($arr["rawWithdrawals"]["prevCrop"]["toDate"]=$toDate->prev_rawWithdrawals), 3, '.', ','),
+                "thisWeek"=>number_format(($thisWeek->prev_carryOver) - ($thisWeek->prev_melted) - ($thisWeek->prev_rawWithdrawals), 3, '.', ','),
+                "prevWeek"=>number_format(($prevWeek->prev_carryOver) - ($prevWeek->prev_melted) - ($prevWeek->prev_rawWithdrawals), 3, '.', ','),
+                "toDate"=>number_format(($toDate->prev_carryOver) - ($toDate->prev_melted) - ($toDate->prev_rawWithdrawals), 3, '.', ','),
             ],
         ];
 
@@ -479,45 +492,75 @@ class GetForm2Controller extends Controller
 
 
 
-        $arr["unquedanned"] = [
-            "currentCrop"=>[
-                "thisWeek"=>($thisWeek->prodDomestic + $thisWeek->prodImported) - $thisWeek->prodReturn -(($issuanceImpCTotalThisWeek) + ($issuanceDomCTotalThisWeek)),
-                "prevWeek"=>($prevWeek->prodDomestic + $prevWeek->prodImported) - $prevWeek->prodReturn -(($issuanceImpCTotalprevWeek) + ($issuanceDomCTotalprevWeek)),
-                "toDate"=>($toDate->prodDomestic + $toDate->prodImported) - $toDate->prodReturn -(($issuanceImpCTotaltoDate) + ($issuanceDomCTotaltoDate)),
-            ],
-//            "prevCrop"=>[
-//                "thisWeek"=>($thisWeek->prev_prodDomestic + $thisWeek->prev_prodImported) - $thisWeek->prev_prodReturn -(($issuanceImpPTotalThisWeek) + ($issuanceDomPTotalThisWeek)),
-//                "prevWeek"=>($prevWeek->prev_prodDomestic + $prevWeek->prev_prodImported) - $prevWeek->prev_prodReturn -(($issuanceImpPTotalprevWeek) + ($issuanceDomPTotalprevWeek)),
-//                "toDate"=>($toDate->prev_prodDomestic + $toDate->prev_prodImported) - $toDate->prev_prodReturn -(($issuanceImpPTotaltoDate) + ($issuanceDomPTotaltoDate)),
+//        $arr["form2_unquedanned"] = [
+//            "currentCrop"=>[
+//                "thisWeek"=>($thisWeek->prodDomestic + $thisWeek->prodImported) - $thisWeek->prodReturn -(($issuanceImpCTotalThisWeek) + ($issuanceDomCTotalThisWeek)),
+//                "prevWeek"=>($prevWeek->prodDomestic + $prevWeek->prodImported) - $prevWeek->prodReturn -(($issuanceImpCTotalprevWeek) + ($issuanceDomCTotalprevWeek)),
+//                "toDate"=>($toDate->prodDomestic + $toDate->prodImported) - $toDate->prodReturn -(($issuanceImpCTotaltoDate) + ($issuanceDomCTotaltoDate)),
 //            ],
-        ];
-        $arr["unquedanned"]["prevCrop"]["thisWeek"]=$thisWeek->prev_unquedanned;
-        $arr["unquedanned"]["prevCrop"]["prevWeek"]=$prevWeek->prev_unquedanned;
-        $arr["unquedanned"]["prevCrop"]["toDate"]=$toDate->prev_unquedanned;
+////            "prevCrop"=>[
+////                "thisWeek"=>($thisWeek->prev_prodDomestic + $thisWeek->prev_prodImported) - $thisWeek->prev_prodReturn -(($issuanceImpPTotalThisWeek) + ($issuanceDomPTotalThisWeek)),
+////                "prevWeek"=>($prevWeek->prev_prodDomestic + $prevWeek->prev_prodImported) - $prevWeek->prev_prodReturn -(($issuanceImpPTotalprevWeek) + ($issuanceDomPTotalprevWeek)),
+////                "toDate"=>($toDate->prev_prodDomestic + $toDate->prev_prodImported) - $toDate->prev_prodReturn -(($issuanceImpPTotaltoDate) + ($issuanceDomPTotaltoDate)),
+////            ],
+//        ];
+
+//        NEW UNQUEDANNED FORM 2
+        $arr["form2_unquedanned"]["currentCrop"]["thisWeek"]=number_format($thisWeek->form2_unquedanned, 3, '.', ',');
+        $arr["form2_unquedanned"]["currentCrop"]["prevWeek"]=number_format($prevWeek->form2_unquedanned, 3, '.', ',');
+        $arr["form2_unquedanned"]["currentCrop"]["toDate"]=number_format($toDate->form2_unquedanned, 3, '.', ',');
+        $arr["form2_unquedanned"]["prevCrop"]["thisWeek"]=number_format($thisWeek->form2_prev_unquedanned, 3, '.', ',');
+        $arr["form2_unquedanned"]["prevCrop"]["prevWeek"]=number_format($prevWeek->form2_prev_unquedanned, 3, '.', ',');
+        $arr["form2_unquedanned"]["prevCrop"]["toDate"]=number_format($toDate->form2_prev_unquedanned, 3, '.', ',');
 
         //STOCK ON HAND
+//        $arr["stockOnHand"] = [
+//            "currentCrop"=>[
+//                "thisWeek"=>formatValue((($issuanceImpCTotalThisWeek + $issuanceDomCTotalThisWeek)-($withdrawalImpCTotalThisWeek + $withdrawalDomCTotalThisWeek))+($thisWeek->prodDomestic + $thisWeek->prodImported) - $thisWeek->prodReturn -(($issuanceImpCTotalThisWeek) + ($issuanceDomCTotalThisWeek))),
+//                "prevWeek"=>formatValue((($issuanceImpCTotalprevWeek + $issuanceDomCTotalprevWeek)-($withdrawalImpCTotalprevWeek + $withdrawalDomCTotalprevWeek))+($prevWeek->prodDomestic + $prevWeek->prodImported) - $prevWeek->prodReturn -(($issuanceImpCTotalprevWeek) + ($issuanceDomCTotalprevWeek))),
+//                "toDate"=>formatValue((($issuanceImpCTotaltoDate + $issuanceDomCTotaltoDate)-($withdrawalImpCTotaltoDate + $withdrawalDomCTotaltoDate))+($toDate->prodDomestic + $toDate->prodImported) - $toDate->prodReturn -(($issuanceImpCTotaltoDate) + ($issuanceDomCTotaltoDate))),
+//            ],
+//            "prevCrop"=>[
+//                "thisWeek"=>formatValue((($issuanceImpPTotalThisWeek + $issuanceDomPTotalThisWeek)-($withdrawalImpPTotalThisWeek + $withdrawalDomPTotalThisWeek))+($thisWeek->prev_prodDomestic + $thisWeek->prev_prodImported) - $thisWeek->prev_prodReturn -(($issuanceImpPTotalThisWeek) + ($issuanceDomPTotalThisWeek))),
+//                "prevWeek"=>formatValue((($issuanceImpPTotalprevWeek + $issuanceDomPTotalprevWeek)-($withdrawalImpPTotalprevWeek + $withdrawalDomPTotalprevWeek))+($prevWeek->prev_prodDomestic + $prevWeek->prev_prodImported) - $prevWeek->prev_prodReturn -(($issuanceImpPTotalprevWeek) + ($issuanceDomPTotalprevWeek))),
+//                "toDate"=>formatValue((($issuanceImpPTotaltoDate + $issuanceDomPTotaltoDate)-($withdrawalImpPTotaltoDate + $withdrawalDomPTotaltoDate))+($toDate->prev_prodDomestic + $toDate->prev_prodImported) - $toDate->prev_prodReturn -(($issuanceImpPTotaltoDate) + ($issuanceDomPTotaltoDate))),
+//            ],
+//        ];
+
+//        NEW STOCK ON HAND
         $arr["stockOnHand"] = [
             "currentCrop"=>[
-                "thisWeek"=>formatValue((($issuanceImpCTotalThisWeek + $issuanceDomCTotalThisWeek)-($withdrawalImpCTotalThisWeek + $withdrawalDomCTotalThisWeek))+($thisWeek->prodDomestic + $thisWeek->prodImported) - $thisWeek->prodReturn -(($issuanceImpCTotalThisWeek) + ($issuanceDomCTotalThisWeek))),
-                "prevWeek"=>formatValue((($issuanceImpCTotalprevWeek + $issuanceDomCTotalprevWeek)-($withdrawalImpCTotalprevWeek + $withdrawalDomCTotalprevWeek))+($prevWeek->prodDomestic + $prevWeek->prodImported) - $prevWeek->prodReturn -(($issuanceImpCTotalprevWeek) + ($issuanceDomCTotalprevWeek))),
-                "toDate"=>formatValue((($issuanceImpCTotaltoDate + $issuanceDomCTotaltoDate)-($withdrawalImpCTotaltoDate + $withdrawalDomCTotaltoDate))+($toDate->prodDomestic + $toDate->prodImported) - $toDate->prodReturn -(($issuanceImpCTotaltoDate) + ($issuanceDomCTotaltoDate))),
+                "thisWeek"=>formatValue((($issuanceImpCTotalThisWeek + $issuanceDomCTotalThisWeek)-($withdrawalImpCTotalThisWeek + $withdrawalDomCTotalThisWeek))+($thisWeek->form2_unquedanned)),
+                "prevWeek"=>formatValue((($issuanceImpCTotalprevWeek + $issuanceDomCTotalprevWeek)-($withdrawalImpCTotalprevWeek + $withdrawalDomCTotalprevWeek))+($prevWeek->form2_unquedanned)),
+                "toDate"=>formatValue((($issuanceImpCTotaltoDate + $issuanceDomCTotaltoDate)-($withdrawalImpCTotaltoDate + $withdrawalDomCTotaltoDate))+($toDate->form2_unquedanned)),
             ],
             "prevCrop"=>[
-                "thisWeek"=>formatValue((($issuanceImpPTotalThisWeek + $issuanceDomPTotalThisWeek)-($withdrawalImpPTotalThisWeek + $withdrawalDomPTotalThisWeek))+($thisWeek->prev_prodDomestic + $thisWeek->prev_prodImported) - $thisWeek->prev_prodReturn -(($issuanceImpPTotalThisWeek) + ($issuanceDomPTotalThisWeek))),
-                "prevWeek"=>formatValue((($issuanceImpPTotalprevWeek + $issuanceDomPTotalprevWeek)-($withdrawalImpPTotalprevWeek + $withdrawalDomPTotalprevWeek))+($prevWeek->prev_prodDomestic + $prevWeek->prev_prodImported) - $prevWeek->prev_prodReturn -(($issuanceImpPTotalprevWeek) + ($issuanceDomPTotalprevWeek))),
-                "toDate"=>formatValue((($issuanceImpPTotaltoDate + $issuanceDomPTotaltoDate)-($withdrawalImpPTotaltoDate + $withdrawalDomPTotaltoDate))+($toDate->prev_prodDomestic + $toDate->prev_prodImported) - $toDate->prev_prodReturn -(($issuanceImpPTotaltoDate) + ($issuanceDomPTotaltoDate))),
+                "thisWeek"=>formatValue((($thisWeek->prev_prodDomestic + $thisWeek->prev_prodImported + $thisWeek->prev_overage + $issuanceImpPTotalThisWeek + $issuanceDomPTotalThisWeek)-($withdrawalImpPTotalThisWeek + $withdrawalDomPTotalThisWeek))+($thisWeek->form2_prev_unquedanned)),
+                "prevWeek"=>formatValue((($prevWeek->prev_prodDomestic + $prevWeek->prev_prodImported + $prevWeek->prev_overage + $issuanceImpPTotalprevWeek + $issuanceDomPTotalprevWeek)-($withdrawalImpPTotalprevWeek + $withdrawalDomPTotalprevWeek))+($prevWeek->form2_prev_unquedanned)),
+                "toDate"=>formatValue((($toDate->prev_prodDomestic + $toDate->prev_prodImported + $toDate->prev_overage + $issuanceImpPTotaltoDate + $issuanceDomPTotaltoDate)-($withdrawalImpPTotaltoDate + $withdrawalDomPTotaltoDate))+($toDate->form2_prev_unquedanned)),
             ],
         ];
 
-
+//        OLD RETURN
         return [
             'values' => collect($arr)->dot()->all(),
         ];
+
+//        NEW RETURN
+//        return [
+//            'values' => collect($arr)->dot()->map(function ($value) {
+//                // Check if the value is numeric and less than 0
+//                if (is_numeric($value) && $value < 0) {
+//                    return '(' . abs($value) . ')';
+//                }
+//                return $value; // Return the original value if not negative
+//            })->all(),
+//        ];
     }
 
     private function getDeliveriesAsOf($reportNo, $weeklyReport){
         $deliveries = Deliveries::query()
-            ->selectRaw('weekly_report_slug,trader, consumption, sum(qty_total) as currentTotal, sum(qty_prev) as prevTotal, weekly_reports.*')
+            ->selectRaw('weekly_report_slug,trader, consumption, sum(qty_current) as currentTotal, sum(qty_prev) as prevTotal, weekly_reports.*')
             ->leftJoin('weekly_reports','weekly_reports.slug','=','form5a_deliveries.weekly_report_slug')
             ->where('crop_year','=',$weeklyReport->crop_year)
             ->where('mill_code','=',$weeklyReport->mill_code)

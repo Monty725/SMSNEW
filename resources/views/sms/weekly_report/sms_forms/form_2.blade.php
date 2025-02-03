@@ -340,14 +340,19 @@
                     <td class="text-strong">1. CARRY-OVER</td>
                     <td>
                         {!! \App\Swep\ViewHelpers\__form2::textboxOnly('carryOver',[
-                            'class' => 'form2-input input-sm text-right autonum_mt',
-                            'pattern' => '\d*',
-                            'type' => 'number',
-                            'step' => 'any',
-                            'style' => '-moz-appearance:textfield; -webkit-appearance:none; appearance:none;'
+                            'class' => 'form1-input input-sm text-right autonumber_mt'
                         ],
                         $wr->form2->carryOver ?? null
                         ) !!}
+{{--                        {!! \App\Swep\ViewHelpers\__form2::textboxOnly('carryOver',[--}}
+{{--                            'class' => 'form2-input input-sm text-right autonum_mt',--}}
+{{--                            'pattern' => '\d*',--}}
+{{--                            'type' => 'number',--}}
+{{--                            'step' => 'any',--}}
+{{--                            'style' => '-moz-appearance:textfield; -webkit-appearance:none; appearance:none;'--}}
+{{--                        ],--}}
+{{--                        $wr->form2->carryOver ?? null--}}
+{{--                        ) !!}--}}
                     </td>
                     <td class="text-strong text-right updatable" for="carryOver.currentCrop.prevWeek"></td>
                     <td class="text-strong text-right updatable" for="carryOver.currentCrop.toDate"></td>
@@ -372,7 +377,7 @@
                     <td><span class="indent"></span><span class="indent"></span>2.1.1 Covered by SRO</td>
                     <td>
                         {!! \App\Swep\ViewHelpers\__form2::textboxOnly('coveredBySro',[
-                            'class' => 'form2-input input-sm text-right autonum_mt'
+                            'class' => 'form2-input input-sm text-right autonumber_mt'
                         ],
                         $wr->form2->coveredBySro ?? null
                         ) !!}
@@ -381,7 +386,7 @@
                     <td class="text-strong text-right updatable" for="coveredBySro.currentCrop.toDate"></td>
                     <td>
                         {!! \App\Swep\ViewHelpers\__form2::textboxOnly('prev_coveredBySro',[
-                            'class' => 'form2-input input-sm text-right autonum_mt'
+                            'class' => 'form2-input input-sm text-right autonumber_mt'
                         ],
                         $wr->form2->prev_coveredBySro ?? null
                         ) !!}
@@ -393,7 +398,7 @@
                     <td><span class="indent"></span><span class="indent"></span>2.1.2 Not Covered by SRO</td>
                     <td>
                         {!! \App\Swep\ViewHelpers\__form2::textboxOnly('notCoveredBySro',[
-                            'class' => 'form2-input input-sm text-right autonum_mt'
+                            'class' => 'form2-input input-sm text-right autonumber_mt'
                         ],
                         $wr->form2->notCoveredBySro ?? null
                         ) !!}
@@ -402,7 +407,7 @@
                     <td class="text-strong text-right updatable" for="notCoveredBySro.currentCrop.toDate"></td>
                     <td>
                         {!! \App\Swep\ViewHelpers\__form2::textboxOnly('prev_notCoveredBySro',[
-                            'class' => 'form2-input input-sm text-right autonum_mt'
+                            'class' => 'form2-input input-sm text-right autonumber_mt'
                         ],
                         $wr->form2->prev_notCoveredBySro ?? null
                         ) !!}
@@ -415,7 +420,7 @@
                     <td><span class="indent"></span>2.2 Other Mills</td>
                     <td>
                         {!! \App\Swep\ViewHelpers\__form2::textboxOnly('otherMills',[
-                            'class' => 'form2-input input-sm text-right autonum_mt'
+                            'class' => 'form2-input input-sm text-right autonumber_mt'
                         ],
                         $wr->form2->otherMills ?? null
                         ) !!}
@@ -424,7 +429,7 @@
                     <td class="text-strong text-right updatable" for="otherMills.currentCrop.toDate"></td>
                     <td>
                         {!! \App\Swep\ViewHelpers\__form2::textboxOnly('prev_otherMills',[
-                            'class' => 'form2-input input-sm text-right autonum_mt'
+                            'class' => 'form2-input input-sm text-right autonumber_mt'
                         ],
                         $wr->form2->prev_otherMills ?? null
                         ) !!}
@@ -437,7 +442,7 @@
                     <td><span class="indent"></span>2.3 Imported</td>
                     <td>
                         {!! \App\Swep\ViewHelpers\__form2::textboxOnly('imported',[
-                            'class' => 'form2-input input-sm text-right autonum_mt'
+                            'class' => 'form2-input input-sm text-right autonumber_mt'
                         ],
                         $wr->form2->imported ?? null
                         ) !!}
@@ -446,7 +451,7 @@
                     <td class="text-strong text-right updatable" for="imported.currentCrop.toDate"></td>
                     <td>
                         {!! \App\Swep\ViewHelpers\__form2::textboxOnly('prev_imported',[
-                            'class' => 'form2-input input-sm text-right autonum_mt'
+                            'class' => 'form2-input input-sm text-right autonumber_mt'
                         ],
                         $wr->form2->prev_imported ?? null
                         ) !!}
@@ -468,7 +473,7 @@
                     <td class="text-strong">3. MELTED</td>
                     <td>
                         {!! \App\Swep\ViewHelpers\__form2::textboxOnly('melted',[
-                            'class' => 'form2-input input-sm text-right autonum_mt'
+                            'class' => 'form2-input input-sm text-right autonumber_mt'
                         ],
                         $wr->form2->melted ?? null
                         ) !!}
@@ -492,7 +497,7 @@
                     <td class="text-strong">4. WITHDRAWALS</td>
                     <td>
                         {!! \App\Swep\ViewHelpers\__form2::textboxOnly('rawWithdrawals',[
-                            'class' => 'form2-input input-sm text-right autonum_mt'
+                            'class' => 'form2-input input-sm text-right autonumber_mt'
                         ],
                         $wr->form2->rawWithdrawals ?? null
                         ) !!}
@@ -501,7 +506,7 @@
                     <td class="text-right updatable" for="rawWithdrawals.currentCrop.toDate"></td>
                     <td>
                         {!! \App\Swep\ViewHelpers\__form2::textboxOnly('prev_rawWithdrawals',[
-                            'class' => 'form2-input input-sm text-right autonum_mt'
+                            'class' => 'form2-input input-sm text-right autonumber_mt'
                         ],
                         $wr->form2->prev_rawWithdrawals ?? null
                         ) !!}
@@ -530,7 +535,7 @@
                     <td class="text-strong" colspan="6">6. PRODUCTION/CARRY-OVER</td>
                     <td>
                         {!! \App\Swep\ViewHelpers\__form2::textboxOnly('prev_refinedCarryOver',[
-                            'class' => 'form2-input input-sm text-right autonum_mt',
+                            'class' => 'form2-input input-sm text-right autonumber_mt',
                             'placeholder' => 'CARRY OVER, PREVIOUS CROP',
                         ],
                         $wr->form2->prev_refinedCarryOver ?? null
@@ -541,7 +546,7 @@
                     <td class="text-strong"><span class="indent"></span> 6.1. DOMESTIC </td>
                     <td>
                         {!! \App\Swep\ViewHelpers\__form2::textboxOnly('prodDomestic',[
-                            'class' => 'form2-input input-sm text-right autonum_mt'
+                            'class' => 'form2-input input-sm text-right autonumber_mt'
                         ],
                         $wr->form2->prodDomestic ?? null
                         ) !!}
@@ -551,7 +556,7 @@
 
                     <td>
                         {!! \App\Swep\ViewHelpers\__form2::textboxOnly('prev_prodDomestic',[
-                            'class' => 'form2-input input-sm text-right autonum_mt'
+                            'class' => 'form2-input input-sm text-right autonumber_mt'
                         ],
                         $wr->form2->prev_prodDomestic ?? null
                         ) !!}
@@ -565,7 +570,7 @@
                     <td class="text-strong"><span class="indent"></span> 6.2. IMPORTED </td>
                     <td>
                         {!! \App\Swep\ViewHelpers\__form2::textboxOnly('prodImported',[
-                            'class' => 'form2-input input-sm text-right autonum_mt'
+                            'class' => 'form2-input input-sm text-right autonumber_mt'
                         ],
                         $wr->form2->prodImported ?? null
                         ) !!}
@@ -575,7 +580,7 @@
 
                     <td>
                         {!! \App\Swep\ViewHelpers\__form2::textboxOnly('prev_prodImported',[
-                            'class' => 'form2-input input-sm text-right autonum_mt'
+                            'class' => 'form2-input input-sm text-right autonumber_mt'
                         ],
                         $wr->form2->prev_prodImported ?? null
                         ) !!}
@@ -589,7 +594,7 @@
                     <td class="text-strong"><span class="indent"></span> 6.3. OVERAGES </td>
                     <td>
                         {!! \App\Swep\ViewHelpers\__form2::textboxOnly('overage',[
-                            'class' => 'form2-input input-sm text-right autonum_mt'
+                            'class' => 'form2-input input-sm text-right autonumber_mt'
                         ],
                         $wr->form2->overage ?? null
                         ) !!}
@@ -599,7 +604,7 @@
 
                     <td>
                         {!! \App\Swep\ViewHelpers\__form2::textboxOnly('prev_overage',[
-                            'class' => 'form2-input input-sm text-right autonum_mt'
+                            'class' => 'form2-input input-sm text-right autonumber_mt'
                         ],
                         $wr->form2->prev_overage ?? null
                         ) !!}
@@ -622,7 +627,7 @@
                     <td class="text-strong"><span class="indent"></span> 6.4. RETURN TO PROCESS </td>
                     <td>
                         {!! \App\Swep\ViewHelpers\__form2::textboxOnly('prodReturn',[
-                            'class' => 'form2-input input-sm text-right autonum_mt'
+                            'class' => 'form2-input input-sm text-right autonumber_mt'
                         ],
                         $wr->form2->prodReturn ?? null
                         ) !!}
@@ -713,22 +718,29 @@
                     <td class="text-right updatable" for="stockBalance.prevCrop.prevWeek"></td>
                     <td class="text-right updatable" for="stockBalance.prevCrop.toDate"></td>
                 </tr>
-                <tr  for="unquedanned" class="computation">
+                <tr  for="form2_unquedanned" class="computation">
                     <td class="text-strong">10. UNQUEDANNED </td>
-                    <td class="text-right updatable" for="unquedanned.currentCrop.thisWeek"></td>
-                    <td class="text-right updatable" for="unquedanned.currentCrop.prevWeek"></td>
-                    <td class="text-right updatable" for="unquedanned.currentCrop.toDate"></td>
+                    <td>
+                        {!! \App\Swep\ViewHelpers\__form2::textboxOnly('form2_unquedanned',[
+                            'class' => 'form2-input input-sm text-right autonumber_mt'
+                        ],
+                        $wr->form2->form2_unquedanned ?? null
+                        ) !!}
+                    </td>
+{{--                    <td class="text-right updatable" for="form2_unquedanned.currentCrop.thisWeek"></td>--}}
+                    <td class="text-right updatable" for="form2_unquedanned.currentCrop.prevWeek"></td>
+                    <td class="text-right updatable" for="form2_unquedanned.currentCrop.toDate"></td>
 
                     <td>
-                        {!! \App\Swep\ViewHelpers\__form2::textboxOnly('prev_unquedanned',[
-                            'class' => 'form2-input input-sm text-right autonum_mt'
+                        {!! \App\Swep\ViewHelpers\__form2::textboxOnly('form2_prev_unquedanned',[
+                            'class' => 'form2-input input-sm text-right autonumber_mt'
                         ],
-                        $wr->form2->prev_unquedanned ?? null
+                        $wr->form2->form2_prev_unquedanned ?? null
                         ) !!}
                     </td>
 {{--                    <td class="text-right updatable" for="unquedanned.prevCrop.thisWeek"></td>--}}
-                    <td class="text-right updatable" for="unquedanned.prevCrop.prevWeek"></td>
-                    <td class="text-right updatable" for="unquedanned.prevCrop.toDate"></td>
+                    <td class="text-right updatable" for="form2_unquedanned.prevCrop.prevWeek"></td>
+                    <td class="text-right updatable" for="form2_unquedanned.prevCrop.toDate"></td>
                 </tr>
                 <tr  for="stockOnHand" class="computation">
                     <td class="text-strong">11. STOCK ON HAND </td>
