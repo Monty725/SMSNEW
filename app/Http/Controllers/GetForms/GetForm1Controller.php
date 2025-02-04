@@ -128,7 +128,7 @@ class GetForm1Controller extends Controller
                 $arr["withdrawals_for_refiningRawData"][$sugarClassesCharge[$delivery->sugar_class]]["currentCrop"]["thisWeek"] =
                     ($arr["withdrawals_for_refiningRawData"][$sugarClassesCharge[$delivery->sugar_class]]["currentCrop"]["thisWeek"] ?? 0) + $delivery->currentTotal;
                 $arr["withdrawals_for_refiningRawData"][$sugarClassesCharge[$delivery->sugar_class]]["prevCrop"]["thisWeek"] =
-                    ($arr["withdrawals_for_refiningRawData"][$sugarClassesCharge[$delivery->sugar_class]]["prevCrop"]["thisWeek"] ?? 0) +$delivery->prevTotal;
+                    ($arr["withdrawals_for_refiningRawData"][$sugarClassesCharge[$delivery->sugar_class]]["prevCrop"]["thisWeek"] ?? 0) + $delivery->prevTotal;
 
                 $withdrawRefCTotalThisWeek += $arr["withdrawals_for_refining"][$delivery->sugar_class]["currentCrop"]["thisWeek"];
                 $withdrawRefPTotalThisWeek += $arr["withdrawals_for_refining"][$delivery->sugar_class]["prevCrop"]["thisWeek"];
@@ -341,6 +341,7 @@ class GetForm1Controller extends Controller
                 ($arr["withdrawals"][$sugarClassesCharge[$sugarClass]]["currentCrop"]["toDate"] ?? 0) -
                 ($arr["withdrawals_for_refiningRawData"][$sugarClassesCharge[$sugarClass]]["currentCrop"]["toDate"] ?? 0) ;
 
+
             //PREVIOUS BALANCE COMPUTATION LOUIS 3-21-2024
             $arr["balance"][$sugarClassesCharge[$sugarClass]]["prevCrop"]["thisWeek"] =
                 ($arr["issuances"][$sugarClassesCharge[$sugarClass]]["prevCrop"]["thisWeek"] ?? 0) -
@@ -348,8 +349,6 @@ class GetForm1Controller extends Controller
                 ($arr["withdrawals_for_refiningRawData"][$sugarClassesCharge[$sugarClass]]["prevCrop"]["thisWeek"] ?? 0) ;
 
 //            PREV WEEK BALANCE
-
-
             $arr["balance"][$sugarClassesCharge[$sugarClass]]["prevCrop"]["prevWeek"] =
                 ($arr["issuances"][$sugarClassesCharge[$sugarClass]]["prevCrop"]["prevWeek"] ?? 0) -
                 ($arr["withdrawals"][$sugarClassesCharge[$sugarClass]]["prevCrop"]["prevWeek"] ?? 0) -
@@ -361,14 +360,13 @@ class GetForm1Controller extends Controller
 //                ($arr["withdrawals_for_refiningRawData"][$sugarClassesCharge[$sugarClass]]["prevCrop"]["toDate"] ?? 0) ;
 
             $arr["balance"][$sugarClassesCharge[$sugarClass]]["prevCrop"]["toDate"] =
-                ($arr["issuances"][$sugarClassesCharge[$sugarClass]]["prevCrop"]["toDate"] ?? 0) -
-
-//                EDIT BALANCE FORM 1 11-15-2024
+                $arr["balance"][$sugarClassesCharge[$sugarClass]]["prevCrop"]["prevWeek"] +
+                $arr["balance"][$sugarClassesCharge[$sugarClass]]["prevCrop"]["thisWeek"];
+//                ($arr["issuances"][$sugarClassesCharge[$sugarClass]]["prevCrop"]["toDate"] ?? 0) -
+//                ($arr["withdrawals_for_refining"][$sugarClassesCharge[$sugarClass]]["prevCrop"]["toDate"] ?? 0) -
 //                ($arr["withdrawals"][$sugarClassesCharge[$sugarClass]]["prevCrop"]["toDate"] ?? 0) -
+//                ($arr["withdrawals_for_refiningRawData"][$sugarClassesCharge[$sugarClass]]["prevCrop"]["toDate"] ?? 0);
 
-                ($arr["withdrawals_for_refining"][$sugarClassesCharge[$sugarClass]]["prevCrop"]["toDate"] ?? 0) -
-                ($arr["withdrawals"][$sugarClassesCharge[$sugarClass]]["prevCrop"]["toDate"] ?? 0) -
-                ($arr["withdrawals_for_refiningRawData"][$sugarClassesCharge[$sugarClass]]["prevCrop"]["toDate"] ?? 0);
 
 //                CHANGES NEW BALANCES FORM 1 11-14-2024
 //            $arr["balance"][$sugarClassesCharge[$sugarClass]]["prevCrop"]["toDate"] =
@@ -408,8 +406,73 @@ class GetForm1Controller extends Controller
             $issuancesPTotalPrevWeek += ($arr["issuances"][$sugarClass]["prevCrop"]["prevWeek"] ?? 0);
             $issuancesPTotalToDate += ($arr["issuances"][$sugarClass]["prevCrop"]["toDate"] ?? 0);
         }
-//sss
+
 //        dd(($arr["withdrawalsRawData"][$sugarClassesCharge["B"]]["prevCrop"]["prevWeek"] ?? 0));
+
+//        $arr['totalBalance'] = [];
+//        if(isset($arr['balance'])) {
+//            foreach ($arr['balance'] as $sClass => $a) {
+//                $balanceCTotalThisWeek += ($arr["balance"][$sClass]["currentCrop"]["thisWeek"] ?? 0);
+//                $balanceCTotalPrevWeek += ($arr["balance"][$sClass]["currentCrop"]["prevWeek"] ?? 0);
+//                $balanceCTotalToDate += ($arr["balance"][$sClass]["currentCrop"]["toDate"] ?? 0);
+//                $balancePTotalThisWeek += ($arr["balance"][$sClass]["prevCrop"]["thisWeek"] ?? 0);
+//                $balancePTotalPrevWeek += ($arr["balance"][$sClass]["prevCrop"]["prevWeek"] ?? 0);
+//                $balancePTotalToDate += ($arr["balance"][$sClass]["prevCrop"]["toDate"] ?? 0);
+//
+//                $arr["totalBalance"] = [
+//                    "currentCrop" => [
+//                        "thisWeek" => number_format($balanceCTotalThisWeek, 3, '.', ','),
+//                        "prevWeek" => number_format($balanceCTotalPrevWeek, 3, '.', ','),
+//                        "toDate" => number_format($balanceCTotalToDate, 3, '.', ','),
+//                    ],
+//                    "prevCrop" => [
+//                        "thisWeek" => number_format($balancePTotalThisWeek, 3, '.', ','),
+//                        "prevWeek" => number_format($balancePTotalPrevWeek, 3, '.', ','),
+//                        "toDate" => number_format($balancePTotalToDate, 3, '.', ','),
+//                    ],
+//                ];
+//            }
+//        }
+
+//        $arr['totalBalance'] = [];
+//        if(isset($arr['balance'])) {
+//            foreach ($arr['balance'] as $sClass => $a) {
+//                $balanceCTotalThisWeek += ($arr["balance"][$sClass]["currentCrop"]["thisWeek"] ?? 0);
+//                $balanceCTotalPrevWeek += ($arr["balance"][$sClass]["currentCrop"]["prevWeek"] ?? 0);
+//                $balanceCTotalToDate += ($arr["balance"][$sClass]["currentCrop"]["toDate"] ?? 0);
+//                $balancePTotalThisWeek += ($arr["balance"][$sClass]["prevCrop"]["thisWeek"] ?? 0);
+//                $balancePTotalPrevWeek += ($arr["balance"][$sClass]["prevCrop"]["prevWeek"] ?? 0);
+//                $balancePTotalToDate += ($arr["balance"][$sClass]["prevCrop"]["toDate"] ?? 0);
+//
+//                $arr["totalBalance"] = [
+//                    "currentCrop" => [
+//                        "thisWeek" => number_format($balanceCTotalThisWeek, 3, '.', ','),
+//                        "prevWeek" => number_format($balanceCTotalPrevWeek, 3, '.', ','),
+//                        "toDate" => number_format($balanceCTotalToDate, 3, '.', ','),
+//                    ],
+//                    "prevCrop" => [
+//                        "thisWeek" => number_format($balancePTotalThisWeek, 3, '.', ','),
+//                        "prevWeek" => number_format($balancePTotalPrevWeek, 3, '.', ','),
+//                        "toDate" => number_format($balancePTotalToDate, 3, '.', ','),
+//                    ],
+//                ];
+//            }
+//        }
+
+
+
+        $arr["totalIssuances"] = [
+            "currentCrop"=>[
+                "thisWeek"=>number_format($issuancesCTotalThisWeek, 3, '.', ','),
+                "prevWeek"=>number_format($issuancesCTotalPrevWeek, 3, '.', ','),
+                "toDate"=>number_format($issuancesCTotalToDate, 3, '.', ','),
+            ],
+            "prevCrop"=>[
+                "thisWeek"=>number_format($issuancesPTotalThisWeek, 3, '.', ','),
+                "prevWeek"=>number_format($issuancesPTotalPrevWeek, 3, '.', ','),
+                "toDate"=>number_format($issuancesPTotalToDate, 3, '.', ','),
+            ],
+        ];
 
         $arr['totalBalance'] = [];
         if(isset($arr['balance'])) {
@@ -430,26 +493,12 @@ class GetForm1Controller extends Controller
                     "prevCrop" => [
                         "thisWeek" => number_format($balancePTotalThisWeek, 3, '.', ','),
                         "prevWeek" => number_format($balancePTotalPrevWeek, 3, '.', ','),
-                        "toDate" => number_format($balancePTotalToDate, 3, '.', ','),
+//                        "toDate" => number_format($balancePTotalToDate, 3, '.', ','),
+                        "toDate" => number_format($balancePTotalPrevWeek+$balancePTotalThisWeek, 3, '.', ','),
                     ],
                 ];
             }
         }
-
-
-
-        $arr["totalIssuances"] = [
-            "currentCrop"=>[
-                "thisWeek"=>number_format($issuancesCTotalThisWeek, 3, '.', ','),
-                "prevWeek"=>number_format($issuancesCTotalPrevWeek, 3, '.', ','),
-                "toDate"=>number_format($issuancesCTotalToDate, 3, '.', ','),
-            ],
-            "prevCrop"=>[
-                "thisWeek"=>number_format($issuancesPTotalThisWeek, 3, '.', ','),
-                "prevWeek"=>number_format($issuancesPTotalPrevWeek, 3, '.', ','),
-                "toDate"=>number_format($issuancesPTotalToDate, 3, '.', ','),
-            ],
-        ];
 
 
 
@@ -482,7 +531,7 @@ class GetForm1Controller extends Controller
             "prevCrop"=>[
                 "thisWeek"=>number_format(($balancePTotalThisWeek)+($thisWeek->form1_prev_unquedanned), 3, '.', ','),
                 "prevWeek"=>number_format(($balancePTotalPrevWeek)+($prevWeek->form1_prev_unquedanned), 3, '.', ','),
-                "toDate"=>number_format(($balancePTotalToDate)+($toDate->form1_prev_unquedanned), 3, '.', ','),
+                "toDate"=>number_format(($balancePTotalPrevWeek+$balancePTotalThisWeek)+($toDate->form1_prev_unquedanned), 3, '.', ','),
             ],
         ];
 
@@ -558,7 +607,7 @@ class GetForm1Controller extends Controller
             "prevCrop"=>[
                 "thisWeek"=>number_format((($balancePTotalThisWeek)+($thisWeek->form1_prev_unquedanned))-($thisWeek->prev_transfers_to_refinery), 3, '.', ','),
                 "prevWeek"=>number_format((($balancePTotalPrevWeek)+($prevWeek->form1_prev_unquedanned))-($prevWeek->prev_transfers_to_refinery), 3, '.', ','),
-                "toDate"=>number_format((($balancePTotalToDate)+($toDate->form1_prev_unquedanned))-($toDate->prev_transfers_to_refinery), 3, '.', ','),
+                "toDate"=>number_format((($balancePTotalPrevWeek+$balancePTotalThisWeek)+($toDate->form1_prev_unquedanned))-($toDate->prev_transfers_to_refinery), 3, '.', ','),
             ],
         ];
 
