@@ -408,7 +408,7 @@ class GetForm1Controller extends Controller
             $issuancesPTotalPrevWeek += ($arr["issuances"][$sugarClass]["prevCrop"]["prevWeek"] ?? 0);
             $issuancesPTotalToDate += ($arr["issuances"][$sugarClass]["prevCrop"]["toDate"] ?? 0);
         }
-
+//sss
 //        dd(($arr["withdrawalsRawData"][$sugarClassesCharge["B"]]["prevCrop"]["prevWeek"] ?? 0));
 
         $arr['totalBalance'] = [];
