@@ -336,10 +336,11 @@ class GetForm1Controller extends Controller
 
 
             $arr["balance"][$sugarClassesCharge[$sugarClass]]["currentCrop"]["toDate"] =
-                ($arr["issuances"][$sugarClassesCharge[$sugarClass]]["currentCrop"]["toDate"] ?? 0) -
-//                CHANGES NEW BALANCES FORM 1 11-14-2024
-                ($arr["withdrawals"][$sugarClassesCharge[$sugarClass]]["currentCrop"]["toDate"] ?? 0) -
-                ($arr["withdrawals_for_refiningRawData"][$sugarClassesCharge[$sugarClass]]["currentCrop"]["toDate"] ?? 0) ;
+                $arr["balance"][$sugarClassesCharge[$sugarClass]]["currentCrop"]["thisWeek"] +
+                $arr["balance"][$sugarClassesCharge[$sugarClass]]["currentCrop"]["prevWeek"];
+//                ($arr["issuances"][$sugarClassesCharge[$sugarClass]]["currentCrop"]["toDate"] ?? 0) -
+//                ($arr["withdrawals"][$sugarClassesCharge[$sugarClass]]["currentCrop"]["toDate"] ?? 0) -
+//                ($arr["withdrawals_for_refiningRawData"][$sugarClassesCharge[$sugarClass]]["currentCrop"]["toDate"] ?? 0) ;
 
 
             //PREVIOUS BALANCE COMPUTATION LOUIS 3-21-2024
@@ -486,15 +487,14 @@ class GetForm1Controller extends Controller
 
                 $arr["totalBalance"] = [
                     "currentCrop" => [
-                        "thisWeek" => number_format($balanceCTotalThisWeek, 3, '.', ','),
-                        "prevWeek" => number_format($balanceCTotalPrevWeek, 3, '.', ','),
-                        "toDate" => number_format($balanceCTotalToDate, 3, '.', ','),
+                        "thisWeek" => formatValue($balanceCTotalThisWeek),
+                        "prevWeek" => formatValue($balanceCTotalPrevWeek),
+                        "toDate" => formatValue($balanceCTotalToDate),
                     ],
                     "prevCrop" => [
-                        "thisWeek" => number_format($balancePTotalThisWeek, 3, '.', ','),
-                        "prevWeek" => number_format($balancePTotalPrevWeek, 3, '.', ','),
-//                        "toDate" => number_format($balancePTotalToDate, 3, '.', ','),
-                        "toDate" => number_format($balancePTotalPrevWeek+$balancePTotalThisWeek, 3, '.', ','),
+                        "thisWeek" => formatValue($balancePTotalThisWeek),
+                        "prevWeek" => formatValue($balancePTotalPrevWeek),
+                        "toDate" => formatValue($balancePTotalPrevWeek+$balancePTotalThisWeek),
                     ],
                 ];
             }
@@ -504,69 +504,41 @@ class GetForm1Controller extends Controller
 
         //UNQUEDANNED FORMULA LOUIS 3-25-2024 (MANUFACTURED - TOTAL ISSUANCE) NEW - STOCK BALANCE
         $arr["stockBal"] = [
-//            "currentCrop"=>[
-//                "thisWeek"=>number_format(($arr["manufactured"]["currentCrop"]["thisWeek"]) - $issuancesCTotalThisWeek, 3, '.', ','),
-//                "prevWeek"=>number_format(($arr["manufactured"]["currentCrop"]["prevWeek"]) - $issuancesCTotalPrevWeek, 3, '.', ','),
-//                "toDate"=>number_format(($arr["manufactured"]["currentCrop"]["toDate"]) - $issuancesCTotalToDate, 3, '.', ','),
-//            ],
-
 //            NEW STOCK BALANCE FORMULA LOUIS 11-14-2024
             "currentCrop"=>[
-                "thisWeek"=>number_format($balanceCTotalThisWeek + ($thisWeek->manufactured - $issuancesCTotalThisWeek), 3, '.', ','),
-                "prevWeek"=>number_format($balanceCTotalPrevWeek + ($prevWeek->manufactured - $issuancesCTotalPrevWeek), 3, '.', ','),
-                "toDate"=>number_format($balanceCTotalToDate + ($toDate->manufactured - $issuancesCTotalToDate), 3, '.', ','),
+                "thisWeek"=>formatValue($balanceCTotalThisWeek + ($thisWeek->manufactured - $issuancesCTotalThisWeek)),
+                "prevWeek"=>formatValue($balanceCTotalPrevWeek + ($prevWeek->manufactured - $issuancesCTotalPrevWeek)),
+                "toDate"=>formatValue($balanceCTotalToDate + ($toDate->manufactured - $issuancesCTotalToDate)),
             ],
-//            "prevCrop"=>[
-//                "thisWeek"=>number_format(($arr["manufactured"]["prevCrop"]["thisWeek"]) - $issuancesPTotalThisWeek, 3, '.', ','),
-//                "prevWeek"=>number_format(($arr["manufactured"]["prevCrop"]["prevWeek"]) - $issuancesPTotalPrevWeek, 3, '.', ','),
-//                "toDate"=>number_format(($arr["manufactured"]["prevCrop"]["toDate"]) - $issuancesPTotalToDate, 3, '.', ','),
-//            ],
-//            "prevCrop"=>[
-//                "thisWeek"=>number_format($issuancesPTotalThisWeek - $withdrawPTotalThisWeek, 3, '.', ','),
-//                "prevWeek"=>number_format($issuancesPTotalPrevWeek - $withdrawPTotalPrevWeek, 3, '.', ','),
-//                "toDate"=>number_format($issuancesPTotalToDate - $withdrawPTotalToDate, 3, '.', ','),
-//            ],
-
 //            NEW STOCK BALANCE PREVIOUS CROP FORMULA LOUIS 11-14-2024
             "prevCrop"=>[
-                "thisWeek"=>number_format(($balancePTotalThisWeek)+($thisWeek->form1_prev_unquedanned), 3, '.', ','),
-                "prevWeek"=>number_format(($balancePTotalPrevWeek)+($prevWeek->form1_prev_unquedanned), 3, '.', ','),
-                "toDate"=>number_format(($balancePTotalPrevWeek+$balancePTotalThisWeek)+($toDate->form1_prev_unquedanned), 3, '.', ','),
+                "thisWeek"=>formatValue(($balancePTotalThisWeek)+($thisWeek->form1_prev_unquedanned)),
+                "prevWeek"=>formatValue(($balancePTotalPrevWeek)+($prevWeek->form1_prev_unquedanned)),
+                "toDate"=>formatValue(($balancePTotalPrevWeek+$balancePTotalThisWeek)+($toDate->form1_prev_unquedanned)),
             ],
         ];
 
-        //STOCK BALANCE FORMULA LOUIS 3-25-2024 (TOTAL BALANCE + UNQUEDANNED) NEW - UNQUEDANNED
+        //UNQUEDANNED FORMULA LOUIS 3-25-2024 (TOTAL BALANCE + UNQUEDANNED) NEW - UNQUEDANNED
         $arr["unquedanned"] = [
-//            "currentCrop"=>[
-//                "thisWeek"=>number_format(($balanceCTotalThisWeek) + (($arr["manufactured"]["currentCrop"]["thisWeek"]) - $issuancesCTotalThisWeek), 3, '.', ','),
-//                "prevWeek"=>number_format(($balanceCTotalPrevWeek) + (($arr["manufactured"]["currentCrop"]["prevWeek"]) - $issuancesCTotalPrevWeek), 3, '.', ','),
-//                "toDate"=>number_format(($balanceCTotalToDate) + (($arr["manufactured"]["currentCrop"]["toDate"]) - $issuancesCTotalToDate), 3, '.', ','),
-//            ],
-
-//            NEW UNQUEDANNED FORMULA CURRENT YEAR 11-14-2024
+            //NEW UNQUEDANNED FORMULA CURRENT YEAR 11-14-2024
             "currentCrop"=>[
-                "thisWeek"=>number_format($thisWeek->manufactured- $issuancesCTotalThisWeek, 3, '.', ','),
-                "prevWeek"=>number_format($prevWeek->manufactured - $issuancesCTotalPrevWeek, 3, '.', ','),
-                "toDate"=>number_format($toDate->manufactured - $issuancesCTotalToDate, 3, '.', ','),
+                "thisWeek"=>formatValue($thisWeek->manufactured- $issuancesCTotalThisWeek),
+                "prevWeek"=>formatValue($prevWeek->manufactured - $issuancesCTotalPrevWeek),
+                "toDate"=>formatValue($toDate->manufactured - $issuancesCTotalToDate),
             ],
 
-//            "prevCrop"=>[
-//                "thisWeek"=>number_format(($balancePTotalThisWeek) + (($arr["manufactured"]["prevCrop"]["thisWeek"]) - $issuancesPTotalThisWeek), 3, '.', ','),
-//                "prevWeek"=>number_format(($balancePTotalPrevWeek) + (($arr["manufactured"]["prevCrop"]["prevWeek"]) - $issuancesPTotalPrevWeek), 3, '.', ','),
-//                "toDate"=>number_format(($balancePTotalToDate) + (($arr["manufactured"]["prevCrop"]["toDate"]) - $issuancesPTotalToDate), 3, '.', ','),
-//            ],
         ];
-        $arr["unquedanned"]["prevCrop"]["thisWeek"]=number_format($thisWeek->form1_prev_unquedanned, 3, '.', ',');
-        $arr["unquedanned"]["prevCrop"]["prevWeek"]=number_format($prevWeek->form1_prev_unquedanned, 3, '.', ',');
-        $arr["unquedanned"]["prevCrop"]["toDate"]=number_format($toDate->form1_prev_unquedanned, 3, '.', ',');
+        $arr["unquedanned"]["prevCrop"]["thisWeek"]=formatValue($thisWeek->form1_prev_unquedanned);
+        $arr["unquedanned"]["prevCrop"]["prevWeek"]=formatValue($prevWeek->form1_prev_unquedanned);
+        $arr["unquedanned"]["prevCrop"]["toDate"]=formatValue($toDate->form1_prev_unquedanned);
 
         //TRANSFERS TO REFINERY COMPUTATION
-        $arr["transfersToRef"]["currentCrop"]["thisWeek"]=number_format($thisWeek->transfers_to_refinery, 3, '.', ',');
-        $arr["transfersToRef"]["currentCrop"]["prevWeek"]=number_format($prevWeek->transfers_to_refinery, 3, '.', ',');
-        $arr["transfersToRef"]["currentCrop"]["toDate"]=number_format($toDate->transfers_to_refinery, 3, '.', ',');
-        $arr["transfersToRef"]["prevCrop"]["thisWeek"]=number_format($thisWeek->prev_transfers_to_refinery, 3, '.', ',');
-        $arr["transfersToRef"]["prevCrop"]["prevWeek"]=number_format($prevWeek->prev_transfers_to_refinery, 3, '.', ',');
-        $arr["transfersToRef"]["prevCrop"]["toDate"]=number_format($toDate->prev_transfers_to_refinery, 3, '.', ',');
+        $arr["transfersToRef"]["currentCrop"]["thisWeek"]=formatValue($thisWeek->transfers_to_refinery);
+        $arr["transfersToRef"]["currentCrop"]["prevWeek"]=formatValue($prevWeek->transfers_to_refinery);
+        $arr["transfersToRef"]["currentCrop"]["toDate"]=formatValue($toDate->transfers_to_refinery);
+        $arr["transfersToRef"]["prevCrop"]["thisWeek"]=formatValue($thisWeek->prev_transfers_to_refinery);
+        $arr["transfersToRef"]["prevCrop"]["prevWeek"]=formatValue($prevWeek->prev_transfers_to_refinery);
+        $arr["transfersToRef"]["prevCrop"]["toDate"]=formatValue($toDate->prev_transfers_to_refinery);
 
 //        //l STOCK COMPUTATION
 //        $arr["physicalStock"] = [
@@ -584,30 +556,17 @@ class GetForm1Controller extends Controller
 
         //PHYSICAL STOCK COMPUTATION
         $arr["physicalStock"] = [
-//            "currentCrop"=>[
-//                "thisWeek"=>number_format(($arr["manufactured"]["currentCrop"]["thisWeek"]) - $issuancesCTotalThisWeek - ($arr["transfersToRef"]["currentCrop"]["thisWeek"]=$thisWeek->transfers_to_refinery), 3, '.', ','),
-//                "prevWeek"=>number_format(($arr["manufactured"]["currentCrop"]["prevWeek"]) - $issuancesCTotalPrevWeek - ($arr["transfersToRef"]["currentCrop"]["prevWeek"]=$prevWeek->transfers_to_refinery), 3, '.', ','),
-//                "toDate"=>number_format(($arr["manufactured"]["currentCrop"]["toDate"]) - $issuancesCTotalToDate - ($arr["transfersToRef"]["currentCrop"]["toDate"]=$toDate->transfers_to_refinery), 3, '.', ','),
-//            ],
-
 //        NEW CURRENT PHYSICAL STOCK FORMULA 11-14-2024
             "currentCrop"=>[
-                "thisWeek"=>number_format(($balanceCTotalThisWeek + ($thisWeek->manufactured - $issuancesCTotalThisWeek)) - ($thisWeek->transfers_to_refinery), 3, '.', ','),
-                "prevWeek"=>number_format(($balanceCTotalPrevWeek + ($prevWeek->manufactured - $issuancesCTotalPrevWeek)) - ($prevWeek->transfers_to_refinery) , 3, '.', ','),
-                "toDate"=>number_format(($balanceCTotalToDate + ($toDate->manufactured - $issuancesCTotalToDate)) - ($toDate->transfers_to_refinery) , 3, '.', ','),
+                "thisWeek"=>formatValue(($balanceCTotalThisWeek + ($thisWeek->manufactured - $issuancesCTotalThisWeek)) - ($thisWeek->transfers_to_refinery)),
+                "prevWeek"=>formatValue(($balanceCTotalPrevWeek + ($prevWeek->manufactured - $issuancesCTotalPrevWeek)) - ($prevWeek->transfers_to_refinery)),
+                "toDate"=>formatValue(($balanceCTotalToDate + ($toDate->manufactured - $issuancesCTotalToDate)) - ($toDate->transfers_to_refinery)),
             ],
-
-//            "prevCrop"=>[
-//                "thisWeek"=>number_format(($issuancesPTotalThisWeek - $withdrawPTotalThisWeek) - ($arr["transfersToRef"]["prevCrop"]["thisWeek"]=$thisWeek->prev_transfers_to_refinery), 3, '.', ','),
-//                "prevWeek"=>number_format(($issuancesPTotalPrevWeek - $withdrawPTotalPrevWeek) - ($arr["transfersToRef"]["prevCrop"]["prevWeek"]=$prevWeek->prev_transfers_to_refinery), 3, '.', ','),
-//                "toDate"=>number_format(($issuancesPTotalToDate - $withdrawPTotalToDate) - ($arr["transfersToRef"]["prevCrop"]["toDate"]=$toDate->prev_transfers_to_refinery), 3, '.', ','),
-//            ],
-
 //        NEW PREVIOUS PHYSICAL STOCK FORMULA 11-14-2024
             "prevCrop"=>[
-                "thisWeek"=>number_format((($balancePTotalThisWeek)+($thisWeek->form1_prev_unquedanned))-($thisWeek->prev_transfers_to_refinery), 3, '.', ','),
-                "prevWeek"=>number_format((($balancePTotalPrevWeek)+($prevWeek->form1_prev_unquedanned))-($prevWeek->prev_transfers_to_refinery), 3, '.', ','),
-                "toDate"=>number_format((($balancePTotalPrevWeek+$balancePTotalThisWeek)+($toDate->form1_prev_unquedanned))-($toDate->prev_transfers_to_refinery), 3, '.', ','),
+                "thisWeek"=>formatValue((($balancePTotalThisWeek)+($thisWeek->form1_prev_unquedanned))-($thisWeek->prev_transfers_to_refinery)),
+                "prevWeek"=>formatValue((($balancePTotalPrevWeek)+($prevWeek->form1_prev_unquedanned))-($prevWeek->prev_transfers_to_refinery)),
+                "toDate"=>formatValue((($balancePTotalPrevWeek+$balancePTotalThisWeek)+($toDate->form1_prev_unquedanned))-($toDate->prev_transfers_to_refinery)),
             ],
         ];
 

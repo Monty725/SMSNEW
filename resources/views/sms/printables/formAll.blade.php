@@ -34,7 +34,7 @@
 @section("scripts")
     <script type="text/javascript">
         @if(!Request::has("form"))
-            print();
+        print();
         @endif
     </script>
 @endsection

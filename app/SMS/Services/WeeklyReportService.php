@@ -41,7 +41,7 @@ class WeeklyReportService
 
         $weekly_report = $this->findWeeklyReportBySlug($slug);
         $valuesStructure = [];
-        foreach (Arrays::sugarClasses() as $sugarClass){
+        foreach (Arrays::sugarClassesCharging() as $sugarClass){
             $valuesStructure[$sugarClass] = [
                 'current' => null,
                 'current_prevweek' => null,
@@ -72,7 +72,7 @@ class WeeklyReportService
         //ISSUANCES
         $formArray['issuances'] = $valuesStructure;
         if(!empty($weekly_report->form1)){
-            foreach (Arrays::sugarClasses() as $sugarClass){
+            foreach (Arrays::sugarClassesCharging() as $sugarClass){
 //                $formArray['issuances'][$sugarClass]['current'] = $get=='toDate' ? $toDate->$sugarClass :  $weekly_report->form1->$sugarClass;
 //                $formArray['issuances'][$sugarClass]['prev'] = $get=='toDate'  ? $toDate->{'prev_'.$sugarClass} : $weekly_report->form1->{'prev_'.$sugarClass};
                 $formArray['issuances'][$sugarClass] = $this->makeCurrentPrev($relation->$sugarClass ?? null, $prevweek->{'prev_'.$sugarClass} ?? null,$relation->{'prev_'.$sugarClass} ?? null);

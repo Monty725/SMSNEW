@@ -23,70 +23,58 @@
         <tbody>
         <tr>
             <td>1. MANUFACTURED</td>
+{{--            @dd($newform1);--}}
             <td class="text-right">
-                {{ \App\Swep\Helpers\Helper::toNumber($form1['manufactured']['current'] ?? null,3) }}
+                {{ $newform1['values']['manufactured.currentCrop.thisWeek'] ?? 0 }}
             </td>
             <td class="text-right">
-                {{ \App\Swep\Helpers\Helper::toNumber($prevToDateForm1['manufactured']['current'] ?? null,3) }}
+                {{ $newform1['values']['manufactured.currentCrop.prevWeek'] ?? 0 }}
             </td>
             <td class="text-right">
-                {{\App\Swep\Helpers\Helper::toNumber($toDateForm1['manufactured']['current'] ?? null ,3)}}
+                {{$newform1['values']['manufactured.currentCrop.toDate'] ?? 0 }}
             </td>
             <td class="text-right">
-                {{ \App\Swep\Helpers\Helper::toNumber($form1['manufactured']['prev'] ?? null,3) }}
+                {{$newform1['values']['manufactured.prevCrop.thisWeek'] ?? 0 }}
             </td>
             <td class="text-right">
-                {{ \App\Swep\Helpers\Helper::toNumber($prevToDateForm1['manufactured']['prev'] ?? null,3) }}
+                {{$newform1['values']['manufactured.prevCrop.prevWeek'] ?? 0 }}
             </td>
             <td class="text-right">
-            {{\App\Swep\Helpers\Helper::toNumber($toDateForm1['manufactured']['prev'] ?? null ,3)}}
+                {{$newform1['values']['manufactured.prevCrop.toDate'] ?? 0 }}
             </td>
         </tr>
 
         <tr>
-{{--            LOUIS 11-20-2023 ISSUANCE TOTAL ERROR--}}
             <td colspan="4">2. ISSUANCES/CARRY-OVER</td>
-{{--            <td class="text-right">--}}
-{{--                {{ \App\Swep\Helpers\Helper::toNumber($form1['issuancesTotal']['prev'] ?? null, 3) }}--}}
-{{--            </td>--}}
-{{--            <td class="text-right">--}}
-{{--                {{ \App\Swep\Helpers\Helper::toNumber($prevToDateForm1['issuancesTotal']['prev'] ?? null, 3) }}--}}
-{{--            </td>--}}
-{{--            <td class="text-right">--}}
-{{--                {{\App\Swep\Helpers\Helper::toNumber($toDateForm1['issuancesTotal']['prev'] ?? null ,3)}}--}}
-{{--            </td>--}}
         </tr>
 
-        @if(isset($form1['issuances']) || isset($prevToDateForm1['issuances']) || isset($toDateForm1['issuances']))
-
+        {{--NEW ISSUANCES PRINTING LOUIS 2-5-2025--}}
+        @if(!empty($newform1["rows"]["issuances"]))
             @php
-
-                $common = array_keys(array_merge($form1['issuances'],$prevToDateForm1['issuances'] ?? []  ,  $toDateForm1['issuances']) );
-                sort($common);
-
+                $rowsissuances = $newform1["rows"]["issuances"];
+                ksort($rowsissuances);
             @endphp
-
-            @foreach($common as $value)
+            @foreach($rowsissuances as $sugarclass => $issuances)
                 <tr>
-                    <td><span class="indent"></span> {{$value}}</td>
-                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($form1['issuances'][$value]['current'] ?? null,3)}}</td>
-                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($prevToDateForm1['issuances'][$value]['current'] ?? null ,3)}}</td>
-                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($toDateForm1['issuances'][$value]['current'] ?? null ,3)}}</td>
-                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($form1['issuances'][$value]['prev'] ?? null,3)}}</td>
-                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($prevToDateForm1['issuances'][$value]['prev'] ?? null ,3)}}</td>
-                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($toDateForm1['issuances'][$value]['prev'] ?? null ,3)}}</td>
+                    <td><span class="indent"></span><span class="indent"></span> {{$sugarclass}}</td>
+                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($issuances["currentCrop"]["thisWeek"] ?? 0,3)}}</td>
+                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($issuances["currentCrop"]["prevWeek"] ?? 0 ,3)}}</td>
+                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($issuances["currentCrop"]["toDate"] ?? 0 ,3)}}</td>
+                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($issuances["prevCrop"]["thisWeek"] ?? 0,3)}}</td>
+                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($issuances["prevCrop"]["prevWeek"] ?? 0 ,3)}}</td>
+                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($issuances["prevCrop"]["toDate"] ?? 0 ,3)}}</td>
                 </tr>
             @endforeach
         @endif
 
         <tr>
             <td class="text-right">TOTAL</td>
-            <td class="text-right text-strong">{{\App\Swep\Helpers\Helper::toNumber($form1['issuancesTotal']['current'] ?? null,3)}}</td>
-            <td class="text-right text-strong">{{\App\Swep\Helpers\Helper::toNumber($prevToDateForm1['issuancesTotal']['current'] ?? null,3)}}</td>
-            <td class="text-right text-strong">{{\App\Swep\Helpers\Helper::toNumber($toDateForm1['issuancesTotal']['current'] ?? null,3)}}</td>
-            <td class="text-right text-strong">{{\App\Swep\Helpers\Helper::toNumber($form1['issuancesTotal']['prev'] ?? null,3)}}</td>
-            <td class="text-right text-strong">{{\App\Swep\Helpers\Helper::toNumber($prevToDateForm1['issuancesTotal']['prev'] ?? null,3)}}</td>
-            <td class="text-right text-strong">{{\App\Swep\Helpers\Helper::toNumber($toDateForm1['issuancesTotal']['prev'] ?? null,3)}}</td>
+            <td class="text-right text-strong">{{$newform1['values']['totalIssuances.currentCrop.thisWeek'] ?? 0 }}</td>
+            <td class="text-right text-strong">{{$newform1['values']['totalIssuances.currentCrop.prevWeek'] ?? 0 }}</td>
+            <td class="text-right text-strong">{{$newform1['values']['totalIssuances.currentCrop.toDate'] ?? 0 }}</td>
+            <td class="text-right text-strong">{{$newform1['values']['totalIssuances.prevCrop.thisWeek'] ?? 0 }}</td>
+            <td class="text-right text-strong">{{$newform1['values']['totalIssuances.prevCrop.prevWeek'] ?? 0 }}</td>
+            <td class="text-right text-strong">{{$newform1['values']['totalIssuances.prevCrop.toDate'] ?? 0 }}</td>
         </tr>
 
         <tr>
@@ -97,192 +85,139 @@
             <td colspan="7"><span class="indent"></span> 3.1. Exports/Domestic/World</td>
         </tr>
 
-{{--        {{dd($prevToDateForm1)}}--}}
-        @if(isset($form1['withdrawals']) || isset($prevToDateForm1['withdrawals']) || isset($toDateForm1['withdrawals']))
+        {{--NEW WITHDRAWALS PRINTING LOUIS 2-5-2025--}}
+        @if(!empty($newform1["rows"]["withdrawals"]))
             @php
-                $common = array_keys(array_merge($form1['withdrawals'],$prevToDateForm1['withdrawals'] ?? [] ,$toDateForm1['withdrawals'] ));
-                sort($common);
+            $rowswithdrawals = $newform1["rows"]["withdrawals"];
+            ksort($rowswithdrawals);
             @endphp
-            @foreach($common as $value)
-{{--                {{dd($prevToDateForm1['withdrawals'][$value]['current'])}}--}}
+            @foreach($rowswithdrawals as $sugarclass => $withdrawals)
                 <tr>
-                    <td><span class="indent"></span><span class="indent"></span> {{$value}}</td>
-                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($form1['withdrawals'][$value]['current'] ?? null,3)}}</td>
-                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($prevToDateForm1['withdrawals'][$value]['current'] ?? null ,3)}}</td>
-                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($toDateForm1['withdrawals'][$value]['current'] ?? null ,3)}}</td>
-                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($form1['withdrawals'][$value]['prev'] ?? null,3)}}</td>
-                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($prevToDateForm1['withdrawals'][$value]['prev'] ?? null ,3)}}</td>
-                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($toDateForm1['withdrawals'][$value]['prev'] ?? null ,3)}}</td>
+                    <td><span class="indent"></span><span class="indent"></span> {{$sugarclass}}</td>
+                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($withdrawals["currentCrop"]["thisWeek"] ?? 0,3)}}</td>
+                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($withdrawals["currentCrop"]["prevWeek"] ?? 0 ,3)}}</td>
+                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($withdrawals["currentCrop"]["toDate"] ?? 0 ,3)}}</td>
+                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($withdrawals["prevCrop"]["thisWeek"] ?? 0,3)}}</td>
+                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($withdrawals["prevCrop"]["prevWeek"] ?? 0 ,3)}}</td>
+                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($withdrawals["prevCrop"]["toDate"] ?? 0 ,3)}}</td>
                 </tr>
             @endforeach
         @endif
+
+        {{--{{dd($newform1)}}--}}
+
         <tr>
             <td class="text-right">3.1. Total</td>
-            <td class="text-right text-strong">{{\App\Swep\Helpers\Helper::toNumber($form1['withdrawalsTotal']['current'] ?? null ,3)}}</td>
-            <td class="text-right text-strong">{{\App\Swep\Helpers\Helper::toNumber($prevToDateForm1['withdrawalsTotal']['current'] ?? null ,3,'0.00')}}</td>
-            <td class="text-right text-strong">{{\App\Swep\Helpers\Helper::toNumber($toDateForm1['withdrawalsTotal']['current'] ?? null ,3,'0.00')}}</td>
-            <td class="text-right text-strong">{{\App\Swep\Helpers\Helper::toNumber($form1['withdrawalsTotal']['prev'] ?? null ,3)}}</td>
-            <td class="text-right text-strong">{{\App\Swep\Helpers\Helper::toNumber($prevToDateForm1['withdrawalsTotal']['prev'] ?? null ,3,'0.00')}}</td>
-            <td class="text-right text-strong">{{\App\Swep\Helpers\Helper::toNumber($toDateForm1['withdrawalsTotal']['prev'] ?? null ,3,'0.00')}}</td>
+            <td class="text-right text-strong">{{$newform1['values']['totalWithdraw.currentCrop.thisWeek'] ?? 0 }}</td>
+            <td class="text-right text-strong">{{$newform1['values']['totalWithdraw.currentCrop.prevWeek'] ?? 0 }}</td>
+            <td class="text-right text-strong">{{$newform1['values']['totalWithdraw.currentCrop.toDate'] ?? 0 }}</td>
+            <td class="text-right text-strong">{{$newform1['values']['totalWithdraw.prevCrop.thisWeek'] ?? 0 }}</td>
+            <td class="text-right text-strong">{{$newform1['values']['totalWithdraw.prevCrop.prevWeek'] ?? 0 }}</td>
+            <td class="text-right text-strong">{{$newform1['values']['totalWithdraw.prevCrop.toDate'] ?? 0 }}</td>
         </tr>
+
         <tr>
             <td colspan="7"><span class="indent"></span>3.2. For Refining:</td>
         </tr>
-        @if(isset($form1['forRefining']) || isset($prevToDateForm1['forRefining']) || isset($toDateForm1['forRefining']))
-            @if(count($form1['forRefining']) > 0 || count($prevToDateForm1['forRefining']) > 0 || count($toDateForm1['forRefining']) > 0)
 
-
+        {{--NEW WITHDRAWALS REFINED PRINTING LOUIS 2-5-2025--}}
+        @if(!empty($newform1["rows"]["withdrawals_for_refining"]))
             @php
-                $common = array_keys(array_merge($form1['forRefining'],$prevToDateForm1['forRefining'] ?? [] ,$toDateForm1['forRefining'] ));
-                sort($common);
+                $rowswithdrawalsref = $newform1["rows"]["withdrawals_for_refining"];
+                ksort($rowswithdrawalsref);
             @endphp
-            @foreach($common as $value)
+            @foreach($rowswithdrawalsref as $sugarclass => $withdrawals)
                 <tr>
-                    <td><span class="indent"></span><span class="indent"></span> {{$value}}</td>
-                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($form1['forRefining'][$value]['current'] ?? null,3)}}</td>
-                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($prevToDateForm1['forRefining'][$value]['current'] ?? null ,3)}}</td>
-                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($toDateForm1['forRefining'][$value]['current'] ?? null ,3)}}</td>
-                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($form1['forRefining'][$value]['prev'] ?? null,3)}}</td>
-                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($prevToDateForm1['forRefining'][$value]['prev'] ?? null ,3)}}</td>
-                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($toDateForm1['forRefining'][$value]['prev'] ?? null ,3)}}</td>
+                    <td><span class="indent"></span><span class="indent"></span> {{$sugarclass}}</td>
+                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($withdrawals["currentCrop"]["thisWeek"] ?? 0,3)}}</td>
+                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($withdrawals["currentCrop"]["prevWeek"] ?? 0 ,3)}}</td>
+                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($withdrawals["currentCrop"]["toDate"] ?? 0 ,3)}}</td>
+                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($withdrawals["prevCrop"]["thisWeek"] ?? 0,3)}}</td>
+                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($withdrawals["prevCrop"]["prevWeek"] ?? 0 ,3)}}</td>
+                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($withdrawals["prevCrop"]["toDate"] ?? 0 ,3)}}</td>
                 </tr>
             @endforeach
-            @endif
-
-            <tr>
-                <td class="text-right">3.2. Total</td>
-                <td class="text-right text-strong">{{\App\Swep\Helpers\Helper::toNumber($form1['forRefiningTotal']['current'] ?? null ,3)}}</td>
-                <td class="text-right text-strong">{{\App\Swep\Helpers\Helper::toNumber($prevToDateForm1['forRefiningTotal']['current'] ?? null ,3,'0.00')}}</td>
-                <td class="text-right text-strong">{{\App\Swep\Helpers\Helper::toNumber($toDateForm1['forRefiningTotal']['current'] ?? null ,3,'0.00')}}</td>
-                <td class="text-right text-strong">{{\App\Swep\Helpers\Helper::toNumber($form1['forRefiningTotal']['prev'] ?? null ,3)}}</td>
-                <td class="text-right text-strong">{{\App\Swep\Helpers\Helper::toNumber($prevToDateForm1['forRefiningTotal']['prev'] ?? null ,3,'0.00')}}</td>
-                <td class="text-right text-strong">{{\App\Swep\Helpers\Helper::toNumber($toDateForm1['forRefiningTotal']['prev'] ?? null ,3,'0.00')}}</td>
-            </tr>
         @endif
+
         <tr>
             <td class="text-right">TOTAL WITHDRAWALS</td>
-            <td class="text-right text-strong">{{\App\Swep\Helpers\Helper::toNumber($form1['overallWithdrawal']['current'] ?? null ,3)}}</td>
-            <td class="text-right text-strong">{{\App\Swep\Helpers\Helper::toNumber($prevToDateForm1['overallWithdrawal']['current'] ?? null ,3,'0.00')}}</td>
-            <td class="text-right text-strong">{{\App\Swep\Helpers\Helper::toNumber($toDateForm1['overallWithdrawal']['current'] ?? null ,3,'0.00')}}</td>
-            <td class="text-right text-strong">{{\App\Swep\Helpers\Helper::toNumber($form1['overallWithdrawal']['prev'] ?? null ,3)}}</td>
-            <td class="text-right text-strong">{{\App\Swep\Helpers\Helper::toNumber($prevToDateForm1['overallWithdrawal']['prev'] ?? null ,3,'0.00')}}</td>
-            <td class="text-right text-strong">{{\App\Swep\Helpers\Helper::toNumber($toDateForm1['overallWithdrawal']['prev'] ?? null ,3,'0.00')}}</td>
+            <td class="text-right text-strong">{{$newform1['values']['totalAllWithdraw.currentCrop.thisWeek'] ?? 0 }}</td>
+            <td class="text-right text-strong">{{$newform1['values']['totalAllWithdraw.currentCrop.prevWeek'] ?? 0 }}</td>
+            <td class="text-right text-strong">{{$newform1['values']['totalAllWithdraw.currentCrop.toDate'] ?? 0 }}</td>
+            <td class="text-right text-strong">{{$newform1['values']['totalAllWithdraw.prevCrop.thisWeek'] ?? 0 }}</td>
+            <td class="text-right text-strong">{{$newform1['values']['totalAllWithdraw.prevCrop.prevWeek'] ?? 0 }}</td>
+            <td class="text-right text-strong">{{$newform1['values']['totalAllWithdraw.prevCrop.toDate'] ?? 0 }}</td>
         </tr>
 
         <tr>
             <td colspan="7">4. BALANCE</td>
         </tr>
-        @if(isset($form1['balances']) || isset($prevToDateForm1['balances']) || isset($toDateForm1['balances']))
+
+        {{--NEW BALANCE PRINTING LOUIS 2-5-2025--}}
+        @if(!empty($newform1["rows"]["balance"]))
             @php
-                $common = array_keys(array_merge($form1['balances'],$prevToDateForm1['balances'] ?? [] ,$toDateForm1['balances'] ));
-                sort($common);
+                $rowsbalance = $newform1["rows"]["balance"];
+                ksort($rowsbalance);
             @endphp
-            @foreach($common as $value)
+            @foreach($rowsbalance as $sugarclass => $balance)
                 <tr>
-                    <td><span class="indent"></span> {{$value}}</td>
-                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($form1['balances'][$value]['current'] ?? null,3)}}</td>
-                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($prevToDateForm1['balances'][$value]['current'] ?? null ,3)}}</td>
-                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($toDateForm1['balances'][$value]['current'] ?? null ,3)}}</td>
-                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($form1['balances'][$value]['prev'] ?? null,3)}}</td>
-                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($prevToDateForm1['balances'][$value]['prev'] ?? null ,3)}}</td>
-                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($toDateForm1['balances'][$value]['prev'] ?? null ,3)}}</td>
+                    <td><span class="indent"></span><span class="indent"></span> {{$sugarclass}}</td>
+                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($balance["currentCrop"]["thisWeek"] ?? 0,3)}}</td>
+                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($balance["currentCrop"]["prevWeek"] ?? 0 ,3)}}</td>
+                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($balance["currentCrop"]["toDate"] ?? 0 ,3)}}</td>
+                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($balance["prevCrop"]["thisWeek"] ?? 0,3)}}</td>
+                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($balance["prevCrop"]["prevWeek"] ?? 0 ,3)}}</td>
+                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($balance["prevCrop"]["toDate"] ?? 0 ,3)}}</td>
                 </tr>
             @endforeach
         @endif
+
         <tr>
             <td class="text-right">TOTAL</td>
-            <td class="text-right text-strong">{{\App\Swep\Helpers\Helper::toNumber($form1['balancesTotal']['current'] ?? null,3)}}</td>
-            <td class="text-right text-strong">{{\App\Swep\Helpers\Helper::toNumber($prevToDateForm1['balancesTotal']['current'] ?? null,3)}}</td>
-            <td class="text-right text-strong">{{\App\Swep\Helpers\Helper::toNumber($toDateForm1['balancesTotal']['current'] ?? null,3)}}</td>
-            <td class="text-right text-strong">{{\App\Swep\Helpers\Helper::toNumber($form1['balancesTotal']['prev'] ?? null,3)}}</td>
-            <td class="text-right text-strong">{{\App\Swep\Helpers\Helper::toNumber($prevToDateForm1['balancesTotal']['prev'] ?? null,3)}}</td>
-            <td class="text-right text-strong">{{\App\Swep\Helpers\Helper::toNumber($toDateForm1['balancesTotal']['prev'] ?? null,3)}}</td>
+             <td class="text-right text-strong">{{$newform1['values']['totalBalance.currentCrop.thisWeek'] ?? 0 }}</td>
+             <td class="text-right text-strong">{{$newform1['values']['totalBalance.currentCrop.prevWeek'] ?? 0 }}</td>
+             <td class="text-right text-strong">{{$newform1['values']['totalBalance.currentCrop.toDate'] ?? 0 }}</td>
+             <td class="text-right text-strong">{{$newform1['values']['totalBalance.prevCrop.thisWeek'] ?? 0 }}</td>
+             <td class="text-right text-strong">{{$newform1['values']['totalBalance.prevCrop.prevWeek'] ?? 0 }}</td>
+             <td class="text-right text-strong">{{$newform1['values']['totalBalance.prevCrop.toDate'] ?? 0 }}</td>
         </tr>
 
         <tr>
             <td>5. UNQUEDANNED</td>
-            <td class="text-right">
-                {{ \App\Swep\Helpers\Helper::toNumber($form1['unquedanned']['current'] ?? null,3, '0.00') }}
-            </td>
-            <td class="text-right">
-                {{ \App\Swep\Helpers\Helper::toNumber($prevToDateForm1['unquedanned']['current'] ?? null,3, '0.00') }}
-            </td>
-            <td class="text-right">
-                {{ \App\Swep\Helpers\Helper::toNumber($toDateForm1['unquedanned']['current'] ?? null,3, '0.00') }}
-            </td>
-            <td class="text-right">
-                {{ \App\Swep\Helpers\Helper::toNumber($form1['unquedanned']['prev'] ?? null, 3, '0.00') }}
-            </td>
-            <td class="text-right">
-                {{ \App\Swep\Helpers\Helper::toNumber($prevToDateForm1['unquedanned']['prev'] ?? null, 3, '0.00') }}
-            </td>
-            <td class="text-right">
-                {{ \App\Swep\Helpers\Helper::toNumber($toDateForm1['unquedanned']['prev'] ?? null, 3, '0.00') }}
-            </td>
+            <td class="text-right">{{$newform1['values']['unquedanned.currentCrop.thisWeek'] ?? 0 }}</td>
+            <td class="text-right">{{$newform1['values']['unquedanned.currentCrop.prevWeek'] ?? 0 }}</td>
+            <td class="text-right">{{$newform1['values']['unquedanned.currentCrop.toDate'] ?? 0 }}</td>
+            <td class="text-right">{{$newform1['values']['unquedanned.prevCrop.thisWeek'] ?? 0 }}</td>
+            <td class="text-right">{{$newform1['values']['unquedanned.prevCrop.prevWeek'] ?? 0 }}</td>
+            <td class="text-right">{{$newform1['values']['unquedanned.prevCrop.toDate'] ?? 0 }}</td>
         </tr>
         <tr>
             <td>6. STOCK BALANCE</td>
-            <td class="text-right">
-                {{ \App\Swep\Helpers\Helper::toNumber($form1['stockBalance']['current'] ?? null,3, '0.00') }}
-            </td>
-            <td class="text-right">
-                {{ \App\Swep\Helpers\Helper::toNumber($prevToDateForm1['stockBalance']['current'] ?? null,3, '0.00') }}
-            </td>
-            <td class="text-right">
-                {{ \App\Swep\Helpers\Helper::toNumber($toDateForm1['stockBalance']['current'] ?? null,3, '0.00') }}
-            </td>
-            <td class="text-right">
-                {{ \App\Swep\Helpers\Helper::toNumber($form1['stockBalance']['prev'] ?? null, 3, '0.00') }}
-            </td>
-            <td class="text-right">
-                {{ \App\Swep\Helpers\Helper::toNumber($prevToDateForm1['stockBalance']['prev'] ?? null, 3, '0.00') }}
-            </td>
-            <td class="text-right">
-                {{ \App\Swep\Helpers\Helper::toNumber($toDateForm1['stockBalance']['prev'] ?? null, 3, '0.00') }}
-            </td>
+            <td class="text-right">{{$newform1['values']['stockBal.currentCrop.thisWeek'] ?? 0 }}</td>
+            <td class="text-right">{{$newform1['values']['stockBal.currentCrop.prevWeek'] ?? 0 }}</td>
+            <td class="text-right">{{$newform1['values']['stockBal.currentCrop.toDate'] ?? 0 }}</td>
+            <td class="text-right">{{$newform1['values']['stockBal.prevCrop.thisWeek'] ?? 0 }}</td>
+            <td class="text-right">{{$newform1['values']['stockBal.prevCrop.prevWeek'] ?? 0 }}</td>
+            <td class="text-right">{{$newform1['values']['stockBal.prevCrop.toDate'] ?? 0 }}</td>
         </tr>
         <tr>
             <td>7. TRANSFERS TO REFINERY</td>
-            <td class="text-right">
-                {{ \App\Swep\Helpers\Helper::toNumber($form1['transfersToRefinery']['current'] ?? null,3) }}
-            </td>
-            <td class="text-right">
-                {{ \App\Swep\Helpers\Helper::toNumber($prevToDateForm1['transfersToRefinery']['current'] ?? null,3) }}
-            </td>
-            <td class="text-right">
-                {{ \App\Swep\Helpers\Helper::toNumber($toDateForm1['transfersToRefinery']['current'] ?? null,3) }}
-            </td>
-            <td class="text-right">
-                {{ \App\Swep\Helpers\Helper::toNumber($form1['transfersToRefinery']['prev'] ?? null, 3) }}
-            </td>
-            <td class="text-right">
-                {{ \App\Swep\Helpers\Helper::toNumber($prevToDateForm1['transfersToRefinery']['prev'] ?? null, 3) }}
-            </td>
-            <td class="text-right">
-                {{ \App\Swep\Helpers\Helper::toNumber($toDateForm1['transfersToRefinery']['prev'] ?? null, 3) }}
-            </td>
+            <td class="text-right">{{$newform1['values']['transfersToRef.currentCrop.thisWeek'] ?? 0 }}</td>
+            <td class="text-right">{{$newform1['values']['transfersToRef.currentCrop.prevWeek'] ?? 0 }}</td>
+            <td class="text-right">{{$newform1['values']['transfersToRef.currentCrop.toDate'] ?? 0 }}</td>
+            <td class="text-right">{{$newform1['values']['transfersToRef.prevCrop.thisWeek'] ?? 0 }}</td>
+            <td class="text-right">{{$newform1['values']['transfersToRef.prevCrop.prevWeek'] ?? 0 }}</td>
+            <td class="text-right">{{$newform1['values']['transfersToRef.prevCrop.toDate'] ?? 0 }}</td>
         </tr>
 
         <tr>
             <td>8. PHYSICAL STOCK</td>
-            <td class="text-right">
-                {{ \App\Swep\Helpers\Helper::toNumber($form1['physicalStock']['current'] ?? null,3) }}
-            </td>
-            <td class="text-right">
-                {{ \App\Swep\Helpers\Helper::toNumber($prevToDateForm1['physicalStock']['current'] ?? null,3) }}
-            </td>
-            <td class="text-right">
-                {{ \App\Swep\Helpers\Helper::toNumber($toDateForm1['physicalStock']['current'] ?? null,3) }}
-            </td>
-            <td class="text-right">
-                {{ \App\Swep\Helpers\Helper::toNumber($form1['physicalStock']['prev'] ?? null, 3) }}
-            </td>
-            <td class="text-right">
-                {{ \App\Swep\Helpers\Helper::toNumber($prevToDateForm1['physicalStock']['prev'] ?? null, 3) }}
-            </td>
-            <td class="text-right">
-                {{ \App\Swep\Helpers\Helper::toNumber($toDateForm1['physicalStock']['prev'] ?? null, 3) }}
-            </td>
+            <td class="text-right">{{$newform1['values']['physicalStock.currentCrop.thisWeek'] ?? 0 }}</td>
+            <td class="text-right">{{$newform1['values']['physicalStock.currentCrop.prevWeek'] ?? 0 }}</td>
+            <td class="text-right">{{$newform1['values']['physicalStock.currentCrop.toDate'] ?? 0 }}</td>
+            <td class="text-right">{{$newform1['values']['physicalStock.prevCrop.thisWeek'] ?? 0 }}</td>
+            <td class="text-right">{{$newform1['values']['physicalStock.prevCrop.prevWeek'] ?? 0 }}</td>
+            <td class="text-right">{{$newform1['values']['physicalStock.prevCrop.toDate'] ?? 0 }}</td>
         </tr>
 
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\SMS;
 
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\GetForms\GetForm1Controller;
 use App\Http\Controllers\SMS\WeeklyReport\RawSugarController;
 use App\Http\Requests\SMS\CancellationFormRequest;
 use App\Http\Requests\SMS\WeeklyReportFormRequest;
@@ -32,11 +33,13 @@ class WeeklyReportController extends Controller
     protected  $weeklyReportService;
     protected  $statusService;
     protected  $calendarService;
-    public function __construct(WeeklyReportService $weeklyReportService, StatusService $statusService, CalendarService $calendarService)
+    protected  $getForm1Controller;
+    public function __construct(WeeklyReportService $weeklyReportService, StatusService $statusService, CalendarService $calendarService, GetForm1Controller $getForm1Controller)
     {
         $this->weeklyReportService = $weeklyReportService;
         $this->statusService = $statusService;
         $this->calendarService = $calendarService;
+        $this->getForm1Controller = $getForm1Controller;
     }
 
     public function index(){
@@ -417,6 +420,7 @@ class WeeklyReportController extends Controller
 //                break;
 //        }
 
+
         return view('sms.printables.formAll')->with([
             'wr' => $weekly_report,
             'details_arr' => $details_arr,
@@ -495,8 +499,8 @@ class WeeklyReportController extends Controller
 //        }
 
 
-
-
+//        return $this->getForm1Controller->getForm1($slug);
+//        dd("asd");
         return view('sms.printables.formAll')->with([
             'wr' => $weekly_report,
             'details_arr' => $details_arr,
@@ -507,6 +511,9 @@ class WeeklyReportController extends Controller
             'toDateForm1' => $this->weeklyReportService->computation($slug,'toDate',$weekly_report->report_no * 1),
             'form1' => $this->weeklyReportService->computation($slug),
 //            'prevForm1' => $prevForm1,
+
+            //Connected Getform1Controller to form1 Printable
+            'newform1' => $this->getForm1Controller->getForm1($slug),
 
             'prevToDateForm1' => $this->weeklyReportService->computation($slug,'toDate', $weekly_report->report_no - 1),
 
