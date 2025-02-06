@@ -468,12 +468,12 @@
                 Distillery
             </td>
 {{--            1-27-2025 REMOVED UPDATABLE TEMPORARILY LOUIS--}}
-            <td class="text-right" for="withRawDistillery.currentCrop.thisWeek"></td>
-            <td class="text-right" for="withRawDistillery.currentCrop.prevWeek"></td>
-            <td class="text-right" for="withRawDistillery.currentCrop.toDate"></td>
-            <td class="text-right" for="withRawDistillery.prevCrop.thisWeek"></td>
-            <td class="text-right" for="withRawDistillery.prevCrop.prevWeek"></td>
-            <td class="text-right" for="withRawDistillery.prevCrop.toDate"></td>
+            <td class="text-right updatable" for="withRawDistillery.currentCrop.thisWeek"></td>
+            <td class="text-right updatable" for="withRawDistillery.currentCrop.prevWeek"></td>
+            <td class="text-right updatable" for="withRawDistillery.currentCrop.toDate"></td>
+            <td class="text-right updatable" for="withRawDistillery.prevCrop.thisWeek"></td>
+            <td class="text-right updatable" for="withRawDistillery.prevCrop.prevWeek"></td>
+            <td class="text-right updatable" for="withRawDistillery.prevCrop.toDate"></td>
         </tr>
         <tr>
             <td> <span class="indent"></span>

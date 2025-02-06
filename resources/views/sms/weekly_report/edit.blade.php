@@ -1254,8 +1254,8 @@
 
         function updateForm3Data(){
             $("#form3 .updatable").each(function () {
-                $(this).html('<i class="fa fa-spin fa-refresh"></i>');
-                $(this).html('<i class="fa fa-spin fa-refresh"></i>');
+                // $(this).html('<i class="fa fa-spin fa-refresh"></i>');
+                // $(this).html('<i class="fa fa-spin fa-refresh"></i>');
             })
 
             $.ajax({

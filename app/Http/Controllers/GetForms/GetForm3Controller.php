@@ -72,6 +72,21 @@ class GetForm3Controller extends Controller
         $arr["withRefinedDistillery"]["currentCrop"]["toDate"] = number_format(0.000, 3, '.', ',');
         $arr["withRefinedDistillery"]["prevCrop"]["toDate"] = number_format(0.000, 3, '.', ',');
 
+        $arr["withRawDomestic"]["currentCrop"]["thisWeek"] = number_format(0.000, 3, '.', ',');
+        $arr["withRawDomestic"]["prevCrop"]["thisWeek"] = number_format(0.000, 3, '.', ',');
+        $arr["withRawDistillery"]["currentCrop"]["thisWeek"] = number_format(0.000, 3, '.', ',');
+        $arr["withRawDistillery"]["prevCrop"]["thisWeek"] = number_format(0.000, 3, '.', ',');
+
+        $arr["withRawDomestic"]["currentCrop"]["prevWeek"] = number_format(0.000, 3, '.', ',');
+        $arr["withRawDomestic"]["prevCrop"]["prevWeek"] = number_format(0.000, 3, '.', ',');
+        $arr["withRawDistillery"]["currentCrop"]["prevWeek"] = number_format(0.000, 3, '.', ',');
+        $arr["withRawDistillery"]["prevCrop"]["prevWeek"] = number_format(0.000, 3, '.', ',');
+
+        $arr["withRawDomestic"]["currentCrop"]["toDate"] = number_format(0.000, 3, '.', ',');
+        $arr["withRawDomestic"]["prevCrop"]["toDate"] = number_format(0.000, 3, '.', ',');
+        $arr["withRawDistillery"]["currentCrop"]["toDate"] = number_format(0.000, 3, '.', ',');
+        $arr["withRawDistillery"]["prevCrop"]["toDate"] = number_format(0.000, 3, '.', ',');
+
 //        number_format($thisWeek->manufacturedRaw, 3, '.', ',')
         //WITHDRAWALS COMPUTATION --------------------------------------------------------- START
         //GET THIS WEEK VALUES FOR WITHDRAWALS
@@ -306,20 +321,20 @@ class GetForm3Controller extends Controller
 //        CURRENT CROP RAW BALANCE 5.1
         $balRawCTotalThisWeek = ((($thisWeek->sharePlanter) + ($thisWeek->shareMiller))-(($withRawDomCTotalThisWeek) + ($withRawDistCTotalThisWeek))+((($thisWeek->manufacturedRaw) + ($thisWeek->rao) + ($thisWeek->manufacturedRefined) + ($thisWeek->raoRefined))-(($thisWeek->sharePlanter) + ($thisWeek->shareMiller) + ($thisWeek->refineryMolasses))));
         $balRawCTotalprevWeek = ((($prevWeek->sharePlanter) + ($prevWeek->shareMiller))-(($withRawDomCTotalprevWeek) + ($withRawDistCTotalprevWeek))+((($prevWeek->manufacturedRaw) + ($prevWeek->rao) + ($prevWeek->manufacturedRefined) + ($prevWeek->raoRefined))-(($prevWeek->sharePlanter) + ($prevWeek->shareMiller) + ($prevWeek->refineryMolasses))));
-        $balRawCTotaltoDate = ((($toDate->sharePlanter) + ($toDate->shareMiller))-(($withRawDomCTotaltoDate) + ($withRawDistCTotaltoDate))+((($toDate->manufacturedRaw) + ($toDate->rao) + ($toDate->manufacturedRefined) + ($toDate->raoRefined))-(($toDate->sharePlanter) + ($toDate->shareMiller) + ($toDate->refineryMolasses))));
+        $balRawCTotaltoDate = $balRawCTotalThisWeek + $balRawCTotalprevWeek;
 //        PREVIOUS CROP RAW BALANCE 5.1
         $balRawPTotalThisWeek = (($thisWeek->prev_sharePlanter+$thisWeek->prev_shareMiller)-(($withRawDomPTotalThisWeek) + ($withRawDistPTotalThisWeek)));
         $balRawPTotalprevWeek = (($prevWeek->prev_sharePlanter+$prevWeek->prev_shareMiller)+(($withRawDomPTotalprevWeek) + ($withRawDistPTotalprevWeek)));
-        $balRawPTotaltoDate = (($toDate->prev_sharePlanter+$toDate->prev_shareMiller)+(($withRawDomPTotaltoDate) + ($withRawDistPTotaltoDate)));
+        $balRawPTotaltoDate = $balRawPTotalThisWeek + $balRawPTotalprevWeek;
 
 //        CURRENT CROP REFINED BALANCE 5.2
         $balRefinedCTotalThisWeek = (($thisWeek->refineryMolasses)-(($withRefinedDomCTotalThisWeek) + ($withRefinedDistCTotalThisWeek)));
         $balRefinedCTotalprevWeek = (($prevWeek->refineryMolasses) - (($withRefinedDomCTotalprevWeek) + ($withRefinedDistCTotalprevWeek)));
-        $balRefinedCTotaltoDate = (($toDate->refineryMolasses) - (($withRefinedDomCTotaltoDate) + ($withRefinedDistCTotaltoDate)));
+        $balRefinedCTotaltoDate = $balRefinedCTotalThisWeek + $balRefinedCTotalprevWeek;
 //        PREVIOUS CROP REFINED BALANCE 5.2
         $balRefinedPTotalThisWeek = (($thisWeek->prev_refineryMolasses)-(($withRefinedDomCTotalThisWeek) + ($withRefinedDistCTotalThisWeek)));
         $balRefinedPTotalprevWeek = (($prevWeek->prev_refineryMolasses)-(($withRefinedDomCTotalThisWeek) + ($withRefinedDistCTotalThisWeek)));
-        $balRefinedPTotaltoDate = (($toDate->prev_refineryMolasses)-(($withRefinedDomCTotalThisWeek) + ($withRefinedDistCTotalThisWeek)));
+        $balRefinedPTotaltoDate = $balRefinedPTotalThisWeek + $balRefinedPTotalprevWeek;
 
         //RAW BALANCE
         $arr["rawBalance"] = [
