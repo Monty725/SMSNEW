@@ -267,6 +267,9 @@ class WeeklyReportController extends Controller
                     'input_fields_arr' => $input_fields_arr,
                     'signatories' => $this->weeklyReportService->getSignatories($slug),
 
+                    //Connected Getform1Controller to form1 Printable
+                    'newform1' => $this->getForm1Controller->getForm1($slug),
+
                     'toDateForm1' => $this->weeklyReportService->computation($slug, 'toDate', $weekly_report->report_no*1),
                     'form1' => $this->weeklyReportService->computation($slug),
 //                    'prevForm1' => $prevForm1,
@@ -280,6 +283,9 @@ class WeeklyReportController extends Controller
                 'details_arr' => $details_arr,
                 'input_fields_arr' => $input_fields_arr,
                 'signatories' => $this->weeklyReportService->getSignatories($slug),
+
+                //Connected Getform1Controller to form1 Printable
+                'newform1' => $this->getForm1Controller->getForm1($slug),
 
                 'form'.$formNo => $this->weeklyReportService->{"form".$formNo."Computation"}($slug),
                 'prevToDateForm'.$formNo => $this->weeklyReportService->{"form".$formNo."Computation"}($slug,'toDate', $weekly_report->report_no - 1),
@@ -462,6 +468,7 @@ class WeeklyReportController extends Controller
 //        dd($request->all());
 
         if($request->has("form") && $request->form!=""){
+//            dd("asd");
             return $this->printSingle($slug, $request->form, $signatoryService);
         }
 
