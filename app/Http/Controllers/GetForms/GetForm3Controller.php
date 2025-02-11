@@ -324,8 +324,9 @@ class GetForm3Controller extends Controller
         $balRawCTotaltoDate = $balRawCTotalThisWeek + $balRawCTotalprevWeek;
 //        PREVIOUS CROP RAW BALANCE 5.1
         $balRawPTotalThisWeek = (($thisWeek->prev_sharePlanter+$thisWeek->prev_shareMiller)-(($withRawDomPTotalThisWeek) + ($withRawDistPTotalThisWeek)));
-        $balRawPTotalprevWeek = (($prevWeek->prev_sharePlanter+$prevWeek->prev_shareMiller)+(($withRawDomPTotalprevWeek) + ($withRawDistPTotalprevWeek)));
-        $balRawPTotaltoDate = $balRawPTotalThisWeek + $balRawPTotalprevWeek;
+        $balRawPTotalprevWeek = (($prevWeek->prev_sharePlanter+$prevWeek->prev_shareMiller)-($withRawDomPTotalprevWeek + $withRawDistPTotalprevWeek));
+        $balRawPTotaltoDate = (($toDate->prev_sharePlanter+$toDate->prev_shareMiller)-($withRawDomPTotaltoDate + $withRawDistPTotaltoDate));
+//        $balRawPTotaltoDate = $balRawPTotalThisWeek + $balRawPTotalprevWeek;
 
 //        CURRENT CROP REFINED BALANCE 5.2
         $balRefinedCTotalThisWeek = (($thisWeek->refineryMolasses)-(($withRefinedDomCTotalThisWeek) + ($withRefinedDistCTotalThisWeek)));
