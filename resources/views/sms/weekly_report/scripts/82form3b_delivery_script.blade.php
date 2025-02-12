@@ -50,6 +50,16 @@
                 },
             "drawCallback": function(settings){
                 // console.log(form3b_deliveries_tbl.page.info().page);
+
+                let total = 0;
+                $("#form3b_deliveries_table tbody tr").each(function(){
+                    let qty = parseFloat($(this).find("td:eq(3)").text().replace(/,/g, '')) || 0;
+                    total += qty;
+                });
+
+                // Update the total row
+                $("#totalQty").html(`<strong>${total.toFixed(3)}</strong>`);
+
                 $("#form3b_deliveries_table a[for='linkToEdit']").each(function () {
                     let orig_uri = $(this).attr('href');
                     $(this).attr('href',orig_uri+'?page='+form3b_deliveries_tbl.page.info().page);

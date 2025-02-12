@@ -3,6 +3,15 @@
     </h4>
 </div>
 
+@php
+    $totals = [
+        'issuanceTotal' => 0,
+        'withdrawalsTotal' => 0,
+        'qtyStandard' => 0,
+        'qtyPremium' => 0,
+    ];
+@endphp
+
 <div class="row">
     <div class="col-md-12">
         <div class="panel">
@@ -36,6 +45,39 @@
     </div>
 </div>
 
+{{--<div class="row">--}}
+{{--    <div class="col-md-12">--}}
+{{--        <div class="panel">--}}
+{{--            <div class="box box-sm box-default box-solid">--}}
+{{--                <div class="box-header with-border"  style="background-color: #4e984a;color: white;">--}}
+{{--                    <p class="no-margin">Delivery<small id="filter-notifier" class="label bg-blue blink"></small></p>--}}
+{{--                </div>--}}
+
+{{--                <div class="box-body" style="">--}}
+{{--                    <button type="button" data-target="#add_form3b_deliveries_modal" data-toggle="modal" class="btn btn-success btn-sm pull-right"><i class="fa fa-plus"></i> Add Delivery</button>--}}
+{{--                    <br>--}}
+{{--                    <br>--}}
+{{--                    <table style="width: 100%;" class="table table-condensed table-bordered" id="form3b_deliveries_table">--}}
+{{--                        <thead>--}}
+{{--                        <tr>--}}
+{{--                            <th>Date of Withdrawal</th>--}}
+{{--                            <th>MRO No.</th>--}}
+{{--                            <th>Trader/Owner</th>--}}
+{{--                            <th>Qty</th>--}}
+{{--                            <th>Remarks</th>--}}
+{{--                            <th>Action</th>--}}
+{{--                        </tr>--}}
+{{--                        </thead>--}}
+{{--                        <tbody>--}}
+
+{{--                        </tbody>--}}
+{{--                    </table>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        </div>--}}
+{{--    </div>--}}
+{{--</div>--}}
+
 <div class="row">
     <div class="col-md-12">
         <div class="panel">
@@ -45,9 +87,11 @@
                 </div>
 
                 <div class="box-body" style="">
-                    <button type="button" data-target="#add_form3b_deliveries_modal" data-toggle="modal" class="btn btn-success btn-sm pull-right"><i class="fa fa-plus"></i> Add Delivery</button>
-                    <br>
-                    <br>
+                    <button type="button" data-target="#add_form3b_deliveries_modal" data-toggle="modal" class="btn btn-success btn-sm pull-right">
+                        <i class="fa fa-plus"></i> Add Delivery
+                    </button>
+                    <br><br>
+
                     <table style="width: 100%;" class="table table-condensed table-bordered" id="form3b_deliveries_table">
                         <thead>
                         <tr>
@@ -60,14 +104,22 @@
                         </tr>
                         </thead>
                         <tbody>
-
+                        <!-- Data Rows will be inserted here dynamically -->
                         </tbody>
+                        <tfoot>
+                        <tr>
+                            <td colspan="3" class="text-right"><strong>Total:</strong></td>
+                            <td id="totalQty" class="text-right"><strong>0.000</strong></td>
+                            <td colspan="2"></td>
+                        </tr>
+                        </tfoot>
                     </table>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
 
 <div class="row">
     <div class="col-md-12">
@@ -99,3 +151,17 @@
         </div>
     </div>
 </div>
+
+{{--<div>--}}
+{{--    <tr>--}}
+{{--        @if(!empty($wr->form3bDeliveries))--}}
+{{--            @foreach($wr->form3bDeliveries as $form3bDeliveries)--}}
+{{--                @php--}}
+{{--                    $totals['withdrawalsTotal'] = $totals['withdrawalsTotal'] + ($form3bDeliveries->qty ?? 0);--}}
+{{--                @endphp--}}
+{{--            @endforeach--}}
+{{--        @endif--}}
+{{--        <td colspan="7" class="text-strong text-right" style="width: 78%;">TOTAL</td>--}}
+{{--        <td class="text-right text-strong" style="width: 22%;">{{ number_format( $totals['withdrawalsTotal'] ,3) }}</td>--}}
+{{--    </tr>--}}
+{{--</div>--}}
