@@ -465,9 +465,20 @@
 
         <tr>
             <td> <span class="indent"></span>
+                Export
+            </td>
+            <td class="text-right updatable" for="withRawExport.currentCrop.thisWeek"></td>
+            <td class="text-right updatable" for="withRawExport.currentCrop.prevWeek"></td>
+            <td class="text-right updatable" for="withRawExport.currentCrop.toDate"></td>
+            <td class="text-right updatable" for="withRawExport.prevCrop.thisWeek"></td>
+            <td class="text-right updatable" for="withRawExport.prevCrop.prevWeek"></td>
+            <td class="text-right updatable" for="withRawExport.prevCrop.toDate"></td>
+        </tr>
+
+        <tr>
+            <td> <span class="indent"></span>
                 Distillery
             </td>
-{{--            1-27-2025 REMOVED UPDATABLE TEMPORARILY LOUIS--}}
             <td class="text-right updatable" for="withRawDistillery.currentCrop.thisWeek"></td>
             <td class="text-right updatable" for="withRawDistillery.currentCrop.prevWeek"></td>
             <td class="text-right updatable" for="withRawDistillery.currentCrop.toDate"></td>
@@ -475,6 +486,7 @@
             <td class="text-right updatable" for="withRawDistillery.prevCrop.prevWeek"></td>
             <td class="text-right updatable" for="withRawDistillery.prevCrop.toDate"></td>
         </tr>
+
         <tr>
             <td> <span class="indent"></span>
                 Domestic
@@ -486,6 +498,19 @@
             <td class="text-right updatable" for="withRawDomestic.prevCrop.prevWeek"></td>
             <td class="text-right updatable" for="withRawDomestic.prevCrop.toDate"></td>
         </tr>
+
+        <tr>
+            <td> <span class="indent"></span>
+                Others
+            </td>
+            <td class="text-right updatable" for="withRawOthers.currentCrop.thisWeek"></td>
+            <td class="text-right updatable" for="withRawOthers.currentCrop.prevWeek"></td>
+            <td class="text-right updatable" for="withRawOthers.currentCrop.toDate"></td>
+            <td class="text-right updatable" for="withRawOthers.prevCrop.thisWeek"></td>
+            <td class="text-right updatable" for="withRawOthers.prevCrop.prevWeek"></td>
+            <td class="text-right updatable" for="withRawOthers.prevCrop.toDate"></td>
+        </tr>
+
         <tr class="computation" for="totalWithdrawalsRaw">
             <td class="text-right">
                 <i>TOTAL RAW</i>
@@ -501,6 +526,19 @@
         <tr>
             <td colspan="7" class="text-strong"><span class="indent"></span> REFINED</td>
         </tr>
+
+        <tr>
+            <td> <span class="indent"></span>
+                Export
+            </td>
+            <td class="text-right updatable" for="withRefinedExport.currentCrop.thisWeek"></td>
+            <td class="text-right updatable" for="withRefinedExport.currentCrop.prevWeek"></td>
+            <td class="text-right updatable" for="withRefinedExport.currentCrop.toDate"></td>
+            <td class="text-right updatable" for="withRefinedExport.prevCrop.thisWeek"></td>
+            <td class="text-right updatable" for="withRefinedExport.prevCrop.prevWeek"></td>
+            <td class="text-right updatable" for="withRefinedExport.prevCrop.toDate"></td>
+        </tr>
+
         <tr class="withRefinedDistillery_header">
             <td> <span class="indent"></span>
                 Distillery
@@ -512,6 +550,7 @@
             <td class="text-right updatable" for="withRefinedDistillery.prevCrop.prevWeek"></td>
             <td class="text-right updatable" for="withRefinedDistillery.prevCrop.toDate"></td>
         </tr>
+
         <tr class="withRefinedDomestic_header">
             <td> <span class="indent"></span>
                 Domestic
@@ -522,6 +561,18 @@
             <td class="text-right updatable" for="withRefinedDomestic.prevCrop.thisWeek"></td>
             <td class="text-right updatable" for="withRefinedDomestic.prevCrop.prevWeek"></td>
             <td class="text-right updatable" for="withRefinedDomestic.prevCrop.toDate"></td>
+        </tr>
+
+        <tr>
+            <td> <span class="indent"></span>
+                Others
+            </td>
+            <td class="text-right updatable" for="withRefinedOthers.currentCrop.thisWeek"></td>
+            <td class="text-right updatable" for="withRefinedOthers.currentCrop.prevWeek"></td>
+            <td class="text-right updatable" for="withRefinedOthers.currentCrop.toDate"></td>
+            <td class="text-right updatable" for="withRefinedOthers.prevCrop.thisWeek"></td>
+            <td class="text-right updatable" for="withRefinedOthers.prevCrop.prevWeek"></td>
+            <td class="text-right updatable" for="withRefinedOthers.prevCrop.toDate"></td>
         </tr>
 
         <tr class="computation" for="totalWithdrawalsRefined">
