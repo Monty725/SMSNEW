@@ -143,14 +143,34 @@ class GetForm1Controller extends Controller
             array_push($sugarClassUsed, $delivery->sugar_class);
             if($delivery->refining != 1){
                 //if not for refining
+//                $arr["withdrawals"][$delivery->sugar_class]["currentCrop"]["toDate"] = $delivery->currentTotal ?? 0;
+//                $arr["withdrawals"][$delivery->sugar_class]["prevCrop"]["toDate"] = $delivery->prevTotal ?? 0;
+//                $withdrawCTotalToDate += $arr["withdrawals"][$delivery->sugar_class]["currentCrop"]["toDate"];
+//                $withdrawPTotalToDate += $arr["withdrawals"][$delivery->sugar_class]["prevCrop"]["toDate"];
+
                 $arr["withdrawals"][$delivery->sugar_class]["currentCrop"]["toDate"] = $delivery->currentTotal ?? 0;
                 $arr["withdrawals"][$delivery->sugar_class]["prevCrop"]["toDate"] = $delivery->prevTotal ?? 0;
+
+                $arr["withdrawalsRawData"][$sugarClassesCharge[$delivery->sugar_class]]["currentCrop"]["toDate"] =
+                    ($arr["withdrawalsRawData"][$sugarClassesCharge[$delivery->sugar_class]]["currentCrop"]["toDate"] ?? 0) + $delivery->currentTotal;
+                $arr["withdrawalsRawData"][$sugarClassesCharge[$delivery->sugar_class]]["prevCrop"]["toDate"] =
+                    ($arr["withdrawalsRawData"][$sugarClassesCharge[$delivery->sugar_class]]["prevCrop"]["toDate"] ?? 0) +$delivery->prevTotal;
+
                 $withdrawCTotalToDate += $arr["withdrawals"][$delivery->sugar_class]["currentCrop"]["toDate"];
                 $withdrawPTotalToDate += $arr["withdrawals"][$delivery->sugar_class]["prevCrop"]["toDate"];
             }else{
                 //if for refining
+//                $arr["withdrawals_for_refining"][$delivery->sugar_class]["currentCrop"]["toDate"] = $delivery->currentTotal;
+//                $arr["withdrawals_for_refining"][$delivery->sugar_class]["prevCrop"]["toDate"] = $delivery->prevTotal;
+
                 $arr["withdrawals_for_refining"][$delivery->sugar_class]["currentCrop"]["toDate"] = $delivery->currentTotal;
                 $arr["withdrawals_for_refining"][$delivery->sugar_class]["prevCrop"]["toDate"] = $delivery->prevTotal;
+
+                $arr["withdrawals_for_refiningRawData"][$sugarClassesCharge[$delivery->sugar_class]]["currentCrop"]["toDate"] =
+                    ($arr["withdrawals_for_refiningRawData"][$sugarClassesCharge[$delivery->sugar_class]]["currentCrop"]["toDate"] ?? 0) + $delivery->currentTotal;
+                $arr["withdrawals_for_refiningRawData"][$sugarClassesCharge[$delivery->sugar_class]]["prevCrop"]["toDate"] =
+                    ($arr["withdrawals_for_refiningRawData"][$sugarClassesCharge[$delivery->sugar_class]]["prevCrop"]["toDate"] ?? 0) + $delivery->prevTotal;
+
                 $withdrawRefCTotalToDate += $arr["withdrawals_for_refining"][$delivery->sugar_class]["currentCrop"]["toDate"];
                 $withdrawRefPTotalToDate += $arr["withdrawals_for_refining"][$delivery->sugar_class]["prevCrop"]["toDate"];
             }
@@ -164,12 +184,24 @@ class GetForm1Controller extends Controller
                 //if not for refining
                 $arr["withdrawals"][$delivery->sugar_class]["currentCrop"]["prevWeek"] = $delivery->currentTotal ?? 0;
                 $arr["withdrawals"][$delivery->sugar_class]["prevCrop"]["prevWeek"] = $delivery->prevTotal ?? 0;
+
+                $arr["withdrawalsRawData"][$sugarClassesCharge[$delivery->sugar_class]]["currentCrop"]["prevWeek"] =
+                    ($arr["withdrawalsRawData"][$sugarClassesCharge[$delivery->sugar_class]]["currentCrop"]["prevWeek"] ?? 0) + $delivery->currentTotal;
+                $arr["withdrawalsRawData"][$sugarClassesCharge[$delivery->sugar_class]]["prevCrop"]["prevWeek"] =
+                    ($arr["withdrawalsRawData"][$sugarClassesCharge[$delivery->sugar_class]]["prevCrop"]["prevWeek"] ?? 0) +$delivery->prevTotal;
+
                 $withdrawCTotalPrevWeek += $arr["withdrawals"][$delivery->sugar_class]["currentCrop"]["prevWeek"];
                 $withdrawPTotalPrevWeek += $arr["withdrawals"][$delivery->sugar_class]["prevCrop"]["prevWeek"];
             }else{
                 //if for refining
                 $arr["withdrawals_for_refining"][$delivery->sugar_class]["currentCrop"]["prevWeek"] = $delivery->currentTotal;
                 $arr["withdrawals_for_refining"][$delivery->sugar_class]["prevCrop"]["prevWeek"] = $delivery->prevTotal;
+
+                $arr["withdrawals_for_refiningRawData"][$sugarClassesCharge[$delivery->sugar_class]]["currentCrop"]["prevWeek"] =
+                    ($arr["withdrawals_for_refiningRawData"][$sugarClassesCharge[$delivery->sugar_class]]["currentCrop"]["prevWeek"] ?? 0) + $delivery->currentTotal;
+                $arr["withdrawals_for_refiningRawData"][$sugarClassesCharge[$delivery->sugar_class]]["prevCrop"]["prevWeek"] =
+                    ($arr["withdrawals_for_refiningRawData"][$sugarClassesCharge[$delivery->sugar_class]]["prevCrop"]["prevWeek"] ?? 0) + $delivery->prevTotal;
+
                 $withdrawRefCTotalPrevWeek += $arr["withdrawals_for_refining"][$delivery->sugar_class]["currentCrop"]["prevWeek"];
                 $withdrawRefPTotalPrevWeek += $arr["withdrawals_for_refining"][$delivery->sugar_class]["prevCrop"]["prevWeek"];
             }
@@ -331,7 +363,7 @@ class GetForm1Controller extends Controller
 //            NEW BALANCE CURRENT WEEK
             $arr["balance"][$sugarClassesCharge[$sugarClass]]["currentCrop"]["prevWeek"] =
                 ($arr["issuances"][$sugarClassesCharge[$sugarClass]]["currentCrop"]["prevWeek"] ?? 0) -
-                ($arr["withdrawals"][$sugarClassesCharge[$sugarClass]]["currentCrop"]["prevWeek"] ?? 0) -
+                ($arr["withdrawalsRawData"][$sugarClassesCharge[$sugarClass]]["currentCrop"]["prevWeek"] ?? 0) -
                 ($arr["withdrawals_for_refiningRawData"][$sugarClassesCharge[$sugarClass]]["currentCrop"]["prevWeek"] ?? 0) ;
 
 
@@ -352,8 +384,8 @@ class GetForm1Controller extends Controller
 //            PREV WEEK BALANCE
             $arr["balance"][$sugarClassesCharge[$sugarClass]]["prevCrop"]["prevWeek"] =
                 ($arr["issuances"][$sugarClassesCharge[$sugarClass]]["prevCrop"]["prevWeek"] ?? 0) -
-                ($arr["withdrawals"][$sugarClassesCharge[$sugarClass]]["prevCrop"]["prevWeek"] ?? 0) -
-                ($arr["withdrawals_for_refining"][$sugarClassesCharge[$sugarClass]]["prevCrop"]["prevWeek"] ?? 0) ;
+                ($arr["withdrawalsRawData"][$sugarClassesCharge[$sugarClass]]["prevCrop"]["prevWeek"] ?? 0) -
+                ($arr["withdrawals_for_refiningRawData"][$sugarClassesCharge[$sugarClass]]["prevCrop"]["prevWeek"] ?? 0) ;
 
 //            $arr["balance"][$sugarClassesCharge[$sugarClass]]["prevCrop"]["toDate"] =
 //                ($arr["issuances"][$sugarClassesCharge[$sugarClass]]["prevCrop"]["toDate"] ?? 0) -
