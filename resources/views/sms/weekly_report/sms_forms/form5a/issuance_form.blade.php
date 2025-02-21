@@ -16,23 +16,23 @@
     ) !!}
 
 </div>
-<div class="row">
-    {!! \App\Swep\ViewHelpers\__form2::textbox('raw_sro_no',[
-            'label' => 'RAW SRO:',
-            'cols' => 6,
-    ],
-    (!empty($issuance)) ? $issuance : null
-    ) !!}
+{{--<div class="row">--}}
+{{--    {!! \App\Swep\ViewHelpers\__form2::textbox('raw_sro_no',[--}}
+{{--            'label' => 'RAW SRO:',--}}
+{{--            'cols' => 6,--}}
+{{--    ],--}}
+{{--    (!empty($issuance)) ? $issuance : null--}}
+{{--    ) !!}--}}
 
-    {!! \App\Swep\ViewHelpers\__form2::textbox('raw_qty',[
-        'label' => 'Raw Qty',
-        'cols' => 6,
-        'class' => 'autonumber_mt_'.$rand,
-    ],
-    (!empty($issuance)) ? $issuance : null
-    ) !!}
+{{--    {!! \App\Swep\ViewHelpers\__form2::textbox('raw_qty',[--}}
+{{--        'label' => 'Raw Qty',--}}
+{{--        'cols' => 6,--}}
+{{--        'class' => 'autonumber_mt_'.$rand,--}}
+{{--    ],--}}
+{{--    (!empty($issuance)) ? $issuance : null--}}
+{{--    ) !!}--}}
 
-</div>
+{{--</div>--}}
 <div class="row">
     {!! \App\Swep\ViewHelpers\__form2::textbox('sro_no',[
         'label' => 'REFINED SRO:',
