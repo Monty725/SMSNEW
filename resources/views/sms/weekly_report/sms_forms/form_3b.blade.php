@@ -38,6 +38,13 @@
                         <tbody>
 
                         </tbody>
+                        <tfoot>
+                        <tr>
+                            <td colspan="4" class="text-right"><strong>Total:</strong></td>
+                            <td id="totalMROQty" class="text-right"><strong>0.000</strong></td>
+                            <td colspan="1"></td>
+                        </tr>
+                        </tfoot>
                     </table>
                 </div>
             </div>
@@ -151,17 +158,3 @@
         </div>
     </div>
 </div>
-
-{{--<div>--}}
-{{--    <tr>--}}
-{{--        @if(!empty($wr->form3bDeliveries))--}}
-{{--            @foreach($wr->form3bDeliveries as $form3bDeliveries)--}}
-{{--                @php--}}
-{{--                    $totals['withdrawalsTotal'] = $totals['withdrawalsTotal'] + ($form3bDeliveries->qty ?? 0);--}}
-{{--                @endphp--}}
-{{--            @endforeach--}}
-{{--        @endif--}}
-{{--        <td colspan="7" class="text-strong text-right" style="width: 78%;">TOTAL</td>--}}
-{{--        <td class="text-right text-strong" style="width: 22%;">{{ number_format( $totals['withdrawalsTotal'] ,3) }}</td>--}}
-{{--    </tr>--}}
-{{--</div>--}}

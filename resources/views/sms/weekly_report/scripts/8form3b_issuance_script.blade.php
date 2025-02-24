@@ -50,6 +50,19 @@
                 },
             "drawCallback": function(settings){
                 // console.log(servedSros_tbl.page.info().page);
+
+                let total = 0;
+                $("#form3b_issuance_table tbody tr").each(function(){
+                    let qty = parseFloat($(this).find("td:eq(4)").text().replace(/,/g, '')) || 0;
+                    total += qty;
+                });
+
+                // Format number with commas
+                let formattedTotal = total.toFixed(3).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+                // Update the total row
+                $("#totalMROQty").html(`<strong>${formattedTotal}</strong>`);
+
                 $("#form3b_issuance_table a[for='linkToEdit']").each(function () {
                     let orig_uri = $(this).attr('href');
                     $(this).attr('href',orig_uri+'?page='+form3b_issuance_tbl.page.info().page);

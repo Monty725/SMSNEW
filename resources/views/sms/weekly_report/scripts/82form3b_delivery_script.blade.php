@@ -57,8 +57,11 @@
                     total += qty;
                 });
 
+                // Format number with commas
+                let formattedTotal = total.toFixed(3).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
                 // Update the total row
-                $("#totalQty").html(`<strong>${total.toFixed(3)}</strong>`);
+                $("#totalQty").html(`<strong>${formattedTotal}</strong>`);
 
                 $("#form3b_deliveries_table a[for='linkToEdit']").each(function () {
                     let orig_uri = $(this).attr('href');
