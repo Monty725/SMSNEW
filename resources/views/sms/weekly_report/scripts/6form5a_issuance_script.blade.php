@@ -108,6 +108,10 @@
                 active_form5a_issuance = res.slug;
                 form5a_issuance_tbl.draw(false);
                 updateTradersList();
+
+                setTimeout(function() {
+                    location.reload();
+                }, 500);
             },
             error: function (res) {
                 errored(form,res);
