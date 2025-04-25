@@ -46,6 +46,13 @@ class GetForm2Controller extends Controller
         $issuanceImpCTotaltoDate = 0.000;
         $issuanceImpPTotaltoDate = 0.000;
 
+        $issuanceAdvCTotalThisWeek = 0.000;
+        $issuanceAdvPTotalThisWeek = 0.000;
+        $issuanceAdvCTotalprevWeek = 0.000;
+        $issuanceAdvPTotalprevWeek = 0.000;
+        $issuanceAdvCTotaltoDate = 0.000;
+        $issuanceAdvPTotaltoDate = 0.000;
+
         $withdrawalDomCTotalThisWeek = 0.000;
         $withdrawalDomPTotalThisWeek = 0.000;
         $withdrawalDomCTotalprevWeek = 0.000;
@@ -60,6 +67,13 @@ class GetForm2Controller extends Controller
         $withdrawalImpCTotaltoDate = 0.000;
         $withdrawalImpPTotaltoDate = 0.000;
 
+        $withdrawalAdvCTotalThisWeek = 0.000;
+        $withdrawalAdvPTotalThisWeek = 0.000;
+        $withdrawalAdvCTotalprevWeek = 0.000;
+        $withdrawalAdvPTotalprevWeek = 0.000;
+        $withdrawalAdvCTotaltoDate = 0.000;
+        $withdrawalAdvPTotaltoDate = 0.000;
+
         function formatValue($value) {
             return $value < 0 ? '(' . number_format(abs($value), 3, '.', ',') . ')' : number_format($value, 3, '.', ',');
         }
@@ -68,6 +82,7 @@ class GetForm2Controller extends Controller
         //GET THIS WEEK VALUES FOR ISSUANCES
         $deliveries = $weeklyReport->form5aIssuancesOfSro()
             ->selectRaw('consumption,sum(refined_qty) as currentTotal, sum(prev_refined_qty) as prevTotal')
+            ->groupBy('consumption') //FIX FOR THE IF ELSE LOGIC FILTERED BY DOMESTIC
             ->get();
 
         foreach ($deliveries as $delivery){
@@ -83,6 +98,12 @@ class GetForm2Controller extends Controller
                 $arr["issuanceImported"]["prevCrop"]["thisWeek"] = $delivery->prevTotal;
                 $issuanceImpCTotalThisWeek += $arr["issuanceImported"]["currentCrop"]["thisWeek"];
                 $issuanceImpPTotalThisWeek += $arr["issuanceImported"]["prevCrop"]["thisWeek"];
+            }else if($delivery->consumption == "ADVANCE"){
+                //IF ADVANCE REFINING ISSUANCE
+                $arr["issuanceAdvanceRefining"]["currentCrop"]["thisWeek"] = $delivery->currentTotal;
+                $arr["issuanceAdvanceRefining"]["prevCrop"]["thisWeek"] = $delivery->prevTotal;
+                $issuanceAdvCTotalThisWeek += $arr["issuanceAdvanceRefining"]["currentCrop"]["thisWeek"];
+                $issuanceAdvPTotalThisWeek += $arr["issuanceAdvanceRefining"]["prevCrop"]["thisWeek"];
             }
         }
 
@@ -101,6 +122,12 @@ class GetForm2Controller extends Controller
                 $arr["issuanceImported"]["prevCrop"]["prevWeek"] = $delivery->prevTotal;
                 $issuanceImpCTotalprevWeek += $arr["issuanceImported"]["currentCrop"]["prevWeek"];
                 $issuanceImpPTotalprevWeek += $arr["issuanceImported"]["prevCrop"]["prevWeek"];
+            }else if($delivery->consumption == "ADVANCE"){
+                //IF ADVANCE REFINING ISSUANCE
+                $arr["issuanceAdvanceRefining"]["currentCrop"]["prevWeek"] = $delivery->currentTotal;
+                $arr["issuanceAdvanceRefining"]["prevCrop"]["prevWeek"] = $delivery->prevTotal;
+                $issuanceAdvCTotalprevWeek += $arr["issuanceAdvanceRefining"]["currentCrop"]["prevWeek"];
+                $issuanceAdvPTotalprevWeek += $arr["issuanceAdvanceRefining"]["prevCrop"]["prevWeek"];
             }
         }
 
@@ -119,6 +146,12 @@ class GetForm2Controller extends Controller
                 $arr["issuanceImported"]["prevCrop"]["toDate"] = $delivery->prevTotal;
                 $issuanceImpCTotaltoDate += $arr["issuanceImported"]["currentCrop"]["toDate"];
                 $issuanceImpPTotaltoDate += $arr["issuanceImported"]["prevCrop"]["toDate"];
+            }else if($delivery->consumption == "ADVANCE"){
+                //IF ADVANCE REFINING ISSUANCE
+                $arr["issuanceAdvanceRefining"]["currentCrop"]["toDate"] = $delivery->currentTotal;
+                $arr["issuanceAdvanceRefining"]["prevCrop"]["toDate"] = $delivery->prevTotal;
+                $issuanceAdvCTotaltoDate += $arr["issuanceAdvanceRefining"]["currentCrop"]["toDate"];
+                $issuanceAdvPTotaltoDate += $arr["issuanceAdvanceRefining"]["prevCrop"]["toDate"];
             }
         }
 
@@ -150,17 +183,30 @@ class GetForm2Controller extends Controller
             ],
         ];
 
+        $arr["totalIssuanceAdvanceRefining"] = [
+            "currentCrop"=>[
+                "thisWeek"=>number_format($issuanceAdvCTotalThisWeek, 3, '.', ','),
+                "prevWeek"=>number_format($issuanceAdvCTotalprevWeek, 3, '.', ','),
+                "toDate"=>number_format($issuanceAdvCTotaltoDate, 3, '.', ','),
+            ],
+            "prevCrop"=>[
+                "thisWeek"=>number_format($issuanceAdvPTotalThisWeek, 3, '.', ','),
+                "prevWeek"=>number_format($issuanceAdvPTotalprevWeek, 3, '.', ','),
+                "toDate"=>number_format($issuanceAdvPTotaltoDate, 3, '.', ','),
+            ],
+        ];
+
         //TOTAL OVERALL ISSUANCE
         $arr["totalIssuanceOverall"] = [
             "currentCrop"=>[
-                "thisWeek"=>number_format($issuanceImpCTotalThisWeek + $issuanceDomCTotalThisWeek, 3, '.', ','),
-                "prevWeek"=>number_format($issuanceImpCTotalprevWeek + $issuanceDomCTotalprevWeek, 3, '.', ','),
-                "toDate"=>number_format($issuanceImpCTotaltoDate + $issuanceDomCTotaltoDate, 3, '.', ','),
+                "thisWeek"=>number_format($issuanceImpCTotalThisWeek + $issuanceDomCTotalThisWeek + $issuanceAdvCTotalThisWeek, 3, '.', ','),
+                "prevWeek"=>number_format($issuanceImpCTotalprevWeek + $issuanceDomCTotalprevWeek + $issuanceAdvCTotalprevWeek, 3, '.', ','),
+                "toDate"=>number_format($issuanceImpCTotaltoDate + $issuanceDomCTotaltoDate + $issuanceAdvCTotaltoDate, 3, '.', ','),
             ],
             "prevCrop"=>[
-                "thisWeek"=>number_format($issuanceImpPTotalThisWeek + $issuanceDomPTotalThisWeek, 3, '.', ','),
-                "prevWeek"=>number_format($issuanceImpPTotalprevWeek + $issuanceDomPTotalprevWeek, 3, '.', ','),
-                "toDate"=>number_format($issuanceImpPTotaltoDate + $issuanceDomPTotaltoDate, 3, '.', ','),
+                "thisWeek"=>number_format($issuanceImpPTotalThisWeek + $issuanceDomPTotalThisWeek + $issuanceAdvPTotalThisWeek, 3, '.', ','),
+                "prevWeek"=>number_format($issuanceImpPTotalprevWeek + $issuanceDomPTotalprevWeek + $issuanceAdvPTotalprevWeek, 3, '.', ','),
+                "toDate"=>number_format($issuanceImpPTotaltoDate + $issuanceDomPTotaltoDate + $issuanceAdvPTotaltoDate, 3, '.', ','),
             ],
         ];
         //ISSUANCE COMPUTATION --------------------------------------------------------- END
@@ -169,6 +215,7 @@ class GetForm2Controller extends Controller
         //GET THIS WEEK VALUES FOR WITHDRAWALS
         $deliveries = $weeklyReport->form5aDeliveries()
             ->selectRaw('consumption,sum(qty_current) as currentTotal, sum(qty_prev) as prevTotal')
+            ->groupBy('consumption') //FIX FOR THE IF ELSE LOGIC FILTERED BY DOMESTIC
             ->get();
         foreach ($deliveries as $delivery){
             if($delivery->consumption == "DOMESTIC"){
@@ -177,12 +224,18 @@ class GetForm2Controller extends Controller
                 $arr["withdrawalDomestic"]["prevCrop"]["thisWeek"] = $delivery->prevTotal;
                 $withdrawalDomCTotalThisWeek += $arr["withdrawalDomestic"]["currentCrop"]["thisWeek"];
                 $withdrawalDomPTotalThisWeek += $arr["withdrawalDomestic"]["prevCrop"]["thisWeek"];
-            }else{
+            }else if($delivery->consumption == "IMPORTED"){
                 //IF IMPORTED WITHDRAWAL
                 $arr["withdrawalImported"]["currentCrop"]["thisWeek"] = $delivery->currentTotal;
                 $arr["withdrawalImported"]["prevCrop"]["thisWeek"] = $delivery->prevTotal;
                 $withdrawalImpCTotalThisWeek += $arr["withdrawalImported"]["currentCrop"]["thisWeek"];
                 $withdrawalImpPTotalThisWeek += $arr["withdrawalImported"]["prevCrop"]["thisWeek"];
+            }else if($delivery->consumption == "ADVANCE"){
+                //IF IMPORTED WITHDRAWAL
+                $arr["withdrawalAdvance"]["currentCrop"]["thisWeek"] = $delivery->currentTotal;
+                $arr["withdrawalAdvance"]["prevCrop"]["thisWeek"] = $delivery->prevTotal;
+                $withdrawalAdvCTotalThisWeek += $arr["withdrawalAdvance"]["currentCrop"]["thisWeek"];
+                $withdrawalAdvPTotalThisWeek += $arr["withdrawalAdvance"]["prevCrop"]["thisWeek"];
             }
         }
 
@@ -195,12 +248,18 @@ class GetForm2Controller extends Controller
                 $arr["withdrawalDomestic"]["prevCrop"]["prevWeek"] = $delivery->prevTotal;
                 $withdrawalDomCTotalprevWeek += $arr["withdrawalDomestic"]["currentCrop"]["prevWeek"];
                 $withdrawalDomPTotalprevWeek += $arr["withdrawalDomestic"]["prevCrop"]["prevWeek"];
-            }else{
+            }else if($delivery->consumption == "IMPORTED"){
                 //if for refining
                 $arr["withdrawalImported"]["currentCrop"]["prevWeek"] = $delivery->currentTotal;
                 $arr["withdrawalImported"]["prevCrop"]["prevWeek"] = $delivery->prevTotal;
                 $withdrawalImpCTotalprevWeek += $arr["withdrawalImported"]["currentCrop"]["prevWeek"];
                 $withdrawalImpPTotalprevWeek += $arr["withdrawalImported"]["prevCrop"]["prevWeek"];
+            }else if($delivery->consumption == "ADVANCE"){
+                //IF IMPORTED WITHDRAWAL
+                $arr["withdrawalAdvance"]["currentCrop"]["prevWeek"] = $delivery->currentTotal;
+                $arr["withdrawalAdvance"]["prevCrop"]["prevWeek"] = $delivery->prevTotal;
+                $withdrawalAdvCTotalprevWeek += $arr["withdrawalAdvance"]["currentCrop"]["prevWeek"];
+                $withdrawalAdvPTotalprevWeek += $arr["withdrawalAdvance"]["prevCrop"]["prevWeek"];
             }
         }
 
@@ -213,12 +272,18 @@ class GetForm2Controller extends Controller
                 $arr["withdrawalDomestic"]["prevCrop"]["toDate"] = $delivery->prevTotal;
                 $withdrawalDomCTotaltoDate += $arr["withdrawalDomestic"]["currentCrop"]["toDate"];
                 $withdrawalDomPTotaltoDate += $arr["withdrawalDomestic"]["prevCrop"]["toDate"];
-            }else{
+            }else if($delivery->consumption == "IMPORTED"){
                 //if for refining
                 $arr["withdrawalImported"]["currentCrop"]["toDate"] = $delivery->currentTotal;
                 $arr["withdrawalImported"]["prevCrop"]["toDate"] = $delivery->prevTotal;
                 $withdrawalImpCTotaltoDate += $arr["withdrawalImported"]["currentCrop"]["toDate"];
                 $withdrawalImpPTotaltoDate += $arr["withdrawalImported"]["prevCrop"]["toDate"];
+            }else if($delivery->consumption == "ADVANCE"){
+                //IF IMPORTED WITHDRAWAL
+                $arr["withdrawalAdvance"]["currentCrop"]["toDate"] = $delivery->currentTotal;
+                $arr["withdrawalAdvance"]["prevCrop"]["toDate"] = $delivery->prevTotal;
+                $withdrawalAdvCTotaltoDate += $arr["withdrawalAdvance"]["currentCrop"]["toDate"];
+                $withdrawalAdvPTotaltoDate += $arr["withdrawalAdvance"]["prevCrop"]["toDate"];
             }
         }
 
@@ -250,17 +315,30 @@ class GetForm2Controller extends Controller
             ],
         ];
 
+        $arr["totalWithdrawalAdvanceRefining"] = [
+            "currentCrop"=>[
+                "thisWeek"=>number_format($withdrawalAdvCTotalThisWeek ?? 0, 3, '.', ','),
+                "prevWeek"=>number_format($withdrawalAdvCTotalprevWeek ?? 0, 3, '.', ','),
+                "toDate"=>number_format($withdrawalAdvCTotaltoDate ?? 0, 3, '.', ','),
+            ],
+            "prevCrop"=>[
+                "thisWeek"=>number_format($withdrawalAdvPTotalThisWeek ?? 0, 3, '.', ','),
+                "prevWeek"=>number_format($withdrawalAdvPTotalprevWeek ?? 0, 3, '.', ','),
+                "toDate"=>number_format($withdrawalAdvPTotaltoDate ?? 0, 3, '.', ','),
+            ],
+        ];
+
         //TOTAL OVERALL WITHDRAWAL
         $arr["totalWithdrawalOverall"] = [
             "currentCrop"=>[
-                "thisWeek"=>number_format($withdrawalImpCTotalThisWeek + $withdrawalDomCTotalThisWeek ?? 0, 3, '.', ','),
-                "prevWeek"=>number_format($withdrawalImpCTotalprevWeek + $withdrawalDomCTotalprevWeek ?? 0, 3, '.', ','),
-                "toDate"=>number_format($withdrawalImpCTotaltoDate + $withdrawalDomCTotaltoDate ?? 0, 3, '.', ','),
+                "thisWeek"=>number_format($withdrawalImpCTotalThisWeek + $withdrawalDomCTotalThisWeek + $withdrawalAdvCTotalThisWeek ?? 0, 3, '.', ','),
+                "prevWeek"=>number_format($withdrawalImpCTotalprevWeek + $withdrawalDomCTotalprevWeek + $withdrawalAdvCTotalprevWeek ?? 0, 3, '.', ','),
+                "toDate"=>number_format($withdrawalImpCTotaltoDate + $withdrawalDomCTotaltoDate + $withdrawalAdvCTotaltoDate ?? 0, 3, '.', ','),
             ],
             "prevCrop"=>[
-                "thisWeek"=>number_format($withdrawalImpPTotalThisWeek + $withdrawalDomPTotalThisWeek ?? 0, 3, '.', ','),
-                "prevWeek"=>number_format($withdrawalImpPTotalprevWeek + $withdrawalDomPTotalprevWeek ?? 0, 3, '.', ','),
-                "toDate"=>number_format($withdrawalImpPTotaltoDate + $withdrawalDomPTotaltoDate ?? 0, 3, '.', ','),
+                "thisWeek"=>number_format($withdrawalImpPTotalThisWeek + $withdrawalDomPTotalThisWeek + $withdrawalAdvPTotalThisWeek ?? 0, 3, '.', ','),
+                "prevWeek"=>number_format($withdrawalImpPTotalprevWeek + $withdrawalDomPTotalprevWeek + $withdrawalAdvPTotalprevWeek ?? 0, 3, '.', ','),
+                "toDate"=>number_format($withdrawalImpPTotaltoDate + $withdrawalDomPTotaltoDate + $withdrawalAdvPTotaltoDate ?? 0, 3, '.', ','),
             ],
         ];
         //WITHDRAWAL COMPUTATION ------------------------------------------------------- END
@@ -305,6 +383,14 @@ class GetForm2Controller extends Controller
         $arr["imported"]["prevCrop"]["thisWeek"]=number_format($thisWeek->prev_imported, 3, '.', ',');
         $arr["imported"]["prevCrop"]["prevWeek"]=number_format($prevWeek->prev_imported, 3, '.', ',');
         $arr["imported"]["prevCrop"]["toDate"]=number_format($toDate->prev_imported, 3, '.', ',');
+
+        //ADVANCE REFINING COMPUTATION
+        $arr["advanceRefining"]["currentCrop"]["thisWeek"]=number_format($thisWeek->advance_refining, 3, '.', ',');
+        $arr["advanceRefining"]["currentCrop"]["prevWeek"]=number_format($prevWeek->advance_refining, 3, '.', ',');
+        $arr["advanceRefining"]["currentCrop"]["toDate"]=number_format($toDate->advance_refining, 3, '.', ',');
+        $arr["advanceRefining"]["prevCrop"]["thisWeek"]=number_format($thisWeek->prev_advance_refining, 3, '.', ',');
+        $arr["advanceRefining"]["prevCrop"]["prevWeek"]=number_format($prevWeek->prev_advance_refining, 3, '.', ',');
+        $arr["advanceRefining"]["prevCrop"]["toDate"]=number_format($toDate->prev_advance_refining, 3, '.', ',');
 
         //MELTED COMPUTATION
         $arr["melted"]["currentCrop"]["thisWeek"]=number_format($thisWeek->melted, 3, '.', ',');
@@ -423,14 +509,14 @@ class GetForm2Controller extends Controller
         //NEW TOTAL RECEIPT
         $arr["totalReceipt"] = [
             "currentCrop"=>[
-                "thisWeek"=>number_format($thisWeek->coveredBySro + $thisWeek->otherMills + $thisWeek->imported + $thisWeek->notCoveredBySro, 3, '.', ','),
-                "prevWeek"=>number_format($prevWeek->coveredBySro + $prevWeek->otherMills + $prevWeek->imported + $prevWeek->notCoveredBySro, 3, '.', ','),
-                "toDate"=>number_format($toDate->coveredBySro + $toDate->otherMills + $toDate->imported + $toDate->notCoveredBySro, 3, '.', ','),
+                "thisWeek"=>number_format($thisWeek->coveredBySro + $thisWeek->otherMills + $thisWeek->imported + $thisWeek->advance_refining + $thisWeek->notCoveredBySro, 3, '.', ','),
+                "prevWeek"=>number_format($prevWeek->coveredBySro + $prevWeek->otherMills + $prevWeek->imported + $prevWeek->advance_refining + $prevWeek->notCoveredBySro, 3, '.', ','),
+                "toDate"=>number_format($toDate->coveredBySro + $toDate->otherMills + $toDate->imported + $toDate->advance_refining + $toDate->notCoveredBySro, 3, '.', ','),
             ],
             "prevCrop"=>[
-                "thisWeek"=>number_format($thisWeek->prev_coveredBySro + $thisWeek->prev_otherMills + $thisWeek->prev_imported + $thisWeek->prev_notCoveredBySro, 3, '.', ','),
-                "prevWeek"=>number_format($prevWeek->prev_coveredBySro + $prevWeek->prev_otherMills + $prevWeek->prev_imported + $prevWeek->prev_notCoveredBySro, 3, '.', ','),
-                "toDate"=>number_format($toDate->prev_coveredBySro + $toDate->prev_otherMills + $toDate->prev_imported + $toDate->prev_notCoveredBySro, 3, '.', ','),
+                "thisWeek"=>number_format($thisWeek->prev_coveredBySro + $thisWeek->prev_otherMills + $thisWeek->prev_imported + $thisWeek->prev_advance_refining + $thisWeek->prev_notCoveredBySro, 3, '.', ','),
+                "prevWeek"=>number_format($prevWeek->prev_coveredBySro + $prevWeek->prev_otherMills + $prevWeek->prev_imported + $prevWeek->prev_advance_refining + $prevWeek->prev_notCoveredBySro, 3, '.', ','),
+                "toDate"=>number_format($toDate->prev_coveredBySro + $toDate->prev_otherMills + $toDate->prev_imported + $toDate->prev_advance_refining + $toDate->prev_notCoveredBySro, 3, '.', ','),
             ],
         ];
 
@@ -569,6 +655,7 @@ class GetForm2Controller extends Controller
                 $q->where('weekly_reports.status' ,'!=', -1)
                     ->orWhere('weekly_reports.status', '=', null);
             })
+            ->groupBy('consumption')
             ->get();
         return $deliveries;
     }
@@ -584,6 +671,7 @@ class GetForm2Controller extends Controller
                 $q->where('weekly_reports.status' ,'!=', -1)
                     ->orWhere('weekly_reports.status', '=', null);
             })
+            ->groupBy('consumption')
             ->get();
         return $deliveries_sro;
     }

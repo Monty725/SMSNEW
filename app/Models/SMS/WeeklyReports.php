@@ -240,7 +240,7 @@ class WeeklyReports extends Model
 
     public function form2ToDateAsOf($report_no){
         $fieldsToSum = [
-            'weekly_report_slug', 'carryOver', 'coveredBySro', 'notCoveredBySro', 'otherMills', 'imported', 'melted', 'rawWithdrawals', 'prev_refinedCarryOver', 'prodDomestic', 'prodImported', 'overage', 'prodReturn', 'prev_carryOver', 'prev_coveredBySro', 'prev_notCoveredBySro', 'prev_otherMills', 'prev_imported', 'prev_melted', 'prev_rawWithdrawals', 'prev_prodDomestic', 'prev_prodImported', 'prev_overage', 'prev_prodReturn','form2_unquedanned', 'form2_prev_unquedanned',
+            'weekly_report_slug', 'carryOver', 'coveredBySro', 'notCoveredBySro', 'otherMills', 'imported', 'melted', 'rawWithdrawals', 'prev_refinedCarryOver', 'prodDomestic', 'prodImported', 'overage', 'prodReturn', 'prev_carryOver', 'prev_coveredBySro', 'prev_notCoveredBySro', 'prev_otherMills', 'prev_imported', 'prev_melted', 'prev_rawWithdrawals', 'prev_prodDomestic', 'prev_prodImported', 'prev_overage', 'prev_prodReturn','form2_unquedanned', 'form2_prev_unquedanned', 'advance_refining', 'prev_advance_refining',
         ];
         foreach ($fieldsToSum as $key => $field){
             $fieldsToSum[$key] = ' sum('.$field.') as '.$field;

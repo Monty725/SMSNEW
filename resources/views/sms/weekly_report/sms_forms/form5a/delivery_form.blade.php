@@ -54,11 +54,12 @@
 
 <div class="row">
     {!! \App\Swep\ViewHelpers\__form2::iRadioH('consumption',[
-        'cols' => 6,
+        'cols' => 8,
         'label' => 'Domestic/Imported:',
         'options' => [
             'DOMESTIC' => 'Domestic',
             'IMPORTED' => 'Imported',
+            'ADVANCE'  => 'Advance Refining',
         ]
     ],
     $delivery->consumption ?? 'DOMESTIC'

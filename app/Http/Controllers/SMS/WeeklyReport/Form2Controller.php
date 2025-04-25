@@ -31,6 +31,7 @@ class Form2Controller extends Controller
                 'notCoveredBySro'=> Helper::sanitizeAutonum($request->notCoveredBySro),
                 'otherMills'=> Helper::sanitizeAutonum($request->otherMills),
                 'imported'=> Helper::sanitizeAutonum($request->imported),
+                'advance_refining'=> Helper::sanitizeAutonum($request->advance_refining),
                 'melted'=> Helper::sanitizeAutonum($request->melted),
                 'rawWithdrawals'=> Helper::sanitizeAutonum($request->rawWithdrawals),
                 'prodDomestic'=> Helper::sanitizeAutonum($request->prodDomestic),
@@ -44,6 +45,7 @@ class Form2Controller extends Controller
                 'prev_notCoveredBySro'=> Helper::sanitizeAutonum($request->prev_notCoveredBySro),
                 'prev_otherMills'=> Helper::sanitizeAutonum($request->prev_otherMills),
                 'prev_imported'=> Helper::sanitizeAutonum($request->prev_imported),
+                'prev_advance_refining'=> Helper::sanitizeAutonum($request->prev_advance_refining),
                 'prev_melted'=> Helper::sanitizeAutonum($request->prev_melted),
                 'prev_rawWithdrawals'=> Helper::sanitizeAutonum($request->prev_rawWithdrawals),
 
@@ -87,6 +89,7 @@ class Form2Controller extends Controller
                     'notCoveredBySro'=> Helper::sanitizeAutonum($request->notCoveredBySro),
                     'otherMills'=> Helper::sanitizeAutonum($request->otherMills),
                     'imported'=> Helper::sanitizeAutonum($request->imported),
+                    'advance_refining'=> Helper::sanitizeAutonum($request->advance_refining),
                     'melted'=> Helper::sanitizeAutonum($request->melted),
                     'rawWithdrawals'=> Helper::sanitizeAutonum($request->rawWithdrawals),
                     'prodDomestic'=> Helper::sanitizeAutonum($request->prodDomestic),
@@ -99,6 +102,7 @@ class Form2Controller extends Controller
                     'prev_notCoveredBySro'=> Helper::sanitizeAutonum($request->prev_notCoveredBySro),
                     'prev_otherMills'=> Helper::sanitizeAutonum($request->prev_otherMills),
                     'prev_imported'=> Helper::sanitizeAutonum($request->prev_imported),
+                    'prev_advance_refining'=> Helper::sanitizeAutonum($request->prev_advance_refining),
                     'prev_melted'=> Helper::sanitizeAutonum($request->prev_melted),
                     'prev_rawWithdrawals'=> Helper::sanitizeAutonum($request->prev_rawWithdrawals),
 

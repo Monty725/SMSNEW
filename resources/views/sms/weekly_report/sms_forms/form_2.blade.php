@@ -459,6 +459,27 @@
                     <td class="text-strong text-right updatable" for="imported.prevCrop.prevWeek"></td>
                     <td class="text-strong text-right updatable" for="imported.prevCrop.toDate"></td>
                 </tr>
+                <tr>
+                    <td><span class="indent"></span>2.4 Advance Refining</td>
+                    <td>
+                        {!! \App\Swep\ViewHelpers\__form2::textboxOnly('advance_refining',[
+                            'class' => 'form2-input input-sm text-right autonumber_mt'
+                        ],
+                        $wr->form2->advance_refining ?? null
+                        ) !!}
+                    </td>
+                    <td class="text-strong text-right updatable" for="advanceRefining.currentCrop.prevWeek"></td>
+                    <td class="text-strong text-right updatable" for="advanceRefining.currentCrop.toDate"></td>
+                    <td>
+                        {!! \App\Swep\ViewHelpers\__form2::textboxOnly('prev_advance_refining',[
+                            'class' => 'form2-input input-sm text-right autonumber_mt'
+                        ],
+                        $wr->form2->prev_advance_refining ?? null
+                        ) !!}
+                    </td>
+                    <td class="text-strong text-right updatable" for="advanceRefining.prevCrop.prevWeek"></td>
+                    <td class="text-strong text-right updatable" for="advanceRefining.prevCrop.toDate"></td>
+                </tr>
                 <tr for="totalReceipts" class="computation">
                     <td class="text-right">TOTAL RECEIPTS</td>
                     <td class="text-strong text-right updatable" for="totalReceipt.currentCrop.thisWeek"></td>
@@ -685,6 +706,16 @@
                     <td class="text-right updatable" for="totalIssuanceImported.prevCrop.toDate"></td>
                 </tr>
 
+                <tr for="totalIssuanceAdvanceRefining" class="computation">
+                    <td class="text-strong"><span class="indent"></span>7.3 ADVANCE REFINING </td>
+                    <td class="text-right updatable" for="totalIssuanceAdvanceRefining.currentCrop.thisWeek"></td>
+                    <td class="text-right updatable" for="totalIssuanceAdvanceRefining.currentCrop.prevWeek"></td>
+                    <td class="text-right updatable" for="totalIssuanceAdvanceRefining.currentCrop.toDate"></td>
+                    <td class="text-right updatable" for="totalIssuanceAdvanceRefining.prevCrop.thisWeek"></td>
+                    <td class="text-right updatable" for="totalIssuanceAdvanceRefining.prevCrop.prevWeek"></td>
+                    <td class="text-right updatable" for="totalIssuanceAdvanceRefining.prevCrop.toDate"></td>
+                </tr>
+
                 <tr>
                     <td class="text-strong" colspan="4">8. WITHDRAWALS</td>
                 </tr>
@@ -707,6 +738,16 @@
                     <td class="text-right updatable" for="totalWithdrawalImported.prevCrop.thisWeek"></td>
                     <td class="text-right updatable" for="totalWithdrawalImported.prevCrop.prevWeek"></td>
                     <td class="text-right updatable" for="totalWithdrawalImported.prevCrop.toDate"></td>
+                </tr>
+
+                <tr for="withdrawalsAdvanceRefining" class="computation">
+                    <td class="text-strong"><span class="indent"></span>8.3 ADVANCE REFINING </td>
+                    <td class="text-right updatable" for="totalWithdrawalAdvanceRefining.currentCrop.thisWeek"></td>
+                    <td class="text-right updatable" for="totalWithdrawalAdvanceRefining.currentCrop.prevWeek"></td>
+                    <td class="text-right updatable" for="totalWithdrawalAdvanceRefining.currentCrop.toDate"></td>
+                    <td class="text-right updatable" for="totalWithdrawalAdvanceRefining.prevCrop.thisWeek"></td>
+                    <td class="text-right updatable" for="totalWithdrawalAdvanceRefining.prevCrop.prevWeek"></td>
+                    <td class="text-right updatable" for="totalWithdrawalAdvanceRefining.prevCrop.toDate"></td>
                 </tr>
 
                 <tr for="stockBalance" class="computation">
