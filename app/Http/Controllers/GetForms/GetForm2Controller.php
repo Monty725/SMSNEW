@@ -74,7 +74,7 @@ class GetForm2Controller extends Controller
         $withdrawalAdvCTotaltoDate = 0.000;
         $withdrawalAdvPTotaltoDate = 0.000;
 
-        function formatValue($value) {
+        function formatValue2($value) {
             return $value < 0 ? '(' . number_format(abs($value), 3, '.', ',') . ')' : number_format($value, 3, '.', ',');
         }
 
@@ -523,28 +523,28 @@ class GetForm2Controller extends Controller
         //BALANCE RAW
         $arr["balanceRaw"] = [
             "currentCrop"=>[
-                "thisWeek"=>number_format(($thisWeek->coveredBySro + $thisWeek->otherMills + $thisWeek->imported + $thisWeek->notCoveredBySro) - ($thisWeek->melted) - ($thisWeek->rawWithdrawals), 3, '.', ','),
-                "prevWeek"=>number_format(($prevWeek->coveredBySro + $prevWeek->otherMills + $prevWeek->imported + $prevWeek->notCoveredBySro) - ($prevWeek->melted) - ($prevWeek->rawWithdrawals), 3, '.', ','),
-                "toDate"=>number_format(($toDate->coveredBySro + $toDate->otherMills + $toDate->imported + $toDate->notCoveredBySro) - ($toDate->melted) - ($toDate->rawWithdrawals), 3, '.', ','),
+                "thisWeek"=>formatValue2(($thisWeek->coveredBySro + $thisWeek->otherMills + $thisWeek->imported + $thisWeek->notCoveredBySro) - ($thisWeek->melted) - ($thisWeek->rawWithdrawals), 3, '.', ','),
+                "prevWeek"=>formatValue2(($prevWeek->coveredBySro + $prevWeek->otherMills + $prevWeek->imported + $prevWeek->notCoveredBySro) - ($prevWeek->melted) - ($prevWeek->rawWithdrawals), 3, '.', ','),
+                "toDate"=>formatValue2(($toDate->coveredBySro + $toDate->otherMills + $toDate->imported + $toDate->notCoveredBySro) - ($toDate->melted) - ($toDate->rawWithdrawals), 3, '.', ','),
             ],
             "prevCrop"=>[
-                "thisWeek"=>number_format(($thisWeek->prev_carryOver) - ($thisWeek->prev_melted) - ($thisWeek->prev_rawWithdrawals), 3, '.', ','),
-                "prevWeek"=>number_format(($prevWeek->prev_carryOver) - ($prevWeek->prev_melted) - ($prevWeek->prev_rawWithdrawals), 3, '.', ','),
-                "toDate"=>number_format(($toDate->prev_carryOver) - ($toDate->prev_melted) - ($toDate->prev_rawWithdrawals), 3, '.', ','),
+                "thisWeek"=>formatValue2(($thisWeek->prev_carryOver) - ($thisWeek->prev_melted) - ($thisWeek->prev_rawWithdrawals), 3, '.', ','),
+                "prevWeek"=>formatValue2(($prevWeek->prev_carryOver) - ($prevWeek->prev_melted) - ($prevWeek->prev_rawWithdrawals), 3, '.', ','),
+                "toDate"=>formatValue2(($toDate->prev_carryOver) - ($toDate->prev_melted) - ($toDate->prev_rawWithdrawals), 3, '.', ','),
             ],
         ];
 
         //STOCK BALANCE
         $arr["stockBalance"] = [
             "currentCrop"=>[
-                "thisWeek"=>formatValue(($issuanceImpCTotalThisWeek + $issuanceDomCTotalThisWeek)-($withdrawalImpCTotalThisWeek + $withdrawalDomCTotalThisWeek)),
-                "prevWeek"=>formatValue(($issuanceImpCTotalprevWeek + $issuanceDomCTotalprevWeek)-($withdrawalImpCTotalprevWeek + $withdrawalDomCTotalprevWeek)),
-                "toDate"=>formatValue(($issuanceImpCTotaltoDate + $issuanceDomCTotaltoDate)-($withdrawalImpCTotaltoDate + $withdrawalDomCTotaltoDate)),
+                "thisWeek"=>formatValue2(($issuanceImpCTotalThisWeek + $issuanceDomCTotalThisWeek)-($withdrawalImpCTotalThisWeek + $withdrawalDomCTotalThisWeek)),
+                "prevWeek"=>formatValue2(($issuanceImpCTotalprevWeek + $issuanceDomCTotalprevWeek)-($withdrawalImpCTotalprevWeek + $withdrawalDomCTotalprevWeek)),
+                "toDate"=>formatValue2(($issuanceImpCTotaltoDate + $issuanceDomCTotaltoDate)-($withdrawalImpCTotaltoDate + $withdrawalDomCTotaltoDate)),
             ],
             "prevCrop"=>[
-                "thisWeek"=>formatValue(($thisWeek->prev_prodDomestic + $thisWeek->prev_prodImported + $thisWeek->prev_overage + $issuanceImpPTotalThisWeek + $issuanceDomPTotalThisWeek)-($withdrawalImpPTotalThisWeek + $withdrawalDomPTotalThisWeek)),
-                "prevWeek"=>formatValue(($prevWeek->prev_prodDomestic + $prevWeek->prev_prodImported + $prevWeek->prev_overage + $issuanceImpPTotalprevWeek + $issuanceDomPTotalprevWeek)-($withdrawalImpPTotalprevWeek + $withdrawalDomPTotalprevWeek)),
-                "toDate"=>formatValue(($toDate->prev_prodDomestic + $toDate->prev_prodImported + $toDate->prev_overage + $issuanceImpPTotaltoDate + $issuanceDomPTotaltoDate)-($withdrawalImpPTotaltoDate + $withdrawalDomPTotaltoDate)),
+                "thisWeek"=>formatValue2(($thisWeek->prev_prodDomestic + $thisWeek->prev_prodImported + $thisWeek->prev_overage + $issuanceImpPTotalThisWeek + $issuanceDomPTotalThisWeek)-($withdrawalImpPTotalThisWeek + $withdrawalDomPTotalThisWeek)),
+                "prevWeek"=>formatValue2(($prevWeek->prev_prodDomestic + $prevWeek->prev_prodImported + $prevWeek->prev_overage + $issuanceImpPTotalprevWeek + $issuanceDomPTotalprevWeek)-($withdrawalImpPTotalprevWeek + $withdrawalDomPTotalprevWeek)),
+                "toDate"=>formatValue2(($toDate->prev_prodDomestic + $toDate->prev_prodImported + $toDate->prev_overage + $issuanceImpPTotaltoDate + $issuanceDomPTotaltoDate)-($withdrawalImpPTotaltoDate + $withdrawalDomPTotaltoDate)),
             ],
         ];
 
@@ -616,14 +616,14 @@ class GetForm2Controller extends Controller
 //        NEW STOCK ON HAND
         $arr["stockOnHand"] = [
             "currentCrop"=>[
-                "thisWeek"=>formatValue((($issuanceImpCTotalThisWeek + $issuanceDomCTotalThisWeek)-($withdrawalImpCTotalThisWeek + $withdrawalDomCTotalThisWeek))+($thisWeek->form2_unquedanned)),
-                "prevWeek"=>formatValue((($issuanceImpCTotalprevWeek + $issuanceDomCTotalprevWeek)-($withdrawalImpCTotalprevWeek + $withdrawalDomCTotalprevWeek))+($prevWeek->form2_unquedanned)),
-                "toDate"=>formatValue((($issuanceImpCTotaltoDate + $issuanceDomCTotaltoDate)-($withdrawalImpCTotaltoDate + $withdrawalDomCTotaltoDate))+($toDate->form2_unquedanned)),
+                "thisWeek"=>formatValue2((($issuanceImpCTotalThisWeek + $issuanceDomCTotalThisWeek)-($withdrawalImpCTotalThisWeek + $withdrawalDomCTotalThisWeek))+($thisWeek->form2_unquedanned)),
+                "prevWeek"=>formatValue2((($issuanceImpCTotalprevWeek + $issuanceDomCTotalprevWeek)-($withdrawalImpCTotalprevWeek + $withdrawalDomCTotalprevWeek))+($prevWeek->form2_unquedanned)),
+                "toDate"=>formatValue2((($issuanceImpCTotaltoDate + $issuanceDomCTotaltoDate)-($withdrawalImpCTotaltoDate + $withdrawalDomCTotaltoDate))+($toDate->form2_unquedanned)),
             ],
             "prevCrop"=>[
-                "thisWeek"=>formatValue((($thisWeek->prev_prodDomestic + $thisWeek->prev_prodImported + $thisWeek->prev_overage + $issuanceImpPTotalThisWeek + $issuanceDomPTotalThisWeek)-($withdrawalImpPTotalThisWeek + $withdrawalDomPTotalThisWeek))+($thisWeek->form2_prev_unquedanned)),
-                "prevWeek"=>formatValue((($prevWeek->prev_prodDomestic + $prevWeek->prev_prodImported + $prevWeek->prev_overage + $issuanceImpPTotalprevWeek + $issuanceDomPTotalprevWeek)-($withdrawalImpPTotalprevWeek + $withdrawalDomPTotalprevWeek))+($prevWeek->form2_prev_unquedanned)),
-                "toDate"=>formatValue((($toDate->prev_prodDomestic + $toDate->prev_prodImported + $toDate->prev_overage + $issuanceImpPTotaltoDate + $issuanceDomPTotaltoDate)-($withdrawalImpPTotaltoDate + $withdrawalDomPTotaltoDate))+($toDate->form2_prev_unquedanned)),
+                "thisWeek"=>formatValue2((($thisWeek->prev_prodDomestic + $thisWeek->prev_prodImported + $thisWeek->prev_overage + $issuanceImpPTotalThisWeek + $issuanceDomPTotalThisWeek)-($withdrawalImpPTotalThisWeek + $withdrawalDomPTotalThisWeek))+($thisWeek->form2_prev_unquedanned)),
+                "prevWeek"=>formatValue2((($prevWeek->prev_prodDomestic + $prevWeek->prev_prodImported + $prevWeek->prev_overage + $issuanceImpPTotalprevWeek + $issuanceDomPTotalprevWeek)-($withdrawalImpPTotalprevWeek + $withdrawalDomPTotalprevWeek))+($prevWeek->form2_prev_unquedanned)),
+                "toDate"=>formatValue2((($toDate->prev_prodDomestic + $toDate->prev_prodImported + $toDate->prev_overage + $issuanceImpPTotaltoDate + $issuanceDomPTotaltoDate)-($withdrawalImpPTotaltoDate + $withdrawalDomPTotaltoDate))+($toDate->form2_prev_unquedanned)),
             ],
         ];
 

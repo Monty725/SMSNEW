@@ -6,6 +6,7 @@ namespace App\Http\Controllers\SMS;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\GetForms\GetForm1Controller;
+use App\Http\Controllers\GetForms\GetForm2Controller;
 use App\Http\Controllers\SMS\WeeklyReport\RawSugarController;
 use App\Http\Requests\SMS\CancellationFormRequest;
 use App\Http\Requests\SMS\WeeklyReportFormRequest;
@@ -34,12 +35,15 @@ class WeeklyReportController extends Controller
     protected  $statusService;
     protected  $calendarService;
     protected  $getForm1Controller;
-    public function __construct(WeeklyReportService $weeklyReportService, StatusService $statusService, CalendarService $calendarService, GetForm1Controller $getForm1Controller)
+
+    protected  $getForm2Controller;
+    public function __construct(WeeklyReportService $weeklyReportService, StatusService $statusService, CalendarService $calendarService, GetForm1Controller $getForm1Controller, GetForm2Controller $getForm2Controller)
     {
         $this->weeklyReportService = $weeklyReportService;
         $this->statusService = $statusService;
         $this->calendarService = $calendarService;
         $this->getForm1Controller = $getForm1Controller;
+        $this->getForm2Controller = $getForm2Controller;
     }
 
     public function index(){
@@ -269,6 +273,7 @@ class WeeklyReportController extends Controller
 
                     //Connected Getform1Controller to form1 Printable
                     'newform1' => $this->getForm1Controller->getForm1($slug),
+//                    'newform2' => $this->getForm2Controller->getForm2($slug),
 
                     'toDateForm1' => $this->weeklyReportService->computation($slug, 'toDate', $weekly_report->report_no*1),
                     'form1' => $this->weeklyReportService->computation($slug),
@@ -286,6 +291,7 @@ class WeeklyReportController extends Controller
 
                 //Connected Getform1Controller to form1 Printable
                 'newform1' => $this->getForm1Controller->getForm1($slug),
+//                'newform2' => $this->getForm2Controller->getForm2($slug),
 
                 'form'.$formNo => $this->weeklyReportService->{"form".$formNo."Computation"}($slug),
                 'prevToDateForm'.$formNo => $this->weeklyReportService->{"form".$formNo."Computation"}($slug,'toDate', $weekly_report->report_no - 1),
@@ -299,6 +305,8 @@ class WeeklyReportController extends Controller
                 'details_arr' => $details_arr,
                 'input_fields_arr' => $input_fields_arr,
                 'signatories' => $this->weeklyReportService->getSignatories($slug),
+
+                'newform2' => $this->getForm2Controller->getForm2($slug),
             ]);
         }
 
@@ -527,6 +535,9 @@ class WeeklyReportController extends Controller
             'form2' => $this->weeklyReportService->form2Computation($slug),
             'prevToDateForm2' => $this->weeklyReportService->form2Computation($slug,'toDate', $weekly_report->report_no - 1),
             'toDateForm2' => $this->weeklyReportService->form2Computation($slug,'toDate',$weekly_report->report_no ),
+
+            //Connected Getform2Controller to form1 Printable
+            'newform2' => $this->getForm2Controller->getForm2($slug),
 
             'form3' => $this->weeklyReportService->form3Computation($slug),
             'prevToDateForm3' => $this->weeklyReportService->form3Computation($slug,'toDate', $weekly_report->report_no - 1),

@@ -43,16 +43,18 @@ class Helper
 
     //LOUIS 8-19-2024
 
-    public static function toNumber($value, $decimals = 2)
+    public static function toNumber($value, $decimals = 3)
     {
         if (is_null($value)) {
             return null;
         }
 
-        $formattedNumber = number_format($value, $decimals);
+        $value = (float) $value;
+
+        $formattedNumber = number_format(abs($value), $decimals);
 
         if ($value < 0) {
-            return '(' . str_replace('-', '', $formattedNumber) . ')';
+            return '(' . $formattedNumber . ')';
         }
 
         return $formattedNumber;

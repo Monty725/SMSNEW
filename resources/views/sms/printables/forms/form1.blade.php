@@ -25,10 +25,10 @@
             <td>1. MANUFACTURED</td>
 {{--            @dd($newform1);--}}
             <td class="text-right">
-                {{ $newform1['values']['manufactured.currentCrop.thisWeek'] ?? 0 }}
+                {{$newform1['values']['manufactured.currentCrop.thisWeek'] ?? 0 }}
             </td>
             <td class="text-right">
-                {{ $newform1['values']['manufactured.currentCrop.prevWeek'] ?? 0 }}
+                {{$newform1['values']['manufactured.currentCrop.prevWeek'] ?? 0 }}
             </td>
             <td class="text-right">
                 {{$newform1['values']['manufactured.currentCrop.toDate'] ?? 0 }}
