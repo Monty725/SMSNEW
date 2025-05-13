@@ -303,6 +303,11 @@ Route::get('getForm1/{slug}',\App\Http\Controllers\GetForms\GetForm1Controller::
 Route::get('getForm2/{slug}',\App\Http\Controllers\GetForms\GetForm2Controller::class.'@getForm2');
 Route::get('getForm3/{slug}',\App\Http\Controllers\GetForms\GetForm3Controller::class.'@getForm3');
 
+Route::patch('/sro/{slug}/delete', [\App\Http\Controllers\SMS\Form5a\IssuanceOfSroController::class, 'markDeleted'])->name('sro.markDeleted');
+
+Route::post('/form5a/issuance-of-sro/mark-deleted/{slug}', [\App\Http\Controllers\SMS\Form5a\IssuanceOfSroController::class, 'markDeleted5a'])
+    ->name('dashboard.form5a_issuanceOfSro.markDeleted5a');
+
 
 
 

@@ -294,6 +294,48 @@
     </div>
 </div>
 
+<div class="modal fade" id="add_form6aquedan_issuances_modal" tabindex="-1" role="dialog" aria-labelledby="add_form6a_issuances_modal_label">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form id="form6aquedan_add_issuance_form">
+                @csrf
+                <input value="{{$wr->slug}}" name="weekly_report_slug" hidden>
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Issuances of SRO</h4>
+                </div>
+                <div class="modal-body">
+                    @include('sms.weekly_report.sms_forms.form6a.issuance2_form6a')
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary btn-sm"><i class="fa fa-check"></i> Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="add_form6a_deliveries_modal" tabindex="-1" role="dialog" aria-labelledby="add_form6a_issuances_modal_label">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form id="form6a_add_deliveries_form">
+                @csrf
+                <input value="{{$wr->slug}}" name="weekly_report_slug" hidden>
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Add Delivery</h4>
+                </div>
+                <div class="modal-body">
+                    @include('sms.weekly_report.sms_forms.form6a.delivery_form6a')
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary btn-sm"><i class="fa fa-check"></i> Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 <div class="modal fade" id="add_form5a_deliveries_modal" tabindex="-1" role="dialog" aria-labelledby="add_form5a_issuances_modal_label">
     <div class="modal-dialog" role="document">
         <div class="modal-content">

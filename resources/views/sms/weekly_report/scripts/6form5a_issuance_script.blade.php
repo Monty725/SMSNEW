@@ -118,4 +118,44 @@
             }
         })
     })
+
+    $("#form6aquedan_add_issuance_form").submit(function (e) {
+        e.preventDefault();
+        let form = $(this);
+        loading_btn(form);
+        $.ajax({
+            url : '{{route("dashboard.form5a_issuanceOfSro.store")}}',
+            data : form.serialize(),
+            type: 'POST',
+            headers: {
+                {!! __html::token_header() !!}
+            },
+            success: function (res) {
+                succeed(form,true,false);
+                active_form5a_issuance = res.slug;
+                form5a_issuance_tbl.draw(false);
+                updateTradersList();
+
+                setTimeout(function() {
+                    location.reload();
+                }, 500);
+            },
+            error: function (res) {
+                errored(form,res);
+            }
+        })
+    })
+</script>
+
+<script>
+    function confirmDelete(slug) {
+        if (confirm('Are you sure you want to mark this as deleted?')) {
+            const form = document.getElementById('delete-form-' + slug);
+            if (form) {
+                form.submit();
+            } else {
+                alert("Delete form not found.");
+            }
+        }
+    }
 </script>

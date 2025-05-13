@@ -81,6 +81,7 @@ class GetForm2Controller extends Controller
         //ISSUANCE COMPUTATION --------------------------------------------------------- START
         //GET THIS WEEK VALUES FOR ISSUANCES
         $deliveries = $weeklyReport->form5aIssuancesOfSro()
+            ->whereNull('here_only')
             ->selectRaw('consumption,sum(refined_qty) as currentTotal, sum(prev_refined_qty) as prevTotal')
             ->groupBy('consumption') //FIX FOR THE IF ELSE LOGIC FILTERED BY DOMESTIC
             ->get();
@@ -664,6 +665,7 @@ class GetForm2Controller extends Controller
         $deliveries_sro = IssuancesOfSro::query()
             ->selectRaw('weekly_report_slug,trader, consumption, sum(refined_qty) as currentTotal, sum(prev_refined_qty) as prevTotal, weekly_reports.*')
             ->leftJoin('weekly_reports','weekly_reports.slug','=','form5a_issuances_of_sro.weekly_report_slug')
+            ->whereNull('here_only')
             ->where('crop_year','=',$weeklyReport->crop_year)
             ->where('mill_code','=',$weeklyReport->mill_code)
             ->where('report_no','<=', $reportNo != 0 ? $reportNo : $weeklyReport->report_no * 1)

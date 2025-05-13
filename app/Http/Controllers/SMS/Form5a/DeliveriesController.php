@@ -79,6 +79,7 @@ class DeliveriesController extends Controller
         $d->qty_standard = Helper::sanitizeAutonum($request->qty_standard);
         $d->qty_premium = Helper::sanitizeAutonum($request->qty_premium);
         $d->qty_total = $d->qty_standard + $d->qty_premium;
+        $d->here_only = $request->here_only;
         if($request->chargeTo == 'CURRENT'){
             $d->qty_current = $d->qty_total;
             $d->qty_prev = null;
@@ -113,6 +114,7 @@ class DeliveriesController extends Controller
         $d->qty_total = $d->qty_standard + $d->qty_premium;
         $d->remarks = $request->remarks;
         $d->consumption = $request->consumption;
+        $d->here_only = $request->here_only;
         if($request->chargeTo == 'CURRENT'){
             $d->qty_current = $d->qty_total;
             $d->qty_prev = null;

@@ -20,19 +20,25 @@ class IssuanceOfSroController extends Controller
 
         if($request->ajax()){
             $issuances = IssuancesOfSro::query()
-                ->where('weekly_report_slug','=',$request->weekly_report_slug);
+                ->where('weekly_report_slug','=',$request->weekly_report_slug)
+                ->whereNull('quedan_only')
+                ->whereNull('is_deleted_5a');
             return DataTables::of($issuances)
                 ->addColumn('action',function($data){
                     $destroy_route = "'".route("dashboard.form5a_issuanceOfSro.destroy","slug")."'";
+                    $delete_route = route("dashboard.form5a_issuanceOfSro.markDeleted5a", $data->slug);
                     $slug = "'".$data->slug."'";
                     $button = '<div class="btn-group">
                                     <button type="button" data="'.$data->slug.'" uri="'.route("dashboard.form5a_issuanceOfSro.edit",$data->slug).'" class="btn btn-sm view_form5Issuance_btn btn-xs form5_edit_btn" data-toggle="modal" data-target="#form5_editModal" title="Edit" data-placement="top">
                                         <i class="fa fa-edit"></i>
                                     </button>
-                                    <button type="button" data="'.$data->slug.'" onclick="delete_data('.$slug.','.$destroy_route.')" class="btn btn-sm btn-danger btn-xs " data-toggle="tooltip" title="Delete" data-placement="top">
-                                        <i class="fa fa-trash"></i>
-                                    </button>
-                                  
+                                    
+                                    <form method="POST" action="'.$delete_route.'" style="display:inline;" onsubmit="return confirm(\'Are you sure you want to mark this as deleted?\')">
+                                        '.csrf_field().'
+                                        <button type="submit" class="btn btn-sm btn-danger btn-xs" data-toggle="tooltip" title="Delete" data-placement="top">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                    </form>
                                 </div>';
                     return $button;
                 })
@@ -56,7 +62,7 @@ class IssuanceOfSroController extends Controller
     }
 
     private function getTotalIssuances($weeklyReport){
-        $i = IssuancesOfSro::query()->selectRaw('sum(prev_raw_qty) as prev_raw_qty, sum(raw_qty) as raw_qty, sum(refined_qty) as refined_qty, sum(prev_refined_qty) as prev_refined_qty')->where('weekly_report_slug','=',$weeklyReport)->first();
+        $i = IssuancesOfSro::query()->selectRaw('sum(prev_raw_qty) as prev_raw_qty, sum(raw_qty) as raw_qty, sum(refined_qty) as refined_qty, sum(prev_refined_qty) as prev_refined_qty')->where('weekly_report_slug','=',$weeklyReport) ->whereNull('quedan_only')->first();
         return [
             'totalIssuances' => [
                 'raw' => number_format($i->raw_qty + $i->prev_raw_qty,3),
@@ -79,6 +85,9 @@ class IssuanceOfSroController extends Controller
         $i->liens_or = $request->liens_or;
         $i->delivery_no = $request->delivery_no;
         $i->mill_source = $request->mill_source;
+        $i->here_only = $request->here_only;
+        $i->is_deleted_quedan = $request->is_deleted_quedan;
+        $i->quedan_only = $request->quedan_only;
         if($request->cropCharge == 'CURRENT'){
             $i->refined_qty = Helper::sanitizeAutonum($request->refined_qty);
             $i->prev_refined_qty = null;
@@ -119,6 +128,9 @@ class IssuanceOfSroController extends Controller
         $i->liens_or = $request->liens_or;
         $i->delivery_no = $request->delivery_no;
         $i->mill_source = $request->mill_source;
+        $i->here_only = $request->here_only;
+        $i->is_deleted_quedan = $request->is_deleted_quedan;
+        $i->quedan_only = $request->quedan_only;
         if($request->cropCharge == 'CURRENT'){
             $i->refined_qty = Helper::sanitizeAutonum($request->refined_qty);
             $i->prev_refined_qty = null;
@@ -155,4 +167,29 @@ class IssuanceOfSroController extends Controller
         abort(503,'Error deleting data.');
     }
 
+    public function markDeleted($slug)
+    {
+        $sro = IssuancesOfSro::findOrFail($slug);
+        $sro->is_deleted_quedan = 1;
+        $sro->save();
+
+        return back()->with('status', 'Marked as deleted successfully.');
+    }
+
+    public function markDeleted5a($slug)
+    {
+        $issuance = IssuancesOfSro::where('slug', $slug)->firstOrFail();
+        $issuance->is_deleted_5a = 1;
+        $issuance->save();
+
+        return redirect()->back()->with('success', 'Issuance marked as deleted.');
+    }
+
 }
+
+
+
+//OLD Delete BUTTON
+//<button type="button" data="'.$data->slug.'" onclick="delete_data('.$slug.','.$destroy_route.')" class="btn btn-sm btn-danger btn-xs " data-toggle="tooltip" title="Delete" data-placement="top">
+//                                        <i class="fa fa-trash"></i>
+//                                    </button>
