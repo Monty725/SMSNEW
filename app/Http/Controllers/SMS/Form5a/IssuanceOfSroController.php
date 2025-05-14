@@ -87,6 +87,7 @@ class IssuanceOfSroController extends Controller
         $i->mill_source = $request->mill_source;
         $i->here_only = $request->here_only;
         $i->is_deleted_quedan = $request->is_deleted_quedan;
+        $i->is_deleted_raw = $request->is_deleted_raw;
         $i->quedan_only = $request->quedan_only;
         if($request->cropCharge == 'CURRENT'){
             $i->refined_qty = Helper::sanitizeAutonum($request->refined_qty);
@@ -130,6 +131,7 @@ class IssuanceOfSroController extends Controller
         $i->mill_source = $request->mill_source;
         $i->here_only = $request->here_only;
         $i->is_deleted_quedan = $request->is_deleted_quedan;
+        $i->is_deleted_raw = $request->is_deleted_raw;
         $i->quedan_only = $request->quedan_only;
         if($request->cropCharge == 'CURRENT'){
             $i->refined_qty = Helper::sanitizeAutonum($request->refined_qty);
@@ -183,6 +185,15 @@ class IssuanceOfSroController extends Controller
         $issuance->save();
 
         return redirect()->back()->with('success', 'Issuance marked as deleted.');
+    }
+
+    public function markDeletedRaw($slug)
+    {
+        $raw = IssuancesOfSro::findOrFail($slug);
+        $raw->is_deleted_raw = 1;
+        $raw->save();
+
+        return back()->with('status', 'Marked as deleted successfully.');
     }
 
 }

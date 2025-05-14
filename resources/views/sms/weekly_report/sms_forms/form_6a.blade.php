@@ -19,6 +19,7 @@
             <th>SRA Liens OR #</th>
             <th>Qty LKG</th>
             <th>Refined Sugar Eq.</th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
@@ -28,14 +29,14 @@
                 $refinedTotal = 0;
             @endphp
             @foreach($wr->form5aIssuancesOfSro as $data)
-                @if(is_null($data->here_only) && is_null($data->quedan_only))
+                @if(is_null($data->here_only) && is_null($data->quedan_only) && is_null($data->is_deleted_raw))
                     @php
 
                         $rawTotal = $rawTotal + $data->raw_qty;
                         $refinedTotal = $refinedTotal + $data->refined_qty;
                     @endphp
                 @endif
-                @if(is_null($data->here_only) && is_null($data->quedan_only))
+                @if(is_null($data->here_only) && is_null($data->quedan_only) && is_null($data->is_deleted_raw))
                     <tr>
                         <td>{{$data->delivery_no}}</td>
                         <td>{{$data->trader}}</td>
@@ -44,6 +45,15 @@
                         <td>{{$data->liens_or}}</td>
                         <td class="text-right">{{number_format($data->raw_qty,2)}}</td>
                         <td class="text-right">{{number_format($data->refined_qty,2)}}</td>
+                        <td style="width: 40px; text-align: center;">
+                            <form action="{{ route('raw.markDeletedRaw', $data->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to mark this as deleted?');">
+                                @csrf
+                                @method('PATCH')
+                                <button type="submit" class="btn btn-danger btn-sm d-flex align-items-center justify-content-center p-0" style="width: 32px; height: 32px;" title="Delete">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
+                            </form>
+                        </td>
                     </tr>
                 @endif
             @endforeach
