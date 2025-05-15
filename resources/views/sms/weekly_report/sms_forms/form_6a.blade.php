@@ -45,15 +45,37 @@
                         <td>{{$data->liens_or}}</td>
                         <td class="text-right">{{number_format($data->raw_qty,2)}}</td>
                         <td class="text-right">{{number_format($data->refined_qty,2)}}</td>
-                        <td style="width: 40px; text-align: center;">
-                            <form action="{{ route('raw.markDeletedRaw', $data->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to mark this as deleted?');">
-                                @csrf
-                                @method('PATCH')
-                                <button type="submit" class="btn btn-danger btn-sm d-flex align-items-center justify-content-center p-0" style="width: 32px; height: 32px;" title="Delete">
-                                    <i class="fas fa-trash-alt"></i>
+                        <td style="text-align: center; white-space: nowrap; width: 60px;">
+                            <div style="display: flex; gap: 4px; justify-content: center; align-items: center;">
+                                <!-- Edit Button -->
+                                <button type="button"
+                                        data="{{ $data->slug }}"
+                                        uri="{{ route('dashboard.form5a_issuanceOfSro.edit', $data->slug) }}"
+                                        class="btn btn-sm btn-primary form5_edit_btn"
+                                        data-toggle="modal"
+                                        data-target="#form5_editModal"
+                                        title="Edit"
+                                        style="width: 32px; height: 32px; padding: 0; display: flex; align-items: center; justify-content: center;">
+                                    <i class="fa fa-edit" style="font-size: 14px;"></i>
                                 </button>
-                            </form>
+
+                                <!-- Delete Button inside Form -->
+                                <form action="{{ route('raw.markDeletedRaw', $data->id) }}"
+                                      method="POST"
+                                      onsubmit="return confirm('Are you sure you want to mark this as deleted?');"
+                                      style="margin: 0; display: inline-flex;">
+                                    @csrf
+                                    @method('PATCH')
+                                    <button type="submit"
+                                            class="btn btn-sm btn-danger"
+                                            style="width: 32px; height: 32px; padding: 0; display: flex; align-items: center; justify-content: center;"
+                                            title="Delete">
+                                        <i class="fas fa-trash-alt" style="font-size: 14px;"></i>
+                                    </button>
+                                </form>
+                            </div>
                         </td>
+
                     </tr>
                 @endif
             @endforeach

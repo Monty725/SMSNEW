@@ -6,7 +6,7 @@
 @endsection
 
 @section('modal-body')
-    @include('sms.weekly_report.sms_forms.form5a.issuance_form')
+    @include('sms.weekly_report.sms_forms.form6a.issuance_form6a')
 @endsection
 
 @section('modal-footer')
@@ -31,6 +31,7 @@
                     active_form5a_issuance = res.slug;
                     form5a_issuance_tbl.draw(false);
                     updateTradersList();
+                    location.reload();
                 },
                 error: function (res) {
                     errored(form,res);
