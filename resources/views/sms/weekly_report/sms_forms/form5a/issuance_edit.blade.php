@@ -2,7 +2,7 @@
 @extends('layouts.modal-content',['form_id' => 'form5a_issuance_form_'.$rand,'slug'=>$issuance->slug])
 
 @section('modal-header')
-    Edit Issuance
+    Edit
 @endsection
 
 @section('modal-body')
