@@ -6,7 +6,7 @@
 @endsection
 
 @section('modal-body')
-    @include('sms.weekly_report.sms_forms.form6a.issuance_form6a')
+    @include('sms.weekly_report.sms_forms.form6a.edit_issuance_form6a')
 @endsection
 
 @section('modal-footer')

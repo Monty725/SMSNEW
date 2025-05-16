@@ -178,6 +178,19 @@ $issuance->refined_qty ?? $issuance->prev_refined_qty ?? null
     $issuance->consumption ?? 'DOMESTIC'
     ) !!}
 
+{{--    {!! \App\Swep\ViewHelpers\__form2::iRadioH('cropCharge',[--}}
+{{--        'cols' => 6,--}}
+{{--        'label' => 'Crop:',--}}
+{{--        'options' => [--}}
+{{--            'CURRENT' => 'Current Crop',--}}
+{{--            'PREVIOUS' => 'Previous Crop',--}}
+{{--        ]--}}
+{{--    ],--}}
+{{--     !empty($issuance->refined_qty) ? 'CURRENT' : 'PREVIOUS'--}}
+{{--    ) !!}--}}
+</div>
+
+<div style="display: none;">
     {!! \App\Swep\ViewHelpers\__form2::iRadioH('cropCharge',[
         'cols' => 6,
         'label' => 'Crop:',
@@ -186,7 +199,7 @@ $issuance->refined_qty ?? $issuance->prev_refined_qty ?? null
             'PREVIOUS' => 'Previous Crop',
         ]
     ],
-     !empty($issuance->refined_qty) ? 'CURRENT' : 'PREVIOUS'
+     !empty($issuance->refined_qty) ? 'CURRENT' : 'CURRENT'
     ) !!}
 </div>
 
