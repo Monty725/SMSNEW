@@ -187,13 +187,23 @@ class IssuanceOfSroController extends Controller
         return redirect()->back()->with('success', 'Issuance marked as deleted.');
     }
 
+//    SOFT DELETE OLD CODE
+//    public function markDeletedRaw($slug)
+//    {
+//        $raw = IssuancesOfSro::findOrFail($slug);
+//        $raw->is_deleted_raw = 1;
+//        $raw->save();
+//
+//        return back()->with('status', 'Marked as deleted successfully.');
+//    }
+
+//    HARD DELETE NEW CODE
     public function markDeletedRaw($slug)
     {
         $raw = IssuancesOfSro::findOrFail($slug);
-        $raw->is_deleted_raw = 1;
-        $raw->save();
+        $raw->delete();
 
-        return back()->with('status', 'Marked as deleted successfully.');
+        return back()->with('status', 'Deleted successfully.');
     }
 
 }
