@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html>
+
+{{--OLD HEAD--}}
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -53,6 +55,7 @@
             background-color: rgba(0, 0, 0, 0.80)
         }
 
+        /*
         .login_topimg {
             border-top-left-radius: 5px;
             border-top-right-radius: 5px;
@@ -78,7 +81,70 @@
             margin: 10px auto;
             max-width: 255px
         }
+        */
 
+        /* Updated styles for the new form */
+        #login .new-login-container {
+            background-color: #fff;
+            padding: 20px 45px;
+            border-radius: 5px; /* Adjust as needed for desired roundness */
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle shadow */
+            max-width: 400px; /* Adjust max-width as needed */
+            margin: auto; /* Center the form horizontally */
+        }
+
+        #login .new-login-container img {
+            width: 150px; /* Adjust logo size as needed */
+            margin-bottom: 20px;
+        }
+
+        #login .new-login-container h2 {
+            font-size: 24px;
+            color: #243762;
+            margin-bottom: 30px;
+        }
+
+        #login .new-login-container .input-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        #login .new-login-container .input-group input {
+            width: calc(100% - 40px); /* Adjust for icon padding */
+            padding: 12px 15px 12px 40px; /* Add padding for icon */
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        #login .new-login-container .input-group .icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #999;
+        }
+
+        #login .new-login-container button {
+            width: 100%;
+            padding: 12px;
+            background-color: #007bff; /* Blue color for sign in button */
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #login .new-login-container button:hover {
+            background-color: #0056b3;
+        }
+
+
+        /* Keep existing styles that are still relevant or adjust as needed */
         #login .wrap-login100 {
             background-color: #fff;
             padding: 20px 45px;
@@ -415,6 +481,7 @@
         }
     </style>
 </head>
+
 <body class="hold-transition skin-green layout-top-nav">
 <div class="wrapper">
     <header class="main-header">
@@ -428,8 +495,9 @@
 
                         <div class="col-md-6"></div>
                         <div class="col-md-5 col-md-offset-3">
-                            <div class="login_topimg"> </div>
-                            <div class="wrap-login100">
+                            {{-- REMOVED login_topimg --}}
+                            {{-- REPLACED wrap-login100 with new-login-container --}}
+                            <div class="new-login-container">
                                 @if(Session::has('AUTH_AUTHENTICATED'))
                                     {!! __html::alert('danger', '<i class="icon fa fa-ban"></i> Oops!', Session::get('AUTH_AUTHENTICATED')) !!}
                                 @endif
@@ -465,42 +533,37 @@
                                 @if(Session::has('PASSWORD_RESET_FAILED'))
                                     {!! __html::alert('danger', '<i class="icon fa fa-times"></i> Success!', Session::get('PASSWORD_RESET_FAILED')) !!}
                                 @endif
-                                <form class="login100-form validate-form" id="loginForm" action="{{ route('auth.login') }}?portal={{request('portal')}}" method="POST">
+
+                                <img src="{{ asset('images/sugar_regulatory_administration_logo.png') }}" alt="Sugar Regulatory Administration Logo">
+                                <h2>SUGAR MONITORING SYSTEM</h2>
+
+                                <form id="loginForm" action="{{ route('auth.login') }}?portal={{request('portal')}}" method="POST">
                                     @csrf
-                                    <span class="login100-form-title "> SWEP </span>
-                                    <span class="login100-form-subtitle m-b-16"> SRA - Web Portal | Login </span>
                                     @if ($errors->has('username'))
                                         <span class="help-block" style="color: darkred"> {{ $errors->first('username') }}</span>
                                     @endif
-                                    <div class="wrap-input100 validate-input m-b-16" data-validate="Valid email is required: ex@abc.xyz">
-                                        <input class="input100" type="text" name="username" id="username" placeholder="Username" type="text" value="{{ __sanitize::html_attribute_encode(old('username')) }}">
-                                        <span class="focus-input100"></span>
-                                        <span class="symbol-input100">
-                                            <span class="glyphicon glyphicon-user"></span>
-                                        </span>
+                                    <div class="input-group">
+                                        <span class="icon"><i class="fa fa-user"></i></span>
+                                        <input type="text" name="username" id="username" placeholder="Username" value="{{ __sanitize::html_attribute_encode(old('username')) }}">
                                     </div>
                                     @if ($errors->has('password'))
                                         <span class="help-block" style="color: darkred">{{ $errors->first('password') }}</span>
                                     @endif
-                                    <div class="wrap-input100 validate-input m-b-16" data-validate="Password is required">
-                                        <input class="input100" type="password" name="password" id="password" placeholder="Password">
-                                        <span class="focus-input100"></span>
-                                            <span class="symbol-input100">
-                                                <span class="glyphicon glyphicon-lock"></span>
-                                            </span>
+                                    <div class="input-group">
+                                        <span class="icon"><i class="fa fa-lock"></i></span>
+                                        <input type="password" name="password" id="password" placeholder="Password">
                                     </div>
 
-
-
-
-                                    <div class="flex-sb-m w-full p-b-30">
-
-                                        <div><a href="#" class="txt1" data-toggle="modal" data-target="#reset_modal">Forgot username/password? Click here</a> </div>
-                                    </div>
-                                    <div class="container-login100-form-btn p-t-25">
-                                        <button class="login100-form-btn" type="submit"> Login </button>
-                                    </div>
+                                    <button type="submit">Sign In</button>
                                 </form>
+
+                                {{-- You can decide if you want to keep the "Forgot username/password?" link.
+                                     If so, you'll need to style it appropriately for the new design.
+                                     For now, I'm removing it to match the second image's simplicity.
+                                <div class="flex-sb-m w-full p-b-30">
+                                    <div><a href="#" class="txt1" data-toggle="modal" data-target="#reset_modal">Forgot username/password? Click here</a> </div>
+                                </div>
+                                --}}
                             </div>
                         </div>
                     </div>
@@ -542,7 +605,6 @@
                             </form>
 
                         </div>
-                        <!-- /.tab-pane -->
                         <div class="tab-pane" id="tab_2">
                             <form id="search_username_form">
                                 <div class="row">
@@ -564,7 +626,6 @@
                             </form>
                         </div>
                     </div>
-                    <!-- /.tab-content -->
                 </div>
             </div>
         </div>

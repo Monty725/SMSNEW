@@ -21,8 +21,12 @@ class TreeComposer
 
         //FETCH USER LEVEL MENUS
         if(Auth::user()->no_user_access  != 1){
-            $userLevelMenus = Menu::query()->where('category','=','USER')->orderBy('created_at','asc')->get();
-
+            if(Auth::user()->access  == "ADMIN"){
+                $userLevelMenus = Menu::query()->where('category','=','ADMIN')->orderBy('created_at','asc')->get();
+            }
+            else{
+                $userLevelMenus = Menu::query()->where('category','=','USER')->orderBy('created_at','asc')->get();
+            }
             if(!empty($userLevelMenus)){
                 foreach ($userLevelMenus as $userLevelMenu){
                     if(!empty($userLevelMenu->submenu)){
