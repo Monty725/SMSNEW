@@ -62,7 +62,7 @@ class IssuanceOfSroController extends Controller
     }
 
     private function getTotalIssuances($weeklyReport){
-        $i = IssuancesOfSro::query()->selectRaw('sum(prev_raw_qty) as prev_raw_qty, sum(raw_qty) as raw_qty, sum(refined_qty) as refined_qty, sum(prev_refined_qty) as prev_refined_qty')->where('weekly_report_slug','=',$weeklyReport) ->whereNull('quedan_only')->first();
+        $i = IssuancesOfSro::query()->selectRaw('sum(prev_raw_qty) as prev_raw_qty, sum(raw_qty) as raw_qty, sum(refined_qty) as refined_qty, sum(prev_refined_qty) as prev_refined_qty')->where('weekly_report_slug','=',$weeklyReport)->whereNull('quedan_only')->whereNull('is_deleted_5a')->first();
         return [
             'totalIssuances' => [
                 'raw' => number_format($i->raw_qty + $i->prev_raw_qty,3),

@@ -437,8 +437,8 @@ class GetForm3Controller extends Controller
         $arr["notCoveredByMsc"]["prevCrop"]["toDate"]=number_format($toDate->prev_notCoveredByMsc, 3, '.', ',');
 
 //        CURRENT CROP RAW BALANCE 5.1
-        $balRawCTotalThisWeek = ((($thisWeek->sharePlanter) + ($thisWeek->shareMiller))-(($withRawDomCTotalThisWeek) + ($withRawDistCTotalThisWeek))+((($thisWeek->manufacturedRaw) + ($thisWeek->rao) + ($thisWeek->manufacturedRefined) + ($thisWeek->raoRefined))-(($thisWeek->sharePlanter) + ($thisWeek->shareMiller) + ($thisWeek->refineryMolasses))));
-        $balRawCTotalprevWeek = ((($prevWeek->sharePlanter) + ($prevWeek->shareMiller))-(($withRawDomCTotalprevWeek) + ($withRawDistCTotalprevWeek))+((($prevWeek->manufacturedRaw) + ($prevWeek->rao) + ($prevWeek->manufacturedRefined) + ($prevWeek->raoRefined))-(($prevWeek->sharePlanter) + ($prevWeek->shareMiller) + ($prevWeek->refineryMolasses))));
+        $balRawCTotalThisWeek = ((($thisWeek->sharePlanter) + ($thisWeek->shareMiller)) -(($withRawDomCTotalThisWeek) + ($withRawDistCTotalThisWeek) + ($withRawOtherCTotalThisWeek) +($withRawExportCTotalThisWeek))+((($thisWeek->manufacturedRaw) + ($thisWeek->rao) + ($thisWeek->manufacturedRefined) + ($thisWeek->raoRefined))-(($thisWeek->sharePlanter) + ($thisWeek->shareMiller) + ($thisWeek->refineryMolasses))));
+        $balRawCTotalprevWeek = ((($prevWeek->sharePlanter) + ($prevWeek->shareMiller))-(($withRawDomCTotalprevWeek) + ($withRawDistCTotalprevWeek) + ($withRawOtherCTotalprevWeek) +($withRawExportCTotalprevWeek))+((($prevWeek->manufacturedRaw) + ($prevWeek->rao) + ($prevWeek->manufacturedRefined) + ($prevWeek->raoRefined))-(($prevWeek->sharePlanter) + ($prevWeek->shareMiller) + ($prevWeek->refineryMolasses))));
         $balRawCTotaltoDate = $balRawCTotalThisWeek + $balRawCTotalprevWeek;
 //        PREVIOUS CROP RAW BALANCE 5.1
         $balRawPTotalThisWeek = (($thisWeek->prev_sharePlanter+$thisWeek->prev_shareMiller)-(($withRawDomPTotalThisWeek) + ($withRawDistPTotalThisWeek) + ($withRawOtherPTotalThisWeek) + ($withRawExportPTotalThisWeek)));

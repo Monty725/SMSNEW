@@ -87,6 +87,7 @@ Route::group(['prefix'=>'dashboard', 'as' => 'dashboard.',
     Route::resource('sms_form4a','SMS\WeeklyReport\Form4aController');
 
     Route::resource('sms_form6a','SMS\WeeklyReport\Form6aController');
+
     /** WEEKLY REPORT **/
 
     Route::get('/weekly_report/{slug}/print','SMS\WeeklyReportController@print')->name('weekly_report.print');

@@ -537,25 +537,52 @@
                                 <img src="{{ asset('images/sugar_regulatory_administration_logo.png') }}" alt="Sugar Regulatory Administration Logo">
                                 <h2>SUGAR MONITORING SYSTEM</h2>
 
-                                <form id="loginForm" action="{{ route('auth.login') }}?portal={{request('portal')}}" method="POST">
-                                    @csrf
-                                    @if ($errors->has('username'))
-                                        <span class="help-block" style="color: darkred"> {{ $errors->first('username') }}</span>
-                                    @endif
-                                    <div class="input-group">
-                                        <span class="icon"><i class="fa fa-user"></i></span>
-                                        <input type="text" name="username" id="username" placeholder="Username" value="{{ __sanitize::html_attribute_encode(old('username')) }}">
-                                    </div>
-                                    @if ($errors->has('password'))
-                                        <span class="help-block" style="color: darkred">{{ $errors->first('password') }}</span>
-                                    @endif
-                                    <div class="input-group">
-                                        <span class="icon"><i class="fa fa-lock"></i></span>
-                                        <input type="password" name="password" id="password" placeholder="Password">
-                                    </div>
+                                    <form id="loginForm" action="{{ route('auth.login') }}?portal={{ request('portal') }}" method="POST">
+                                        @csrf
 
-                                    <button type="submit">Sign In</button>
-                                </form>
+                                        <div class="input-group mb-3">
+                                            <input type="text"
+                                                   name="username"
+                                                   id="username"
+                                                   class="form-control {{ $errors->has('username') ? 'is-invalid' : '' }}"
+                                                   placeholder="Username"
+                                                   value="{{ __sanitize::html_attribute_encode(old('username')) }}">
+                                            <div class="input-group-append">
+                                                <div class="input-group-text">
+                                                    <span class="fa fa-user"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        @if ($errors->has('username'))
+                                            <div class="text-danger mb-2">
+                                                {{ $errors->first('username') }}
+                                            </div>
+                                        @endif
+
+                                        <div class="input-group mb-3">
+                                            <input type="password"
+                                                   name="password"
+                                                   id="password"
+                                                   class="form-control {{ $errors->has('password') ? 'is-invalid' : '' }}"
+                                                   placeholder="Password">
+                                            <div class="input-group-append">
+                                                <div class="input-group-text">
+                                                    <span class="fa fa-lock"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        @if ($errors->has('password'))
+                                            <div class="text-danger mb-3">
+                                                {{ $errors->first('password') }}
+                                            </div>
+                                        @endif
+
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+                                            </div>
+                                        </div>
+                                    </form>
 
                                 {{-- You can decide if you want to keep the "Forgot username/password?" link.
                                      If so, you'll need to style it appropriately for the new design.

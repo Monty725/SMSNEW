@@ -156,22 +156,71 @@
                       <i class="fa fa-angle-down pull-right"></i>
                     </span>
                 </a>
+
+{{--                OLD ORIGINAL MY MILL LIST--}}
+{{--                <ul class="treeview-menu" style="display: block">--}}
+{{--                    @foreach(Auth::user()->millAssignments as $millAssignment)--}}
+{{--                        @php( $cancellationService =  new \App\SMS\Services\CancellationService)--}}
+{{--                        <li class="">--}}
+
+{{--                            <a href="{{route('dashboard.my_mills.index',$millAssignment->mill_code)}}"><i class="fa fa-caret-right"></i> {{$millAssignment->mill_code}}--}}
+{{--                                <span class="pull-right-container">--}}
+
+{{--                                    @if($cancellationService->getNumberOfActiveRequest($millAssignment->mill_code) != 0 || $cancellationService->getNumberOfActiveRequest($millAssignment->mill_code) != null)--}}
+{{--                                        <small class="label pull-right bg-red">{{$cancellationService->getNumberOfActiveRequest($millAssignment->mill_code)}}</small>--}}
+{{--                                    @endif--}}
+{{--                            </span>--}}
+{{--                            </a>--}}
+{{--                        </li>--}}
+{{--                    @endforeach--}}
+{{--                </ul>--}}
+
+{{--                NEW MY MILL FOR LUZON MINDANAO TRAINING--}}
                 <ul class="treeview-menu" style="display: block">
                     @foreach(Auth::user()->millAssignments as $millAssignment)
-                        @php( $cancellationService =  new \App\SMS\Services\CancellationService)
+                        @php($cancellationService = new \App\SMS\Services\CancellationService)
                         <li class="">
-
-                            <a href="{{route('dashboard.my_mills.index',$millAssignment->mill_code)}}"><i class="fa fa-caret-right"></i> {{$millAssignment->mill_code}}
+                            <a href="{{ route('dashboard.my_mills.index', $millAssignment->mill_code) }}">
+                                <i class="fa fa-caret-right"></i> View
                                 <span class="pull-right-container">
-
-                                    @if($cancellationService->getNumberOfActiveRequest($millAssignment->mill_code) != 0 || $cancellationService->getNumberOfActiveRequest($millAssignment->mill_code) != null)
-                                        <small class="label pull-right bg-red">{{$cancellationService->getNumberOfActiveRequest($millAssignment->mill_code)}}</small>
+                    @php($count = $cancellationService->getNumberOfActiveRequest($millAssignment->mill_code))
+                                    @if($count != 0 && $count != null)
+                                        <small class="label pull-right bg-red">{{ $count }}</small>
                                     @endif
-                            </span>
+                </span>
                             </a>
                         </li>
                     @endforeach
                 </ul>
+
+{{--                NEW MY MILL FOR TESTING--}}
+{{--                <ul class="treeview-menu" style="display: block">--}}
+{{--                    @foreach(Auth::user()->millAssignments as $millAssignment)--}}
+{{--                        @php($cancellationService = new \App\SMS\Services\CancellationService)--}}
+{{--                        <li class="treeview">--}}
+{{--                            <a href="#" style="cursor: pointer;">--}}
+{{--                                <i class="fa fa-industry"></i> {{ $millAssignment->mill_code }}--}}
+{{--                                <span class="pull-right-container">--}}
+{{--                                <i class="fa fa-angle-left pull-right"></i>--}}
+{{--                        @php($count = $cancellationService->getNumberOfActiveRequest($millAssignment->mill_code))--}}
+{{--                            @if($count != 0 && $count != null)--}}
+{{--                                <small class="label pull-right bg-red" style="margin-right: 5px;">--}}
+{{--                                    {{ $count }}--}}
+{{--                                </small>--}}
+{{--                            @endif--}}
+{{--                            </span>--}}
+{{--                            </a>--}}
+
+{{--                            <ul class="treeview-menu">--}}
+{{--                                <li>--}}
+{{--                                    <a href="{{ route('dashboard.my_mills.index', $millAssignment->mill_code) }}">--}}
+{{--                                        <i class="fa fa-eye text-primary"></i> View--}}
+{{--                                    </a>--}}
+{{--                                </li>--}}
+{{--                            </ul>--}}
+{{--                        </li>--}}
+{{--                    @endforeach--}}
+{{--                </ul>--}}
 
             </li>
         @endif

@@ -26,23 +26,39 @@
         </tr>
         </thead>
         <tbody>
+
+{{--        ORIGINAL ORIGINAL ORIGINAL CODE--}}
         @if(!empty($wr->form5aIssuancesOfSro))
             @foreach($wr->form5aIssuancesOfSro as $form5aIssuancesOfSro)
-                @php
-                    $totals['rawQty'] = $totals['rawQty'] + (($form5aIssuancesOfSro->raw_qty != 0) ? $form5aIssuancesOfSro->raw_qty : $form5aIssuancesOfSro->prev_raw_qty);
-                    $totals['refinedQty'] = $totals['refinedQty'] + ($form5aIssuancesOfSro->refined_qty != 0 ? $form5aIssuancesOfSro->refined_qty : $form5aIssuancesOfSro->prev_refined_qty);
-                @endphp
-                <tr>
-                    <td>{{\Illuminate\Support\Carbon::parse($form5aIssuancesOfSro->date_of_issue)->format('m/d/Y')}}</td>
-                    <td>{{$form5aIssuancesOfSro->sro_no}}</td>
-                    <td>{{$form5aIssuancesOfSro->trader}}</td>
-                    <td class="text-right">{{($form5aIssuancesOfSro->raw_qty != 0) ? number_format($form5aIssuancesOfSro->raw_qty,2) : number_format($form5aIssuancesOfSro->prev_raw_qty,2)}}</td>
-                    <td>{{$form5aIssuancesOfSro->monitoring_fee_or_no}}</td>
-                    <td>{{$form5aIssuancesOfSro->rsq_no}}</td>
-                    <td class="text-right">{{!empty($form5aIssuancesOfSro->refined_qty) ? number_format($form5aIssuancesOfSro->refined_qty,2) : number_format($form5aIssuancesOfSro->prev_refined_qty,2)}}</td>
-                </tr>
+                @if(is_null($form5aIssuancesOfSro->quedan_only) && is_null($form5aIssuancesOfSro->is_deleted_5a))
+                    @php
+                        $totals['rawQty'] = $totals['rawQty'] +
+                            (($form5aIssuancesOfSro->raw_qty != 0) ? $form5aIssuancesOfSro->raw_qty : $form5aIssuancesOfSro->prev_raw_qty);
+
+                        $totals['refinedQty'] = $totals['refinedQty'] +
+                            (($form5aIssuancesOfSro->refined_qty != 0) ? $form5aIssuancesOfSro->refined_qty : $form5aIssuancesOfSro->prev_refined_qty);
+                    @endphp
+                    <tr>
+                        <td>{{ \Illuminate\Support\Carbon::parse($form5aIssuancesOfSro->date_of_issue)->format('m/d/Y') }}</td>
+                        <td>{{ $form5aIssuancesOfSro->sro_no }}</td>
+                        <td>{{ $form5aIssuancesOfSro->trader }}</td>
+                        <td class="text-right">
+                            {{ $form5aIssuancesOfSro->raw_qty != 0
+                                ? number_format($form5aIssuancesOfSro->raw_qty, 2)
+                                : number_format($form5aIssuancesOfSro->prev_raw_qty, 2) }}
+                        </td>
+                        <td>{{ $form5aIssuancesOfSro->monitoring_fee_or_no }}</td>
+                        <td>{{ $form5aIssuancesOfSro->rsq_no }}</td>
+                        <td class="text-right">
+                            {{ !empty($form5aIssuancesOfSro->refined_qty)
+                                ? number_format($form5aIssuancesOfSro->refined_qty, 2)
+                                : number_format($form5aIssuancesOfSro->prev_refined_qty, 2) }}
+                        </td>
+                    </tr>
+                @endif
             @endforeach
         @endif
+
         <tr>
             <td colspan="3" class="text-strong">TOTAL</td>
             <td class="text-right text-strong">{{number_format( $totals['rawQty'] , 3)}}</td>
