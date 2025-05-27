@@ -569,10 +569,17 @@ class WeeklyReportController extends Controller
     }
 
     public function cancel($slug, Request $request){
+
+//        $forms = [
+//            'newform1' => $this->getForm1Controller->getForm1($slug),
+//            'newform2' => $this->getForm2Controller->getForm2($slug),
+//        ];
+
 //        if(!$request->has('reason') || $request->reason == null | $request->reason == ''){
 //            abort(503,'Please indicate your reason for cancellation');
 //        }
         $wr = $this->weeklyReportService->findWeeklyReportBySlug($slug);
+
         if($wr->requestsForCancellationNoAction()->count() > 0){
             abort(503,'This report has a pending request for cancellation.');
         }
@@ -754,6 +761,9 @@ class WeeklyReportController extends Controller
             'form2' => $this->weeklyReportService->form2Computation($slug),
             'prevToDateForm2' => $this->weeklyReportService->form2Computation($slug,'toDate', $weekly_report->report_no - 1),
             'toDateForm2' => $this->weeklyReportService->form2Computation($slug,'toDate'),
+
+            'newform1' => $this->getForm1Controller->getForm1($slug),
+            'newform2' => $this->getForm2Controller->getForm2($slug),
 
             'form3' => $this->weeklyReportService->form3Computation($slug),
             'prevToDateForm3' => $this->weeklyReportService->form3Computation($slug,'toDate', $weekly_report->report_no - 1),
