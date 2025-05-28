@@ -443,8 +443,8 @@ class GetForm3Controller extends Controller
 //        PREVIOUS CROP RAW BALANCE 5.1
         $balRawPTotalThisWeek = (($thisWeek->prev_sharePlanter+$thisWeek->prev_shareMiller)-(($withRawDomPTotalThisWeek) + ($withRawDistPTotalThisWeek) + ($withRawOtherPTotalThisWeek) + ($withRawExportPTotalThisWeek)));
         $balRawPTotalprevWeek = (($prevWeek->prev_sharePlanter+$prevWeek->prev_shareMiller)-($withRawDomPTotalprevWeek + $withRawDistPTotalprevWeek + $withRawOtherPTotalprevWeek + $withRawExportPTotalprevWeek));
-        $balRawPTotaltoDate = (($toDate->prev_sharePlanter+$toDate->prev_shareMiller)-($withRawDomPTotaltoDate + $withRawDistPTotaltoDate + $withRawOtherPTotaltoDate + $withRawExportPTotaltoDate));
-//        $balRawPTotaltoDate = $balRawPTotalThisWeek + $balRawPTotalprevWeek;
+//        $balRawPTotaltoDate = (($toDate->prev_sharePlanter+$toDate->prev_shareMiller)-($withRawDomPTotaltoDate + $withRawDistPTotaltoDate + $withRawOtherPTotaltoDate + $withRawExportPTotaltoDate));
+        $balRawPTotaltoDate = $balRawPTotalThisWeek + $balRawPTotalprevWeek;
 
 //        CURRENT CROP REFINED BALANCE 5.2
         $balRefinedCTotalThisWeek = (($thisWeek->refineryMolasses)-(($withRefinedDomCTotalThisWeek) + ($withRefinedDistCTotalThisWeek) + ($withRefinedOtherCTotalThisWeek) + ($withRefinedExportCTotalThisWeek)));
