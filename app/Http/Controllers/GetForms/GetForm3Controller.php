@@ -429,7 +429,7 @@ class GetForm3Controller extends Controller
         ];
 
         //NOT COVERED BY MSC
-        $arr["notCoveredByMsc"]["currentCrop"]["thisWeek"]=number_format((($thisWeek->manufacturedRaw) + ($thisWeek->rao) + ($thisWeek->manufacturedRefined) + ($thisWeek->raoRefined))-(($thisWeek->sharePlanter) + ($thisWeek->shareMiller) + ($thisWeek->refineryMolasses)), 3, '.', ',');
+        $arr["notCoveredByMsc"]["currentCrop"]["thisWeek"]=number_format(($thisWeek->manufacturedRaw + $thisWeek->rao + $thisWeek->manufacturedRefined + $thisWeek->raoRefined)-($thisWeek->sharePlanter + $thisWeek->shareMiller + $thisWeek->refineryMolasses), 3, '.', ',');
         $arr["notCoveredByMsc"]["currentCrop"]["prevWeek"]=number_format((($prevWeek->manufacturedRaw) + ($prevWeek->rao) + ($prevWeek->manufacturedRefined) + ($prevWeek->raoRefined))-(($prevWeek->sharePlanter) + ($prevWeek->shareMiller) + ($prevWeek->refineryMolasses)), 3, '.', ',');
         $arr["notCoveredByMsc"]["currentCrop"]["toDate"]=number_format((($toDate->manufacturedRaw) + ($toDate->rao) + ($toDate->manufacturedRefined) + ($toDate->raoRefined))-(($toDate->sharePlanter) + ($toDate->shareMiller) + ($toDate->refineryMolasses)), 3, '.', ',');
         $arr["notCoveredByMsc"]["prevCrop"]["thisWeek"]=number_format($thisWeek->prev_notCoveredByMsc, 3, '.', ',');
