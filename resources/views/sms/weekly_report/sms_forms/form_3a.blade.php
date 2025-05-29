@@ -67,7 +67,7 @@
             </td>
         </tr>
         <tr>
-            <td><span class="indent"></span> 1.4 Transfers to refinery</td>
+            <td><span class="indent"></span> 1.4 Transfers to Subsidiary</td>
             <td>
                 {!! \App\Swep\ViewHelpers\__form2::textboxOnly('transferToRefinery',[
                     'class' => 'global-form-changer form3a-input input-sm text-right autonumber_mt'
