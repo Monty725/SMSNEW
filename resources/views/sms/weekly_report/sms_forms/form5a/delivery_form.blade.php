@@ -27,7 +27,7 @@
 
 <div class="row">
     {!! \App\Swep\ViewHelpers\__form2::textbox('qty_standard',[
-        'label' => 'Qty Standard:',
+        'label' => 'Qty Standard (Units in LKG): ',
         'cols' => 6,
         'class' => 'autonumber_mt_'.$rand,
     ],
@@ -35,7 +35,7 @@
     ) !!}
 
     {!! \App\Swep\ViewHelpers\__form2::textbox('qty_premium',[
-        'label' => 'Qty Premium:',
+        'label' => 'Qty Premium (Units in LKG): ',
         'cols' => 6,
         'class' => 'autonumber_mt_'.$rand,
     ],
