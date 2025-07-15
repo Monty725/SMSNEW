@@ -572,6 +572,13 @@ class GetForm1Controller extends Controller
         $arr["transfersToRef"]["prevCrop"]["prevWeek"]=formatValue($prevWeek->prev_transfers_to_refinery);
         $arr["transfersToRef"]["prevCrop"]["toDate"]=formatValue($toDate->prev_transfers_to_refinery);
 
+        session(['formatted_transfer1' => $arr["transfersToRef"]["currentCrop"]["thisWeek"]]);
+        session(['formatted_transfer2' => $arr["transfersToRef"]["currentCrop"]["prevWeek"]]);
+        session(['formatted_transfer3' => $arr["transfersToRef"]["currentCrop"]["toDate"]]);
+        session(['formatted_transfer4' => $arr["transfersToRef"]["prevCrop"]["thisWeek"]]);
+        session(['formatted_transfer5' => $arr["transfersToRef"]["prevCrop"]["prevWeek"]]);
+        session(['formatted_transfer6' => $arr["transfersToRef"]["prevCrop"]["toDate"]]);
+
 //        //l STOCK COMPUTATION
 //        $arr["physicalStock"] = [
 //            "currentCrop"=>[
