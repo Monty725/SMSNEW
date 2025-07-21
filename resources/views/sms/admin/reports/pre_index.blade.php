@@ -41,58 +41,55 @@
 {{--    </section>--}}
 
 {{--    NEW CODE--}}
-    <section class="content">
-        <div class="tab-content">
-            @php
-                // Get the latest crop year
-                $latest_crop_year = !empty($calendar) ? max(array_keys($calendar)) : null;
-            @endphp
-            @if(!empty($calendar) && $latest_crop_year)
-                <div class="panel">
-                    <div class="box box-sm box-default box-solid">
-                        <div class="box-header with-border">
-                            <p class="no-margin"> {{$latest_crop_year}} <small id="filter-notifier" class="label bg-blue blink"></small></p>
-                        </div>
-                        <div class="box-body" style="overflow: auto">
-                            <table class="table table-bordered table-condensed">
-                                <thead>
-                                <tr>
-                                    @foreach($calendar[$latest_crop_year] as $month => $weeks)
-                                        <th class="text-center">{{strtoupper(\Illuminate\Support\Carbon::parse($month)->format('M'))}}</th>
-                                    @endforeach
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    @foreach($calendar[$latest_crop_year] as $month => $weeks)
-                                        <td>
-                                            <div class="row">
-                                                @foreach($weeks as $week => $report_no)
-                                                    <div class="col-md-12">
-                                                        <form method="GET" action="{{ route('dashboard.reports.index') }}">
-                                                            <input type="hidden" name="crop_year" value="{{ $latest_crop_year }}">
-                                                            <input type="hidden" name="report_no" value="{{ $report_no }}">
-                                                            <button type="submit"
-                                                                    class="view_week_btn btn btn-sm {{ isset($submissions[$week]) ? 'btn-success' : 'btn-default'}}"
-                                                                    style="width: 100%; margin-bottom: 10px; font-family: Consolas"
-                                                                    {{ isset($submissions[$week]) ? '' : 'disabled' }}>
-                                                                {{ $report_no }} : {{ \Carbon\Carbon::parse($week)->format('M d') }}
-                                                            </button>
-                                                        </form>
-                                                    </div>
-                                                @endforeach
-                                            </div>
-                                        </td>
-                                    @endforeach
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+@if(!empty($calendar))
+    @foreach(array_reverse(array_keys($calendar)) as $crop_year)
+        <div class="panel">
+            <div class="box box-sm box-default box-solid">
+                <div class="box-header with-border">
+                    <p class="no-margin">
+                        {{$crop_year}}
+                        <small id="filter-notifier-{{ $crop_year }}" class="label bg-blue blink"></small>
+                    </p>
                 </div>
-            @endif
+                <div class="box-body" style="overflow: auto">
+                    <table class="table table-bordered table-condensed">
+                        <thead>
+                        <tr>
+                            @foreach($calendar[$crop_year] as $month => $weeks)
+                                <th class="text-center">{{ strtoupper(\Illuminate\Support\Carbon::parse($month)->format('M')) }}</th>
+                            @endforeach
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            @foreach($calendar[$crop_year] as $month => $weeks)
+                                <td>
+                                    <div class="row">
+                                        @foreach($weeks as $week => $report_no)
+                                            <div class="col-md-12">
+                                                <form method="GET" action="{{ route('dashboard.reports.index') }}">
+                                                    <input type="hidden" name="crop_year" value="{{ $crop_year }}">
+                                                    <input type="hidden" name="report_no" value="{{ $report_no }}">
+                                                    <button type="submit"
+                                                            class="view_week_btn btn btn-sm {{ isset($submissions[$week]) ? 'btn-success' : 'btn-default'}}"
+                                                            style="width: 100%; margin-bottom: 10px; font-family: Consolas"
+                                                            {{ isset($submissions[$week]) ? '' : 'disabled' }}>
+                                                        {{ $report_no }} : {{ \Carbon\Carbon::parse($week)->format('M d') }}
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                </td>
+                            @endforeach
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
-    </section>
+    @endforeach
+@endif
 
 @endsection
 
