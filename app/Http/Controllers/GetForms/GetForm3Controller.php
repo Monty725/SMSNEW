@@ -9,7 +9,7 @@ use App\Models\SMS\Form3b\Deliveries;
 
 class GetForm3Controller extends Controller
 {
-    public function getForm3($slug){
+    public function getForm3($slug, $isDotted=true){
         $weeklyReport = \App\Models\SMS\WeeklyReports::query()->where("slug","=",$slug)->first();
         $currentReportNo = $weeklyReport->report_no * 1;
         $arr=[];
@@ -500,8 +500,12 @@ class GetForm3Controller extends Controller
             ],
         ];
 
+//        return [
+//            'values' => collect($arr)->dot()->all(),
+//        ];
+
         return [
-            'values' => collect($arr)->dot()->all(),
+            'values' => $isDotted ? collect($arr)->dot()->all() : collect($arr)->all(),
         ];
     }
 

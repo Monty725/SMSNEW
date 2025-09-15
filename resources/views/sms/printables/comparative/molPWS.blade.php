@@ -109,74 +109,104 @@
                             <td></td>
                             <td></td>
                             <td class="text-right">
-                                @php
-                                    $totals[$group][0] = $totals[$group][0] + ($mill['form3']['toDate']['totalProduction']['prev'] ?? null);
-                                @endphp
-                                {{\App\Swep\Helpers\Helper::toNumber($mill['form3']['toDate']['totalProduction']['prev'] ?? null,3,'')}}
+                                @if(!empty($weeklyReportsArray[$mill_code]))
+                                    @php
+                                        $totals[$group][0] += Helper::sanitizeAutonum($weeklyReportsArray[$mill_code]['values']['totalProduction']['prevCrop']['toDate'] ?? null);
+                                    @endphp
+                                    {{ \App\Swep\Helpers\Helper::toNumber(Helper::sanitizeAutonum($weeklyReportsArray[$mill_code]['values']['totalProduction']['prevCrop']['toDate']),3,'-') }}
+                                @endif
                             </td>
                             <td class="text-right">
-                                @php
-                                    $totals[$group][1] = $totals[$group][1] + ($mill['form3']['thisWeek']['totalProduction']['current'] ?? null);
-                                @endphp
-                                {{\App\Swep\Helpers\Helper::toNumber($mill['form3']['thisWeek']['totalProduction']['current'] ?? null,3,'')}}
+                                @if(!empty($weeklyReportsArray[$mill_code]))
+                                    @php
+                                        $totals[$group][1] += Helper::sanitizeAutonum($weeklyReportsArray[$mill_code]['values']['totalProduction']['currentCrop']['thisWeek'] ?? null);
+                                    @endphp
+                                    {{ \App\Swep\Helpers\Helper::toNumber(Helper::sanitizeAutonum($weeklyReportsArray[$mill_code]['values']['totalProduction']['currentCrop']['thisWeek']),3,'-') }}
+                                @endif
                             </td>
                             <td class="text-right">
-                                @php
-                                    $totals[$group][2] = $totals[$group][2] + ($mill['form3']['prevToDate']['totalProduction']['current'] ?? null);
-                                @endphp
-                                {{\App\Swep\Helpers\Helper::toNumber($mill['form3']['prevToDate']['totalProduction']['current'] ?? null,3,'')}}
+                                @if(!empty($weeklyReportsArray[$mill_code]))
+                                    @php
+                                        $totals[$group][2] += Helper::sanitizeAutonum($weeklyReportsArray[$mill_code]['values']['totalProduction']['currentCrop']['prevWeek'] ?? null);
+                                    @endphp
+                                    {{ \App\Swep\Helpers\Helper::toNumber(Helper::sanitizeAutonum($weeklyReportsArray[$mill_code]['values']['totalProduction']['currentCrop']['prevWeek']),3,'-') }}
+                                @endif
                             </td>
                             <td class="text-right">
-                                @php
-                                    $totals[$group][3] = $totals[$group][3] + ($mill['form3']['toDate']['totalProduction']['current'] ?? null);
-                                @endphp
-                                {{\App\Swep\Helpers\Helper::toNumber($mill['form3']['toDate']['totalProduction']['current'] ?? null,3,'')}}
+                                @if(!empty($weeklyReportsArray[$mill_code]))
+                                    @php
+                                        $totals[$group][3] += Helper::sanitizeAutonum($weeklyReportsArray[$mill_code]['values']['totalProduction']['currentCrop']['toDate'] ?? null);
+                                    @endphp
+                                    {{ \App\Swep\Helpers\Helper::toNumber(Helper::sanitizeAutonum($weeklyReportsArray[$mill_code]['values']['totalProduction']['currentCrop']['toDate']),3,'-') }}
+                                @endif
                             </td>
                             <td class="text-right">
-                                @php
-                                    $totals[$group][4] = $totals[$group][4] + ($mill['form3']['thisWeek']['totalWithdrawals']['current'] ?? null);
-                                @endphp
-                                {{\App\Swep\Helpers\Helper::toNumber($mill['form3']['thisWeek']['totalWithdrawals']['current'] ?? null,3,'')}}
+                                @if(!empty($weeklyReportsArray[$mill_code]))
+                                    @php
+                                        $totals[$group][4] += Helper::sanitizeAutonum($weeklyReportsArray[$mill_code]['values']['totalOverallWith']['currentCrop']['thisWeek'] ?? null);
+                                    @endphp
+                                    {{ \App\Swep\Helpers\Helper::toNumber(Helper::sanitizeAutonum($weeklyReportsArray[$mill_code]['values']['totalOverallWith']['currentCrop']['thisWeek']),3,'-') }}
+                                @endif
                             </td>
                             <td class="text-right">
-                                @php
-                                    $totals[$group][5] = $totals[$group][5] + ($mill['form3']['toDate']['totalWithdrawals']['current'] ?? null);
-                                @endphp
-                                {{\App\Swep\Helpers\Helper::toNumber($mill['form3']['toDate']['totalWithdrawals']['current'] ?? null,3,'')}}
+                                @if(!empty($weeklyReportsArray[$mill_code]))
+                                    @php
+                                        $totals[$group][5] += Helper::sanitizeAutonum($weeklyReportsArray[$mill_code]['values']['totalOverallWith']['currentCrop']['toDate'] ?? null);
+                                    @endphp
+                                    {{ \App\Swep\Helpers\Helper::toNumber(Helper::sanitizeAutonum($weeklyReportsArray[$mill_code]['values']['totalOverallWith']['currentCrop']['toDate']),3,'-') }}
+                                @endif
                             </td>
                             <td class="text-right">
-                                @php
-                                    $totals[$group][6] = $totals[$group][6] + ($mill['form3']['thisWeek']['totalWithdrawals']['prev'] ?? null);
-                                @endphp
-                                {{\App\Swep\Helpers\Helper::toNumber($mill['form3']['thisWeek']['totalWithdrawals']['prev'] ?? null,3,'')}}
+                                @if(!empty($weeklyReportsArray[$mill_code]))
+                                    @php
+                                        $totals[$group][6] += Helper::sanitizeAutonum($weeklyReportsArray[$mill_code]['values']['totalOverallWith']['prevCrop']['thisWeek'] ?? null);
+                                    @endphp
+                                    {{ \App\Swep\Helpers\Helper::toNumber(Helper::sanitizeAutonum($weeklyReportsArray[$mill_code]['values']['totalOverallWith']['prevCrop']['thisWeek']),3,'-') }}
+                                @endif
                             </td>
                             <td class="text-right">
-                                @php
-                                    $totals[$group][7] = $totals[$group][7] + ($mill['form3']['toDate']['totalWithdrawals']['prev'] ?? null);
-                                @endphp
-                                {{\App\Swep\Helpers\Helper::toNumber($mill['form3']['toDate']['totalWithdrawals']['prev'] ?? null,3,'')}}
+                                @if(!empty($weeklyReportsArray[$mill_code]))
+                                    @php
+                                        $totals[$group][7] += Helper::sanitizeAutonum($weeklyReportsArray[$mill_code]['values']['totalOverallWith']['prevCrop']['toDate'] ?? null);
+                                    @endphp
+                                    {{ \App\Swep\Helpers\Helper::toNumber(Helper::sanitizeAutonum($weeklyReportsArray[$mill_code]['values']['totalOverallWith']['prevCrop']['toDate']),3,'-') }}
+                                @endif
                             </td>
                             <td class="text-right">
-                                @php
-                                    $totals[$group][8] = $totals[$group][8] + ($mill['form3']['toDate']['totalBalance']['current'] ?? null);
-                                @endphp
-                                {{\App\Swep\Helpers\Helper::toNumber($mill['form3']['toDate']['totalBalance']['current'] ?? null,3,'')}}
+                                @if(!empty($weeklyReportsArray[$mill_code]))
+                                    @php
+                                        $totals[$group][8] += Helper::sanitizeAutonum($weeklyReportsArray[$mill_code]['values']['totalProduction']['currentCrop']['toDate'] ?? 0)
+                                        - Helper::sanitizeAutonum($weeklyReportsArray[$mill_code]['values']['totalOverallWith']['currentCrop']['toDate'] ?? 0);
+                                    @endphp
+                                    {{ \App\Swep\Helpers\Helper::toNumber(Helper::sanitizeAutonum($weeklyReportsArray[$mill_code]['values']['totalProduction']['currentCrop']['toDate'])
+                                    - Helper::sanitizeAutonum($weeklyReportsArray[$mill_code]['values']['totalOverallWith']['currentCrop']['toDate']),3,'-') }}
+                                @endif
                             </td>
                             <td class="text-right">
-                                @php
-                                    $totals[$group][9] = $totals[$group][9] + ($mill['form3']['toDate']['totalBalance']['prev'] ?? null);
-                                @endphp
-                                {{\App\Swep\Helpers\Helper::toNumber($mill['form3']['toDate']['totalBalance']['prev'] ?? null,3,'')}}
+                                @if(!empty($weeklyReportsArray[$mill_code]))
+                                    @php
+                                        $totals[$group][9] += Helper::sanitizeAutonum($weeklyReportsArray[$mill_code]['values']['totalProduction']['prevCrop']['toDate'] ?? 0)
+                                        - Helper::sanitizeAutonum($weeklyReportsArray[$mill_code]['values']['totalOverallWith']['prevCrop']['toDate'] ?? 0);
+                                    @endphp
+                                    {{ \App\Swep\Helpers\Helper::toNumber(Helper::sanitizeAutonum($weeklyReportsArray[$mill_code]['values']['totalProduction']['prevCrop']['toDate'])
+                                    - Helper::sanitizeAutonum($weeklyReportsArray[$mill_code]['values']['totalOverallWith']['prevCrop']['toDate']),3,'-') }}
+                                @endif
                             </td>
                             <td class="text-right">
-                                @php
-                                    $totals[$group][10] = $totals[$group][10] + (($mill['form3']['toDate']['totalBalance']['current'] ?? null) + ($mill['form3']['toDate']['totalBalance']['prev'] ?? null));
-                                @endphp
-                                {{\App\Swep\Helpers\Helper::toNumber(
-                                    ($mill['form3']['toDate']['totalBalance']['current'] ?? null) + ($mill['form3']['toDate']['totalBalance']['prev'] ?? null) ,
-                                    3,
-                                    ''
-                                )}}
+                                @if(!empty($weeklyReportsArray[$mill_code]))
+                                    @php
+                                        $totals[$group][10] +=
+                                        (Helper::sanitizeAutonum($weeklyReportsArray[$mill_code]['values']['totalProduction']['currentCrop']['toDate'] ?? 0)
+                                        - Helper::sanitizeAutonum($weeklyReportsArray[$mill_code]['values']['totalOverallWith']['currentCrop']['toDate'] ?? 0))
+                                        + (Helper::sanitizeAutonum($weeklyReportsArray[$mill_code]['values']['totalProduction']['prevCrop']['toDate'] ?? 0)
+                                        - Helper::sanitizeAutonum($weeklyReportsArray[$mill_code]['values']['totalOverallWith']['prevCrop']['toDate'] ?? 0));
+                                    @endphp
+                                    {{ \App\Swep\Helpers\Helper::toNumber(
+                                        Helper::sanitizeAutonum($weeklyReportsArray[$mill_code]['values']['totalProduction']['currentCrop']['toDate'])
+                                        - Helper::sanitizeAutonum($weeklyReportsArray[$mill_code]['values']['totalOverallWith']['currentCrop']['toDate'])
+                                        + (Helper::sanitizeAutonum($weeklyReportsArray[$mill_code]['values']['totalProduction']['prevCrop']['toDate'])
+                                        - Helper::sanitizeAutonum($weeklyReportsArray[$mill_code]['values']['totalOverallWith']['prevCrop']['toDate'])),3,'-') }}
+                                @endif
                             </td>
                             <td class="text-right">
                                 {{$mill['form3']['thisWeek']['distFactor'] ?? ''}}

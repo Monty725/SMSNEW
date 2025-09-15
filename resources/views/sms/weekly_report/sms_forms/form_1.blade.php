@@ -711,3 +711,36 @@
         </div>
     </div>
 </form>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        let gross = document.querySelector('input[name="gtcm"]');
+        let net   = document.querySelector('input[name="ntcm"]');
+
+        if (!gross || !net) {
+            return;
+        }
+
+        function toggleDisable() {
+            if (gross.value.trim() !== "") {
+                net.value = "";
+                net.disabled = true;
+            } else {
+                net.disabled = false;
+            }
+
+            if (net.value.trim() !== "") {
+                gross.value = "";
+                gross.disabled = true;
+            } else {
+                gross.disabled = false;
+            }
+        }
+
+        toggleDisable();
+
+        gross.addEventListener("input", toggleDisable);
+        net.addEventListener("input", toggleDisable);
+    });
+</script>
+</body>

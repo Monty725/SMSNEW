@@ -138,6 +138,7 @@ class WeeklyReportService
 
         $formArray['withdrawalsTotal']['current'] = array_sum(array_column($formArray['withdrawals'],'current'));
         $formArray['withdrawalsTotal']['prev'] = array_sum(array_column($formArray['withdrawals'],'prev'));
+
         $formArray['forRefiningTotal']['current'] = array_sum(array_column($formArray['forRefining'],'current'));
         $formArray['forRefiningTotal']['prev'] = array_sum(array_column($formArray['forRefining'],'prev'));
 

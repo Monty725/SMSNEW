@@ -1,20 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\GetForms;
+namespace App\SMS\Services;
 
-use App\Http\Controllers\Controller;
-use App\Models\SMS\Form5\Deliveries;
+use function App\Http\Controllers\GetForms\formatValue;
 
-class GetForm1Controller extends Controller
+class GetForm1Service
 {
-
-//    PRIVATE FORMATVALUE --------------------
-    private function formatValue($value) {
-        return $value < 0 ? '(' . number_format(abs($value), 3, '.', ',') . ')' : number_format($value, 3, '.', ',');
-    }
-//    END PRIVATE FORMATVALUE ----------------
-
-    public function getForm1($slug, $isDotted=true){
+    public function getForm1($slug){
         $weeklyReport = \App\Models\SMS\WeeklyReports::query()->where("slug","=",$slug)->first();
         $currentReportNo = $weeklyReport->report_no * 1;
         $arr=[];
@@ -41,7 +33,9 @@ class GetForm1Controller extends Controller
         $toDate2 = $weeklyReport->form2ToDateAsOf($currentReportNo);
 
 //        dd($weeklyReport);
-
+        function formatValue($value) {
+            return $value < 0 ? '(' . number_format(abs($value), 3, '.', ',') . ')' : number_format($value, 3, '.', ',');
+        }
 
 //        number_format($withdrawCTotalThisWeek, 3, '.', ',')
         //MANUFACTURED COMPUTATION
@@ -51,14 +45,6 @@ class GetForm1Controller extends Controller
         $arr["manufactured"]["prevCrop"]["thisWeek"]=number_format($thisWeek->prev_manufactured, 3, '.', ',');
         $arr["manufactured"]["prevCrop"]["prevWeek"]=number_format($prevWeek->prev_manufactured, 3, '.', ',');
         $arr["manufactured"]["prevCrop"]["toDate"]=number_format($toDate->prev_manufactured, 3, '.', ',');
-
-        $arr["gtcm"]["currentCrop"]["thisWeek"]=number_format($thisWeek->gtcm, 3, '.', ',');
-        $arr["gtcm"]["currentCrop"]["prevWeek"]=number_format($prevWeek->gtcm, 3, '.', ',');
-        $arr["gtcm"]["currentCrop"]["toDate"]=number_format($toDate->gtcm, 3, '.', ',');
-
-        $arr["lkgtc_gross"]["currentCrop"]["thisWeek"]=number_format($thisWeek->lkgtc_gross, 3, '.', ',');
-        $arr["lkgtc_gross"]["currentCrop"]["prevWeek"]=number_format($prevWeek->lkgtc_gross, 3, '.', ',');
-        $arr["lkgtc_gross"]["currentCrop"]["toDate"]=number_format($toDate->lkgtc_gross, 3, '.', ',');
 
         //ISSUANCES COMPUTATION
         $sugarClasses = \App\Swep\Helpers\Arrays::sugarClasses();
@@ -532,14 +518,14 @@ class GetForm1Controller extends Controller
 
                 $arr["totalBalance"] = [
                     "currentCrop" => [
-                        "thisWeek" => $this->formatValue($balanceCTotalThisWeek),
-                        "prevWeek" => $this->formatValue($balanceCTotalPrevWeek),
-                        "toDate" => $this->formatValue($balanceCTotalToDate),
+                        "thisWeek" => formatValue($balanceCTotalThisWeek),
+                        "prevWeek" => formatValue($balanceCTotalPrevWeek),
+                        "toDate" => formatValue($balanceCTotalToDate),
                     ],
                     "prevCrop" => [
-                        "thisWeek" => $this->formatValue($balancePTotalThisWeek),
-                        "prevWeek" => $this->formatValue($balancePTotalPrevWeek),
-                        "toDate" => $this->formatValue($balancePTotalPrevWeek+$balancePTotalThisWeek),
+                        "thisWeek" => formatValue($balancePTotalThisWeek),
+                        "prevWeek" => formatValue($balancePTotalPrevWeek),
+                        "toDate" => formatValue($balancePTotalPrevWeek+$balancePTotalThisWeek),
                     ],
                 ];
             }
@@ -551,15 +537,15 @@ class GetForm1Controller extends Controller
         $arr["stockBal"] = [
 //            NEW STOCK BALANCE FORMULA LOUIS 11-14-2024
             "currentCrop"=>[
-                "thisWeek"=>$this->formatValue($balanceCTotalThisWeek + ($thisWeek->manufactured - $issuancesCTotalThisWeek)),
-                "prevWeek"=>$this->formatValue($balanceCTotalPrevWeek + ($prevWeek->manufactured - $issuancesCTotalPrevWeek)),
-                "toDate"=>$this->formatValue($balanceCTotalToDate + ($toDate->manufactured - $issuancesCTotalToDate)),
+                "thisWeek"=>formatValue($balanceCTotalThisWeek + ($thisWeek->manufactured - $issuancesCTotalThisWeek)),
+                "prevWeek"=>formatValue($balanceCTotalPrevWeek + ($prevWeek->manufactured - $issuancesCTotalPrevWeek)),
+                "toDate"=>formatValue($balanceCTotalToDate + ($toDate->manufactured - $issuancesCTotalToDate)),
             ],
 //            NEW STOCK BALANCE PREVIOUS CROP FORMULA LOUIS 11-14-2024
             "prevCrop"=>[
-                "thisWeek"=>$this->formatValue(($balancePTotalThisWeek)+($thisWeek->form1_prev_unquedanned)),
-                "prevWeek"=>$this->formatValue(($balancePTotalPrevWeek)+($prevWeek->form1_prev_unquedanned)),
-                "toDate"=>$this->formatValue(($balancePTotalPrevWeek+$balancePTotalThisWeek)+($toDate->form1_prev_unquedanned)),
+                "thisWeek"=>formatValue(($balancePTotalThisWeek)+($thisWeek->form1_prev_unquedanned)),
+                "prevWeek"=>formatValue(($balancePTotalPrevWeek)+($prevWeek->form1_prev_unquedanned)),
+                "toDate"=>formatValue(($balancePTotalPrevWeek+$balancePTotalThisWeek)+($toDate->form1_prev_unquedanned)),
             ],
         ];
 
@@ -567,23 +553,23 @@ class GetForm1Controller extends Controller
         $arr["unquedanned"] = [
             //NEW UNQUEDANNED FORMULA CURRENT YEAR 11-14-2024
             "currentCrop"=>[
-                "thisWeek"=>$this->formatValue($thisWeek->manufactured- $issuancesCTotalThisWeek),
-                "prevWeek"=>$this->formatValue($prevWeek->manufactured - $issuancesCTotalPrevWeek),
-                "toDate"=>$this->formatValue($toDate->manufactured - $issuancesCTotalToDate),
+                "thisWeek"=>formatValue($thisWeek->manufactured- $issuancesCTotalThisWeek),
+                "prevWeek"=>formatValue($prevWeek->manufactured - $issuancesCTotalPrevWeek),
+                "toDate"=>formatValue($toDate->manufactured - $issuancesCTotalToDate),
             ],
 
         ];
-        $arr["unquedanned"]["prevCrop"]["thisWeek"]=$this->formatValue($thisWeek->form1_prev_unquedanned);
-        $arr["unquedanned"]["prevCrop"]["prevWeek"]=$this->formatValue($prevWeek->form1_prev_unquedanned);
-        $arr["unquedanned"]["prevCrop"]["toDate"]=$this->formatValue($toDate->form1_prev_unquedanned);
+        $arr["unquedanned"]["prevCrop"]["thisWeek"]=formatValue($thisWeek->form1_prev_unquedanned);
+        $arr["unquedanned"]["prevCrop"]["prevWeek"]=formatValue($prevWeek->form1_prev_unquedanned);
+        $arr["unquedanned"]["prevCrop"]["toDate"]=formatValue($toDate->form1_prev_unquedanned);
 
         //TRANSFERS TO REFINERY COMPUTATION
-        $arr["transfersToRef"]["currentCrop"]["thisWeek"]=$this->formatValue($thisWeek->transfers_to_refinery);
-        $arr["transfersToRef"]["currentCrop"]["prevWeek"]=$this->formatValue($prevWeek->transfers_to_refinery);
-        $arr["transfersToRef"]["currentCrop"]["toDate"]=$this->formatValue($toDate->transfers_to_refinery);
-        $arr["transfersToRef"]["prevCrop"]["thisWeek"]=$this->formatValue($thisWeek->prev_transfers_to_refinery);
-        $arr["transfersToRef"]["prevCrop"]["prevWeek"]=$this->formatValue($prevWeek->prev_transfers_to_refinery);
-        $arr["transfersToRef"]["prevCrop"]["toDate"]=$this->formatValue($toDate->prev_transfers_to_refinery);
+        $arr["transfersToRef"]["currentCrop"]["thisWeek"]=formatValue($thisWeek->transfers_to_refinery);
+        $arr["transfersToRef"]["currentCrop"]["prevWeek"]=formatValue($prevWeek->transfers_to_refinery);
+        $arr["transfersToRef"]["currentCrop"]["toDate"]=formatValue($toDate->transfers_to_refinery);
+        $arr["transfersToRef"]["prevCrop"]["thisWeek"]=formatValue($thisWeek->prev_transfers_to_refinery);
+        $arr["transfersToRef"]["prevCrop"]["prevWeek"]=formatValue($prevWeek->prev_transfers_to_refinery);
+        $arr["transfersToRef"]["prevCrop"]["toDate"]=formatValue($toDate->prev_transfers_to_refinery);
 
         session(['formatted_transfer1' => $arr["transfersToRef"]["currentCrop"]["thisWeek"]]);
         session(['formatted_transfer2' => $arr["transfersToRef"]["currentCrop"]["prevWeek"]]);
@@ -610,15 +596,15 @@ class GetForm1Controller extends Controller
         $arr["physicalStock"] = [
 //        NEW CURRENT PHYSICAL STOCK FORMULA 11-14-2024
             "currentCrop"=>[
-                "thisWeek"=>$this->formatValue(($balanceCTotalThisWeek + ($thisWeek->manufactured - $issuancesCTotalThisWeek)) - ($thisWeek->transfers_to_refinery)),
-                "prevWeek"=>$this->formatValue(($balanceCTotalPrevWeek + ($prevWeek->manufactured - $issuancesCTotalPrevWeek)) - ($prevWeek->transfers_to_refinery)),
-                "toDate"=>$this->formatValue(($balanceCTotalToDate + ($toDate->manufactured - $issuancesCTotalToDate)) - ($toDate->transfers_to_refinery)),
+                "thisWeek"=>formatValue(($balanceCTotalThisWeek + ($thisWeek->manufactured - $issuancesCTotalThisWeek)) - ($thisWeek->transfers_to_refinery)),
+                "prevWeek"=>formatValue(($balanceCTotalPrevWeek + ($prevWeek->manufactured - $issuancesCTotalPrevWeek)) - ($prevWeek->transfers_to_refinery)),
+                "toDate"=>formatValue(($balanceCTotalToDate + ($toDate->manufactured - $issuancesCTotalToDate)) - ($toDate->transfers_to_refinery)),
             ],
 //        NEW PREVIOUS PHYSICAL STOCK FORMULA 11-14-2024
             "prevCrop"=>[
-                "thisWeek"=>$this->formatValue((($balancePTotalThisWeek)+($thisWeek->form1_prev_unquedanned))-($thisWeek->prev_transfers_to_refinery)),
-                "prevWeek"=>$this->formatValue((($balancePTotalPrevWeek)+($prevWeek->form1_prev_unquedanned))-($prevWeek->prev_transfers_to_refinery)),
-                "toDate"=>$this->formatValue((($balancePTotalPrevWeek+$balancePTotalThisWeek)+($toDate->form1_prev_unquedanned))-($toDate->prev_transfers_to_refinery)),
+                "thisWeek"=>formatValue((($balancePTotalThisWeek)+($thisWeek->form1_prev_unquedanned))-($thisWeek->prev_transfers_to_refinery)),
+                "prevWeek"=>formatValue((($balancePTotalPrevWeek)+($prevWeek->form1_prev_unquedanned))-($prevWeek->prev_transfers_to_refinery)),
+                "toDate"=>formatValue((($balancePTotalPrevWeek+$balancePTotalThisWeek)+($toDate->form1_prev_unquedanned))-($toDate->prev_transfers_to_refinery)),
             ],
         ];
 
@@ -634,9 +620,7 @@ class GetForm1Controller extends Controller
         }
 
         //TRANSFERS TO REFINERY COMPUTATION
-//        $arr["lkgtc_gross"]=number_format($thisWeek->lkgtc_gross, 3, '.', ',');
-//        $arr["lkgtc_gross"]=number_format($prevWeek->lkgtc_gross, 3, '.', ',');
-//        $arr["lkgtc_gross"]=number_format($toDate->lkgtc_gross, 3, '.', ',');
+        $arr["lkgtc_gross"]=number_format($thisWeek->lkgtc_gross, 3, '.', ',');
         $arr["lkgtc_net"]=number_format($thisWeek->lkgtc_net, 3, '.', ',');
 
 
@@ -644,8 +628,7 @@ class GetForm1Controller extends Controller
 
         if(isset($arr['withdrawals_for_refining'])){krsort($arr['withdrawals_for_refining']);}
         return [
-//            'values' => collect($arr)->dot()->all(),
-            'values' => $isDotted ? collect($arr)->dot()->all() : collect($arr)->all(),
+            'values' => collect($arr)->dot()->all(),
             'rows' => [
                 'withdrawals' => $arr['withdrawals'] ?? 0,
                 'withdrawals_for_refining' => $arr['withdrawals_for_refining'] ?? null,
@@ -654,24 +637,4 @@ class GetForm1Controller extends Controller
             ],
         ];
     }
-
-    private function getDeliveriesAsOf($reportNo, $weeklyReport){
-        $deliveries = Deliveries::query()
-            ->selectRaw('weekly_report_slug,trader, refining,sugar_class, sum(qty) as currentTotal, sum(qty_prev) as prevTotal, weekly_reports.*')
-            ->leftJoin('weekly_reports','weekly_reports.slug','=','form5_deliveries.weekly_report_slug')
-            ->where('crop_year','=',$weeklyReport->crop_year)
-            ->where('mill_code','=',$weeklyReport->mill_code)
-//            ->where('report_no','<=', $reportNo != 0 ? $reportNo : $weeklyReport->report_no * 1)
-//            ->where('report_no','<=', $report_no != 0 ? $report_no : $weekly_report->report_no * 1)
-            ->where('report_no','<=', $reportNo)
-            ->where(function($q){
-                $q->where('weekly_reports.status' ,'!=', -1)
-                    ->orWhere('weekly_reports.status', '=', null);
-            })
-            ->groupBy('refining','sugar_class')
-            ->orderBy('sugar_class','asc')
-            ->get();
-        return $deliveries;
-    }
-
 }

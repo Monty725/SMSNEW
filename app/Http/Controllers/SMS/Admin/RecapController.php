@@ -4,6 +4,9 @@
 namespace App\Http\Controllers\SMS\Admin;
 
 
+use App\Http\Controllers\GetForms\GetForm1Controller;
+use App\Http\Controllers\GetForms\GetForm2Controller;
+use App\Http\Controllers\GetForms\GetForm3Controller;
 use App\Models\SMS\SugarMills;
 use App\Models\SMS\WeeklyReports;
 use App\SMS\Services\WeeklyReportService;
@@ -48,7 +51,30 @@ class RecapController
         ]);
     }
 
-    public function raw1(Request $request){
+//    INJECT ON FUNCTION ------------------
+    public function raw1(Request $request, GetForm1Controller $getForm1Controller){
+//        dd($getform1Controller);
+        $weeklyreports = WeeklyReports::query()
+            ->where("report_no","=", 4)
+            ->where("status","=", 1)
+            ->get();
+
+
+//        CODE START RECAP ------------------
+        $submittedReports = $weeklyreports->mapWithKeys(function ($weeklyreport){
+            return [
+                $weeklyreport->mill_code=>$weeklyreport
+            ];
+        });
+        $weeklyReportsArray = [];
+        foreach($submittedReports as $mill_code=>$submittedReport)
+        {
+            $weeklyReportsArray[$mill_code] = $getForm1Controller->getForm1($submittedReport->slug, false);
+        }
+//        dd($submittedReports);
+//        CODE END --------------------------
+
+//        dd($getForm1Controller->getForm1($weeklyreports->first()->slug, false));
         $report_no = $request->report_no * 1;
         $crop_year = $request->crop_year;
 
@@ -58,7 +84,7 @@ class RecapController
             foreach ($mills as $mill){
                 $comparativeArray[$mill->group][$mill->slug] = [
                     'weeklyReportSlug' => null,
-                    'form1' => [],
+                    'newform1' => [],
                 ];
             }
         }
@@ -74,23 +100,48 @@ class RecapController
         if(!empty($wrs)){
             foreach ($wrs as $wr){
                 $comparativeArray[$wr->sugarMill->group][$wr->sugarMill->slug]['weeklyReportSlug'] = $wr->slug;
-                $comparativeArray[$wr->sugarMill->group][$wr->sugarMill->slug]['form1'] = [
+                $comparativeArray[$wr->sugarMill->group][$wr->sugarMill->slug]['newform1'] = [
                     'thisWeek' => $this->weeklyReportService->computation($wr->slug,'',$report_no),
                     'prevToDate' => $this->weeklyReportService->computation($wr->slug,'toDate',$report_no - 1),
                     'toDate' => $this->weeklyReportService->computation($wr->slug,'toDate',$report_no),
                 ];
             }
         }
+//        dd($weeklyReportsArray);
         return view('sms.printables.comparative.raw1')->with([
             'comparativeArray' => $comparativeArray,
+//            ADD HERE RECAP ---------------
+            'weeklyReportsArray' => $weeklyReportsArray
+//            ADD END ------------------
         ]);
+
     }
 
-    public function molPWS(Request $request){
+    public function molPWS(Request $request, GetForm3Controller $getForm3Controller){
         $report_no = $request->report_no * 1;
         $crop_year = $request->crop_year;
 
         $comparativeArray = [];
+
+        //        CODE START RECAP ------------------
+        $weeklyreports = WeeklyReports::query()
+            ->where("report_no","=", 4)
+            ->where("status","=", 1)
+            ->get();
+
+        $submittedReports = $weeklyreports->mapWithKeys(function ($weeklyreport){
+            return [
+                $weeklyreport->mill_code=>$weeklyreport
+            ];
+        });
+        $weeklyReportsArray = [];
+        foreach($submittedReports as $mill_code=>$submittedReport)
+        {
+            $weeklyReportsArray[$mill_code] = $getForm3Controller->getForm3($submittedReport->slug, false);
+        }
+//        dd($submittedReports);
+//        CODE END --------------------------
+
         $mills = SugarMills::query()->get();
         if(!empty($mills)){
             foreach ($mills as $mill){
@@ -118,16 +169,48 @@ class RecapController
                 ];
             }
         }
+//                dd($weeklyReportsArray["TEST"]);
         return view(    'sms.printables.comparative.molPWS')->with([
             'millsArray' => $comparativeArray,
+            'weeklyReportsArray' => $weeklyReportsArray
         ]);
     }
 
-    public function refPWS(Request $request){
+    public function refPWS(Request $request, GetForm2Controller $getForm2Controller){
         $report_no = $request->report_no * 1;
         $crop_year = $request->crop_year;
 
         $comparativeArray = [];
+
+
+        //        CODE START RECAP ------------------
+//        $weeklyreports = WeeklyReports::query()
+//            ->where("report_no","=", 4)
+//            ->where("status","=", 1)
+//            ->get();
+
+        $weeklyreports = WeeklyReports::query()
+            ->join("sugar_mills", "weekly_reports.mill_code", "=", "sugar_mills.slug")
+            ->where("weekly_reports.report_no", 4)
+            ->where("weekly_reports.status", 1)
+            ->where("sugar_mills.has_refinery", 1)
+            ->select("weekly_reports.*") // make sure to select correct columns
+            ->get();
+
+
+        $submittedReports = $weeklyreports->mapWithKeys(function ($weeklyreport){
+            return [
+                $weeklyreport->mill_code=>$weeklyreport
+            ];
+        });
+        $weeklyReportsArray = [];
+        foreach($submittedReports as $mill_code=>$submittedReport)
+        {
+            $weeklyReportsArray[$mill_code] = $getForm2Controller->getForm2($submittedReport->slug, false);
+        }
+//        dd($submittedReports);
+//        CODE END --------------------------
+
         $mills = SugarMills::query()
             ->where('has_refinery','=',1)
             ->get();
@@ -162,16 +245,40 @@ class RecapController
             }
         }
 
+//        dd($weeklyReportsArray);
         return view('sms.printables.comparative.refPWS')->with([
             'millsArray' => $comparativeArray,
+            //ADD HERE RECAP ---------------
+            'weeklyReportsArray' => $weeklyReportsArray
+            //ADD END ------------------
         ]);
     }
 
-    public function gtcm(Request $request){
+    public function gtcm(Request $request, GetForm1Controller $getForm1Controller){
         $report_no = $request->report_no * 1;
         $crop_year = $request->crop_year;
 
         $comparativeArray = [];
+
+        //        CODE START RECAP ------------------
+        $weeklyreports = WeeklyReports::query()
+            ->where("report_no","=", 4)
+            ->where("status","=", 1)
+            ->get();
+
+        $submittedReports = $weeklyreports->mapWithKeys(function ($weeklyreport){
+            return [
+                $weeklyreport->mill_code=>$weeklyreport
+            ];
+        });
+        $weeklyReportsArray = [];
+        foreach($submittedReports as $mill_code=>$submittedReport)
+        {
+            $weeklyReportsArray[$mill_code] = $getForm1Controller->getForm1($submittedReport->slug, false);
+        }
+//        dd($submittedReports);
+//        CODE END --------------------------
+
         $mills = SugarMills::query()
             ->get();
         if(!empty($mills)){
@@ -202,8 +309,10 @@ class RecapController
             }
         }
 
+//        dd($weeklyReportsArray);
         return view('sms.printables.comparative.gtcm')->with([
             'millsArray' => $comparativeArray,
+            'weeklyReportsArray' => $weeklyReportsArray
         ]);
     }
 }

@@ -93,7 +93,10 @@
             @endphp
             @foreach($rowswithdrawals as $sugarclass => $withdrawals)
                 <tr>
-                    <td><span class="indent"></span><span class="indent"></span> {{$sugarclass}}</td>
+                    <td>
+                        <span class="indent"></span><span class="indent"></span>
+                        {{ str_replace('_', ' ', $sugarclass) }}
+                    </td>
                     <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($withdrawals["currentCrop"]["thisWeek"] ?? 0,3)}}</td>
                     <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($withdrawals["currentCrop"]["prevWeek"] ?? 0 ,3)}}</td>
                     <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($withdrawals["currentCrop"]["toDate"] ?? 0 ,3)}}</td>
@@ -128,7 +131,10 @@
             @endphp
             @foreach($rowswithdrawalsref as $sugarclass => $withdrawals)
                 <tr>
-                    <td><span class="indent"></span><span class="indent"></span> {{$sugarclass}}</td>
+                    <td>
+                        <span class="indent"></span><span class="indent"></span>
+                        {{ str_replace('_', ' ', $sugarclass) }}
+                    </td>
                     <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($withdrawals["currentCrop"]["thisWeek"] ?? 0,3)}}</td>
                     <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($withdrawals["currentCrop"]["prevWeek"] ?? 0 ,3)}}</td>
                     <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($withdrawals["currentCrop"]["toDate"] ?? 0 ,3)}}</td>

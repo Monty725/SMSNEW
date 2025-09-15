@@ -288,6 +288,17 @@ class Helper
         return str_replace(',','',$num);
     }
 
+    public static function sanitize($num){
+        $string = \Str::of($num);
+        if($string->contains(["(",")"]))
+        {
+            return floatval($string->replace(",","")->replace("(", "")->replace(")", "")->toString())*-1;
+        }
+//        dd();
+
+        return floatval(str_replace(",", "", $num));
+    }
+
     public static function mis_request_nature(){
         $natures = MisRequestsNature::query()->get();
         $array = [];
