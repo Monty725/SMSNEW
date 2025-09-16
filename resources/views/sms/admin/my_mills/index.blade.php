@@ -20,95 +20,105 @@
                 <div class="tab-pane active" id="tab_1">
 
 {{--                    ORIGINAL OLD TABLE--}}
-{{--                    @if(!empty($calendar))--}}
-{{--                        @foreach($calendar as $crop_year => $months)--}}
-{{--                            <div class="panel">--}}
-{{--                                <div class="box box-sm box-default box-solid">--}}
-{{--                                    <div class="box-header with-border">--}}
-{{--                                        <p class="no-margin"> {{$crop_year}} <small id="filter-notifier" class="label bg-blue blink"></small></p>--}}
-
-{{--                                    </div>--}}
-{{--                                    <div class="box-body" style="overflow: auto">--}}
-{{--                                        <table class="table table-bordered table-condensed">--}}
-{{--                                            <thead>--}}
-{{--                                            <tr>--}}
-{{--                                                @foreach($months as $month => $weeks)--}}
-{{--                                                    <th class="text-center">{{strtoupper(\Illuminate\Support\Carbon::parse($month)->format('M'))}}</th>--}}
-{{--                                                @endforeach--}}
-{{--                                            </tr>--}}
-{{--                                            </thead>--}}
-{{--                                            <tbody>--}}
-{{--                                            <tr>--}}
-{{--                                                @foreach($months as $month => $weeks)--}}
-{{--                                                    <td>--}}
-{{--                                                        <div class="row">--}}
-{{--                                                            @foreach($weeks as $week => $report_no)--}}
-{{--                                                                <div class="col-md-12">--}}
-{{--                                                                    <button class="view_week_btn btn btn-sm {{ isset($submissions[$week]) ? 'btn-success' : 'btn-default'}}" style="width: 100%; margin-bottom: 10px;font-family: Consolas" {{isset($submissions[$week]) ? '' : 'disabled'}} data="{{$submissions[$week] ?? null}}" data-toggle="modal" data-target="#view_week_modal">--}}
-{{--                                                                        {{$report_no}} : {{Carbon::parse($week)->format('M d')}}--}}
-{{--                                                                    </button>--}}
-{{--                                                                </div>--}}
-{{--                                                            @endforeach--}}
-{{--                                                        </div>--}}
-{{--                                                    </td>--}}
-{{--                                                @endforeach--}}
-{{--                                            </tr>--}}
-{{--                                            </tbody>--}}
-{{--                                        </table>--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                        @endforeach--}}
-{{--                    @endif--}}
-
-
-{{--                    NEW TABLE FOR LUZON MINDANAO TRAINING--}}
-                    @php
-                        // Get the latest crop year
-                        $latest_crop_year = !empty($calendar) ? max(array_keys($calendar)) : null;
-                    @endphp
-                    @if(!empty($calendar) && $latest_crop_year)
-                        <div class="panel">
-                            <div class="box box-sm box-default box-solid">
-                                <div class="box-header with-border">
-                                    <p class="no-margin"> {{$latest_crop_year}} <small id="filter-notifier" class="label bg-blue blink"></small></p>
-                                </div>
-                                <div class="box-body" style="overflow: auto">
-                                    <table class="table table-bordered table-condensed">
-                                        <thead>
-                                        <tr>
-                                            @foreach($calendar[$latest_crop_year] as $month => $weeks)
-                                                <th class="text-center">{{strtoupper(\Illuminate\Support\Carbon::parse($month)->format('M'))}}</th>
-                                            @endforeach
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr>
-                                            @foreach($calendar[$latest_crop_year] as $month => $weeks)
-                                                <td>
-                                                    <div class="row">
-                                                        @foreach($weeks as $week => $report_no)
-                                                            <div class="col-md-12">
-                                                                <button class="view_week_btn btn btn-sm {{ isset($submissions[$week]) ? 'btn-success' : 'btn-default'}}"
-                                                                        style="width: 100%; margin-bottom: 10px;font-family: Consolas"
-                                                                        {{ isset($submissions[$week]) ? '' : 'disabled' }}
-                                                                        data="{{ $submissions[$week] ?? null }}"
-                                                                        data-toggle="modal"
-                                                                        data-target="#view_week_modal">
-                                                                    {{$report_no}} : {{ \Carbon\Carbon::parse($week)->format('M d') }}
-                                                                </button>
-                                                            </div>
-                                                        @endforeach
-                                                    </div>
-                                                </td>
-                                            @endforeach
-                                        </tr>
-                                        </tbody>
-                                    </table>
+                    @if(!empty($calendar))
+                        @foreach(collect($calendar)->sortKeysDesc() as $crop_year => $months)
+                            <div class="panel">
+                                <div class="box box-sm box-default box-solid">
+                                    <div class="box-header with-border">
+                                        <p class="no-margin">
+                                            {{$crop_year}}
+                                            <small id="filter-notifier" class="label bg-blue blink"></small>
+                                        </p>
+                                    </div>
+                                    <div class="box-body" style="overflow: auto">
+                                        <table class="table table-bordered table-condensed">
+                                            <thead>
+                                            <tr>
+                                                @foreach($months as $month => $weeks)
+                                                    <th class="text-center">{{strtoupper(\Illuminate\Support\Carbon::parse($month)->format('M'))}}</th>
+                                                @endforeach
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                @foreach($months as $month => $weeks)
+                                                    <td>
+                                                        <div class="row">
+                                                            @foreach($weeks as $week => $report_no)
+                                                                <div class="col-md-12">
+                                                                    <button
+                                                                            class="view_week_btn btn btn-sm {{ isset($submissions[$week]) ? 'btn-success' : 'btn-default'}}"
+                                                                            style="width: 100%; margin-bottom: 10px;font-family: Consolas"
+                                                                            {{ isset($submissions[$week]) ? '' : 'disabled' }}
+                                                                            data="{{ $submissions[$week] ?? null }}"
+                                                                            data-toggle="modal"
+                                                                            data-target="#view_week_modal"
+                                                                    >
+                                                                        {{$report_no}} : {{Carbon::parse($week)->format('M d')}}
+                                                                    </button>
+                                                                </div>
+                                                            @endforeach
+                                                        </div>
+                                                    </td>
+                                                @endforeach
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        @endforeach
                     @endif
+
+
+
+                    {{--                    NEW TABLE FOR LUZON MINDANAO TRAINING--}}
+{{--                    @php--}}
+{{--                        // Get the latest crop year--}}
+{{--                        $latest_crop_year = !empty($calendar) ? max(array_keys($calendar)) : null;--}}
+{{--                    @endphp--}}
+{{--                    @if(!empty($calendar) && $latest_crop_year)--}}
+{{--                        <div class="panel">--}}
+{{--                            <div class="box box-sm box-default box-solid">--}}
+{{--                                <div class="box-header with-border">--}}
+{{--                                    <p class="no-margin"> {{$latest_crop_year}} <small id="filter-notifier" class="label bg-blue blink"></small></p>--}}
+{{--                                </div>--}}
+{{--                                <div class="box-body" style="overflow: auto">--}}
+{{--                                    <table class="table table-bordered table-condensed">--}}
+{{--                                        <thead>--}}
+{{--                                        <tr>--}}
+{{--                                            @foreach($calendar[$latest_crop_year] as $month => $weeks)--}}
+{{--                                                <th class="text-center">{{strtoupper(\Illuminate\Support\Carbon::parse($month)->format('M'))}}</th>--}}
+{{--                                            @endforeach--}}
+{{--                                        </tr>--}}
+{{--                                        </thead>--}}
+{{--                                        <tbody>--}}
+{{--                                        <tr>--}}
+{{--                                            @foreach($calendar[$latest_crop_year] as $month => $weeks)--}}
+{{--                                                <td>--}}
+{{--                                                    <div class="row">--}}
+{{--                                                        @foreach($weeks as $week => $report_no)--}}
+{{--                                                            <div class="col-md-12">--}}
+{{--                                                                <button class="view_week_btn btn btn-sm {{ isset($submissions[$week]) ? 'btn-success' : 'btn-default'}}"--}}
+{{--                                                                        style="width: 100%; margin-bottom: 10px;font-family: Consolas"--}}
+{{--                                                                        {{ isset($submissions[$week]) ? '' : 'disabled' }}--}}
+{{--                                                                        data="{{ $submissions[$week] ?? null }}"--}}
+{{--                                                                        data-toggle="modal"--}}
+{{--                                                                        data-target="#view_week_modal">--}}
+{{--                                                                    {{$report_no}} : {{ \Carbon\Carbon::parse($week)->format('M d') }}--}}
+{{--                                                                </button>--}}
+{{--                                                            </div>--}}
+{{--                                                        @endforeach--}}
+{{--                                                    </div>--}}
+{{--                                                </td>--}}
+{{--                                            @endforeach--}}
+{{--                                        </tr>--}}
+{{--                                        </tbody>--}}
+{{--                                    </table>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    @endif--}}
                 </div>
 
                 <div class="tab-pane" id="tab_2">
