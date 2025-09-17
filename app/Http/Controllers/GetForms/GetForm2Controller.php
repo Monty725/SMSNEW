@@ -371,12 +371,12 @@ class GetForm2Controller extends Controller
         $value6 = session('formatted_transfer6');
 
         //NOT COVERED BY SRO COMPUTATION
-        $arr["notCoveredBySro"]["currentCrop"]["thisWeek"]=number_format($value1, 3, '.', ',');
-        $arr["notCoveredBySro"]["currentCrop"]["prevWeek"]=number_format($value2, 3, '.', ',');
-        $arr["notCoveredBySro"]["currentCrop"]["toDate"]=number_format($value3, 3, '.', ',');
-        $arr["notCoveredBySro"]["prevCrop"]["thisWeek"]=number_format($value4, 3, '.', ',');
+        $arr["notCoveredBySro"]["currentCrop"]["thisWeek"]=number_format(Helper::sanitizeNumFormat($value1), 3, '.', ',');
+        $arr["notCoveredBySro"]["currentCrop"]["prevWeek"]=number_format(Helper::sanitizeNumFormat($value2), 3, '.', ',');
+        $arr["notCoveredBySro"]["currentCrop"]["toDate"]=number_format(Helper::sanitizeNumFormat($value3), 3, '.', ',');
+        $arr["notCoveredBySro"]["prevCrop"]["thisWeek"]=number_format(Helper::sanitizeNumFormat($value4), 3, '.', ',');
         $arr["notCoveredBySro"]["prevCrop"]["prevWeek"]=number_format(Helper::sanitizeNumFormat($value5), 3, '.', ',');
-        $arr["notCoveredBySro"]["prevCrop"]["toDate"]=number_format($value6, 3, '.', ',');
+        $arr["notCoveredBySro"]["prevCrop"]["toDate"]=number_format(Helper::sanitizeNumFormat($value6), 3, '.', ',');
 
         //OTHER MILLS COMPUTATION
         $arr["otherMills"]["currentCrop"]["thisWeek"]=number_format($thisWeek->otherMills, 3, '.', ',');
