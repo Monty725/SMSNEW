@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\GetForms;
 
 use App\Http\Controllers\Controller;
+use App\Swep\Helpers\Helper;
 use Illuminate\Http\Request;
 use App\Models\SMS\Form5a\IssuancesOfSro;
 use App\Models\SMS\Form5a\Deliveries;
@@ -368,12 +369,13 @@ class GetForm2Controller extends Controller
         $value4 = session('formatted_transfer4');
         $value5 = session('formatted_transfer5');
         $value6 = session('formatted_transfer6');
+
         //NOT COVERED BY SRO COMPUTATION
         $arr["notCoveredBySro"]["currentCrop"]["thisWeek"]=number_format($value1, 3, '.', ',');
         $arr["notCoveredBySro"]["currentCrop"]["prevWeek"]=number_format($value2, 3, '.', ',');
         $arr["notCoveredBySro"]["currentCrop"]["toDate"]=number_format($value3, 3, '.', ',');
         $arr["notCoveredBySro"]["prevCrop"]["thisWeek"]=number_format($value4, 3, '.', ',');
-        $arr["notCoveredBySro"]["prevCrop"]["prevWeek"]=number_format($value5, 3, '.', ',');
+        $arr["notCoveredBySro"]["prevCrop"]["prevWeek"]=number_format(Helper::sanitizeNumFormat($value5), 3, '.', ',');
         $arr["notCoveredBySro"]["prevCrop"]["toDate"]=number_format($value6, 3, '.', ',');
 
         //OTHER MILLS COMPUTATION
