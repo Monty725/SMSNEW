@@ -4,7 +4,8 @@
 
     <section class="content-header">
         <h1>
-            CY: {{$cy->name}} | {{\Illuminate\Support\Facades\Auth::user()->mill_code}}
+{{--            CY: {{$cy->name}} | {{\Illuminate\Support\Facades\Auth::user()->mill_code}}--}}
+            CY: 2025-2026 | {{\Illuminate\Support\Facades\Auth::user()->mill_code}}
             <span class="pull-right"><small>Current week ending:</small> {{\Illuminate\Support\Carbon::parse($closestSundayAhead)->format('F d, Y')}}</span>
         </h1>
     </section>
