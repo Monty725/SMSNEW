@@ -396,24 +396,24 @@
                 </tr>
                 <tr>
                     <td><span class="indent"></span><span class="indent"></span>2.1.2 Not Covered by SRO</td>
-{{--                    <td>--}}
-{{--                        {!! \App\Swep\ViewHelpers\__form2::textboxOnly('notCoveredBySro',[--}}
-{{--                            'class' => 'form2-input input-sm text-right autonumber_mt'--}}
-{{--                        ],--}}
-{{--                        $wr->form2->notCoveredBySro ?? null--}}
-{{--                        ) !!}--}}
-{{--                    </td>--}}
-                    <td class="text-strong text-right updatable" for="notCoveredBySro.currentCrop.thisWeek"></td>
+                    <td>
+                        {!! \App\Swep\ViewHelpers\__form2::textboxOnly('notCoveredBySro',[
+                            'class' => 'form2-input input-sm text-right autonumber_mt'
+                        ],
+                        $wr->form2->notCoveredBySro ?? null
+                        ) !!}
+                    </td>
+{{--                    <td class="text-strong text-right updatable" for="notCoveredBySro.currentCrop.thisWeek"></td>--}}
                     <td class="text-strong text-right updatable" for="notCoveredBySro.currentCrop.prevWeek"></td>
                     <td class="text-strong text-right updatable" for="notCoveredBySro.currentCrop.toDate"></td>
-{{--                    <td>--}}
-{{--                        {!! \App\Swep\ViewHelpers\__form2::textboxOnly('prev_notCoveredBySro',[--}}
-{{--                            'class' => 'form2-input input-sm text-right autonumber_mt'--}}
-{{--                        ],--}}
-{{--                        $wr->form2->prev_notCoveredBySro ?? null--}}
-{{--                        ) !!}--}}
-{{--                    </td>--}}
-                    <td class="text-strong text-right updatable" for="notCoveredBySro.prevCrop.thisWeek"></td>
+                    <td>
+                        {!! \App\Swep\ViewHelpers\__form2::textboxOnly('prev_notCoveredBySro',[
+                            'class' => 'form2-input input-sm text-right autonumber_mt'
+                        ],
+                        $wr->form2->prev_notCoveredBySro ?? null
+                        ) !!}
+                    </td>
+{{--                    <td class="text-strong text-right updatable" for="notCoveredBySro.prevCrop.thisWeek"></td>--}}
                     <td class="text-strong text-right updatable" for="notCoveredBySro.prevCrop.prevWeek"></td>
                     <td class="text-strong text-right updatable" for="notCoveredBySro.prevCrop.toDate"></td>
                 </tr>

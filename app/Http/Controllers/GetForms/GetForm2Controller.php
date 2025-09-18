@@ -371,12 +371,19 @@ class GetForm2Controller extends Controller
         $value6 = Helper::sanitizeNumFormat(session('formatted_transfer6'));
 
         //NOT COVERED BY SRO COMPUTATION
-        $arr["notCoveredBySro"]["currentCrop"]["thisWeek"]=number_format($value1, 3, '.', ',');
-        $arr["notCoveredBySro"]["currentCrop"]["prevWeek"]=number_format($value2, 3, '.', ',');
-        $arr["notCoveredBySro"]["currentCrop"]["toDate"]=number_format($value3, 3, '.', ',');
-        $arr["notCoveredBySro"]["prevCrop"]["thisWeek"]=number_format($value4, 3, '.', ',');
-        $arr["notCoveredBySro"]["prevCrop"]["prevWeek"]=number_format($value5, 3, '.', ',');
-        $arr["notCoveredBySro"]["prevCrop"]["toDate"]=number_format($value6, 3, '.', ',');
+//        $arr["notCoveredBySro"]["currentCrop"]["thisWeek"]=number_format($value1, 3, '.', ',');
+//        $arr["notCoveredBySro"]["currentCrop"]["prevWeek"]=number_format($value2, 3, '.', ',');
+//        $arr["notCoveredBySro"]["currentCrop"]["toDate"]=number_format($value3, 3, '.', ',');
+//        $arr["notCoveredBySro"]["prevCrop"]["thisWeek"]=number_format($value4, 3, '.', ',');
+//        $arr["notCoveredBySro"]["prevCrop"]["prevWeek"]=number_format($value5, 3, '.', ',');
+//        $arr["notCoveredBySro"]["prevCrop"]["toDate"]=number_format($value6, 3, '.', ',');
+
+        $arr["notCoveredBySro"]["currentCrop"]["thisWeek"]=number_format($thisWeek->notCoveredBySro, 3, '.', ',');
+        $arr["notCoveredBySro"]["currentCrop"]["prevWeek"]=number_format($prevWeek->notCoveredBySro, 3, '.', ',');
+        $arr["notCoveredBySro"]["currentCrop"]["toDate"]=number_format($toDate->notCoveredBySro, 3, '.', ',');
+        $arr["notCoveredBySro"]["prevCrop"]["thisWeek"]=number_format($thisWeek->prev_notCoveredBySro, 3, '.', ',');
+        $arr["notCoveredBySro"]["prevCrop"]["prevWeek"]=number_format($prevWeek->prev_notCoveredBySro, 3, '.', ',');
+        $arr["notCoveredBySro"]["prevCrop"]["toDate"]=number_format($toDate->prev_notCoveredBySro, 3, '.', ',');
 
         //OTHER MILLS COMPUTATION
         $arr["otherMills"]["currentCrop"]["thisWeek"]=number_format($thisWeek->otherMills, 3, '.', ',');
@@ -519,14 +526,14 @@ class GetForm2Controller extends Controller
         //NEW TOTAL RECEIPT
         $arr["totalReceipt"] = [
             "currentCrop"=>[
-                "thisWeek"=>number_format($thisWeek->coveredBySro + $thisWeek->otherMills + $thisWeek->imported + $thisWeek->advance_refining + $value1, 3, '.', ','),
-                "prevWeek"=>number_format($prevWeek->coveredBySro + $prevWeek->otherMills + $prevWeek->imported + $prevWeek->advance_refining + $value2, 3, '.', ','),
-                "toDate"=>number_format($toDate->coveredBySro + $toDate->otherMills + $toDate->imported + $toDate->advance_refining + $value3, 3, '.', ','),
+                "thisWeek"=>number_format($thisWeek->coveredBySro + $thisWeek->otherMills + $thisWeek->imported + $thisWeek->advance_refining + $thisWeek->notCoveredBySro, 3, '.', ','),
+                "prevWeek"=>number_format($prevWeek->coveredBySro + $prevWeek->otherMills + $prevWeek->imported + $prevWeek->advance_refining + $prevWeek->notCoveredBySro, 3, '.', ','),
+                "toDate"=>number_format($toDate->coveredBySro + $toDate->otherMills + $toDate->imported + $toDate->advance_refining + $toDate->notCoveredBySro, 3, '.', ','),
             ],
             "prevCrop"=>[
-                "thisWeek"=>number_format($thisWeek->prev_coveredBySro + $thisWeek->prev_otherMills + $thisWeek->prev_imported + $thisWeek->prev_advance_refining + $value4, 3, '.', ','),
-                "prevWeek"=>number_format($prevWeek->prev_coveredBySro + $prevWeek->prev_otherMills + $prevWeek->prev_imported + $prevWeek->prev_advance_refining + $value5, 3, '.', ','),
-                "toDate"=>number_format($toDate->prev_coveredBySro + $toDate->prev_otherMills + $toDate->prev_imported + $toDate->prev_advance_refining + $value6, 3, '.', ','),
+                "thisWeek"=>number_format($thisWeek->prev_coveredBySro + $thisWeek->prev_otherMills + $thisWeek->prev_imported + $thisWeek->prev_advance_refining + $thisWeek->prev_notCoveredBySro, 3, '.', ','),
+                "prevWeek"=>number_format($prevWeek->prev_coveredBySro + $prevWeek->prev_otherMills + $prevWeek->prev_imported + $prevWeek->prev_advance_refining + $prevWeek->prev_notCoveredBySro, 3, '.', ','),
+                "toDate"=>number_format($toDate->prev_coveredBySro + $toDate->prev_otherMills + $toDate->prev_imported + $toDate->prev_advance_refining + $toDate->prev_notCoveredBySro, 3, '.', ','),
             ],
         ];
 
