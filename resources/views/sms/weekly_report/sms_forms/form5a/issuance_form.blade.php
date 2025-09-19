@@ -287,12 +287,12 @@ $issuance->refined_qty ?? $issuance->prev_refined_qty ?? null
 
 <div class="row">
     {!! \App\Swep\ViewHelpers\__form2::iRadioH('consumption',[
-        'cols' => 9,
+        'cols' => 6,
         'label' => 'Domestic/Imported:',
         'options' => [
             'DOMESTIC' => 'Domestic',
             'IMPORTED' => 'Imported',
-            'ADVANCE'  => 'Advance Refining',
+//            'ADVANCE'  => 'Advance Refining',
         ]
     ],
     $issuance->consumption ?? 'DOMESTIC'

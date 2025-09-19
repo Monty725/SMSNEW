@@ -140,27 +140,27 @@
             </td>
         </tr>
 
-        <tr>
-            <td colspan><span class="indent"></span> 2.4. Advance</td>
-            <td class="text-right">
-                {{$newform2['values']['advanceRefining.currentCrop.thisWeek'] ?? 0 }}
-            </td>
-            <td class="text-right">
-                {{$newform2['values']['advanceRefining.currentCrop.prevWeek'] ?? 0 }}
-            </td>
-            <td class="text-right">
-                {{$newform2['values']['advanceRefining.currentCrop.toDate'] ?? 0 }}
-            </td>
-            <td class="text-right">
-                {{$newform2['values']['advanceRefining.prevCrop.thisWeek'] ?? 0 }}
-            </td>
-            <td class="text-right">
-                {{$newform2['values']['advanceRefining.prevCrop.prevWeek'] ?? 0 }}
-            </td>
-            <td class="text-right">
-                {{$newform2['values']['advanceRefining.prevCrop.toDate'] ?? 0 }}
-            </td>
-        </tr>
+{{--        <tr>--}}
+{{--            <td colspan><span class="indent"></span> 2.4. Advance</td>--}}
+{{--            <td class="text-right">--}}
+{{--                {{$newform2['values']['advanceRefining.currentCrop.thisWeek'] ?? 0 }}--}}
+{{--            </td>--}}
+{{--            <td class="text-right">--}}
+{{--                {{$newform2['values']['advanceRefining.currentCrop.prevWeek'] ?? 0 }}--}}
+{{--            </td>--}}
+{{--            <td class="text-right">--}}
+{{--                {{$newform2['values']['advanceRefining.currentCrop.toDate'] ?? 0 }}--}}
+{{--            </td>--}}
+{{--            <td class="text-right">--}}
+{{--                {{$newform2['values']['advanceRefining.prevCrop.thisWeek'] ?? 0 }}--}}
+{{--            </td>--}}
+{{--            <td class="text-right">--}}
+{{--                {{$newform2['values']['advanceRefining.prevCrop.prevWeek'] ?? 0 }}--}}
+{{--            </td>--}}
+{{--            <td class="text-right">--}}
+{{--                {{$newform2['values']['advanceRefining.prevCrop.toDate'] ?? 0 }}--}}
+{{--            </td>--}}
+{{--        </tr>--}}
 
         <tr>
             <td colspan class="text-right text-strong"><span class="indent"></span> TOTAL RECEIPTS</td>
