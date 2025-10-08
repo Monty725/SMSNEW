@@ -515,7 +515,9 @@ class GetForm3Controller extends Controller
             ->leftJoin('weekly_reports','weekly_reports.slug','=','form3b_deliveries.weekly_report_slug')
             ->where('crop_year','=',$weeklyReport->crop_year)
             ->where('mill_code','=',$weeklyReport->mill_code)
-            ->where('report_no','<=', $reportNo != 0 ? $reportNo : $weeklyReport->report_no * 1)
+//            ->where('report_no','<=', $reportNo != 0 ? $reportNo : $weeklyReport->report_no * 1)
+//          LOUIS 08-10-2025 "Weekly report 1 prevweek copying thisweek"
+            ->where('report_no','<=', $reportNo)
             ->where(function($q){
                 $q->where('weekly_reports.status' ,'!=', -1)
                     ->orWhere('weekly_reports.status', '=', null);
