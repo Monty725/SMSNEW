@@ -35,7 +35,8 @@
         <div class="panel">
             <div class="box box-sm box-default box-solid">
                 <div class="box-header with-border">
-                    <p class="no-margin">VERIFIED: (ACCOUNTANT)<small id="filter-notifier" class="label bg-blue blink"></small></p>
+{{--                    <p class="no-margin">VERIFIED: (ACCOUNTANT)<small id="filter-notifier" class="label bg-blue blink"></small></p>--}}
+                    <p class="no-margin">VERIFIED: (Planter's Representative)<small id="filter-notifier" class="label bg-blue blink"></small></p>
                     <div class="box-tools pull-right">
                     </div>
                 </div>

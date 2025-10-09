@@ -426,16 +426,17 @@
                                 </p>
 
                                 <div class="row">
-                                    {!! \App\Swep\ViewHelpers\__form2::textbox('lkgtcGross',[
-                                            'label' => "11A. LKG/TC Gross",
-                                            'cols' => 4,
-                                            'class' => 'form1-input text-right updatable',
-                                            'container_class' => 'lkgtc_gross',
-                                            'readonly' => 'readonly',
-                                            'for' => 'lkgtc_gross'
-                                        ],
-                                        isset($wr->form1->lkgtc_gross) ? number_format($wr->form1->lkgtc_gross, 3) : null
-                                        ) !!}
+                                    {!! \App\Swep\ViewHelpers\__form2::textbox('lkgtc_gross',[
+                                        'label' => "11A. LKG/TC Gross",
+                                        'cols' => 4,
+                                        'class' => 'form1-input text-right updatable',
+                                        'container_class' => 'lkgtc_gross',
+                                        'readonly' => 'readonly',
+                                        'for' => 'lkgtc_gross'
+                                    ],
+//                                    isset($wr->form1->lkgtc_gross) ? number_format($wr->form1->lkgtc_gross, 3) : null
+                                    $wr->form1->lkgtc_gross ?? null
+                                    ) !!}
 
 {{--                                    DRY RUN ADDITION--}}
                                     {!! \App\Swep\ViewHelpers\__form2::textbox('lkgtc_net',[

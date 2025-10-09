@@ -56,9 +56,9 @@ class GetForm1Controller extends Controller
         $arr["gtcm"]["currentCrop"]["prevWeek"]=number_format($prevWeek->gtcm, 3, '.', ',');
         $arr["gtcm"]["currentCrop"]["toDate"]=number_format($toDate->gtcm, 3, '.', ',');
 
-        $arr["lkgtc_gross"]["currentCrop"]["thisWeek"]=number_format($thisWeek->lkgtc_gross, 3, '.', ',');
-        $arr["lkgtc_gross"]["currentCrop"]["prevWeek"]=number_format($prevWeek->lkgtc_gross, 3, '.', ',');
-        $arr["lkgtc_gross"]["currentCrop"]["toDate"]=number_format($toDate->lkgtc_gross, 3, '.', ',');
+//        $arr["lkgtc_gross"]["currentCrop"]["thisWeek"]=number_format($thisWeek->lkgtc_gross, 3, '.', ',');
+//        $arr["lkgtc_gross"]["currentCrop"]["prevWeek"]=number_format($prevWeek->lkgtc_gross, 3, '.', ',');
+//        $arr["lkgtc_gross"]["currentCrop"]["toDate"]=number_format($toDate->lkgtc_gross, 3, '.', ',');
 
         //ISSUANCES COMPUTATION
         $sugarClasses = \App\Swep\Helpers\Arrays::sugarClasses();
@@ -633,10 +633,10 @@ class GetForm1Controller extends Controller
             krsort( $arr['withdrawals']);
         }
 
-        //TRANSFERS TO REFINERY COMPUTATION
-//        $arr["lkgtc_gross"]=number_format($thisWeek->lkgtc_gross, 3, '.', ',');
-//        $arr["lkgtc_gross"]=number_format($prevWeek->lkgtc_gross, 3, '.', ',');
-//        $arr["lkgtc_gross"]=number_format($toDate->lkgtc_gross, 3, '.', ',');
+        $arr["lkgtc_gross"]["currentCrop"]["thisWeek"]=number_format($thisWeek->lkgtc_gross, 3, '.', ',');
+        $arr["lkgtc_gross"]["currentCrop"]["prevWeek"]=number_format($prevWeek->lkgtc_gross, 3, '.', ',');
+        $arr["lkgtc_gross"]["currentCrop"]["toDate"]=number_format($toDate->lkgtc_gross, 3, '.', ',');
+        $arr["lkgtc_gross"]=number_format($thisWeek->lkgtc_gross, 3, '.', ',');
         $arr["lkgtc_net"]=number_format($thisWeek->lkgtc_net, 3, '.', ',');
 
 

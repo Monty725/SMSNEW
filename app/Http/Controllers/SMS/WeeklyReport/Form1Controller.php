@@ -30,6 +30,7 @@ class Form1Controller extends Controller
         $lkgtc_gross = null;
         $lkgtc_net = null;
         $lkgtc_gross_syrup = null;
+
         if($request->gtcm != 0) {
             $lkgtc_gross = Helper::sanitizeAutonum($request->tdc) * 20 / Helper::sanitizeAutonum($request->gtcm);
         }
