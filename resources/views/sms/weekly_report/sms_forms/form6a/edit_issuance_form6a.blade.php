@@ -111,8 +111,8 @@ $issuance->refined_qty ?? $issuance->prev_refined_qty ?? null
             'PREVIOUS' => 'Previous Crop',
         ]
     ],
-//     !empty($issuance->refined_qty) ? 'CURRENT' : 'PREVIOUS'
-     !empty($issuance->refined_qty) ? 'CURRENT' : 'CURRENT'
+     !empty($issuance->refined_qty) ? 'CURRENT' : 'PREVIOUS'
+//     !empty($issuance->refined_qty) ? 'CURRENT' : 'CURRENT'
     ) !!}
 </div>
 
