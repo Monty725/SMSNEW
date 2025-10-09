@@ -26,13 +26,16 @@
     (!empty($issuance)) ? $issuance : null
     ) !!}
 
-    {!! \App\Swep\ViewHelpers\__form2::textbox('raw_qty',[
+    {!! \App\Swep\ViewHelpers\__form2::textbox('raw_qty', [
         'label' => 'Raw Qty',
         'cols' => 6,
         'class' => 'autonumber_mt_'.$rand,
     ],
-    (!empty($issuance)) ? $issuance : null
-    ) !!}
+    (!empty($issuance)
+        ? ($issuance->raw_qty ?? $issuance->prev_raw_qty ?? null)
+        : null
+    )
+) !!}
 </div>
 <div class="row">
     {!! \App\Swep\ViewHelpers\__form2::textbox('sro_no',[
