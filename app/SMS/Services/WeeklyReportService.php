@@ -55,8 +55,18 @@ class WeeklyReportService
 
         if($get == 'toDate'){
             //LOUIS 11-7-2023 2:28PM
-            $relation = $weekly_report->form1ToDateAsOf($report_no != 0 ? $report_no : $weekly_report->report_no * 1);
-            $prevweek = $weekly_report->form1ToDateAsOf($report_no != 0 ? $report_no : $weekly_report->report_no * 1 - 1);
+//            $relation = $weekly_report->form1ToDateAsOf($report_no != 0 ? $report_no : $weekly_report->report_no * 1);
+            $relation = $weekly_report->form1ToDateAsOf(
+                $report_no <= $weekly_report->report_no
+                    ? $report_no
+                    : $weekly_report->report_no
+            );
+//            $prevweek = $weekly_report->form1ToDateAsOf($report_no != 0 ? $report_no : $weekly_report->report_no * 1 - 1);
+            $prevweek = $weekly_report->form1ToDateAsOf(
+                $report_no <= $weekly_report->report_no
+                    ? $report_no
+                    : $weekly_report->report_no * 1 - 1
+            );
         }else{
             $relation = $weekly_report->form1;
         }
@@ -411,7 +421,8 @@ class WeeklyReportService
                 ->leftJoin('weekly_reports','weekly_reports.slug','=','form5a_issuances_of_sro.weekly_report_slug')
                 ->where('crop_year','=',$weekly_report->crop_year)
                 ->where('mill_code','=', $weekly_report->mill_code)
-                ->where('report_no','<=', $report_no != 0 ? $report_no * 1 : $weekly_report->report_no * 1)
+//                ->where('report_no','<=', $report_no != 0 ? $report_no * 1 : $weekly_report->report_no * 1)
+                ->where('report_no','=<', $report_no)
                 ->where(function($q){
                     $q->where('weekly_reports.status' ,'!=', -1)
                         ->orWhere('weekly_reports.status', '=', null);
@@ -656,12 +667,16 @@ class WeeklyReportService
 
         //carryOver
         $formArray['carryOver'] = $this->makeCurrentPrev($relation->carryOver ?? null, $relation->prev_carryOver ?? null);
+        $formArray['carryOver']['prev'] = $relation->prev_carryOver ?? null;
         //receipts
         $formArray['receipts'] = $this->makeCurrentPrev($relation->receipts ?? null, $relation->prev_receipts ?? null);
+        $formArray['receipts']['prev'] = $relation->prev_receipts ?? null;
         //withdrawals
         $formArray['withdrawals'] = $this->makeCurrentPrev($relation->withdrawals ?? null, $relation->prev_withdrawals ?? null);
+        $formArray['withdrawals']['prev'] = $relation->prev_withdrawals ?? null;
         //transferToRefinery
         $formArray['transferToRefinery'] = $this->makeCurrentPrev($relation->transferToRefinery ?? null, $relation->prev_transferToRefinery ?? null);
+        $formArray['transferToRefinery']['prev'] = $relation->prev_transferToRefinery ?? null;
 
 
         //subsidiaries
@@ -673,7 +688,8 @@ class WeeklyReportService
                 ->where('sugarType','=','MOLASSES')
                 ->where('crop_year','=',$weekly_report->crop_year)
                 ->where('mill_code','=', $weekly_report->mill_code)
-                ->where('report_no','<=', $report_no != 0 ? $report_no * 1 : $weekly_report->report_no * 1)
+//                ->where('report_no','<=', $report_no != 0 ? $report_no * 1 : $weekly_report->report_no * 1)
+                ->where('report_no','=<', $report_no)
                 ->groupBy('transactionType','alias')
                 ->orderBy('sms_subsidiaries.id','asc')
                 ->get();
@@ -745,7 +761,8 @@ class WeeklyReportService
                 ->where('sugarType','=','RAW')
                 ->where('crop_year','=',$weekly_report->crop_year)
                 ->where('mill_code','=', $weekly_report->mill_code)
-                ->where('report_no','<=', $report_no != 0 ? $report_no * 1 : $weekly_report->report_no * 1)
+//                ->where('report_no','<=', $report_no != 0 ? $report_no * 1 : $weekly_report->report_no * 1)
+                ->where('report_no','=<', $report_no)
                 ->groupBy('transactionType','alias')
                 ->orderBy('sms_subsidiaries.id','asc')
                 ->get();
@@ -819,7 +836,8 @@ class WeeklyReportService
                 ->where('sugarType','=','REFINED')
                 ->where('crop_year','=',$weekly_report->crop_year)
                 ->where('mill_code','=', $weekly_report->mill_code)
-                ->where('report_no','<=', $report_no != 0 ? $report_no * 1 : $weekly_report->report_no * 1)
+//                ->where('report_no','<=', $report_no != 0 ? $report_no * 1 : $weekly_report->report_no * 1)
+                ->where('report_no','=<', $report_no)
                 ->groupBy('transactionType','alias')
                 ->orderBy('sms_subsidiaries.id','asc')
                 ->get();

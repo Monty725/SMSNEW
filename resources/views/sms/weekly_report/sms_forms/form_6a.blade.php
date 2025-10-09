@@ -18,6 +18,7 @@
             <th>Raw SRO #</th>
             <th>SRA Liens OR #</th>
             <th>Qty LKG</th>
+            <th>Previous Crop Qty</th>
             <th>Refined Sugar Eq.</th>
             <th>Actions</th>
         </tr>
@@ -26,6 +27,7 @@
         @if(!empty($wr->form5aIssuancesOfSro))
             @php
                 $rawTotal = 0;
+                $prevRawTotal = 0;
                 $refinedTotal = 0;
             @endphp
             @foreach($wr->form5aIssuancesOfSro as $data)
@@ -33,6 +35,7 @@
                     @php
 
                         $rawTotal = $rawTotal + $data->raw_qty;
+                        $prevRawTotal = $prevRawTotal + $data->prev_raw_qty;
                         $refinedTotal = $refinedTotal + $data->refined_qty;
                     @endphp
                 @endif
@@ -44,6 +47,7 @@
                         <td>{{$data->raw_sro_no}}</td>
                         <td>{{$data->liens_or}}</td>
                         <td class="text-right">{{number_format($data->raw_qty,2)}}</td>
+                        <td class="text-right">{{number_format($data->prev_raw_qty,2)}}</td>
                         <td class="text-right">{{number_format($data->refined_qty,2)}}</td>
                         <td style="text-align: center; white-space: nowrap; width: 60px;">
                             <div style="display: flex; gap: 4px; justify-content: center; align-items: center;">
@@ -82,6 +86,7 @@
             <tr class="bg-info">
                 <td colspan="5" class="text-strong">TOTAL</td>
                 <td class="text-right text-strong">{{number_format($rawTotal,2)}}</td>
+                <td class="text-right text-strong">{{number_format($prevRawTotal,2)}}</td>
                 <td class="text-right text-strong">{{number_format($refinedTotal,2)}}</td>
             </tr>
         @endif
