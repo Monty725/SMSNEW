@@ -402,34 +402,79 @@
             <td></td>
         </tr>
 
-        @if(!empty($form2['issuances']) || !empty($prevToDateForm2['issuances']) ||  !empty($toDateForm2['issuances'] ))
-            @php
-                $common = array_merge($form2['issuances'] ?? [], $prevToDateForm2['issuances'] ?? [], $toDateForm2['issuances'] ?? []);
-            @endphp
-            @foreach($common as $k => $val)
-                <tr>
-                    <td><span class="indent"></span> 7.{{$loop->iteration}} {{strtoupper($k)}}</td>
-                    <td class="text-right">
-                        {{\App\Swep\Helpers\Helper::toNumber($form2['issuances'][$k]['current'] ?? null, 3)}}
-                    </td>
-                    <td class="text-right">
-                        {{\App\Swep\Helpers\Helper::toNumber($prevToDateForm2['issuances'][$k]['current'] ?? null, 3)}}
-                    </td>
-                    <td class="text-right">
-                        {{\App\Swep\Helpers\Helper::toNumber($toDateForm2['issuances'][$k]['current'] ?? null, 3)}}
-                    </td>
-                    <td class="text-right">
-                        {{\App\Swep\Helpers\Helper::toNumber($form2['issuances'][$k]['prev'] ?? null, 3)}}
-                    </td>
-                    <td class="text-right">
-                        {{\App\Swep\Helpers\Helper::toNumber($prevToDateForm2['issuances'][$k]['prev'] ?? null, 3)}}
-                    </td>
-                    <td class="text-right">
-                        {{\App\Swep\Helpers\Helper::toNumber($toDateForm2['issuances'][$k]['prev'] ?? null, 3)}}
-                    </td>
-                </tr>
-            @endforeach
-        @endif
+        <tr>
+            <td><span class="indent"></span>7.1 DOMESTIC </td>
+            <td class="text-right">
+                {{$newform2['values']['totalIssuanceDomestic.currentCrop.thisWeek'] ?? 0 }}
+            </td>
+            <td class="text-right">
+                {{$newform2['values']['totalIssuanceDomestic.currentCrop.prevWeek'] ?? 0 }}
+            </td>
+            <td class="text-right">
+                {{$newform2['values']['totalIssuanceDomestic.currentCrop.toDate'] ?? 0 }}
+            </td>
+            <td class="text-right">
+                {{$newform2['values']['totalIssuanceDomestic.prevCrop.thisWeek'] ?? 0 }}
+            </td>
+            <td class="text-right">
+                {{$newform2['values']['totalIssuanceDomestic.prevCrop.prevWeek'] ?? 0 }}
+            </td>
+            <td class="text-right">
+                {{$newform2['values']['totalIssuanceDomestic.prevCrop.toDate'] ?? 0 }}
+            </td>
+        </tr>
+
+        <tr>
+            <td><span class="indent"></span>7.2 IMPORTED </td>
+            <td class="text-right">
+                {{$newform2['values']['totalIssuanceImported.currentCrop.thisWeek'] ?? 0 }}
+            </td>
+            <td class="text-right">
+                {{$newform2['values']['totalIssuanceImported.currentCrop.prevWeek'] ?? 0 }}
+            </td>
+            <td class="text-right">
+                {{$newform2['values']['totalIssuanceImported.currentCrop.toDate'] ?? 0 }}
+            </td>
+            <td class="text-right">
+                {{$newform2['values']['totalIssuanceImported.prevCrop.thisWeek'] ?? 0 }}
+            </td>
+            <td class="text-right">
+                {{$newform2['values']['totalIssuanceImported.prevCrop.prevWeek'] ?? 0 }}
+            </td>
+            <td class="text-right">
+                {{$newform2['values']['totalIssuanceImported.prevCrop.toDate'] ?? 0 }}
+            </td>
+        </tr>
+
+{{--        OLD ISSUANCE FORM 2A--}}
+{{--        @if(!empty($form2['issuances']) || !empty($prevToDateForm2['issuances']) ||  !empty($toDateForm2['issuances'] ))--}}
+{{--            @php--}}
+{{--                $common = array_merge($form2['issuances'] ?? [], $prevToDateForm2['issuances'] ?? [], $toDateForm2['issuances'] ?? []);--}}
+{{--            @endphp--}}
+{{--            @foreach($common as $k => $val)--}}
+{{--                <tr>--}}
+{{--                    <td><span class="indent"></span> 7.{{$loop->iteration}} {{strtoupper($k)}}</td>--}}
+{{--                    <td class="text-right">--}}
+{{--                        {{\App\Swep\Helpers\Helper::toNumber($form2['issuances'][$k]['current'] ?? null, 3)}}--}}
+{{--                    </td>--}}
+{{--                    <td class="text-right">--}}
+{{--                        {{\App\Swep\Helpers\Helper::toNumber($prevToDateForm2['issuances'][$k]['current'] ?? null, 3)}}--}}
+{{--                    </td>--}}
+{{--                    <td class="text-right">--}}
+{{--                        {{\App\Swep\Helpers\Helper::toNumber($toDateForm2['issuances'][$k]['current'] ?? null, 3)}}--}}
+{{--                    </td>--}}
+{{--                    <td class="text-right">--}}
+{{--                        {{\App\Swep\Helpers\Helper::toNumber($form2['issuances'][$k]['prev'] ?? null, 3)}}--}}
+{{--                    </td>--}}
+{{--                    <td class="text-right">--}}
+{{--                        {{\App\Swep\Helpers\Helper::toNumber($prevToDateForm2['issuances'][$k]['prev'] ?? null, 3)}}--}}
+{{--                    </td>--}}
+{{--                    <td class="text-right">--}}
+{{--                        {{\App\Swep\Helpers\Helper::toNumber($toDateForm2['issuances'][$k]['prev'] ?? null, 3)}}--}}
+{{--                    </td>--}}
+{{--                </tr>--}}
+{{--            @endforeach--}}
+{{--        @endif--}}
 
         <tr>
             <td>8. WITHDRAWALS</td>
@@ -440,23 +485,69 @@
             <td></td>
             <td></td>
         </tr>
-        @if(isset($form2['withdrawals']) || isset($prevToDateForm2['withdrawals']) || isset($toDateForm2['withdrawals']))
-            @php
-                $common = array_keys(array_merge($form2['withdrawals'],$prevToDateForm2['withdrawals'] ?? [] ,$toDateForm2['withdrawals'] ));
-                sort($common);
-            @endphp
-            @foreach($common as $value)
-                <tr>
-                    <td><span class="indent"></span> 8.{{$loop->iteration}}. {{strtoupper($value)}}</td>
-                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($form2['withdrawals'][$value]['current'] ?? null,3)}}</td>
-                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($prevToDateForm2['withdrawals'][$value]['current'] ?? null ,3)}}</td>
-                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($toDateForm2['withdrawals'][$value]['current'] ?? null ,3)}}</td>
-                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($form2['withdrawals'][$value]['prev'] ?? null,3)}}</td>
-                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($prevToDateForm2['withdrawals'][$value]['prev'] ?? null ,3)}}</td>
-                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($toDateForm2['withdrawals'][$value]['prev'] ?? null ,3)}}</td>
-                </tr>
-            @endforeach
-        @endif
+
+        <tr>
+            <td><span class="indent"></span>7.1 DOMESTIC </td>
+            <td class="text-right">
+                {{$newform2['values']['totalWithdrawalDomestic.currentCrop.thisWeek'] ?? 0 }}
+            </td>
+            <td class="text-right">
+                {{$newform2['values']['totalWithdrawalDomestic.currentCrop.prevWeek'] ?? 0 }}
+            </td>
+            <td class="text-right">
+                {{$newform2['values']['totalWithdrawalDomestic.currentCrop.toDate'] ?? 0 }}
+            </td>
+            <td class="text-right">
+                {{$newform2['values']['totalWithdrawalDomestic.prevCrop.thisWeek'] ?? 0 }}
+            </td>
+            <td class="text-right">
+                {{$newform2['values']['totalWithdrawalDomestic.prevCrop.prevWeek'] ?? 0 }}
+            </td>
+            <td class="text-right">
+                {{$newform2['values']['totalWithdrawalDomestic.prevCrop.toDate'] ?? 0 }}
+            </td>
+        </tr>
+
+        <tr>
+            <td><span class="indent"></span>7.2 IMPORTED </td>
+            <td class="text-right">
+                {{$newform2['values']['totalWithdrawalImported.currentCrop.thisWeek'] ?? 0 }}
+            </td>
+            <td class="text-right">
+                {{$newform2['values']['totalWithdrawalImported.currentCrop.prevWeek'] ?? 0 }}
+            </td>
+            <td class="text-right">
+                {{$newform2['values']['totalWithdrawalImported.currentCrop.toDate'] ?? 0 }}
+            </td>
+            <td class="text-right">
+                {{$newform2['values']['totalWithdrawalImported.prevCrop.thisWeek'] ?? 0 }}
+            </td>
+            <td class="text-right">
+                {{$newform2['values']['totalWithdrawalImported.prevCrop.prevWeek'] ?? 0 }}
+            </td>
+            <td class="text-right">
+                {{$newform2['values']['totalWithdrawalImported.prevCrop.toDate'] ?? 0 }}
+            </td>
+        </tr>
+
+{{--        OLD WITHDRAWAL FORM 2--}}
+{{--        @if(isset($form2['withdrawals']) || isset($prevToDateForm2['withdrawals']) || isset($toDateForm2['withdrawals']))--}}
+{{--            @php--}}
+{{--                $common = array_keys(array_merge($form2['withdrawals'],$prevToDateForm2['withdrawals'] ?? [] ,$toDateForm2['withdrawals'] ));--}}
+{{--                sort($common);--}}
+{{--            @endphp--}}
+{{--            @foreach($common as $value)--}}
+{{--                <tr>--}}
+{{--                    <td><span class="indent"></span> 8.{{$loop->iteration}}. {{strtoupper($value)}}</td>--}}
+{{--                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($form2['withdrawals'][$value]['current'] ?? null,3)}}</td>--}}
+{{--                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($prevToDateForm2['withdrawals'][$value]['current'] ?? null ,3)}}</td>--}}
+{{--                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($toDateForm2['withdrawals'][$value]['current'] ?? null ,3)}}</td>--}}
+{{--                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($form2['withdrawals'][$value]['prev'] ?? null,3)}}</td>--}}
+{{--                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($prevToDateForm2['withdrawals'][$value]['prev'] ?? null ,3)}}</td>--}}
+{{--                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($toDateForm2['withdrawals'][$value]['prev'] ?? null ,3)}}</td>--}}
+{{--                </tr>--}}
+{{--            @endforeach--}}
+{{--        @endif--}}
 
 
         <tr>

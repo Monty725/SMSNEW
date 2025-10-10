@@ -708,15 +708,15 @@
                     <td class="text-right updatable" for="totalIssuanceImported.prevCrop.toDate"></td>
                 </tr>
 
-                <tr for="totalIssuanceAdvanceRefining" class="computation">
-                    <td class="text-strong"><span class="indent"></span>7.3 ADVANCE REFINING </td>
-                    <td class="text-right updatable" for="totalIssuanceAdvanceRefining.currentCrop.thisWeek"></td>
-                    <td class="text-right updatable" for="totalIssuanceAdvanceRefining.currentCrop.prevWeek"></td>
-                    <td class="text-right updatable" for="totalIssuanceAdvanceRefining.currentCrop.toDate"></td>
-                    <td class="text-right updatable" for="totalIssuanceAdvanceRefining.prevCrop.thisWeek"></td>
-                    <td class="text-right updatable" for="totalIssuanceAdvanceRefining.prevCrop.prevWeek"></td>
-                    <td class="text-right updatable" for="totalIssuanceAdvanceRefining.prevCrop.toDate"></td>
-                </tr>
+{{--                <tr for="totalIssuanceAdvanceRefining" class="computation">--}}
+{{--                    <td class="text-strong"><span class="indent"></span>7.3 ADVANCE REFINING </td>--}}
+{{--                    <td class="text-right updatable" for="totalIssuanceAdvanceRefining.currentCrop.thisWeek"></td>--}}
+{{--                    <td class="text-right updatable" for="totalIssuanceAdvanceRefining.currentCrop.prevWeek"></td>--}}
+{{--                    <td class="text-right updatable" for="totalIssuanceAdvanceRefining.currentCrop.toDate"></td>--}}
+{{--                    <td class="text-right updatable" for="totalIssuanceAdvanceRefining.prevCrop.thisWeek"></td>--}}
+{{--                    <td class="text-right updatable" for="totalIssuanceAdvanceRefining.prevCrop.prevWeek"></td>--}}
+{{--                    <td class="text-right updatable" for="totalIssuanceAdvanceRefining.prevCrop.toDate"></td>--}}
+{{--                </tr>--}}
 
                 <tr>
                     <td class="text-strong" colspan="4">8. WITHDRAWALS</td>
@@ -742,15 +742,15 @@
                     <td class="text-right updatable" for="totalWithdrawalImported.prevCrop.toDate"></td>
                 </tr>
 
-                <tr for="withdrawalsAdvanceRefining" class="computation">
-                    <td class="text-strong"><span class="indent"></span>8.3 ADVANCE REFINING </td>
-                    <td class="text-right updatable" for="totalWithdrawalAdvanceRefining.currentCrop.thisWeek"></td>
-                    <td class="text-right updatable" for="totalWithdrawalAdvanceRefining.currentCrop.prevWeek"></td>
-                    <td class="text-right updatable" for="totalWithdrawalAdvanceRefining.currentCrop.toDate"></td>
-                    <td class="text-right updatable" for="totalWithdrawalAdvanceRefining.prevCrop.thisWeek"></td>
-                    <td class="text-right updatable" for="totalWithdrawalAdvanceRefining.prevCrop.prevWeek"></td>
-                    <td class="text-right updatable" for="totalWithdrawalAdvanceRefining.prevCrop.toDate"></td>
-                </tr>
+{{--                <tr for="withdrawalsAdvanceRefining" class="computation">--}}
+{{--                    <td class="text-strong"><span class="indent"></span>8.3 ADVANCE REFINING </td>--}}
+{{--                    <td class="text-right updatable" for="totalWithdrawalAdvanceRefining.currentCrop.thisWeek"></td>--}}
+{{--                    <td class="text-right updatable" for="totalWithdrawalAdvanceRefining.currentCrop.prevWeek"></td>--}}
+{{--                    <td class="text-right updatable" for="totalWithdrawalAdvanceRefining.currentCrop.toDate"></td>--}}
+{{--                    <td class="text-right updatable" for="totalWithdrawalAdvanceRefining.prevCrop.thisWeek"></td>--}}
+{{--                    <td class="text-right updatable" for="totalWithdrawalAdvanceRefining.prevCrop.prevWeek"></td>--}}
+{{--                    <td class="text-right updatable" for="totalWithdrawalAdvanceRefining.prevCrop.toDate"></td>--}}
+{{--                </tr>--}}
 
                 <tr for="stockBalance" class="computation">
                     <td class="text-strong">9. STOCK BALANCE </td>

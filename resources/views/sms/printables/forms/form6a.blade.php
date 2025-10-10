@@ -31,8 +31,8 @@
                 @if(is_null($data->here_only) && is_null($data->quedan_only) && is_null($data->is_deleted_raw))
                     @php
 
-                        $rawTotal = $rawTotal + $data->raw_qty;
-                        $refinedTotal = $refinedTotal + $data->refined_qty;
+                        $rawTotal = $rawTotal + $data->raw_qty + + $data->prev_raw_qty;
+                        $refinedTotal = $refinedTotal + $data->refined_qty + + $data->prev_refined_qty;
                     @endphp
                 @endif
                 @if(is_null($data->here_only) && is_null($data->quedan_only) && is_null($data->is_deleted_raw))
@@ -42,8 +42,14 @@
                         <td>{{$data->mill_source}}</td>
                         <td>{{$data->raw_sro_no}}</td>
                         <td>{{$data->liens_or}}</td>
-                        <td class="text-right">{{number_format($data->raw_qty,2)}}</td>
-                        <td class="text-right">{{number_format($data->refined_qty,2)}}</td>
+                        <td class="text-right">
+                            {{ number_format($data->raw_qty ?? $data->prev_raw_qty ?? 0, 2) }}
+                        </td>
+{{--                        <td class="text-right">{{number_format($data->raw_qty,2)}}</td>--}}
+                        <td class="text-right">
+                            {{ number_format($data->refined_qty ?? $data->prev_refined_qty ?? 0, 2) }}
+                        </td>
+{{--                        <td class="text-right">{{number_format($data->refined_qty,2)}}</td>--}}
                     </tr>
                 @endif
             @endforeach
