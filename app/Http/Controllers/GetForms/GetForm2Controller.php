@@ -538,11 +538,24 @@ class GetForm2Controller extends Controller
         ];
 
         //BALANCE RAW
+//        $arr["balanceRaw"] = [
+//            "currentCrop"=>[
+//                "thisWeek"=>$this->formatValue2(($thisWeek->coveredBySro + $thisWeek->otherMills + $thisWeek->imported + $value1) - ($thisWeek->melted) - ($thisWeek->rawWithdrawals), 3, '.', ','),
+//                "prevWeek"=>$this->formatValue2(($prevWeek->coveredBySro + $prevWeek->otherMills + $prevWeek->imported + $value2) - ($prevWeek->melted) - ($prevWeek->rawWithdrawals), 3, '.', ','),
+//                "toDate"=>$this->formatValue2(($toDate->coveredBySro + $toDate->otherMills + $toDate->imported + $value3) - ($toDate->melted) - ($toDate->rawWithdrawals), 3, '.', ','),
+//            ],
+//            "prevCrop"=>[
+//                "thisWeek"=>$this->formatValue2(($thisWeek->prev_carryOver) - ($thisWeek->prev_melted) - ($thisWeek->prev_rawWithdrawals), 3, '.', ','),
+//                "prevWeek"=>$this->formatValue2(($prevWeek->prev_carryOver) - ($prevWeek->prev_melted) - ($prevWeek->prev_rawWithdrawals), 3, '.', ','),
+//                "toDate"=>$this->formatValue2(($toDate->prev_carryOver) - ($toDate->prev_melted) - ($toDate->prev_rawWithdrawals), 3, '.', ','),
+//            ],
+//        ];
+
         $arr["balanceRaw"] = [
             "currentCrop"=>[
-                "thisWeek"=>$this->formatValue2(($thisWeek->coveredBySro + $thisWeek->otherMills + $thisWeek->imported + $value1) - ($thisWeek->melted) - ($thisWeek->rawWithdrawals), 3, '.', ','),
-                "prevWeek"=>$this->formatValue2(($prevWeek->coveredBySro + $prevWeek->otherMills + $prevWeek->imported + $value2) - ($prevWeek->melted) - ($prevWeek->rawWithdrawals), 3, '.', ','),
-                "toDate"=>$this->formatValue2(($toDate->coveredBySro + $toDate->otherMills + $toDate->imported + $value3) - ($toDate->melted) - ($toDate->rawWithdrawals), 3, '.', ','),
+                "thisWeek"=>$this->formatValue2(($thisWeek->coveredBySro + $thisWeek->otherMills + $thisWeek->imported + $thisWeek->advance_refining + $thisWeek->notCoveredBySro) - ($thisWeek->melted) - ($thisWeek->rawWithdrawals), 3, '.', ','),
+                "prevWeek"=>$this->formatValue2(($prevWeek->coveredBySro + $prevWeek->otherMills + $prevWeek->imported + $prevWeek->advance_refining + $prevWeek->notCoveredBySro) - ($prevWeek->melted) - ($prevWeek->rawWithdrawals), 3, '.', ','),
+                "toDate"=>$this->formatValue2(($toDate->coveredBySro + $toDate->otherMills + $toDate->imported + $toDate->advance_refining + $toDate->notCoveredBySro) - ($toDate->melted) - ($toDate->rawWithdrawals), 3, '.', ','),
             ],
             "prevCrop"=>[
                 "thisWeek"=>$this->formatValue2(($thisWeek->prev_carryOver) - ($thisWeek->prev_melted) - ($thisWeek->prev_rawWithdrawals), 3, '.', ','),

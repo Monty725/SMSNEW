@@ -660,7 +660,8 @@ class WeeklyReportService
         $weekly_report = $this->findWeeklyReportBySlug($slug);
 
         if($get == 'toDate'){
-            $relation = $weekly_report->form3aToDateAsOf($report_no != 0 ? $report_no : $weekly_report->report_no * 1);
+//            $relation = $weekly_report->form3aToDateAsOf($report_no != 0 ? $report_no : $weekly_report->report_no * 1);
+            $relation = $weekly_report->form3aToDateAsOf($report_no ?? $weekly_report->report_no * 1);
         }else{
             $relation = $weekly_report->form3a;
         }
@@ -678,6 +679,12 @@ class WeeklyReportService
         $formArray['transferToRefinery'] = $this->makeCurrentPrev($relation->transferToRefinery ?? null, $relation->prev_transferToRefinery ?? null);
         $formArray['transferToRefinery']['prev'] = $relation->prev_transferToRefinery ?? null;
 
+        $formArray['netProd'] = $this->makeCurrentPrev($relation->netProd ?? null, $relation->prev_netProd ?? null);
+        $formArray['netProd']['prev'] = $relation->prev_netProd ?? null;
+
+        $formArray['rao'] = $this->makeCurrentPrev($relation->rao ?? null, $relation->prev_rao ?? null);
+        $formArray['rao']['prev'] = $relation->prev_rao ?? null;
+
 
         //subsidiaries
         if($get == 'toDate'){
@@ -689,7 +696,7 @@ class WeeklyReportService
                 ->where('crop_year','=',$weekly_report->crop_year)
                 ->where('mill_code','=', $weekly_report->mill_code)
 //                ->where('report_no','<=', $report_no != 0 ? $report_no * 1 : $weekly_report->report_no * 1)
-                ->where('report_no','=<', $report_no)
+                ->where('report_no','<=', $report_no)
                 ->groupBy('transactionType','alias')
                 ->orderBy('sms_subsidiaries.id','asc')
                 ->get();

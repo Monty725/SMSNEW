@@ -173,6 +173,7 @@ class IssuanceOfSroController extends Controller
     {
         $sro = IssuancesOfSro::findOrFail($slug);
         $sro->is_deleted_quedan = 1;
+        $sro->rsq_no = null;
         $sro->save();
 
         return back()->with('status', 'Marked as deleted successfully.');

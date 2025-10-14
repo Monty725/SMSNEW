@@ -142,6 +142,7 @@ class WeeklyReportController extends Controller
         return view('sms.weekly_report.edit')->with([
             'wr' => $weekly_report,
             'formArray' => $weeklyReportService->computation($slug),
+
 //3-21-2024 LOUIS
 //            'formArray_current_prev' => $weeklyReportService->computation($slug,'toDate',$weekly_report->report_no * 1 -1),
 //            'formArray_current_toDate' => $weeklyReportService->computation($slug,'toDate',$weekly_report->report_no * 1),
@@ -545,7 +546,8 @@ class WeeklyReportController extends Controller
 
             'form3a' => $this->weeklyReportService->form3aComputation($slug),
             'prevToDateForm3a' => $this->weeklyReportService->form3aComputation($slug,'toDate', $weekly_report->report_no - 1),
-            'toDateForm3a' => $this->weeklyReportService->form3aComputation($slug,'toDate'),
+//            EDITED 13-10-2025 LOUIS
+            'toDateForm3a' => $this->weeklyReportService->form3aComputation($slug,'toDate', $weekly_report->report_no),
 
             'form4' => $this->weeklyReportService->form4Computation($slug),
             'prevToDateForm4' => $this->weeklyReportService->form4Computation($slug,'toDate', $weekly_report->report_no - 1),

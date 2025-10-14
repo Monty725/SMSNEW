@@ -22,7 +22,7 @@
         </thead>
         <tbody>
         <tr>
-            <td>1. Carry-Over</td>
+            <td>1.1 Carry-Over</td>
             <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($form3a['carryOver']['current'] ?? null,3)}}</td>
             <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($prevToDateForm3a['carryOver']['current'] ?? null,3)}}</td>
             <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($toDateForm3a['carryOver']['current'] ?? null,3)}}</td>
@@ -31,7 +31,25 @@
             <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($toDateForm3a['carryOver']['prev'] ?? null,3)}}</td>
         </tr>
         <tr>
-            <td>2. Receipts</td>
+            <td>1.2 Net Production</td>
+            <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($form3a['netProd']['current'] ?? null,3)}}</td>
+            <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($prevToDateForm3a['netProd']['current'] ?? null,3)}}</td>
+            <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($toDateForm3a['netProd']['current'] ?? null,3)}}</td>
+            <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($form3a['netProd']['prev'] ?? null,3)}}</td>
+            <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($prevToDateForm3a['netProd']['prev'] ?? null,3)}}</td>
+            <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($toDateForm3a['netProd']['prev'] ?? null,3)}}</td>
+        </tr>
+        <tr>
+            <td>1.3 Retention, Adjustment, Overages,etc.</td>
+            <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($form3a['rao']['current'] ?? null,3)}}</td>
+            <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($prevToDateForm3a['rao']['current'] ?? null,3)}}</td>
+            <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($toDateForm3a['rao']['current'] ?? null,3)}}</td>
+            <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($form3a['rao']['prev'] ?? null,3)}}</td>
+            <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($prevToDateForm3a['rao']['prev'] ?? null,3)}}</td>
+            <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($toDateForm3a['rao']['prev'] ?? null,3)}}</td>
+        </tr>
+        <tr>
+            <td>1.4 Receipts</td>
             <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($form3a['receipts']['current'] ?? null,3)}}</td>
             <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($prevToDateForm3a['receipts']['current'] ?? null,3)}}</td>
             <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($toDateForm3a['receipts']['current'] ?? null,3)}}</td>
@@ -40,7 +58,7 @@
             <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($toDateForm3a['receipts']['prev'] ?? null,3)}}</td>
         </tr>
         <tr>
-            <td>3. Withdrawals</td>
+            <td>1.5 Withdrawals</td>
             <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($form3a['withdrawals']['current'] ?? null,3)}}</td>
             <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($prevToDateForm3a['withdrawals']['current'] ?? null,3)}}</td>
             <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($toDateForm3a['withdrawals']['current'] ?? null,3)}}</td>
@@ -49,13 +67,22 @@
             <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($toDateForm3a['withdrawals']['prev'] ?? null,3)}}</td>
         </tr>
         <tr>
-            <td>4. Transfers to Subsidiary</td>
+            <td>1.6 Transfers to Subsidiary</td>
             <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($form3a['transferToRefinery']['current'] ?? null,3)}}</td>
             <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($prevToDateForm3a['transferToRefinery']['current'] ?? null,3)}}</td>
             <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($toDateForm3a['transferToRefinery']['current'] ?? null,3)}}</td>
             <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($form3a['transferToRefinery']['prev'] ?? null,3)}}</td>
             <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($prevToDateForm3a['transferToRefinery']['prev'] ?? null,3)}}</td>
             <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($toDateForm3a['transferToRefinery']['prev'] ?? null,3)}}</td>
+        </tr>
+        <tr>
+            <td>1.7 Stock Balance</td>
+            <td class="text-right"></td>
+            <td class="text-right"></td>
+            <td class="text-right"></td>
+            <td class="text-right"></td>
+            <td class="text-right"></td>
+            <td class="text-right"></td>
         </tr>
         <tr>
             <td colspan="7"><br></td>

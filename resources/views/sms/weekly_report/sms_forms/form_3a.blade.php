@@ -34,8 +34,41 @@
                 $wr->form3a->prev_carryOver ?? null) !!}
             </td>
         </tr>
+{{--        NEW ROWS 13-10-2025 LOUIS--}}
         <tr>
-            <td><span class="indent"></span> 1.2 Receipts</td>
+            <td><span class="indent"></span> 1.2 Net Production</td>
+            <td>
+                {!! \App\Swep\ViewHelpers\__form2::textboxOnly('netProd',[
+                    'class' => 'global-form-changer global-form-changer form3a-input input-sm text-right autonumber_mt'
+                ],
+                $wr->form3a->netProd ?? null
+                ) !!}
+            </td>
+            <td>
+                {!! \App\Swep\ViewHelpers\__form2::textboxOnly('prev_netProd',[
+                    'class' => 'global-form-changer form3a-input input-sm text-right autonumber_mt'
+                ],
+                $wr->form3a->prev_netProd ?? null) !!}
+            </td>
+        </tr>
+        <tr>
+            <td><span class="indent"></span> 1.3 Retention, Adjustment, Overages,etc.</td>
+            <td>
+                {!! \App\Swep\ViewHelpers\__form2::textboxOnly('rao',[
+                    'class' => 'global-form-changer global-form-changer form3a-input input-sm text-right autonumber_mt'
+                ],
+                $wr->form3a->rao ?? null
+                ) !!}
+            </td>
+            <td>
+                {!! \App\Swep\ViewHelpers\__form2::textboxOnly('prev_rao',[
+                    'class' => 'global-form-changer form3a-input input-sm text-right autonumber_mt'
+                ],
+                $wr->form3a->prev_rao ?? null) !!}
+            </td>
+        </tr>
+        <tr>
+            <td><span class="indent"></span> 1.4 Receipts</td>
             <td>
                 {!! \App\Swep\ViewHelpers\__form2::textboxOnly('receipts',[
                     'class' => 'global-form-changer form3a-input input-sm text-right autonumber_mt'
@@ -51,7 +84,7 @@
             </td>
         </tr>
         <tr>
-            <td><span class="indent"></span> 1.3 Withdrawals</td>
+            <td><span class="indent"></span> 1.5 Withdrawals</td>
             <td>
                 {!! \App\Swep\ViewHelpers\__form2::textboxOnly('withdrawals',[
                     'class' => 'global-form-changer form3a-input input-sm text-right autonumber_mt'
@@ -67,7 +100,7 @@
             </td>
         </tr>
         <tr>
-            <td><span class="indent"></span> 1.4 Transfers to Subsidiary</td>
+            <td><span class="indent"></span> 1.6 Transfers to Subsidiary</td>
             <td>
                 {!! \App\Swep\ViewHelpers\__form2::textboxOnly('transferToRefinery',[
                     'class' => 'global-form-changer form3a-input input-sm text-right autonumber_mt'
@@ -82,24 +115,24 @@
                 $wr->form3a->prev_transferToRefinery ?? null) !!}
             </td>
         </tr>
+{{--        <tr>--}}
+{{--            <td><span class="indent"></span> 1.5 Etc</td>--}}
+{{--            <td>--}}
+{{--                {!! \App\Swep\ViewHelpers\__form2::textboxOnly('etc',[--}}
+{{--                    'class' => 'global-form-changer form3a-input input-sm text-right autonumber_mt'--}}
+{{--                ],--}}
+{{--                $wr->form3a->etc ?? null--}}
+{{--                ) !!}--}}
+{{--            </td>--}}
+{{--            <td>--}}
+{{--                {!! \App\Swep\ViewHelpers\__form2::textboxOnly('prev_etc',[--}}
+{{--                    'class' => 'global-form-changer form3a-input input-sm text-right autonumber_mt'--}}
+{{--                ],--}}
+{{--                $wr->form3a->prev_etc ?? null) !!}--}}
+{{--            </td>--}}
+{{--        </tr>--}}
         <tr>
-            <td><span class="indent"></span> 1.5 Etc</td>
-            <td>
-                {!! \App\Swep\ViewHelpers\__form2::textboxOnly('etc',[
-                    'class' => 'global-form-changer form3a-input input-sm text-right autonumber_mt'
-                ],
-                $wr->form3a->etc ?? null
-                ) !!}
-            </td>
-            <td>
-                {!! \App\Swep\ViewHelpers\__form2::textboxOnly('prev_etc',[
-                    'class' => 'global-form-changer form3a-input input-sm text-right autonumber_mt'
-                ],
-                $wr->form3a->prev_etc ?? null) !!}
-            </td>
-        </tr>
-        <tr>
-            <td><span class="indent"></span> 1.6 Stock Balance</td>
+            <td><span class="indent"></span> 1.7 Stock Balance</td>
             <td class="text-right text-strong"></td>
             <td class="text-right text-strong"></td>
         </tr>

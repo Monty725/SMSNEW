@@ -35,6 +35,10 @@ class Form3aController extends Controller
                     'prev_receipts' => Helper::sanitizeAutonum($request->prev_receipts) ,
                     'prev_withdrawals' => Helper::sanitizeAutonum($request->prev_withdrawals) ,
                     'prev_transferToRefinery' => Helper::sanitizeAutonum($request->prev_transferToRefinery) ,
+                    'netProd' => Helper::sanitizeAutonum($request->netProd) ,
+                    'prev_netProd' => Helper::sanitizeAutonum($request->prev_netProd) ,
+                    'rao' => Helper::sanitizeAutonum($request->rao) ,
+                    'prev_rao' => Helper::sanitizeAutonum($request->prev_rao) ,
                 ]
             );
 

@@ -151,7 +151,7 @@ class WeeklyReports extends Model
 
     public function form3aToDateAsOf($report_no){
         $fieldsToSum = [
-            'carryOver', 'receipts', 'withdrawals', 'transferToRefinery', 'prev_carryOver', 'prev_receipts', 'prev_withdrawals', 'prev_transferToRefinery',
+            'carryOver', 'receipts', 'withdrawals', 'transferToRefinery', 'prev_carryOver', 'prev_receipts', 'prev_withdrawals', 'prev_transferToRefinery', 'netProd', 'rao', 'prev_netProd', 'prev_rao',
         ];
         foreach ($fieldsToSum as $key => $field){
             $fieldsToSum[$key] = ' sum('.$field.') as '.$field;

@@ -540,12 +540,10 @@
 
                 <tr for="rawBalance" class="computation">
                     <td class="text-strong">5. BALANCE RAW</td>
-{{--                    <td class="text-right updatable" for="balanceRaw.currentCrop.thisWeek"></td>--}}
-                    <td></td>
+                    <td class="text-right updatable" for="balanceRaw.currentCrop.thisWeek"></td>
                     <td class="text-right updatable" for="balanceRaw.currentCrop.prevWeek"></td>
                     <td class="text-right updatable" for="balanceRaw.currentCrop.toDate"></td>
-{{--                    <td class="text-right updatable" for="balanceRaw.prevCrop.thisWeek"></td>--}}
-                    <td></td>
+                    <td class="text-right updatable" for="balanceRaw.prevCrop.thisWeek"></td>
                     <td class="text-right updatable" for="balanceRaw.prevCrop.prevWeek"></td>
                     <td class="text-right updatable" for="balanceRaw.prevCrop.toDate"></td>
                 </tr>
