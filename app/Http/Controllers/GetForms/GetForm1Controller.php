@@ -86,14 +86,14 @@ class GetForm1Controller extends Controller
         foreach ($sugarClassUsed as $sugarClass){
             $arr["issuances"][$sugarClass]=[
                 "currentCrop"=>[
-                    "thisWeek"=>$thisWeek->$sugarClass,
-                    "prevWeek"=>$prevWeek->$sugarClass,
-                    "toDate"=>$toDate->$sugarClass,
+                    "thisWeek" => $thisWeek->$sugarClass,
+                    "prevWeek" => $prevWeek->$sugarClass,
+                    "toDate"   => $toDate->$sugarClass,
                 ],
                 "prevCrop"=>[
-                    "thisWeek"=>$thisWeek->{'prev_'.$sugarClass},
-                    "prevWeek"=>$prevWeek->{'prev_'.$sugarClass},
-                    "toDate"=>$toDate->{'prev_'.$sugarClass},
+                    "thisWeek" => $thisWeek->{'prev_'.$sugarClass},
+                    "prevWeek" => $prevWeek->{'prev_'.$sugarClass},
+                    "toDate"   => $toDate->{'prev_'.$sugarClass},
                 ],
             ];
         }
@@ -301,77 +301,11 @@ class GetForm1Controller extends Controller
         $sugarClassUsed = array_unique($sugarClassUsed);
         foreach ($sugarClassUsed as $sugarClass) {
 
-            //CURRENT BALANCE COMPUTATION LOUIS 3-21-2024
-//            if($sugarClass == "B to C")
-//            {
-//                $arr["balance"]["B"]["currentCrop"]["thisWeek"] =
-//                    ($arr["issuances"]["B"]["currentCrop"]["thisWeek"] ?? 0) -
-//                    ($arr["withdrawals"]["B to C"]["currentCrop"]["thisWeek"] ?? 0) -
-//                    ($arr["withdrawals_for_refining"]["B to C"]["currentCrop"]["thisWeek"] ?? 0) ;
-//                $arr["balance"]["B"]["currentCrop"]["prevWeek"] =
-//                    ($arr["issuances"]["B"]["currentCrop"]["prevWeek"] ?? 0) -
-//                    ($arr["withdrawals"]["B to C"]["currentCrop"]["prevWeek"] ?? 0) -
-//                    ($arr["withdrawals_for_refining"]["B to C"]["currentCrop"]["prevWeek"] ?? 0) ;
-//                $arr["balance"]["B"]["currentCrop"]["toDate"] =
-//                    ($arr["issuances"]["B"]["currentCrop"]["toDate"] ?? 0) -
-//                    ($arr["withdrawals"]["B to C"]["currentCrop"]["toDate"] ?? 0) -
-//                    ($arr["withdrawals_for_refining"]["B to C"]["currentCrop"]["toDate"] ?? 0) ;
-//
-//                //PREVIOUS BALANCE COMPUTATION LOUIS 3-21-2024
-//                $arr["balance"]["B"]["prevCrop"]["thisWeek"] =
-//                    ($arr["issuances"]["B"]["prevCrop"]["thisWeek"] ?? 0) -
-//                    ($arr["withdrawals"]["B to C"]["prevCrop"]["thisWeek"] ?? 0) -
-//                    ($arr["withdrawals_for_refining"]["B to C"]["prevCrop"]["thisWeek"] ?? 0) ;
-//                $arr["balance"]["B"]["prevCrop"]["prevWeek"] =
-//                    ($arr["issuances"]["B"]["prevCrop"]["prevWeek"] ?? 0) -
-//                    ($arr["withdrawals"]["B to C"]["prevCrop"]["prevWeek"] ?? 0) -
-//                    ($arr["withdrawals_for_refining"]["B to C"]["prevCrop"]["prevWeek"] ?? 0) ;
-//                $arr["balance"]["B"]["prevCrop"]["toDate"] =
-//                    ($arr["issuances"]["B"]["prevCrop"]["toDate"] ?? 0) -
-//                    ($arr["withdrawals"]["B to C"]["prevCrop"]["toDate"] ?? 0) -
-//                    ($arr["withdrawals_for_refining"]["B to C"]["prevCrop"]["toDate"] ?? 0) ;
-//            }
-//            else
-//            {
-//                $arr["balance"][$sugarClass]["currentCrop"]["thisWeek"] =
-//                    ($arr["issuances"][$sugarClass]["currentCrop"]["thisWeek"] ?? 0) -
-//                    ($arr["withdrawals"][$sugarClass]["currentCrop"]["thisWeek"] ?? 0) -
-//                    ($arr["withdrawals_for_refining"][$sugarClass]["currentCrop"]["thisWeek"] ?? 0) ;
-//                $arr["balance"][$sugarClass]["currentCrop"]["prevWeek"] =
-//                    ($arr["issuances"][$sugarClass]["currentCrop"]["prevWeek"] ?? 0) -
-//                    ($arr["withdrawals"][$sugarClass]["currentCrop"]["prevWeek"] ?? 0) -
-//                    ($arr["withdrawals_for_refining"][$sugarClass]["currentCrop"]["prevWeek"] ?? 0) ;
-//                $arr["balance"][$sugarClass]["currentCrop"]["toDate"] =
-//                    ($arr["issuances"][$sugarClass]["currentCrop"]["toDate"] ?? 0) -
-//                    ($arr["withdrawals"][$sugarClass]["currentCrop"]["toDate"] ?? 0) -
-//                    ($arr["withdrawals_for_refining"][$sugarClass]["currentCrop"]["toDate"] ?? 0) ;
-//
-//                //PREVIOUS BALANCE COMPUTATION LOUIS 3-21-2024
-//                $arr["balance"][$sugarClass]["prevCrop"]["thisWeek"] =
-//                    ($arr["issuances"][$sugarClass]["prevCrop"]["thisWeek"] ?? 0) -
-//                    ($arr["withdrawals"][$sugarClass]["prevCrop"]["thisWeek"] ?? 0) -
-//                    ($arr["withdrawals_for_refining"][$sugarClass]["prevCrop"]["thisWeek"] ?? 0) ;
-//                $arr["balance"][$sugarClass]["prevCrop"]["prevWeek"] =
-//                    ($arr["issuances"][$sugarClass]["prevCrop"]["prevWeek"] ?? 0) -
-//                    ($arr["withdrawals"][$sugarClass]["prevCrop"]["prevWeek"] ?? 0) -
-//                    ($arr["withdrawals_for_refining"][$sugarClass]["prevCrop"]["prevWeek"] ?? 0) ;
-//                $arr["balance"][$sugarClass]["prevCrop"]["toDate"] =
-//                    ($arr["issuances"][$sugarClass]["prevCrop"]["toDate"] ?? 0) -
-//                    ($arr["withdrawals"][$sugarClass]["prevCrop"]["toDate"] ?? 0) -
-//                    ($arr["withdrawals_for_refining"][$sugarClass]["prevCrop"]["toDate"] ?? 0) ;
-//            }
-
             //CURRENT BALANCE COMPUTATION
             $arr["balance"][$sugarClassesCharge[$sugarClass]]["currentCrop"]["thisWeek"] =
                 ($arr["issuances"][$sugarClassesCharge[$sugarClass]]["currentCrop"]["thisWeek"] ?? 0) -
                 ($arr["withdrawalsRawData"][$sugarClassesCharge[$sugarClass]]["currentCrop"]["thisWeek"] ?? 0) -
                 ($arr["withdrawals_for_refiningRawData"][$sugarClassesCharge[$sugarClass]]["currentCrop"]["thisWeek"] ?? 0) ;
-
-            //OLD BALANCE CURRENT WEEK
-//            $arr["balance"][$sugarClassesCharge[$sugarClass]]["currentCrop"]["prevWeek"] =
-//                ($arr["issuances"][$sugarClassesCharge[$sugarClass]]["currentCrop"]["prevWeek"] ?? 0) -
-//                ($arr["withdrawalsRawData"][$sugarClassesCharge[$sugarClass]]["currentCrop"]["prevWeek"] ?? 0) -
-//                ($arr["withdrawals_for_refiningRawData"][$sugarClassesCharge[$sugarClass]]["currentCrop"]["prevWeek"] ?? 0) ;
 
 //            NEW BALANCE CURRENT WEEK
             $arr["balance"][$sugarClassesCharge[$sugarClass]]["currentCrop"]["prevWeek"] =
@@ -379,14 +313,9 @@ class GetForm1Controller extends Controller
                 ($arr["withdrawalsRawData"][$sugarClassesCharge[$sugarClass]]["currentCrop"]["prevWeek"] ?? 0) -
                 ($arr["withdrawals_for_refiningRawData"][$sugarClassesCharge[$sugarClass]]["currentCrop"]["prevWeek"] ?? 0) ;
 
-
             $arr["balance"][$sugarClassesCharge[$sugarClass]]["currentCrop"]["toDate"] =
                 $arr["balance"][$sugarClassesCharge[$sugarClass]]["currentCrop"]["thisWeek"] +
                 $arr["balance"][$sugarClassesCharge[$sugarClass]]["currentCrop"]["prevWeek"];
-//                ($arr["issuances"][$sugarClassesCharge[$sugarClass]]["currentCrop"]["toDate"] ?? 0) -
-//                ($arr["withdrawals"][$sugarClassesCharge[$sugarClass]]["currentCrop"]["toDate"] ?? 0) -
-//                ($arr["withdrawals_for_refiningRawData"][$sugarClassesCharge[$sugarClass]]["currentCrop"]["toDate"] ?? 0) ;
-
 
             //PREVIOUS BALANCE COMPUTATION LOUIS 3-21-2024
             $arr["balance"][$sugarClassesCharge[$sugarClass]]["prevCrop"]["thisWeek"] =
@@ -400,19 +329,9 @@ class GetForm1Controller extends Controller
                 ($arr["withdrawalsRawData"][$sugarClassesCharge[$sugarClass]]["prevCrop"]["prevWeek"] ?? 0) -
                 ($arr["withdrawals_for_refiningRawData"][$sugarClassesCharge[$sugarClass]]["prevCrop"]["prevWeek"] ?? 0) ;
 
-//            $arr["balance"][$sugarClassesCharge[$sugarClass]]["prevCrop"]["toDate"] =
-//                ($arr["issuances"][$sugarClassesCharge[$sugarClass]]["prevCrop"]["toDate"] ?? 0) -
-//                ($arr["withdrawalsRawData"][$sugarClassesCharge[$sugarClass]]["prevCrop"]["toDate"] ?? 0) -
-//                ($arr["withdrawals_for_refiningRawData"][$sugarClassesCharge[$sugarClass]]["prevCrop"]["toDate"] ?? 0) ;
-
             $arr["balance"][$sugarClassesCharge[$sugarClass]]["prevCrop"]["toDate"] =
                 $arr["balance"][$sugarClassesCharge[$sugarClass]]["prevCrop"]["prevWeek"] +
                 $arr["balance"][$sugarClassesCharge[$sugarClass]]["prevCrop"]["thisWeek"];
-//                ($arr["issuances"][$sugarClassesCharge[$sugarClass]]["prevCrop"]["toDate"] ?? 0) -
-//                ($arr["withdrawals_for_refining"][$sugarClassesCharge[$sugarClass]]["prevCrop"]["toDate"] ?? 0) -
-//                ($arr["withdrawals"][$sugarClassesCharge[$sugarClass]]["prevCrop"]["toDate"] ?? 0) -
-//                ($arr["withdrawals_for_refiningRawData"][$sugarClassesCharge[$sugarClass]]["prevCrop"]["toDate"] ?? 0);
-
 
 //                CHANGES NEW BALANCES FORM 1 11-14-2024
 //            $arr["balance"][$sugarClassesCharge[$sugarClass]]["prevCrop"]["toDate"] =
@@ -422,27 +341,6 @@ class GetForm1Controller extends Controller
 //                ($arr["issuances"][$sugarClassesCharge[$sugarClass]]["prevCrop"]["thisWeek"] ?? 0) -
 //                ($arr["withdrawalsRawData"][$sugarClassesCharge[$sugarClass]]["prevCrop"]["thisWeek"] ?? 0) -
 //                ($arr["withdrawals_for_refiningRawData"][$sugarClassesCharge[$sugarClass]]["prevCrop"]["thisWeek"] ?? 0);
-
-//            BALANCE TOTAL COMPUTATION LOUIS 3-25-2024
-//            $balanceCTotalThisWeek += ($arr["balance"][$sugarClassesCharge[$sugarClass]]["currentCrop"]["thisWeek"] ?? 0);
-//            $balanceCTotalPrevWeek += ($arr["balance"][$sugarClassesCharge[$sugarClass]]["currentCrop"]["prevWeek"] ?? 0);
-//            $balanceCTotalToDate += ($arr["balance"][$sugarClassesCharge[$sugarClass]]["currentCrop"]["toDate"] ?? 0);
-//            $balancePTotalThisWeek += ($arr["balance"][$sugarClassesCharge[$sugarClass]]["prevCrop"]["thisWeek"] ?? 0);
-//            $balancePTotalPrevWeek += ($arr["balance"][$sugarClassesCharge[$sugarClass]]["prevCrop"]["prevWeek"] ?? 0);
-//            $balancePTotalToDate += ($arr["balance"][$sugarClassesCharge[$sugarClass]]["prevCrop"]["toDate"] ?? 0);
-
-//            $arr["totalBalance"] = [
-//                "currentCrop"=>[
-//                    "thisWeek"=>number_format($balanceCTotalThisWeek, 3, '.', ','),
-//                    "prevWeek"=>number_format($balanceCTotalPrevWeek, 3, '.', ','),
-//                    "toDate"=>number_format($balanceCTotalToDate, 3, '.', ','),
-//                ],
-//                "prevCrop"=>[
-//                    "thisWeek"=>number_format($balancePTotalThisWeek, 3, '.', ','),
-//                    "prevWeek"=>number_format($balancePTotalPrevWeek, 3, '.', ','),
-//                    "toDate"=>number_format($balancePTotalToDate, 3, '.', ','),
-//                ],
-//            ];
 
             //ISSUANCES TOTAL COMPUTATION LOUIS 3-25-2024
             $issuancesCTotalThisWeek += ($arr["issuances"][$sugarClass]["currentCrop"]["thisWeek"] ?? 0);

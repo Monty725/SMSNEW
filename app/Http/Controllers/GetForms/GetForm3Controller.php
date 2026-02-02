@@ -432,9 +432,13 @@ class GetForm3Controller extends Controller
         $arr["notCoveredByMsc"]["currentCrop"]["thisWeek"]=number_format(($thisWeek->manufacturedRaw + $thisWeek->rao + $thisWeek->manufacturedRefined + $thisWeek->raoRefined)-($thisWeek->sharePlanter + $thisWeek->shareMiller + $thisWeek->refineryMolasses), 3, '.', ',');
         $arr["notCoveredByMsc"]["currentCrop"]["prevWeek"]=number_format((($prevWeek->manufacturedRaw) + ($prevWeek->rao) + ($prevWeek->manufacturedRefined) + ($prevWeek->raoRefined))-(($prevWeek->sharePlanter) + ($prevWeek->shareMiller) + ($prevWeek->refineryMolasses)), 3, '.', ',');
         $arr["notCoveredByMsc"]["currentCrop"]["toDate"]=number_format((($toDate->manufacturedRaw) + ($toDate->rao) + ($toDate->manufacturedRefined) + ($toDate->raoRefined))-(($toDate->sharePlanter) + ($toDate->shareMiller) + ($toDate->refineryMolasses)), 3, '.', ',');
-        $arr["notCoveredByMsc"]["prevCrop"]["thisWeek"]=number_format($thisWeek->prev_notCoveredByMsc, 3, '.', ',');
-        $arr["notCoveredByMsc"]["prevCrop"]["prevWeek"]=number_format($prevWeek->prev_notCoveredByMsc, 3, '.', ',');
-        $arr["notCoveredByMsc"]["prevCrop"]["toDate"]=number_format($toDate->prev_notCoveredByMsc, 3, '.', ',');
+        $arr["notCoveredByMsc"]["prevCrop"]["thisWeek"]=number_format(($thisWeek->prev_manufacturedRaw + $thisWeek->prev_rao + $thisWeek->prev_manufacturedRefined + $thisWeek->prev_raoRefined)-($thisWeek->prev_sharePlanter + $thisWeek->prev_shareMiller + $thisWeek->prev_refineryMolasses), 3, '.', ',');
+        $arr["notCoveredByMsc"]["prevCrop"]["prevWeek"]=number_format((($prevWeek->prev_manufacturedRaw) + ($prevWeek->prev_rao) + ($prevWeek->prev_manufacturedRefined) + ($prevWeek->prev_raoRefined))-(($prevWeek->prev_sharePlanter) + ($prevWeek->prev_shareMiller) + ($prevWeek->prev_refineryMolasses)), 3, '.', ',');
+        $arr["notCoveredByMsc"]["prevCrop"]["toDate"]=number_format((($toDate->prev_manufacturedRaw) + ($toDate->prev_rao) + ($toDate->prev_manufacturedRefined) + ($toDate->prev_raoRefined))-(($toDate->prev_sharePlanter) + ($toDate->prev_shareMiller) + ($toDate->prev_refineryMolasses)), 3, '.', ',');
+//        OLD NOT COVERED BY MSC BEFORE ENRICO
+//        $arr["notCoveredByMsc"]["prevCrop"]["thisWeek"]=number_format($thisWeek->prev_notCoveredByMsc, 3, '.', ',');
+//        $arr["notCoveredByMsc"]["prevCrop"]["prevWeek"]=number_format($prevWeek->prev_notCoveredByMsc, 3, '.', ',');
+//        $arr["notCoveredByMsc"]["prevCrop"]["toDate"]=number_format($toDate->prev_notCoveredByMsc, 3, '.', ',');
 
 //        CURRENT CROP RAW BALANCE 5.1
         $balRawCTotalThisWeek = ((($thisWeek->sharePlanter) + ($thisWeek->shareMiller)) -(($withRawDomCTotalThisWeek) + ($withRawDistCTotalThisWeek) + ($withRawOtherCTotalThisWeek) +($withRawExportCTotalThisWeek))+((($thisWeek->manufacturedRaw) + ($thisWeek->rao) + ($thisWeek->manufacturedRefined) + ($thisWeek->raoRefined))-(($thisWeek->sharePlanter) + ($thisWeek->shareMiller) + ($thisWeek->refineryMolasses))));

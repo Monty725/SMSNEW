@@ -603,9 +603,14 @@
             <td class="text-strong">
                 4. NOT COVERED BY MSC
             </td>
-            <td class="text-strong text-right updatable" for="refinedBalance.currentCrop.thisWeek"></td>
-            <td class="text-strong text-right updatable" for="refinedBalance.currentCrop.prevWeek"></td>
-            <td class="text-strong text-right updatable" for="refinedBalance.currentCrop.toDate"></td>
+{{--            SIR ENRICO--}}
+            <td class="text-strong text-right updatable" for="notCoveredByMsc.currentCrop.thisWeek"></td>
+            <td class="text-strong text-right updatable" for="notCoveredByMsc.currentCrop.prevWeek"></td>
+            <td class="text-strong text-right updatable" for="notCoveredByMsc.currentCrop.toDate"></td>
+{{--            OLD BEFORE SIR ENRICO--}}
+{{--            <td class="text-strong text-right updatable" for="refinedBalance.currentCrop.thisWeek"></td>--}}
+{{--            <td class="text-strong text-right updatable" for="refinedBalance.currentCrop.prevWeek"></td>--}}
+{{--            <td class="text-strong text-right updatable" for="refinedBalance.currentCrop.toDate"></td>--}}
             <td class="text-strong text-right updatable" for="notCoveredByMsc.prevCrop.thisWeek"></td>
             <td class="text-strong text-right updatable" for="notCoveredByMsc.prevCrop.prevWeek"></td>
             <td class="text-strong text-right updatable" for="notCoveredByMsc.prevCrop.toDate"></td>

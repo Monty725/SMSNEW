@@ -13,7 +13,7 @@ class GetForm2Controller extends Controller
 {
 
     private function formatValue2($value) {
-        return $value < 0 ? '(' . number_format(abs($value), 3, '.', ',') . ')' : number_format($value, 3, '.', ',');
+        return $value < 0 ? '(' . number_format(abs($value), 4, '.', ',') . ')' : number_format($value, 4, '.', ',');
     }
 
     public function getForm2($slug, $isDotted = true){
@@ -161,55 +161,55 @@ class GetForm2Controller extends Controller
         //TOTAL DOMESTIC ISSUANCE
         $arr["totalIssuanceDomestic"] = [
             "currentCrop"=>[
-                "thisWeek"=>number_format($issuanceDomCTotalThisWeek, 3, '.', ','),
-                "prevWeek"=>number_format($issuanceDomCTotalprevWeek, 3, '.', ','),
-                "toDate"=>number_format($issuanceDomCTotaltoDate, 3, '.', ','),
+                "thisWeek"=>$this->formatValue2($issuanceDomCTotalThisWeek),
+                "prevWeek"=>$this->formatValue2($issuanceDomCTotalprevWeek),
+                "toDate"=>$this->formatValue2($issuanceDomCTotaltoDate),
             ],
             "prevCrop"=>[
-                "thisWeek"=>number_format($issuanceDomPTotalThisWeek, 3, '.', ','),
-                "prevWeek"=>number_format($issuanceDomPTotalprevWeek, 3, '.', ','),
-                "toDate"=>number_format($issuanceDomPTotaltoDate, 3, '.', ','),
+                "thisWeek"=>$this->formatValue2($issuanceDomPTotalThisWeek),
+                "prevWeek"=>$this->formatValue2($issuanceDomPTotalprevWeek),
+                "toDate"=>$this->formatValue2($issuanceDomPTotaltoDate),
             ],
         ];
 
         //TOTAL IMPORTED ISSUANCE
         $arr["totalIssuanceImported"] = [
             "currentCrop"=>[
-                "thisWeek"=>number_format($issuanceImpCTotalThisWeek, 3, '.', ','),
-                "prevWeek"=>number_format($issuanceImpCTotalprevWeek, 3, '.', ','),
-                "toDate"=>number_format($issuanceImpCTotaltoDate, 3, '.', ','),
+                "thisWeek"=>$this->formatValue2($issuanceImpCTotalThisWeek),
+                "prevWeek"=>$this->formatValue2($issuanceImpCTotalprevWeek),
+                "toDate"=>$this->formatValue2($issuanceImpCTotaltoDate),
             ],
             "prevCrop"=>[
-                "thisWeek"=>number_format($issuanceImpPTotalThisWeek, 3, '.', ','),
-                "prevWeek"=>number_format($issuanceImpPTotalprevWeek, 3, '.', ','),
-                "toDate"=>number_format($issuanceImpPTotaltoDate, 3, '.', ','),
+                "thisWeek"=>$this->formatValue2($issuanceImpPTotalThisWeek),
+                "prevWeek"=>$this->formatValue2($issuanceImpPTotalprevWeek),
+                "toDate"=>$this->formatValue2($issuanceImpPTotaltoDate),
             ],
         ];
 
         $arr["totalIssuanceAdvanceRefining"] = [
             "currentCrop"=>[
-                "thisWeek"=>number_format($issuanceAdvCTotalThisWeek, 3, '.', ','),
-                "prevWeek"=>number_format($issuanceAdvCTotalprevWeek, 3, '.', ','),
-                "toDate"=>number_format($issuanceAdvCTotaltoDate, 3, '.', ','),
+                "thisWeek"=>$this->formatValue2($issuanceAdvCTotalThisWeek),
+                "prevWeek"=>$this->formatValue2($issuanceAdvCTotalprevWeek),
+                "toDate"=>$this->formatValue2($issuanceAdvCTotaltoDate),
             ],
             "prevCrop"=>[
-                "thisWeek"=>number_format($issuanceAdvPTotalThisWeek, 3, '.', ','),
-                "prevWeek"=>number_format($issuanceAdvPTotalprevWeek, 3, '.', ','),
-                "toDate"=>number_format($issuanceAdvPTotaltoDate, 3, '.', ','),
+                "thisWeek"=>$this->formatValue2($issuanceAdvPTotalThisWeek),
+                "prevWeek"=>$this->formatValue2($issuanceAdvPTotalprevWeek),
+                "toDate"=>$this->formatValue2($issuanceAdvPTotaltoDate),
             ],
         ];
 
         //TOTAL OVERALL ISSUANCE
         $arr["totalIssuanceOverall"] = [
             "currentCrop"=>[
-                "thisWeek"=>number_format($issuanceImpCTotalThisWeek + $issuanceDomCTotalThisWeek + $issuanceAdvCTotalThisWeek, 3, '.', ','),
-                "prevWeek"=>number_format($issuanceImpCTotalprevWeek + $issuanceDomCTotalprevWeek + $issuanceAdvCTotalprevWeek, 3, '.', ','),
-                "toDate"=>number_format($issuanceImpCTotaltoDate + $issuanceDomCTotaltoDate + $issuanceAdvCTotaltoDate, 3, '.', ','),
+                "thisWeek"=>$this->formatValue2($issuanceImpCTotalThisWeek + $issuanceDomCTotalThisWeek + $issuanceAdvCTotalThisWeek),
+                "prevWeek"=>$this->formatValue2($issuanceImpCTotalprevWeek + $issuanceDomCTotalprevWeek + $issuanceAdvCTotalprevWeek),
+                "toDate"=>$this->formatValue2($issuanceImpCTotaltoDate + $issuanceDomCTotaltoDate + $issuanceAdvCTotaltoDate),
             ],
             "prevCrop"=>[
-                "thisWeek"=>number_format($issuanceImpPTotalThisWeek + $issuanceDomPTotalThisWeek + $issuanceAdvPTotalThisWeek, 3, '.', ','),
-                "prevWeek"=>number_format($issuanceImpPTotalprevWeek + $issuanceDomPTotalprevWeek + $issuanceAdvPTotalprevWeek, 3, '.', ','),
-                "toDate"=>number_format($issuanceImpPTotaltoDate + $issuanceDomPTotaltoDate + $issuanceAdvPTotaltoDate, 3, '.', ','),
+                "thisWeek"=>$this->formatValue2($issuanceImpPTotalThisWeek + $issuanceDomPTotalThisWeek + $issuanceAdvPTotalThisWeek),
+                "prevWeek"=>$this->formatValue2($issuanceImpPTotalprevWeek + $issuanceDomPTotalprevWeek + $issuanceAdvPTotalprevWeek),
+                "toDate"=>$this->formatValue2($issuanceImpPTotaltoDate + $issuanceDomPTotaltoDate + $issuanceAdvPTotaltoDate),
             ],
         ];
         //ISSUANCE COMPUTATION --------------------------------------------------------- END
@@ -293,55 +293,55 @@ class GetForm2Controller extends Controller
         //TOTAL DOMESTIC WITHDRAWAL
         $arr["totalWithdrawalDomestic"] = [
             "currentCrop"=>[
-                "thisWeek"=>number_format($withdrawalDomCTotalThisWeek ?? 0, 3, '.', ','),
-                "prevWeek"=>number_format($withdrawalDomCTotalprevWeek ?? 0, 3, '.', ','),
-                "toDate"=>number_format($withdrawalDomCTotaltoDate ?? 0, 3, '.', ','),
+                "thisWeek"=>$this->formatValue2($withdrawalDomCTotalThisWeek ?? 0),
+                "prevWeek"=>$this->formatValue2($withdrawalDomCTotalprevWeek ?? 0),
+                "toDate"=>$this->formatValue2($withdrawalDomCTotaltoDate ?? 0),
             ],
             "prevCrop"=>[
-                "thisWeek"=>number_format($withdrawalDomPTotalThisWeek ?? 0, 3, '.', ','),
-                "prevWeek"=>number_format($withdrawalDomPTotalprevWeek ?? 0, 3, '.', ','),
-                "toDate"=>number_format($withdrawalDomPTotaltoDate ?? 0, 3, '.', ','),
+                "thisWeek"=>$this->formatValue2($withdrawalDomPTotalThisWeek ?? 0),
+                "prevWeek"=>$this->formatValue2($withdrawalDomPTotalprevWeek ?? 0),
+                "toDate"=>$this->formatValue2($withdrawalDomPTotaltoDate ?? 0),
             ],
         ];
 
         //TOTAL IMPORTED WITHDRAWAL
         $arr["totalWithdrawalImported"] = [
             "currentCrop"=>[
-                "thisWeek"=>number_format($withdrawalImpCTotalThisWeek ?? 0, 3, '.', ','),
-                "prevWeek"=>number_format($withdrawalImpCTotalprevWeek ?? 0, 3, '.', ','),
-                "toDate"=>number_format($withdrawalImpCTotaltoDate ?? 0, 3, '.', ','),
+                "thisWeek"=>$this->formatValue2($withdrawalImpCTotalThisWeek ?? 0),
+                "prevWeek"=>$this->formatValue2($withdrawalImpCTotalprevWeek ?? 0),
+                "toDate"=>$this->formatValue2($withdrawalImpCTotaltoDate ?? 0),
             ],
             "prevCrop"=>[
-                "thisWeek"=>number_format($withdrawalImpPTotalThisWeek ?? 0, 3, '.', ','),
-                "prevWeek"=>number_format($withdrawalImpPTotalprevWeek ?? 0, 3, '.', ','),
-                "toDate"=>number_format($withdrawalImpPTotaltoDate ?? 0, 3, '.', ','),
+                "thisWeek"=>$this->formatValue2($withdrawalImpPTotalThisWeek ?? 0),
+                "prevWeek"=>$this->formatValue2($withdrawalImpPTotalprevWeek ?? 0),
+                "toDate"=>$this->formatValue2($withdrawalImpPTotaltoDate ?? 0),
             ],
         ];
 
         $arr["totalWithdrawalAdvanceRefining"] = [
             "currentCrop"=>[
-                "thisWeek"=>number_format($withdrawalAdvCTotalThisWeek ?? 0, 3, '.', ','),
-                "prevWeek"=>number_format($withdrawalAdvCTotalprevWeek ?? 0, 3, '.', ','),
-                "toDate"=>number_format($withdrawalAdvCTotaltoDate ?? 0, 3, '.', ','),
+                "thisWeek"=>$this->formatValue2($withdrawalAdvCTotalThisWeek ?? 0),
+                "prevWeek"=>$this->formatValue2($withdrawalAdvCTotalprevWeek ?? 0),
+                "toDate"=>$this->formatValue2($withdrawalAdvCTotaltoDate ?? 0),
             ],
             "prevCrop"=>[
-                "thisWeek"=>number_format($withdrawalAdvPTotalThisWeek ?? 0, 3, '.', ','),
-                "prevWeek"=>number_format($withdrawalAdvPTotalprevWeek ?? 0, 3, '.', ','),
-                "toDate"=>number_format($withdrawalAdvPTotaltoDate ?? 0, 3, '.', ','),
+                "thisWeek"=>$this->formatValue2($withdrawalAdvPTotalThisWeek ?? 0),
+                "prevWeek"=>$this->formatValue2($withdrawalAdvPTotalprevWeek ?? 0),
+                "toDate"=>$this->formatValue2($withdrawalAdvPTotaltoDate ?? 0),
             ],
         ];
 
         //TOTAL OVERALL WITHDRAWAL
         $arr["totalWithdrawalOverall"] = [
             "currentCrop"=>[
-                "thisWeek"=>number_format($withdrawalImpCTotalThisWeek + $withdrawalDomCTotalThisWeek + $withdrawalAdvCTotalThisWeek ?? 0, 3, '.', ','),
-                "prevWeek"=>number_format($withdrawalImpCTotalprevWeek + $withdrawalDomCTotalprevWeek + $withdrawalAdvCTotalprevWeek ?? 0, 3, '.', ','),
-                "toDate"=>number_format($withdrawalImpCTotaltoDate + $withdrawalDomCTotaltoDate + $withdrawalAdvCTotaltoDate ?? 0, 3, '.', ','),
+                "thisWeek"=>$this->formatValue2($withdrawalImpCTotalThisWeek + $withdrawalDomCTotalThisWeek + $withdrawalAdvCTotalThisWeek ?? 0),
+                "prevWeek"=>$this->formatValue2($withdrawalImpCTotalprevWeek + $withdrawalDomCTotalprevWeek + $withdrawalAdvCTotalprevWeek ?? 0),
+                "toDate"=>$this->formatValue2($withdrawalImpCTotaltoDate + $withdrawalDomCTotaltoDate + $withdrawalAdvCTotaltoDate ?? 0),
             ],
             "prevCrop"=>[
-                "thisWeek"=>number_format($withdrawalImpPTotalThisWeek + $withdrawalDomPTotalThisWeek + $withdrawalAdvPTotalThisWeek ?? 0, 3, '.', ','),
-                "prevWeek"=>number_format($withdrawalImpPTotalprevWeek + $withdrawalDomPTotalprevWeek + $withdrawalAdvPTotalprevWeek ?? 0, 3, '.', ','),
-                "toDate"=>number_format($withdrawalImpPTotaltoDate + $withdrawalDomPTotaltoDate + $withdrawalAdvPTotaltoDate ?? 0, 3, '.', ','),
+                "thisWeek"=>$this->formatValue2($withdrawalImpPTotalThisWeek + $withdrawalDomPTotalThisWeek + $withdrawalAdvPTotalThisWeek ?? 0),
+                "prevWeek"=>$this->formatValue2($withdrawalImpPTotalprevWeek + $withdrawalDomPTotalprevWeek + $withdrawalAdvPTotalprevWeek ?? 0),
+                "toDate"=>$this->formatValue2($withdrawalImpPTotaltoDate + $withdrawalDomPTotaltoDate + $withdrawalAdvPTotaltoDate ?? 0),
             ],
         ];
         //WITHDRAWAL COMPUTATION ------------------------------------------------------- END
@@ -349,19 +349,19 @@ class GetForm2Controller extends Controller
         //number_format($ReceiptCTotalThisWeek, 3, '.', ',')
         //CARRY-OVER COMPUTATION
         $arr["carryOver"]["currentCrop"]["thisWeek"]=$thisWeek->carryOver;
-        $arr["carryOver"]["currentCrop"]["prevWeek"]=number_format($prevWeek->carryOver, 3, '.', ',');
-        $arr["carryOver"]["currentCrop"]["toDate"]=number_format($toDate->carryOver, 3, '.', ',');
-        $arr["carryOver"]["prevCrop"]["thisWeek"]=number_format($thisWeek->prev_carryOver ?? 0, 3, '.', ',');
-        $arr["carryOver"]["prevCrop"]["prevWeek"]=number_format($prevWeek->prev_carryOver ?? 0, 3, '.', ',');
-        $arr["carryOver"]["prevCrop"]["toDate"]=number_format($toDate->prev_carryOver ?? 0, 3, '.', ',');
+        $arr["carryOver"]["currentCrop"]["prevWeek"]=$this->formatValue2($prevWeek->carryOver);
+        $arr["carryOver"]["currentCrop"]["toDate"]=$this->formatValue2($toDate->carryOver);
+        $arr["carryOver"]["prevCrop"]["thisWeek"]=$this->formatValue2($thisWeek->prev_carryOver ?? 0);
+        $arr["carryOver"]["prevCrop"]["prevWeek"]=$this->formatValue2($prevWeek->prev_carryOver ?? 0);
+        $arr["carryOver"]["prevCrop"]["toDate"]=$this->formatValue2($toDate->prev_carryOver ?? 0);
 
         //COVERED BY SRO COMPUTATION
-        $arr["coveredBySro"]["currentCrop"]["thisWeek"]=number_format($thisWeek->coveredBySro, 3, '.', ',');
-        $arr["coveredBySro"]["currentCrop"]["prevWeek"]=number_format($prevWeek->coveredBySro, 3, '.', ',');
-        $arr["coveredBySro"]["currentCrop"]["toDate"]=number_format($toDate->coveredBySro, 3, '.', ',');
-        $arr["coveredBySro"]["prevCrop"]["thisWeek"]=number_format($thisWeek->prev_coveredBySro, 3, '.', ',');
-        $arr["coveredBySro"]["prevCrop"]["prevWeek"]=number_format($prevWeek->prev_coveredBySro, 3, '.', ',');
-        $arr["coveredBySro"]["prevCrop"]["toDate"]=number_format($toDate->prev_coveredBySro, 3, '.', ',');
+        $arr["coveredBySro"]["currentCrop"]["thisWeek"]=$this->formatValue2($thisWeek->coveredBySro);
+        $arr["coveredBySro"]["currentCrop"]["prevWeek"]=$this->formatValue2($prevWeek->coveredBySro);
+        $arr["coveredBySro"]["currentCrop"]["toDate"]=$this->formatValue2($toDate->coveredBySro);
+        $arr["coveredBySro"]["prevCrop"]["thisWeek"]=$this->formatValue2($thisWeek->prev_coveredBySro);
+        $arr["coveredBySro"]["prevCrop"]["prevWeek"]=$this->formatValue2($prevWeek->prev_coveredBySro);
+        $arr["coveredBySro"]["prevCrop"]["toDate"]=$this->formatValue2($toDate->prev_coveredBySro);
 
         $value1 = Helper::sanitizeNumFormat(session('formatted_transfer1'));
         $value2 = Helper::sanitizeNumFormat(session('formatted_transfer2'));
@@ -378,69 +378,61 @@ class GetForm2Controller extends Controller
 //        $arr["notCoveredBySro"]["prevCrop"]["prevWeek"]=number_format($value5, 3, '.', ',');
 //        $arr["notCoveredBySro"]["prevCrop"]["toDate"]=number_format($value6, 3, '.', ',');
 
-        $arr["notCoveredBySro"]["currentCrop"]["thisWeek"]=number_format($thisWeek->notCoveredBySro, 3, '.', ',');
-        $arr["notCoveredBySro"]["currentCrop"]["prevWeek"]=number_format($prevWeek->notCoveredBySro, 3, '.', ',');
-        $arr["notCoveredBySro"]["currentCrop"]["toDate"]=number_format($toDate->notCoveredBySro, 3, '.', ',');
-        $arr["notCoveredBySro"]["prevCrop"]["thisWeek"]=number_format($thisWeek->prev_notCoveredBySro, 3, '.', ',');
-        $arr["notCoveredBySro"]["prevCrop"]["prevWeek"]=number_format($prevWeek->prev_notCoveredBySro, 3, '.', ',');
-        $arr["notCoveredBySro"]["prevCrop"]["toDate"]=number_format($toDate->prev_notCoveredBySro, 3, '.', ',');
+        $arr["notCoveredBySro"]["currentCrop"]["thisWeek"]=$this->formatValue2($thisWeek->notCoveredBySro);
+        $arr["notCoveredBySro"]["currentCrop"]["prevWeek"]=$this->formatValue2($prevWeek->notCoveredBySro);
+        $arr["notCoveredBySro"]["currentCrop"]["toDate"]=$this->formatValue2($toDate->notCoveredBySro);
+        $arr["notCoveredBySro"]["prevCrop"]["thisWeek"]=$this->formatValue2($thisWeek->prev_notCoveredBySro);
+        $arr["notCoveredBySro"]["prevCrop"]["prevWeek"]=$this->formatValue2($prevWeek->prev_notCoveredBySro);
+        $arr["notCoveredBySro"]["prevCrop"]["toDate"]=$this->formatValue2($toDate->prev_notCoveredBySro);
 
         //OTHER MILLS COMPUTATION
-        $arr["otherMills"]["currentCrop"]["thisWeek"]=number_format($thisWeek->otherMills, 3, '.', ',');
-        $arr["otherMills"]["currentCrop"]["prevWeek"]=number_format($prevWeek->otherMills, 3, '.', ',');
-        $arr["otherMills"]["currentCrop"]["toDate"]=number_format($toDate->otherMills, 3, '.', ',');
-        $arr["otherMills"]["prevCrop"]["thisWeek"]=number_format($thisWeek->prev_otherMills, 3, '.', ',');
-        $arr["otherMills"]["prevCrop"]["prevWeek"]=number_format($prevWeek->prev_otherMills, 3, '.', ',');
-        $arr["otherMills"]["prevCrop"]["toDate"]=number_format($toDate->prev_otherMills, 3, '.', ',');
+        $arr["otherMills"]["currentCrop"]["thisWeek"]=$this->formatValue2($thisWeek->otherMills);
+        $arr["otherMills"]["currentCrop"]["prevWeek"]=$this->formatValue2($prevWeek->otherMills);
+        $arr["otherMills"]["currentCrop"]["toDate"]=$this->formatValue2($toDate->otherMills);
+        $arr["otherMills"]["prevCrop"]["thisWeek"]=$this->formatValue2($thisWeek->prev_otherMills);
+        $arr["otherMills"]["prevCrop"]["prevWeek"]=$this->formatValue2($prevWeek->prev_otherMills);
+        $arr["otherMills"]["prevCrop"]["toDate"]=$this->formatValue2($toDate->prev_otherMills);
 
         //IMPORTED COMPUTATION
-        $arr["imported"]["currentCrop"]["thisWeek"]=number_format($thisWeek->imported, 3, '.', ',');
-        $arr["imported"]["currentCrop"]["prevWeek"]=number_format($prevWeek->imported, 3, '.', ',');
-        $arr["imported"]["currentCrop"]["toDate"]=number_format($toDate->imported, 3, '.', ',');
-        $arr["imported"]["prevCrop"]["thisWeek"]=number_format($thisWeek->prev_imported, 3, '.', ',');
-        $arr["imported"]["prevCrop"]["prevWeek"]=number_format($prevWeek->prev_imported, 3, '.', ',');
-        $arr["imported"]["prevCrop"]["toDate"]=number_format($toDate->prev_imported, 3, '.', ',');
+        $arr["imported"]["currentCrop"]["thisWeek"]=$this->formatValue2($thisWeek->imported);
+        $arr["imported"]["currentCrop"]["prevWeek"]=$this->formatValue2($prevWeek->imported);
+        $arr["imported"]["currentCrop"]["toDate"]=$this->formatValue2($toDate->imported);
+        $arr["imported"]["prevCrop"]["thisWeek"]=$this->formatValue2($thisWeek->prev_imported);
+        $arr["imported"]["prevCrop"]["prevWeek"]=$this->formatValue2($prevWeek->prev_imported);
+        $arr["imported"]["prevCrop"]["toDate"]=$this->formatValue2($toDate->prev_imported);
 
         //ADVANCE REFINING COMPUTATION
-        $arr["advanceRefining"]["currentCrop"]["thisWeek"]=number_format($thisWeek->advance_refining, 3, '.', ',');
-        $arr["advanceRefining"]["currentCrop"]["prevWeek"]=number_format($prevWeek->advance_refining, 3, '.', ',');
-        $arr["advanceRefining"]["currentCrop"]["toDate"]=number_format($toDate->advance_refining, 3, '.', ',');
-        $arr["advanceRefining"]["prevCrop"]["thisWeek"]=number_format($thisWeek->prev_advance_refining, 3, '.', ',');
-        $arr["advanceRefining"]["prevCrop"]["prevWeek"]=number_format($prevWeek->prev_advance_refining, 3, '.', ',');
-        $arr["advanceRefining"]["prevCrop"]["toDate"]=number_format($toDate->prev_advance_refining, 3, '.', ',');
+        $arr["advanceRefining"]["currentCrop"]["thisWeek"]=$this->formatValue2($thisWeek->advance_refining);
+        $arr["advanceRefining"]["currentCrop"]["prevWeek"]=$this->formatValue2($prevWeek->advance_refining);
+        $arr["advanceRefining"]["currentCrop"]["toDate"]=$this->formatValue2($toDate->advance_refining);
+        $arr["advanceRefining"]["prevCrop"]["thisWeek"]=$this->formatValue2($thisWeek->prev_advance_refining);
+        $arr["advanceRefining"]["prevCrop"]["prevWeek"]=$this->formatValue2($prevWeek->prev_advance_refining);
+        $arr["advanceRefining"]["prevCrop"]["toDate"]=$this->formatValue2($toDate->prev_advance_refining);
 
         //MELTED COMPUTATION
-        $arr["melted"]["currentCrop"]["thisWeek"]=number_format($thisWeek->melted, 3, '.', ',');
-        $arr["melted"]["currentCrop"]["prevWeek"]=number_format($prevWeek->melted, 3, '.', ',');
-        $arr["melted"]["currentCrop"]["toDate"]=number_format($toDate->melted, 3, '.', ',');
-        $arr["melted"]["prevCrop"]["thisWeek"]=number_format($thisWeek->prev_melted ?? 0, 3, '.', ',');
-        $arr["melted"]["prevCrop"]["prevWeek"]=number_format($prevWeek->prev_melted, 3, '.', ',');
-        $arr["melted"]["prevCrop"]["toDate"]=number_format($toDate->prev_melted, 3, '.', ',');
+        $arr["melted"]["currentCrop"]["thisWeek"]=$this->formatValue2($thisWeek->melted);
+        $arr["melted"]["currentCrop"]["prevWeek"]=$this->formatValue2($prevWeek->melted);
+        $arr["melted"]["currentCrop"]["toDate"]=$this->formatValue2($toDate->melted);
+        $arr["melted"]["prevCrop"]["thisWeek"]=$this->formatValue2($thisWeek->prev_melted ?? 0);
+        $arr["melted"]["prevCrop"]["prevWeek"]=$this->formatValue2($prevWeek->prev_melted);
+        $arr["melted"]["prevCrop"]["toDate"]=$this->formatValue2($toDate->prev_melted);
 
         //RAW WITHDRAWALS COMPUTATION
-        $arr["rawWithdrawals"]["currentCrop"]["thisWeek"]=number_format($thisWeek->rawWithdrawals, 3, '.', ',');
-        $arr["rawWithdrawals"]["currentCrop"]["prevWeek"]=number_format($prevWeek->rawWithdrawals, 3, '.', ',');
-        $arr["rawWithdrawals"]["currentCrop"]["toDate"]=number_format($toDate->rawWithdrawals, 3, '.', ',');
-        $arr["rawWithdrawals"]["prevCrop"]["thisWeek"]=number_format($thisWeek->prev_rawWithdrawals, 3, '.', ',');
-        $arr["rawWithdrawals"]["prevCrop"]["prevWeek"]=number_format($prevWeek->prev_rawWithdrawals, 3, '.', ',');
-        $arr["rawWithdrawals"]["prevCrop"]["toDate"]=number_format($toDate->prev_rawWithdrawals, 3, '.', ',');
+        $arr["rawWithdrawals"]["currentCrop"]["thisWeek"]=$this->formatValue2($thisWeek->rawWithdrawals);
+        $arr["rawWithdrawals"]["currentCrop"]["prevWeek"]=$this->formatValue2($prevWeek->rawWithdrawals);
+        $arr["rawWithdrawals"]["currentCrop"]["toDate"]=$this->formatValue2($toDate->rawWithdrawals);
+        $arr["rawWithdrawals"]["prevCrop"]["thisWeek"]=$this->formatValue2($thisWeek->prev_rawWithdrawals);
+        $arr["rawWithdrawals"]["prevCrop"]["prevWeek"]=$this->formatValue2($prevWeek->prev_rawWithdrawals);
+        $arr["rawWithdrawals"]["prevCrop"]["toDate"]=$this->formatValue2($toDate->prev_rawWithdrawals);
 
 
         //PRODUCTION DOMESTIC
-        $arr["prodDomestic"]["currentCrop"]["thisWeek"]=number_format($thisWeek->prodDomestic, 3, '.', ',');
-        $arr["prodDomestic"]["currentCrop"]["prevWeek"]=number_format($prevWeek->prodDomestic, 3, '.', ',');
-        $arr["prodDomestic"]["currentCrop"]["toDate"]=number_format($toDate->prodDomestic, 3, '.', ',');
-        $arr["prodDomestic"]["prevCrop"]["thisWeek"]=number_format($thisWeek->prev_prodDomestic, 3, '.', ',');
-        $arr["prodDomestic"]["prevCrop"]["prevWeek"]=number_format($prevWeek->prev_prodDomestic, 3, '.', ',');
-        $arr["prodDomestic"]["prevCrop"]["toDate"]=number_format($toDate->prev_prodDomestic, 3, '.', ',');
-
-        //PRODUCTION IMPORTED
-//        $arr["prodImported"]["currentCrop"]["thisWeek"]=number_format($thisWeek->prodImported ?? 0, 3, '.', ',');
-//        $arr["prodImported"]["currentCrop"]["prevWeek"]=number_format($prevWeek->prodImported ?? 0, 3, '.', ',');
-//        $arr["prodImported"]["currentCrop"]["toDate"]=number_format($toDate->prodImported ?? 0, 3, '.', ',');
-//        $arr["prodImported"]["prevCrop"]["thisWeek"]=number_format($thisWeek->prev_prodImported ?? 0, 3, '.', ',');
-//        $arr["prodImported"]["prevCrop"]["prevWeek"]=number_format($prevWeek->prev_prodImported ?? 0, 3, '.', ',');
-//        $arr["prodImported"]["prevCrop"]["toDate"]=number_format($toDate->prev_prodImported ?? 0, 3, '.', ',');
+        $arr["prodDomestic"]["currentCrop"]["thisWeek"]=$this->formatValue2($thisWeek->prodDomestic);
+        $arr["prodDomestic"]["currentCrop"]["prevWeek"]=$this->formatValue2($prevWeek->prodDomestic);
+        $arr["prodDomestic"]["currentCrop"]["toDate"]=$this->formatValue2($toDate->prodDomestic);
+        $arr["prodDomestic"]["prevCrop"]["thisWeek"]=$this->formatValue2($thisWeek->prev_prodDomestic);
+        $arr["prodDomestic"]["prevCrop"]["prevWeek"]=$this->formatValue2($prevWeek->prev_prodDomestic);
+        $arr["prodDomestic"]["prevCrop"]["toDate"]=$this->formatValue2($toDate->prev_prodDomestic);
 
         //PRODUCTION IMPORTED
         $arr["prodImported"]["currentCrop"]["thisWeek"]=number_format($thisWeek->prodImported, 3, '.', ',');
@@ -458,6 +450,7 @@ class GetForm2Controller extends Controller
         $arr["overage"]["prevCrop"]["prevWeek"]=number_format($prevWeek->prev_overage, 3, '.', ',');
         $arr["overage"]["prevCrop"]["toDate"]=number_format($toDate->prev_overage, 3, '.', ',');
 
+        //Max edward was Here ( o _ o )
 
         //TOTAL REFINED
 //        $arr["totalRefined"] = [

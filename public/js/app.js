@@ -30,7 +30,7 @@ var autonum_settings_mt = {
     currencySymbol : '',
     decimalCharacter : '.',
     digitGroupSeparator : ',',
-    decimalPlaces : 3,
+    decimalPlaces : 4,
     modifyValueOnWheel: false,
 };
 
