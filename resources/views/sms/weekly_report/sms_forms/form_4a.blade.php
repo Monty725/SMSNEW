@@ -22,30 +22,34 @@
             <td><span class="indent"></span> 1.1 Production/Carry-over</td>
             <td>
                 {!! \App\Swep\ViewHelpers\__form2::textboxOnly('carryOver',[
-                    'class' => 'global-form-changer form4a-input input-sm text-right autonumber_mt'
+                    'class' => 'global-form-changer form4a-input input-sm text-right autonumber_mt',
+                    'id' => 'carryOver4a'
                 ],
                 $wr->form4a->carryOver ?? null
                 ) !!}
             </td>
             <td>
                 {!! \App\Swep\ViewHelpers\__form2::textboxOnly('prev_carryOver',[
-                    'class' => 'global-form-changer form4a-input input-sm text-right autonumber_mt'
+                    'class' => 'global-form-changer form4a-input input-sm text-right autonumber_mt',
+                    'id' => 'prev_carryOver4a'
                 ],
                 $wr->form4a->prev_carryOver ?? null) !!}
             </td>
         </tr>
         <tr>
-            <td><span class="indent"></span> 1.2 Receipts</td>
+            <td><span class="indent"></span> 1.2 Net Production</td>
             <td>
                 {!! \App\Swep\ViewHelpers\__form2::textboxOnly('receipts',[
-                    'class' => 'global-form-changer form4a-input input-sm text-right autonumber_mt'
+                    'class' => 'global-form-changer form4a-input input-sm text-right autonumber_mt',
+                    'id' => 'receipts4a'
                 ],
                 $wr->form4a->receipts ?? null
                 ) !!}
             </td>
             <td>
                 {!! \App\Swep\ViewHelpers\__form2::textboxOnly('prev_receipts',[
-                    'class' => 'global-form-changer form4a-input input-sm text-right autonumber_mt'
+                    'class' => 'global-form-changer form4a-input input-sm text-right autonumber_mt',
+                    'id' => 'prev_receipts4a'
                 ],
                 $wr->form4a->prev_receipts ?? null) !!}
             </td>
@@ -54,54 +58,53 @@
             <td><span class="indent"></span> 1.3 Withdrawals</td>
             <td>
                 {!! \App\Swep\ViewHelpers\__form2::textboxOnly('withdrawals',[
-                    'class' => 'global-form-changer form4a-input input-sm text-right autonumber_mt'
+                    'class' => 'global-form-changer form4a-input input-sm text-right autonumber_mt',
+                    'id' => 'withdrawals4a'
                 ],
                 $wr->form4a->withdrawals ?? null
                 ) !!}
             </td>
             <td>
                 {!! \App\Swep\ViewHelpers\__form2::textboxOnly('prev_withdrawals',[
-                    'class' => 'global-form-changer form4a-input input-sm text-right autonumber_mt'
+                    'class' => 'global-form-changer form4a-input input-sm text-right autonumber_mt',
+                    'id' => 'prev_withdrawals4a'
                 ],
                 $wr->form4a->prev_withdrawals ?? null) !!}
             </td>
         </tr>
         <tr>
-            <td><span class="indent"></span> 1.4 Transfers to refinery</td>
+            <td><span class="indent"></span> 1.4 Transfers to Subsidiary</td>
             <td>
                 {!! \App\Swep\ViewHelpers\__form2::textboxOnly('transferToRefinery',[
-                    'class' => 'global-form-changer form4a-input input-sm text-right autonumber_mt'
+                    'class' => 'global-form-changer form4a-input input-sm text-right autonumber_mt',
+                    'id' => 'transferToRefinery4a'
                 ],
                 $wr->form4a->transferToRefinery ?? null
                 ) !!}
             </td>
             <td>
                 {!! \App\Swep\ViewHelpers\__form2::textboxOnly('prev_transferToRefinery',[
-                    'class' => 'global-form-changer form4a-input input-sm text-right autonumber_mt'
+                    'class' => 'global-form-changer form4a-input input-sm text-right autonumber_mt',
+                    'id' => 'prev_transferToRefinery4a'
                 ],
                 $wr->form4a->prev_transferToRefinery ?? null) !!}
             </td>
         </tr>
         <tr>
-            <td><span class="indent"></span> 1.5 Etc</td>
-            <td>
-                {!! \App\Swep\ViewHelpers\__form2::textboxOnly('etc',[
-                    'class' => 'global-form-changer form4a-input input-sm text-right autonumber_mt'
-                ],
-                $wr->form4a->etc ?? null
-                ) !!}
+            <td><span class="indent"></span> 1.5 Stock Balance</td>
+            <td class="text-right text-strong">
+            {!! \App\Swep\ViewHelpers\__form2::textboxOnly('stockBalance',[
+                'class' => 'input-sm text-right',
+                'id' => 'stockBalance4a',
+                'readonly' => 'readonly'
+            ], null) !!}
+            <td class="text-right text-strong">
+                {!! \App\Swep\ViewHelpers\__form2::textboxOnly('prev_stockBalance',[
+                    'class' => 'input-sm text-right',
+                    'id' => 'prev_stockBalance4a',
+                    'readonly' => 'readonly'
+                ], null) !!}
             </td>
-            <td>
-                {!! \App\Swep\ViewHelpers\__form2::textboxOnly('prev_etc',[
-                    'class' => 'global-form-changer form4a-input input-sm text-right autonumber_mt'
-                ],
-                $wr->form4a->prev_etc ?? null) !!}
-            </td>
-        </tr>
-        <tr>
-            <td><span class="indent"></span> 1.6 Stock Balance</td>
-            <td></td>
-            <td></td>
         </tr>
         <tr>
             <td colspan="3" class="text-strong success">
@@ -184,4 +187,39 @@
     </table>
 </form>
 
+<script>
+    function calculateStockBalance4a() {
 
+        let carryOver4a = parseFloat($('#carryOver4a').val().replace(/,/g,'')) || 0;
+        let receipts4a = parseFloat($('#receipts4a').val().replace(/,/g,'')) || 0;
+        let withdrawals4a = parseFloat($('#withdrawals4a').val().replace(/,/g,'')) || 0;
+        let transferToRefinery4a = parseFloat($('#transferToRefinery4a').val().replace(/,/g,'')) || 0;
+
+        let prev_carryOver4a = parseFloat($('#prev_carryOver4a').val().replace(/,/g,'')) || 0;
+        let prev_receipts4a = parseFloat($('#prev_receipts4a').val().replace(/,/g,'')) || 0;
+        let prev_withdrawals4a = parseFloat($('#prev_withdrawals4a').val().replace(/,/g,'')) || 0;
+        let prev_transferToRefinery4a = parseFloat($('#prev_transferToRefinery4a').val().replace(/,/g,'')) || 0;
+
+        // Adjust signs if needed
+        let total4a = receipts4a
+            - withdrawals4a
+            - transferToRefinery4a
+
+        let prev_total4a = prev_carryOver4a
+            - prev_withdrawals4a
+            - prev_transferToRefinery4a
+
+        $('#stockBalance4a').val(total4a.toFixed(4));
+        $('#prev_stockBalance4a').val(prev_total4a.toFixed(4));
+    }
+
+    // Trigger when any input changes
+    $('.global-form-changer').on('keyup change', function () {
+        calculateStockBalance4a();
+    });
+
+    // Run once on page load
+    $(document).ready(function () {
+        calculateStockBalance4a();
+    });
+</script>

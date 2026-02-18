@@ -179,7 +179,7 @@ class WeeklyReports extends Model
 
     public function form4ToDateAsOf($report_no){
         $fieldsToSum = [
-            'carryOver', 'receipts', 'withdrawals', 'transferToRefinery', 'prev_carryOver', 'prev_receipts', 'prev_withdrawals', 'prev_transferToRefinery',
+            'carryOver', 'receipts', 'withdrawals', 'transferToRefinery', 'transferToSubsidiary', 'prev_carryOver', 'prev_receipts', 'prev_withdrawals', 'prev_transferToRefinery', 'prev_transferToSubsidiary',
         ];
         foreach ($fieldsToSum as $key => $field){
             $fieldsToSum[$key] = ' sum('.$field.') as '.$field;

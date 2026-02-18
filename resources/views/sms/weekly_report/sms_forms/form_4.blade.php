@@ -22,14 +22,16 @@
             <td><span class="indent"></span> 1.1 Production/Carry-over</td>
             <td>
                 {!! \App\Swep\ViewHelpers\__form2::textboxOnly('carryOver',[
-                    'class' => 'global-form-changer input-sm text-right autonumber_mt'
+                    'class' => 'global-form-changer input-sm text-right autonumber_mt',
+                    'id' => 'carryOver'
                 ],
                 $wr->form4->carryOver ?? null
                 ) !!}
             </td>
             <td>
                 {!! \App\Swep\ViewHelpers\__form2::textboxOnly('prev_carryOver',[
-                    'class' => 'global-form-changer input-sm text-right autonumber_mt'
+                    'class' => 'global-form-changer input-sm text-right autonumber_mt',
+                     'id' => 'prev_carryOver'
                 ],
                 $wr->form4->prev_carryOver ?? null) !!}
             </td>
@@ -38,14 +40,16 @@
             <td><span class="indent"></span> 1.2 Receipts</td>
             <td>
                 {!! \App\Swep\ViewHelpers\__form2::textboxOnly('receipts',[
-                    'class' => 'global-form-changer input-sm text-right autonumber_mt'
+                    'class' => 'global-form-changer input-sm text-right autonumber_mt',
+                     'id' => 'receipts'
                 ],
                 $wr->form4->receipts ?? null
                 ) !!}
             </td>
             <td>
                 {!! \App\Swep\ViewHelpers\__form2::textboxOnly('prev_receipts',[
-                    'class' => 'global-form-changer input-sm text-right autonumber_mt'
+                    'class' => 'global-form-changer input-sm text-right autonumber_mt',
+                     'id' => 'prev_receipts'
                 ],
                 $wr->form4->prev_receipts ?? null) !!}
             </td>
@@ -54,54 +58,71 @@
             <td><span class="indent"></span> 1.3 Withdrawals</td>
             <td>
                 {!! \App\Swep\ViewHelpers\__form2::textboxOnly('withdrawals',[
-                    'class' => 'global-form-changer input-sm text-right autonumber_mt'
+                    'class' => 'global-form-changer input-sm text-right autonumber_mt',
+                    'id' => 'withdrawals'
                 ],
                 $wr->form4->withdrawals ?? null
                 ) !!}
             </td>
             <td>
                 {!! \App\Swep\ViewHelpers\__form2::textboxOnly('prev_withdrawals',[
-                    'class' => 'global-form-changer input-sm text-right autonumber_mt'
+                    'class' => 'global-form-changer input-sm text-right autonumber_mt',
+                    'id' => 'prev_withdrawals'
                 ],
                 $wr->form4->prev_withdrawals ?? null) !!}
             </td>
         </tr>
         <tr>
-            <td><span class="indent"></span> 1.4 Transfers to refinery</td>
+            <td><span class="indent"></span> 1.4 Transfers to Refinery</td>
             <td>
                 {!! \App\Swep\ViewHelpers\__form2::textboxOnly('transferToRefinery',[
-                    'class' => 'global-form-changer input-sm text-right autonumber_mt'
+                    'class' => 'global-form-changer input-sm text-right autonumber_mt',
+                    'id' => 'transferToRefinery'
                 ],
                 $wr->form4->transferToRefinery ?? null
                 ) !!}
             </td>
             <td>
                 {!! \App\Swep\ViewHelpers\__form2::textboxOnly('prev_transferToRefinery',[
-                    'class' => 'global-form-changer input-sm text-right autonumber_mt'
+                    'class' => 'global-form-changer input-sm text-right autonumber_mt',
+                    'id' => 'prev_transferToRefinery'
                 ],
                 $wr->form4->prev_transferToRefinery ?? null) !!}
             </td>
         </tr>
         <tr>
-            <td><span class="indent"></span> 1.5 Etc</td>
+            <td><span class="indent"></span> 1.5 Transfers to Subsidiary</td>
             <td>
-                {!! \App\Swep\ViewHelpers\__form2::textboxOnly('etc',[
-                    'class' => 'global-form-changer input-sm text-right autonumber_mt'
+                {!! \App\Swep\ViewHelpers\__form2::textboxOnly('transferToSubsidiary',[
+                    'class' => 'global-form-changer input-sm text-right autonumber_mt',
+                    'id' => 'transferToSubsidiary'
                 ],
-                $wr->form4->etc ?? null
+                $wr->form4->transferToSubsidiary ?? null
                 ) !!}
             </td>
             <td>
-                {!! \App\Swep\ViewHelpers\__form2::textboxOnly('prev_etc',[
-                    'class' => 'global-form-changer input-sm text-right autonumber_mt'
+                {!! \App\Swep\ViewHelpers\__form2::textboxOnly('prev_transferToSubsidiary',[
+                    'class' => 'global-form-changer input-sm text-right autonumber_mt',
+                    'id' => 'prev_transferToSubsidiary'
                 ],
-                $wr->form4->prev_etc ?? null) !!}
+                $wr->form4->prev_transferToSubsidiary ?? null) !!}
             </td>
         </tr>
         <tr>
             <td><span class="indent"></span> 1.6 Stock Balance</td>
-            <td class="text-right text-strong"></td>
-            <td class="text-right text-strong"></td>
+            <td class="text-right text-strong">
+                {!! \App\Swep\ViewHelpers\__form2::textboxOnly('stockBalance',[
+                    'class' => 'input-sm text-right',
+                    'id' => 'stockBalance',
+                    'readonly' => 'readonly'
+                ], null) !!}
+            <td class="text-right text-strong">
+                {!! \App\Swep\ViewHelpers\__form2::textboxOnly('prev_stockBalance',[
+                    'class' => 'input-sm text-right',
+                    'id' => 'prev_stockBalance',
+                    'readonly' => 'readonly'
+                ], null) !!}
+            </td>
         </tr>
         <tr>
             <td colspan="3" class="text-strong success">
@@ -183,3 +204,46 @@
         </tbody>
     </table>
 </form>
+
+<script>
+    function calculateStockBalance() {
+
+        let carryOver = parseFloat($('#carryOver').val().replace(/,/g,'')) || 0;
+        let receipts = parseFloat($('#receipts').val().replace(/,/g,'')) || 0;
+        let withdrawals = parseFloat($('#withdrawals').val().replace(/,/g,'')) || 0;
+        let transferToRefinery = parseFloat($('#transferToRefinery').val().replace(/,/g,'')) || 0;
+        let transferToSubsidiary = parseFloat($('#transferToSubsidiary').val().replace(/,/g,'')) || 0;
+
+        let prev_carryOver = parseFloat($('#prev_carryOver').val().replace(/,/g,'')) || 0;
+        let prev_receipts = parseFloat($('#prev_receipts').val().replace(/,/g,'')) || 0;
+        let prev_withdrawals = parseFloat($('#prev_withdrawals').val().replace(/,/g,'')) || 0;
+        let prev_transferToRefinery = parseFloat($('#prev_transferToRefinery').val().replace(/,/g,'')) || 0;
+        let prev_transferToSubsidiary = parseFloat($('#prev_transferToSubsidiary').val().replace(/,/g,'')) || 0;
+
+        // Adjust signs if needed
+        let total = carryOver
+            + receipts
+            - withdrawals
+            - transferToRefinery
+            - transferToSubsidiary;
+
+        let prev_total = prev_carryOver
+            + prev_receipts
+            - prev_withdrawals
+            - prev_transferToRefinery
+            - prev_transferToSubsidiary;
+
+        $('#stockBalance').val(total.toFixed(4));
+        $('#prev_stockBalance').val(prev_total.toFixed(4));
+    }
+
+    // Trigger when any input changes
+    $('.global-form-changer').on('keyup change', function () {
+        calculateStockBalance();
+    });
+
+    // Run once on page load
+    $(document).ready(function () {
+        calculateStockBalance();
+    });
+</script>

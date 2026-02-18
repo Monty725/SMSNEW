@@ -30,10 +30,12 @@ class Form4Controller extends Controller
                     'receipts' => Helper::sanitizeAutonum($request->receipts) ,
                     'withdrawals' => Helper::sanitizeAutonum($request->withdrawals) ,
                     'transferToRefinery' => Helper::sanitizeAutonum($request->transferToRefinery) ,
+                    'transferToSubsidiary' => Helper::sanitizeAutonum($request->transferToSubsidiary) ,
                     'prev_carryOver' => Helper::sanitizeAutonum($request->prev_carryOver) ,
                     'prev_receipts' => Helper::sanitizeAutonum($request->prev_receipts) ,
                     'prev_withdrawals' => Helper::sanitizeAutonum($request->prev_withdrawals) ,
                     'prev_transferToRefinery' => Helper::sanitizeAutonum($request->prev_transferToRefinery) ,
+                    'prev_transferToSubsidiary' => Helper::sanitizeAutonum($request->prev_transferToSubsidiary) ,
                 ]
             );
 

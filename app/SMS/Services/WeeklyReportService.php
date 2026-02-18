@@ -695,7 +695,7 @@ class WeeklyReportService
                 ->where('sugarType','=','MOLASSES')
                 ->where('crop_year','=',$weekly_report->crop_year)
                 ->where('mill_code','=', $weekly_report->mill_code)
-//                ->where('report_no','<=', $report_no != 0 ? $report_no * 1 : $weekly_report->report_no * 1)
+                ->where('report_no','<=', $report_no != 0 ? $report_no * 1 : $weekly_report->report_no * 1)
                 ->where('report_no','<=', $report_no)
                 ->groupBy('transactionType','alias')
                 ->orderBy('sms_subsidiaries.id','asc')
@@ -751,12 +751,19 @@ class WeeklyReportService
 
         //carryOver
         $formArray['carryOver'] = $this->makeCurrentPrev($relation->carryOver ?? null, $relation->prev_carryOver ?? null);
+        $formArray['carryOver']['prev'] = $relation->prev_carryOver ?? null;
         //receipts
         $formArray['receipts'] = $this->makeCurrentPrev($relation->receipts ?? null, $relation->prev_receipts ?? null);
+        $formArray['receipts']['prev'] = $relation->prev_receipts ?? null;
         //withdrawals
         $formArray['withdrawals'] = $this->makeCurrentPrev($relation->withdrawals ?? null, $relation->prev_withdrawals ?? null);
+        $formArray['withdrawals']['prev'] = $relation->prev_withdrawals ?? null;
         //transferToRefinery
         $formArray['transferToRefinery'] = $this->makeCurrentPrev($relation->transferToRefinery ?? null, $relation->prev_transferToRefinery ?? null);
+        $formArray['transferToRefinery']['prev'] = $relation->prev_transferToRefinery ?? null;
+        //transferToSubsidiary
+        $formArray['transferToSubsidiary'] = $this->makeCurrentPrev($relation->transferToSubsidiary ?? null, $relation->prev_transferToSubsidiary ?? null);
+        $formArray['transferToSubsidiary']['prev'] = $relation->prev_transferToSubsidiary ?? null;
 
 
         //subsidiaries
@@ -768,8 +775,9 @@ class WeeklyReportService
                 ->where('sugarType','=','RAW')
                 ->where('crop_year','=',$weekly_report->crop_year)
                 ->where('mill_code','=', $weekly_report->mill_code)
-//                ->where('report_no','<=', $report_no != 0 ? $report_no * 1 : $weekly_report->report_no * 1)
-                ->where('report_no','=<', $report_no)
+                ->where('report_no','<=', $report_no != 0 ? $report_no * 1 : $weekly_report->report_no * 1)
+//                PREVIOUS WEEK FIX
+                ->where('report_no','<=', $report_no)
                 ->groupBy('transactionType','alias')
                 ->orderBy('sms_subsidiaries.id','asc')
                 ->get();
@@ -816,22 +824,25 @@ class WeeklyReportService
     public function form4aComputation($slug, $get = '',$report_no = 0){
         $formArray = [];
         $weekly_report = $this->findWeeklyReportBySlug($slug);
-
         if($get == 'toDate'){
-            $relation = $weekly_report->form4aToDateAsOf($report_no != 0 ? $report_no : $weekly_report->report_no * 1);
-
+//            $relation = $weekly_report->form4aToDateAsOf($report_no != 0 ? $report_no : $weekly_report->report_no * 1);
+            $relation = $weekly_report->form4aToDateAsOf($report_no ?? $weekly_report->report_no * 1);
         }else{
             $relation = $weekly_report->form4a;
         }
 
         //carryOver
         $formArray['carryOver'] = $this->makeCurrentPrev($relation->carryOver ?? null, $relation->prev_carryOver ?? null);
+        $formArray['carryOver']['prev'] = $relation->prev_carryOver ?? null;
         //receipts
         $formArray['receipts'] = $this->makeCurrentPrev($relation->receipts ?? null, $relation->prev_receipts ?? null);
+        $formArray['receipts']['prev'] = $relation->prev_receipts ?? null;
         //withdrawals
         $formArray['withdrawals'] = $this->makeCurrentPrev($relation->withdrawals ?? null, $relation->prev_withdrawals ?? null);
+        $formArray['withdrawals']['prev'] = $relation->prev_withdrawals ?? null;
         //transferToRefinery
         $formArray['transferToRefinery'] = $this->makeCurrentPrev($relation->transferToRefinery ?? null, $relation->prev_transferToRefinery ?? null);
+        $formArray['transferToRefinery']['prev'] = $relation->prev_transferToRefinery ?? null;
 
 
         //subsidiaries
@@ -843,8 +854,8 @@ class WeeklyReportService
                 ->where('sugarType','=','REFINED')
                 ->where('crop_year','=',$weekly_report->crop_year)
                 ->where('mill_code','=', $weekly_report->mill_code)
-//                ->where('report_no','<=', $report_no != 0 ? $report_no * 1 : $weekly_report->report_no * 1)
-                ->where('report_no','=<', $report_no)
+                ->where('report_no','<=', $report_no != 0 ? $report_no * 1 : $weekly_report->report_no * 1)
+                ->where('report_no','<=', $report_no)
                 ->groupBy('transactionType','alias')
                 ->orderBy('sms_subsidiaries.id','asc')
                 ->get();
@@ -883,6 +894,7 @@ class WeeklyReportService
             $formArray['totals'][$key]['prev'] = number_format(array_sum(array_column($formArray['subsidiaries'][$key],'prev')),3);
         }
 
+//        dd($formArray);
         return $formArray;
     }
 
