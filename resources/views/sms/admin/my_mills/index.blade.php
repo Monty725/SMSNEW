@@ -45,22 +45,49 @@
                                                     <td>
                                                         <div class="row">
                                                             @foreach($weeks as $week => $report_no)
+                                                                @php
+                                                                    $btnClass = 'btn-default'; // default gray
+                                                                    if(isset($submissions[$week])){
+                                                                        $btnClass = $submissions[$week]['status'] == 1 ? 'btn-success' : 'btn-primary';
+                                                                    }
+                                                                @endphp
+
                                                                 <div class="col-md-12">
                                                                     <button
-                                                                            class="view_week_btn btn btn-sm {{ isset($submissions[$week]) ? 'btn-success' : 'btn-default'}}"
+                                                                            class="view_week_btn btn btn-sm {{ $btnClass }}"
                                                                             style="width: 100%; margin-bottom: 10px;font-family: Consolas"
                                                                             {{ isset($submissions[$week]) ? '' : 'disabled' }}
-                                                                            data="{{ $submissions[$week] ?? null }}"
+                                                                            data="{{ isset($submissions[$week]) ? $submissions[$week]['slug'] : null }}"
                                                                             data-toggle="modal"
                                                                             data-target="#view_week_modal"
                                                                     >
-                                                                        {{$report_no}} : {{Carbon::parse($week)->format('M d')}}
+                                                                        {{$report_no}} : {{ \Carbon\Carbon::parse($week)->format('M d') }}
                                                                     </button>
                                                                 </div>
                                                             @endforeach
                                                         </div>
                                                     </td>
                                                 @endforeach
+{{--                                                @foreach($months as $month => $weeks)--}}
+{{--                                                    <td>--}}
+{{--                                                        <div class="row">--}}
+{{--                                                            @foreach($weeks as $week => $report_no)--}}
+{{--                                                                <div class="col-md-12">--}}
+{{--                                                                    <button--}}
+{{--                                                                            class="view_week_btn btn btn-sm {{ isset($submissions[$week]) ? 'btn-success' : 'btn-default'}}"--}}
+{{--                                                                            style="width: 100%; margin-bottom: 10px;font-family: Consolas"--}}
+{{--                                                                            {{ isset($submissions[$week]) ? '' : 'disabled' }}--}}
+{{--                                                                            data="{{ $submissions[$week] ?? null }}"--}}
+{{--                                                                            data-toggle="modal"--}}
+{{--                                                                            data-target="#view_week_modal"--}}
+{{--                                                                    >--}}
+{{--                                                                        {{$report_no}} : {{Carbon::parse($week)->format('M d')}}--}}
+{{--                                                                    </button>--}}
+{{--                                                                </div>--}}
+{{--                                                            @endforeach--}}
+{{--                                                        </div>--}}
+{{--                                                    </td>--}}
+{{--                                                @endforeach--}}
                                             </tr>
                                             </tbody>
                                         </table>

@@ -62,7 +62,8 @@
                         </div>
                         <div class="col-md-10">
 
-                            <fieldset {{$wr->status == 1 ? 'disabled' : null}}>
+{{--                            <fieldset {{$wr->status == 1 ? 'disabled' : null}}>--}}
+                            <fieldset {{ in_array($wr->status, [1, 2]) ? 'disabled' : '' }}>
                                 <div class="row">
                                     <div class="col-md-12">
 

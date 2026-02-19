@@ -40,17 +40,38 @@ class MyMillsController extends Controller
         $cy = '2022-2023';
         $submitted = [];
         $mill = SugarMills::query()->where('slug',$mill_code)->first();
+//        $wrs = WeeklyReports::query()
+//            ->where('mill_code','=',$mill_code)
+////            ->where('status','=',2)
+//            ->whereIn('status', [1, 2])
+//            ->pluck('slug','week_ending');
+
         $wrs = WeeklyReports::query()
-            ->where('mill_code','=',$mill_code)
-            ->where('status','=',1)
-            ->pluck('slug','week_ending');
+            ->where('mill_code', $mill_code)
+            ->whereIn('status', [1, 2])
+            ->get(['slug', 'week_ending', 'status']);
+
+        $submissions = [];
+        foreach($wrs as $wr){
+            $submissions[$wr->week_ending] = [
+                'slug' => $wr->slug,
+                'status' => $wr->status
+            ];
+        }
 
         return view('sms.admin.my_mills.index')->with([
             'mill_code' => $mill_code,
             'calendar' => $this->calendarService->byYear(),
-            'submissions' => $wrs->toArray(),
+            'submissions' => $submissions,
             'sros' =>  $this->sroMonitoring($mill_code),
         ]);
+
+//        return view('sms.admin.my_mills.index')->with([
+//            'mill_code' => $mill_code,
+//            'calendar' => $this->calendarService->byYear(),
+//            'submissions' => $wrs->toArray(),
+//            'sros' =>  $this->sroMonitoring($mill_code),
+//        ]);
 
 
     }

@@ -13,7 +13,7 @@
             <span class="caret"></span>
         </button>
         <ul class="dropdown-menu dropdown-menu-right">
-            @if($data->status != 1 && $data->status != -1)
+            @if($data->status != 1 && $data->status != -1 && $data->status != 2)
                 <li>
                     <a href="#" uri="{{route('dashboard.weekly_report.submit',$data->slug)}}" data="{{$data->slug}}"  class="submitBtn"  reportNo="{{$data->report_no}}" cropYear="{{$data->crop_year}}" weekEnding="{{\Illuminate\Support\Carbon::parse($data->week_ending)->format('F d, Y')}}" data-toggle="tooltip" title="Submit weekly report" data-placement="top">
                         <i class="fa fa-sign-out"></i> SUBMIT
@@ -25,7 +25,7 @@
                     </a>
                 </li>
             @endif
-            @if($data->status == 1)
+            @if($data->status == 1 || $data->status == 2)
                 <li>
                     <a href="#" style="color: #dd4b39" uri="{{route('dashboard.weekly_report.cancel',$data->slug)}}" data="{{$data->slug}}" class="saveAsNewBtn" reportNo="{{$data->report_no}}" cropYear="{{$data->crop_year}}" data-toggle="tooltip" title="Delete" data-placement="top">
                         <i class="fa fa-times"></i> REQUEST TO CANCEL

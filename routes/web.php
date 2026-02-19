@@ -7,6 +7,7 @@ use App\Models\SMS\InputFields;
 use App\Swep\Helpers\Helper;
 use Rats\Zkteco\Lib\ZKTeco;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use App\Http\Controllers\SMS\WeeklyReportController;
 
 
 
@@ -98,6 +99,7 @@ Route::group(['prefix'=>'dashboard', 'as' => 'dashboard.',
     Route::post('weekly_report/{slug}/saveAsNew','SMS\WeeklyReportController@saveAsNew')->name('weekly_report.saveAsNew');
     Route::post('weekly_report/{slug}/cancel','SMS\WeeklyReportController@cancel')->name('weekly_report.cancel');
     Route::post('weekly_report/{slug}/submit','SMS\WeeklyReportController@submit')->name('weekly_report.submit');
+
 
 
 
@@ -311,6 +313,10 @@ Route::patch('/raw/{slug}/delete', [\App\Http\Controllers\SMS\Form5a\IssuanceOfS
 Route::post('/form5a/issuance-of-sro/mark-deleted/{slug}', [\App\Http\Controllers\SMS\Form5a\IssuanceOfSroController::class, 'markDeleted5a'])
     ->name('dashboard.form5a_issuanceOfSro.markDeleted5a');
 
+Route::post('weekly_report/{slug}/approve','SMS\WeeklyReportController@approve')->name('weekly_report.approve');
+Route::post('weekly_report/{slug}/approve', [WeeklyReportController::class, 'approve'])
+    ->name('wr.approve');
 
-
-
+Route::post('weekly_report/{slug}/deny','SMS\WeeklyReportController@deny')->name('weekly_report.deny');
+Route::post('weekly_report/{slug}/deny', [WeeklyReportController::class, 'deny'])
+    ->name('wr.deny');

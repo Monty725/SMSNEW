@@ -28,6 +28,7 @@ class StatusService
         return [
             -2 => 'PENDING CANCELLATION',
             -1 => 'CANCELLED',
+            2 => 'FORWARDED',
             1 => 'SUBMITTED',
         ];
     }

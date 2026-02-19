@@ -62,9 +62,13 @@ class WeeklyReportController extends Controller
                         'destroyRoute' => $destroy_route,
                     ]);
                 })
+//                STATUS COLOR MANAGE WEEKLY REPORT LOUIS
                 ->addColumn('status',function($data){
                     if($data->status == 1){
                         return '<span class="label label-success"><i class="fa fa-check"></i> SUBMITTED</span>';
+                    }
+                    if($data->status == 2){
+                        return '<span class="label label-primary"><i class="fa fa-check"></i> FORWARDED</span>';
                     }
                     if($data->status == -1){
                         return '<span class="label label-danger"><i class="fa fa-times"></i> CANCELED</span>';
@@ -588,7 +592,7 @@ class WeeklyReportController extends Controller
         if($wr->requestsForCancellationNoAction()->count() > 0){
             abort(503,'This report has a pending request for cancellation.');
         }
-        if($wr->status != 1){
+        if($wr->status != 1 && $wr->status != 2){
             abort(503,'Non submitted reports cannot be cancelled');
         }
 
@@ -702,12 +706,38 @@ class WeeklyReportController extends Controller
 
     public function submit($slug){
         $wr = $this->findBySlug($slug);
+        $wr->status  = 2;
+        $wr->submitted_at = Carbon::now();
+        $wr->user_submitted = Auth::user()->user_id;
+        $this->weeklyReportService->updateSignatories($slug);
+        if($wr->save()){
+            $this->statusService->updateStatus($slug,2,'Forwarded at: '.Carbon::parse($wr->submitted_at)->format('M. d, Y | h:i A'));
+            return $wr->only('slug');
+        }
+        abort(503, 'Error submitting weekly report.');
+    }
+
+    public function approve($slug){
+        $wr = $this->findBySlug($slug);
         $wr->status  = 1;
         $wr->submitted_at = Carbon::now();
         $wr->user_submitted = Auth::user()->user_id;
         $this->weeklyReportService->updateSignatories($slug);
         if($wr->save()){
-            $this->statusService->updateStatus($slug,1,'Submitted at: '.Carbon::parse($wr->submitted_at)->format('M. d, Y | h:i A'));
+            $this->statusService->updateStatus($slug,1,'Approved at: '.Carbon::parse($wr->submitted_at)->format('M. d, Y | h:i A'));
+            return $wr->only('slug');
+        }
+        abort(503, 'Error submitting weekly report.');
+    }
+
+    public function deny($slug){
+        $wr = $this->findBySlug($slug);
+        $wr->status  = null;
+        $wr->submitted_at = Carbon::now();
+        $wr->user_submitted = Auth::user()->user_id;
+        $this->weeklyReportService->updateSignatories($slug);
+        if($wr->save()){
+            $this->statusService->updateStatus($slug,null,'Denied at: '.Carbon::parse($wr->submitted_at)->format('M. d, Y | h:i A'));
             return $wr->only('slug');
         }
         abort(503, 'Error submitting weekly report.');
