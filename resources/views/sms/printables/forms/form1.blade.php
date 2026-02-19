@@ -57,12 +57,12 @@
             @foreach($rowsissuances as $sugarclass => $issuances)
                 <tr>
                     <td><span class="indent"></span><span class="indent"></span> {{$sugarclass}}</td>
-                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($issuances["currentCrop"]["thisWeek"] ?? 0,3)}}</td>
-                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($issuances["currentCrop"]["prevWeek"] ?? 0 ,3)}}</td>
-                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($issuances["currentCrop"]["toDate"] ?? 0 ,3)}}</td>
-                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($issuances["prevCrop"]["thisWeek"] ?? 0,3)}}</td>
-                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($issuances["prevCrop"]["prevWeek"] ?? 0 ,3)}}</td>
-                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($issuances["prevCrop"]["toDate"] ?? 0 ,3)}}</td>
+                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($issuances["currentCrop"]["thisWeek"] ?? 0,4)}}</td>
+                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($issuances["currentCrop"]["prevWeek"] ?? 0 ,4)}}</td>
+                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($issuances["currentCrop"]["toDate"] ?? 0 ,4)}}</td>
+                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($issuances["prevCrop"]["thisWeek"] ?? 0,4)}}</td>
+                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($issuances["prevCrop"]["prevWeek"] ?? 0 ,4)}}</td>
+                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($issuances["prevCrop"]["toDate"] ?? 0 ,4)}}</td>
                 </tr>
             @endforeach
         @endif
@@ -97,12 +97,12 @@
                         <span class="indent"></span><span class="indent"></span>
                         {{ str_replace('_', ' ', $sugarclass) }}
                     </td>
-                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($withdrawals["currentCrop"]["thisWeek"] ?? 0,3)}}</td>
-                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($withdrawals["currentCrop"]["prevWeek"] ?? 0 ,3)}}</td>
-                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($withdrawals["currentCrop"]["toDate"] ?? 0 ,3)}}</td>
-                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($withdrawals["prevCrop"]["thisWeek"] ?? 0,3)}}</td>
-                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($withdrawals["prevCrop"]["prevWeek"] ?? 0 ,3)}}</td>
-                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($withdrawals["prevCrop"]["toDate"] ?? 0 ,3)}}</td>
+                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($withdrawals["currentCrop"]["thisWeek"] ?? 0,4)}}</td>
+                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($withdrawals["currentCrop"]["prevWeek"] ?? 0 ,4)}}</td>
+                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($withdrawals["currentCrop"]["toDate"] ?? 0 ,4)}}</td>
+                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($withdrawals["prevCrop"]["thisWeek"] ?? 0,4)}}</td>
+                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($withdrawals["prevCrop"]["prevWeek"] ?? 0 ,4)}}</td>
+                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($withdrawals["prevCrop"]["toDate"] ?? 0 ,4)}}</td>
                 </tr>
             @endforeach
         @endif
@@ -135,12 +135,12 @@
                         <span class="indent"></span><span class="indent"></span>
                         {{ str_replace('_', ' ', $sugarclass) }}
                     </td>
-                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($withdrawals["currentCrop"]["thisWeek"] ?? 0,3)}}</td>
-                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($withdrawals["currentCrop"]["prevWeek"] ?? 0 ,3)}}</td>
-                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($withdrawals["currentCrop"]["toDate"] ?? 0 ,3)}}</td>
-                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($withdrawals["prevCrop"]["thisWeek"] ?? 0,3)}}</td>
-                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($withdrawals["prevCrop"]["prevWeek"] ?? 0 ,3)}}</td>
-                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($withdrawals["prevCrop"]["toDate"] ?? 0 ,3)}}</td>
+                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($withdrawals["currentCrop"]["thisWeek"] ?? 0,4)}}</td>
+                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($withdrawals["currentCrop"]["prevWeek"] ?? 0 ,4)}}</td>
+                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($withdrawals["currentCrop"]["toDate"] ?? 0 ,4)}}</td>
+                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($withdrawals["prevCrop"]["thisWeek"] ?? 0,4)}}</td>
+                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($withdrawals["prevCrop"]["prevWeek"] ?? 0 ,4)}}</td>
+                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($withdrawals["prevCrop"]["toDate"] ?? 0 ,4)}}</td>
                 </tr>
             @endforeach
         @endif
@@ -168,12 +168,12 @@
             @foreach($rowsbalance as $sugarclass => $balance)
                 <tr>
                     <td><span class="indent"></span><span class="indent"></span> {{$sugarclass}}</td>
-                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($balance["currentCrop"]["thisWeek"] ?? 0,3)}}</td>
-                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($balance["currentCrop"]["prevWeek"] ?? 0 ,3)}}</td>
-                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($balance["currentCrop"]["toDate"] ?? 0 ,3)}}</td>
-                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($balance["prevCrop"]["thisWeek"] ?? 0,3)}}</td>
-                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($balance["prevCrop"]["prevWeek"] ?? 0 ,3)}}</td>
-                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($balance["prevCrop"]["toDate"] ?? 0 ,3)}}</td>
+                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($balance["currentCrop"]["thisWeek"] ?? 0,4)}}</td>
+                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($balance["currentCrop"]["prevWeek"] ?? 0 ,4)}}</td>
+                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($balance["currentCrop"]["toDate"] ?? 0 ,4)}}</td>
+                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($balance["prevCrop"]["thisWeek"] ?? 0,4)}}</td>
+                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($balance["prevCrop"]["prevWeek"] ?? 0 ,4)}}</td>
+                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($balance["prevCrop"]["toDate"] ?? 0 ,4)}}</td>
                 </tr>
             @endforeach
         @endif
@@ -230,13 +230,13 @@
         <tr>
             <td>9. TONS DUE CANE</td>
             <td class="text-right">
-                {{ \App\Swep\Helpers\Helper::toNumber($form1['tdc']['current'] ?? null,3) }}
+                {{ \App\Swep\Helpers\Helper::toNumber($form1['tdc']['current'] ?? null,4) }}
             </td>
             <td class="text-right">
-                {{ \App\Swep\Helpers\Helper::toNumber($prevToDateForm1['tdc']['current'] ?? null,3) }}
+                {{ \App\Swep\Helpers\Helper::toNumber($prevToDateForm1['tdc']['current'] ?? null,4) }}
             </td>
             <td class="text-right">
-                {{ \App\Swep\Helpers\Helper::toNumber($wr->toDateForm1()->tdc ?? null,3) }}
+                {{ \App\Swep\Helpers\Helper::toNumber($wr->toDateForm1()->tdc ?? null,4) }}
             </td>
             <td class="text-strong" colspan="3">
                 QUEDAN ISSUANCES
@@ -246,13 +246,13 @@
         <tr>
             <td>10. GROSS TONS CANE MILLED</td>
             <td class="text-right">
-                {{ \App\Swep\Helpers\Helper::toNumber($form1['gtcm']['current']?? null,3) }}
+                {{ \App\Swep\Helpers\Helper::toNumber($form1['gtcm']['current']?? null,4) }}
             </td>
             <td class="text-right">
-                {{ \App\Swep\Helpers\Helper::toNumber($prevToDateForm1['gtcm']['current'] ?? null,3) }}
+                {{ \App\Swep\Helpers\Helper::toNumber($prevToDateForm1['gtcm']['current'] ?? null,4) }}
             </td>
             <td class="text-right">
-                {{ \App\Swep\Helpers\Helper::toNumber($wr->toDateForm1()->gtcm ?? null,3) }}
+                {{ \App\Swep\Helpers\Helper::toNumber($wr->toDateForm1()->gtcm ?? null,4) }}
             </td>
             @if(!empty($details_arr['RAW']['seriesNos']['A']))
                 <td colspan="3">
@@ -296,13 +296,13 @@
             <tr>
                 <td>9B. TONS DUE SYRUP</td>
                 <td class="text-right">
-                    {{ \App\Swep\Helpers\Helper::toNumber($form1['tds']['current'] ?? null,3) }}
+                    {{ \App\Swep\Helpers\Helper::toNumber($form1['tds']['current'] ?? null,4) }}
                 </td>
                 <td class="text-right">
-                    {{ \App\Swep\Helpers\Helper::toNumber($prevToDateForm1['tds']['current'] ?? null,3) }}
+                    {{ \App\Swep\Helpers\Helper::toNumber($prevToDateForm1['tds']['current'] ?? null,4) }}
                 </td>
                 <td class="text-right">
-                    {{ \App\Swep\Helpers\Helper::toNumber($wr->toDateForm1()->tds ?? null,3) }}
+                    {{ \App\Swep\Helpers\Helper::toNumber($wr->toDateForm1()->tds ?? null,4) }}
                 </td>
                 <td class="text-right">
                 </td>
@@ -313,13 +313,13 @@
             <tr>
                 <td>10B. EQUIVALENT GTCM</td>
                 <td class="text-right">
-                    {{ \App\Swep\Helpers\Helper::toNumber($form1['egtcm']['current']?? null,3) }}
+                    {{ \App\Swep\Helpers\Helper::toNumber($form1['egtcm']['current']?? null,4) }}
                 </td>
                 <td class="text-right">
-                    {{ \App\Swep\Helpers\Helper::toNumber($prevToDateForm1['egtcm']['current'] ?? null,3) }}
+                    {{ \App\Swep\Helpers\Helper::toNumber($prevToDateForm1['egtcm']['current'] ?? null,4) }}
                 </td>
                 <td class="text-right">
-                    {{ \App\Swep\Helpers\Helper::toNumber($wr->toDateForm1()->egtcm ?? null,3) }}
+                    {{ \App\Swep\Helpers\Helper::toNumber($wr->toDateForm1()->egtcm ?? null,4) }}
                 </td>
                 <td class="text-right">
                 </td>
@@ -330,13 +330,13 @@
             <tr>
                 <td>11B. LKG/TC, Gross - Syrup</td>
                 <td class="text-right">
-                    {{ \App\Swep\Helpers\Helper::toNumber($form1['lkgtc_gross_syrup']['current']?? null,3) }}
+                    {{ \App\Swep\Helpers\Helper::toNumber($form1['lkgtc_gross_syrup']['current']?? null,4) }}
                 </td>
                 <td class="text-right">
-                    {{ \App\Swep\Helpers\Helper::toNumber($prevToDateForm1['lkgtc_gross_syrup']['current'] ?? null,3) }}
+                    {{ \App\Swep\Helpers\Helper::toNumber($prevToDateForm1['lkgtc_gross_syrup']['current'] ?? null,4) }}
                 </td>
                 <td class="text-right">
-                    {{ \App\Swep\Helpers\Helper::toNumber($toDateForm1['lkgtc_gross_syrup']['current'] ?? null,3) }}
+                    {{ \App\Swep\Helpers\Helper::toNumber($toDateForm1['lkgtc_gross_syrup']['current'] ?? null,4) }}
                 </td>
                 <td class="text-right">
                 </td>
@@ -365,13 +365,13 @@
         <tr>
             <td>12. A. PLANTER'S SHARE	</td>
             <td class="text-right">
-                {{ \App\Swep\Helpers\Helper::toNumber($wr->form1->share_planter ?? null,3) }}
+                {{ \App\Swep\Helpers\Helper::toNumber($wr->form1->share_planter ?? null,4) }}
             </td>
             <td class="text-right">
-                {{ \App\Swep\Helpers\Helper::toNumber($prevToDateForm1['share_planter']['current'] ?? null,3) }}
+                {{ \App\Swep\Helpers\Helper::toNumber($prevToDateForm1['share_planter']['current'] ?? null,4) }}
             </td>
             <td class="text-right">
-                {{ \App\Swep\Helpers\Helper::toNumber($wr->toDateForm1()->share_planter ?? null,3) }}
+                {{ \App\Swep\Helpers\Helper::toNumber($wr->toDateForm1()->share_planter ?? null,4) }}
             </td>
             @if(!empty($details_arr['RAW']['seriesNos']['C']))
                 <td colspan="3">
@@ -388,13 +388,13 @@
         <tr>
             <td>12. B. MILLER'S SHARE	</td>
             <td class="text-right">
-                {{ \App\Swep\Helpers\Helper::toNumber($wr->form1->share_miller ?? null,3) }}
+                {{ \App\Swep\Helpers\Helper::toNumber($wr->form1->share_miller ?? null,4) }}
             </td>
             <td class="text-right">
-                {{ \App\Swep\Helpers\Helper::toNumber($prevToDateForm1['share_miller']['current'] ?? null,3) }}
+                {{ \App\Swep\Helpers\Helper::toNumber($prevToDateForm1['share_miller']['current'] ?? null,4) }}
             </td>
             <td class="text-right">
-                {{ \App\Swep\Helpers\Helper::toNumber($wr->toDateForm1()->share_miller ?? null,3) }}
+                {{ \App\Swep\Helpers\Helper::toNumber($wr->toDateForm1()->share_miller ?? null,4) }}
             </td>
             @if(!empty($details_arr['RAW']['seriesNos']['D']))
                 <td colspan="3">
@@ -477,14 +477,14 @@
             <td>15. Remarks: </td>
             <td colspan="9">
                 @php
-                    $currentNet = \App\Swep\Helpers\Helper::toNumber($form1['lkgtc_net']['current'] ?? 0, 3);
+                    $currentNet = \App\Swep\Helpers\Helper::toNumber($form1['lkgtc_net']['current'] ?? 0, 4);
                 @endphp
 
                 @if ($currentNet !== '0.000')
                     LKGTC/NET:
                     Current: {{ $currentNet }} ||&nbsp;
-                    Previous: {{ \App\Swep\Helpers\Helper::toNumber($prevToDateForm1['lkgtc_net']['current'] ?? 0, 3) }} ||&nbsp;
-                    To Date: {{ \App\Swep\Helpers\Helper::toNumber($toDateForm1['lkgtc_net']['current'] ?? 0, 3) }} ||&nbsp;
+                    Previous: {{ \App\Swep\Helpers\Helper::toNumber($prevToDateForm1['lkgtc_net']['current'] ?? 0, 4) }} ||&nbsp;
+                    To Date: {{ \App\Swep\Helpers\Helper::toNumber($toDateForm1['lkgtc_net']['current'] ?? 0, 4) }} ||&nbsp;
                 @endif
                 {{ $wr->form1->remarks ?? null}}
             </td>

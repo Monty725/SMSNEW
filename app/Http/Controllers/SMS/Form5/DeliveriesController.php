@@ -37,7 +37,7 @@ class DeliveriesController extends Controller
                     return $button;
                 })
                 ->editColumn('qty',function($data){
-                    return number_format($data->qty ?? $data->qty_prev,3);
+                    return number_format($data->qty ?? $data->qty_prev,4);
                 })
                 ->editColumn('sugar_class',function($data){
                     if($data->refining == 1){
@@ -57,9 +57,9 @@ class DeliveriesController extends Controller
 
         return [
             'totalDeliveries' => [
-                'current' => number_format($i->qty,3),
-                'prev' => number_format($i->qty_prev,3),
-                'total' => number_format($i->qty + $i->qty_prev,3),
+                'current' => number_format($i->qty,4),
+                'prev' => number_format($i->qty_prev,4),
+                'total' => number_format($i->qty + $i->qty_prev,4),
             ],
         ];
     }

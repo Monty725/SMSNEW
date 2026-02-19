@@ -43,7 +43,7 @@ class Helper
 
     //LOUIS 8-19-2024
 
-    public static function toNumber($value, $decimals = 3)
+    public static function toNumber($value, $decimals = 4)
     {
         if (is_null($value)) {
             return null;

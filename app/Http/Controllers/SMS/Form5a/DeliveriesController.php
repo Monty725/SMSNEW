@@ -38,16 +38,16 @@ class DeliveriesController extends Controller
                 })
                 ->editColumn('qty_standard',function($data){
                     if($data->qty_standard != null){
-                        return number_format($data->qty_standard,3);
+                        return number_format($data->qty_standard,4);
                     }
                 })
                 ->editColumn('qty_premium',function($data){
                     if($data->qty_premium != null){
-                        return number_format($data->qty_premium,3);
+                        return number_format($data->qty_premium,4);
                     }
                 })
                 ->editColumn('qty_total',function($data){
-                    return number_format($data->qty_total,3);
+                    return number_format($data->qty_total,4);
                 })
                 ->escapeColumns([])
                 ->setRowId('slug')
@@ -61,9 +61,9 @@ class DeliveriesController extends Controller
 
         return [
             'totalDeliveries' => [
-                'qty_standard' => number_format($i->qty_standard,3),
-                'qty_premium' => number_format($i->qty_premium,3),
-                'total' => number_format($i->qty_total,3),
+                'qty_standard' => number_format($i->qty_standard,4),
+                'qty_premium' => number_format($i->qty_premium,4),
+                'total' => number_format($i->qty_total,4),
             ],
         ];
     }

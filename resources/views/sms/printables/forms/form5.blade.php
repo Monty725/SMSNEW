@@ -42,7 +42,7 @@
                         {{$form5IssuancesOfSro->sugar_class}} {{($form5IssuancesOfSro->refining == 1 ? ' - Refining' : '')}}
                         {{(!empty($form5IssuancesOfSro->qty_prev) ? ', Previous' : null)}}
                     </td>
-                    <td class="text-right">{{number_format($form5IssuancesOfSro->qty ?? $form5IssuancesOfSro->qty_prev ,3)}}</td>
+                    <td class="text-right">{{number_format($form5IssuancesOfSro->qty ?? $form5IssuancesOfSro->qty_prev ,4)}}</td>
                 </tr>
             @endforeach
         @endif
@@ -51,7 +51,7 @@
                 TOTAL
             </td>
             <td class="text-strong text-right">
-                {{number_format($total,3)}}
+                {{number_format($total,4)}}
             </td>
         </tr>
         </tbody>
@@ -90,10 +90,10 @@
 
                                 @if($form5Deliveries->qty != null)
                                     @php($totals[$class] = $totals[$class] + $form5Deliveries->qty)
-                                    {{number_format($form5Deliveries->qty,3)}}
+                                    {{number_format($form5Deliveries->qty,4)}}
                                 @else
                                     @php($totals[$class] = $totals[$class] + $form5Deliveries->qty_prev)
-                                    {{number_format($form5Deliveries->qty_prev,3)}}
+                                    {{number_format($form5Deliveries->qty_prev,4)}}
                                 @endif
                             </td>
                         @else
@@ -108,7 +108,7 @@
             <td colspan="2"></td>
             @foreach($usedSugarClassesArray as $class)
                 <td class="text-right">
-                    {{number_format($totals[$class] , 3)}}
+                    {{number_format($totals[$class] , 4)}}
                 </td>
             @endforeach
         </tr>

@@ -137,22 +137,22 @@ class MyMillsController extends Controller
             });
         return \DataTables::of($form5Issuances)
             ->addColumn('qty',function($data){
-                return Helper::toNumber($data->qty,3,'');
+                return Helper::toNumber($data->qty,4,'');
             })
             ->addColumn('qty_prev',function($data){
-                return Helper::toNumber($data->qty_prev,3,'');
+                return Helper::toNumber($data->qty_prev,4,'');
             })
             ->addColumn('d_c',function($data){
-                return Helper::toNumber($data->deliveries->sum('qty') ?? 0,3,'');
+                return Helper::toNumber($data->deliveries->sum('qty') ?? 0,4,'');
             })
             ->addColumn('d_p',function($data){
-                return Helper::toNumber($data->deliveries->sum('qty_prev') ?? 0,3,'');
+                return Helper::toNumber($data->deliveries->sum('qty_prev') ?? 0,4,'');
             })
             ->addColumn('b_c',function($data){
-                return Helper::toNumber($data->qty - ($data->deliveries->sum('qty') ?? 0),3,'');
+                return Helper::toNumber($data->qty - ($data->deliveries->sum('qty') ?? 0),4,'');
             })
             ->addColumn('b_p',function($data){
-                return Helper::toNumber($data->qty_prev - ($data->deliveries->sum('qty_prev') ?? 0),3,'');
+                return Helper::toNumber($data->qty_prev - ($data->deliveries->sum('qty_prev') ?? 0),4,'');
             })
             ->addColumn('action',function($data){
                 
