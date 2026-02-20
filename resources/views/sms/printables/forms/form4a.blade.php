@@ -172,12 +172,12 @@
                 <span style="font-weight:700;">3. TOTAL STOCKS</span> (Millsite & Subsidiary Warehouses)
             </td>
 
-            <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($total['stockBalances']['current'] + $stock_current4a)}}</td>
-            <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($total['stockBalances']['prevCWeek'] + $stock_prevToDate_current4a)}}</td>
-            <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($total['stockBalances']['toCDate'] + $stock_toDate_current4a)}}</td>
-            <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($total['stockBalances']['prev'] + $stock_prev4a)}}</td>
-            <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($total['stockBalances']['prevPWeek'] + $stock_prevToDate_prev4a)}}</td>
-            <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($total['stockBalances']['toPDate'] + $stock_toDate_prev4a)}}</td>
+{{--            <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($total['stockBalances']['current'] + $stock_current4a)}}</td>--}}
+{{--            <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($total['stockBalances']['prevCWeek'] + $stock_prevToDate_current4a)}}</td>--}}
+            <td colspan="3" class="text-right">{{\App\Swep\Helpers\Helper::toNumber($total['stockBalances']['toCDate'] + $stock_toDate_current4a)}}</td>
+{{--            <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($total['stockBalances']['prev'] + $stock_prev4a)}}</td>--}}
+{{--            <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($total['stockBalances']['prevPWeek'] + $stock_prevToDate_prev4a)}}</td>--}}
+            <td colspan="3" class="text-right">{{\App\Swep\Helpers\Helper::toNumber($total['stockBalances']['toPDate'] + $stock_toDate_prev4a)}}</td>
         </tr>
         <tr style="font-weight:600; height:50px;">
             <td style="width:400px;">
