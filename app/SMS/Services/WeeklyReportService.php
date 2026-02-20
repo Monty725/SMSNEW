@@ -730,10 +730,42 @@ class WeeklyReportService
             }
         }
 
-        foreach (Arrays::subsidiaryItems() as $key => $item){
-            $formArray['totals'][$key]['current'] = number_format(array_sum(array_column($formArray['subsidiaries'][$key],'current')),3);
-            $formArray['totals'][$key]['prev'] = number_format(array_sum(array_column($formArray['subsidiaries'][$key],'prev')),3);
+        //        STOCK BALANCE ON PRINT LOUIS
+        $carryKey = 'carryOver';
+        $receiptKey = 'receipts';
+        $withdrawKey = 'withdrawals';
+        $stockKey = 'stockBalances';
+
+        foreach ($warehouseArray as $alias => $wh) {
+
+            $carry = $formArray['subsidiaries'][$carryKey][$alias]['current'] ?? 0;
+            $receipt = $formArray['subsidiaries'][$receiptKey][$alias]['current'] ?? 0;
+            $withdraw = $formArray['subsidiaries'][$withdrawKey][$alias]['current'] ?? 0;
+
+            $formArray['subsidiaries'][$stockKey][$alias]['current'] =
+                $receipt - $withdraw;
+
+            // same for previous column
+            $carryPrev = $formArray['subsidiaries'][$carryKey][$alias]['prev'] ?? 0;
+            $receiptPrev = $formArray['subsidiaries'][$receiptKey][$alias]['prev'] ?? 0;
+            $withdrawPrev = $formArray['subsidiaries'][$withdrawKey][$alias]['prev'] ?? 0;
+
+            $formArray['subsidiaries'][$stockKey][$alias]['prev'] =
+                $carryPrev - $withdrawPrev;
         }
+
+        foreach (Arrays::subsidiaryItems() as $key => $item){
+            $formArray['totals'][$key]['current'] =
+                array_sum(array_column($formArray['subsidiaries'][$key],'current'));
+
+            $formArray['totals'][$key]['prev'] =
+                array_sum(array_column($formArray['subsidiaries'][$key],'prev'));
+        }
+
+//        foreach (Arrays::subsidiaryItems() as $key => $item){
+//            $formArray['totals'][$key]['current'] = number_format(array_sum(array_column($formArray['subsidiaries'][$key],'current')),4);
+//            $formArray['totals'][$key]['prev'] = number_format(array_sum(array_column($formArray['subsidiaries'][$key],'prev')),4);
+//        }
 
         return $formArray;
     }
@@ -811,9 +843,36 @@ class WeeklyReportService
             }
         }
 
+//        STOCK BALANCE ON PRINT LOUIS
+        $carryKey = 'carryOver';
+        $receiptKey = 'receipts';
+        $withdrawKey = 'withdrawals';
+        $stockKey = 'stockBalances';
+
+        foreach ($warehouseArray as $alias => $wh) {
+
+            $carry = $formArray['subsidiaries'][$carryKey][$alias]['current'] ?? 0;
+            $receipt = $formArray['subsidiaries'][$receiptKey][$alias]['current'] ?? 0;
+            $withdraw = $formArray['subsidiaries'][$withdrawKey][$alias]['current'] ?? 0;
+
+            $formArray['subsidiaries'][$stockKey][$alias]['current'] =
+                $receipt - $withdraw;
+
+            // same for previous column
+            $carryPrev = $formArray['subsidiaries'][$carryKey][$alias]['prev'] ?? 0;
+            $receiptPrev = $formArray['subsidiaries'][$receiptKey][$alias]['prev'] ?? 0;
+            $withdrawPrev = $formArray['subsidiaries'][$withdrawKey][$alias]['prev'] ?? 0;
+
+            $formArray['subsidiaries'][$stockKey][$alias]['prev'] =
+                $carryPrev - $withdrawPrev;
+        }
+
         foreach (Arrays::subsidiaryItems() as $key => $item){
-            $formArray['totals'][$key]['current'] = number_format(array_sum(array_column($formArray['subsidiaries'][$key],'current')),3);
-            $formArray['totals'][$key]['prev'] = number_format(array_sum(array_column($formArray['subsidiaries'][$key],'prev')),3);
+            $formArray['totals'][$key]['current'] =
+                array_sum(array_column($formArray['subsidiaries'][$key],'current'));
+
+            $formArray['totals'][$key]['prev'] =
+                array_sum(array_column($formArray['subsidiaries'][$key],'prev'));
         }
 
         return $formArray;
@@ -889,10 +948,42 @@ class WeeklyReportService
             }
         }
 
-        foreach (Arrays::subsidiaryItems() as $key => $item){
-            $formArray['totals'][$key]['current'] = number_format(array_sum(array_column($formArray['subsidiaries'][$key],'current')),3);
-            $formArray['totals'][$key]['prev'] = number_format(array_sum(array_column($formArray['subsidiaries'][$key],'prev')),3);
+        //        STOCK BALANCE ON PRINT LOUIS
+        $carryKey = 'carryOver';
+        $receiptKey = 'receipts';
+        $withdrawKey = 'withdrawals';
+        $stockKey = 'stockBalances';
+
+        foreach ($warehouseArray as $alias => $wh) {
+
+            $carry = $formArray['subsidiaries'][$carryKey][$alias]['current'] ?? 0;
+            $receipt = $formArray['subsidiaries'][$receiptKey][$alias]['current'] ?? 0;
+            $withdraw = $formArray['subsidiaries'][$withdrawKey][$alias]['current'] ?? 0;
+
+            $formArray['subsidiaries'][$stockKey][$alias]['current'] =
+                $receipt - $withdraw;
+
+            // same for previous column
+            $carryPrev = $formArray['subsidiaries'][$carryKey][$alias]['prev'] ?? 0;
+            $receiptPrev = $formArray['subsidiaries'][$receiptKey][$alias]['prev'] ?? 0;
+            $withdrawPrev = $formArray['subsidiaries'][$withdrawKey][$alias]['prev'] ?? 0;
+
+            $formArray['subsidiaries'][$stockKey][$alias]['prev'] =
+                $carryPrev - $withdrawPrev;
         }
+
+        foreach (Arrays::subsidiaryItems() as $key => $item){
+            $formArray['totals'][$key]['current'] =
+                array_sum(array_column($formArray['subsidiaries'][$key],'current'));
+
+            $formArray['totals'][$key]['prev'] =
+                array_sum(array_column($formArray['subsidiaries'][$key],'prev'));
+        }
+
+//        foreach (Arrays::subsidiaryItems() as $key => $item){
+//            $formArray['totals'][$key]['current'] = number_format(array_sum(array_column($formArray['subsidiaries'][$key],'current')),3);
+//            $formArray['totals'][$key]['prev'] = number_format(array_sum(array_column($formArray['subsidiaries'][$key],'prev')),3);
+//        }
 
 //        dd($formArray);
         return $formArray;

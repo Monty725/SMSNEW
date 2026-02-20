@@ -35,7 +35,7 @@ class IssuanceOfSroController extends Controller
                     return $button;
                 })
                 ->editColumn('qty',function($data){
-                    return number_format($data->qty ?? $data->qty_prev,3);
+                    return number_format($data->qty ?? $data->qty_prev,4);
                 })
                 ->editColumn('sugar_class',function($data){
                     return $data->sugar_class. ' '. ($data->refining == 1 ? ' - Refining' : '');
@@ -49,9 +49,9 @@ class IssuanceOfSroController extends Controller
     private function getTotalIssuances($weeklyReport){
         $i = IssuancesOfSro::query()->selectRaw('sum(qty) as qty, sum(qty_prev) as qty_prev')->where('weekly_report_slug','=',$weeklyReport)->first();
         return [
-            'totalCurrentIssuances' =>number_format($i->qty,3),
-            'totalPrevIssuances' =>number_format($i->qty_prev,3),
-            'totalIssuances' => number_format($i->qty + $i->qty_prev,3),
+            'totalCurrentIssuances' =>number_format($i->qty,4),
+            'totalPrevIssuances' =>number_format($i->qty_prev,4),
+            'totalIssuances' => number_format($i->qty + $i->qty_prev,4),
         ];
     }
     public function store(IssuanceFormRequest $request,WeeklyReportService $weeklyReportService){

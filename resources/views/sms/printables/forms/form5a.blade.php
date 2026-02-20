@@ -61,9 +61,9 @@
 
         <tr>
             <td colspan="3" class="text-strong">TOTAL</td>
-            <td class="text-right text-strong">{{number_format( $totals['rawQty'] , 3)}}</td>
+            <td class="text-right text-strong">{{number_format( $totals['rawQty'] , 4)}}</td>
             <td colspan="2"></td>
-            <td class="text-right text-strong">{{number_format( $totals['refinedQty'] , 3)}}</td>
+            <td class="text-right text-strong">{{number_format( $totals['refinedQty'] , 4)}}</td>
         </tr>
         </tbody>
     </table>
@@ -103,9 +103,9 @@
         @endif
             <tr>
                 <td colspan="3" class="text-strong">TOTAL</td>
-                <td class="text-right text-strong">{{ number_format( $totals['qtyStandard'], 3 ) }}</td>
-                <td class="text-right text-strong">{{ number_format( $totals['qtyPremium'], 3 ) }}</td>
-                <td class="text-right text-strong">{{ number_format( $totals['qtyStandard'] +  $totals['qtyPremium'] ,3) }}</td>
+                <td class="text-right text-strong">{{ number_format( $totals['qtyStandard'], 4 ) }}</td>
+                <td class="text-right text-strong">{{ number_format( $totals['qtyPremium'], 4 ) }}</td>
+                <td class="text-right text-strong">{{ number_format( $totals['qtyStandard'] +  $totals['qtyPremium'] ,4) }}</td>
                 <td></td>
             </tr>
         </tbody>

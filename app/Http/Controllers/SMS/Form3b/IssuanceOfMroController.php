@@ -33,9 +33,9 @@ class IssuanceOfMroController
                     return $button;
                 })->editColumn('qty',function($data){
                     if(!empty($data->qty)){
-                        return number_format($data->qty,3);
+                        return number_format($data->qty,4);
                     }else{
-                        return number_format($data->qty_prev,3);
+                        return number_format($data->qty_prev,4);
                     }
                 })
                 ->escapeColumns([])

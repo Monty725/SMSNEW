@@ -43,13 +43,13 @@ class IssuanceOfSroController extends Controller
                     return $button;
                 })
                 ->editColumn('raw_qty',function($data){
-                    $num = number_format( $data->raw_qty ?? $data->prev_raw_qty ,3);
+                    $num = number_format( $data->raw_qty ?? $data->prev_raw_qty ,4);
                     if($num != 0){
                         return $num;
                     }
                 })
                 ->editColumn('refined_qty',function($data){
-                    $num = number_format( $data->refined_qty ?? $data->prev_refined_qty ,3);
+                    $num = number_format( $data->refined_qty ?? $data->prev_refined_qty ,4);
                     if($num != 0){
                         return $num;
                     }
@@ -65,8 +65,8 @@ class IssuanceOfSroController extends Controller
         $i = IssuancesOfSro::query()->selectRaw('sum(prev_raw_qty) as prev_raw_qty, sum(raw_qty) as raw_qty, sum(refined_qty) as refined_qty, sum(prev_refined_qty) as prev_refined_qty')->where('weekly_report_slug','=',$weeklyReport)->whereNull('quedan_only')->whereNull('is_deleted_5a')->first();
         return [
             'totalIssuances' => [
-                'raw' => number_format($i->raw_qty + $i->prev_raw_qty,3),
-                'refined' => number_format($i->refined_qty + $i->prev_refined_qty,3),
+                'raw' => number_format($i->raw_qty + $i->prev_raw_qty,4),
+                'refined' => number_format($i->refined_qty + $i->prev_refined_qty,4),
             ]
         ];
     }
