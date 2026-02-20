@@ -108,22 +108,22 @@
             // PREVIOUS YEAR
             $stock_prev3a =
                 ($form3a['carryOver']['prev'] ?? 0)
-                + ($form3a['rao']['current'] ?? 0)
-                + ($form3a['receipts']['current'] ?? 0)
+                + ($form3a['rao']['prev'] ?? 0)
+                + ($form3a['receipts']['prev'] ?? 0)
                 - ($form3a['withdrawals']['prev'] ?? 0)
                 - ($form3a['transferToRefinery']['prev'] ?? 0);
 
             $stock_prevToDate_prev3a =
                 ($prevToDateForm3a['carryOver']['prev'] ?? 0)
-                + ($prevToDateForm3a['rao']['current'] ?? 0)
-                + ($prevToDateForm3a['receipts']['current'] ?? 0)
+                + ($prevToDateForm3a['rao']['prev'] ?? 0)
+                + ($prevToDateForm3a['receipts']['prev'] ?? 0)
                 - ($prevToDateForm3a['withdrawals']['prev'] ?? 0)
                 - ($prevToDateForm3a['transferToRefinery']['prev'] ?? 0);
 
             $stock_toDate_prev3a =
                 ($toDateForm3a['carryOver']['prev'] ?? 0)
-                + ($toDateForm3a['rao']['current'] ?? 0)
-                + ($toDateForm3a['receipts']['current'] ?? 0)
+                + ($toDateForm3a['rao']['prev'] ?? 0)
+                + ($toDateForm3a['receipts']['prev'] ?? 0)
                 - ($toDateForm3a['withdrawals']['prev'] ?? 0)
                 - ($toDateForm3a['transferToRefinery']['prev'] ?? 0);
         @endphp

@@ -191,7 +191,7 @@ class AjaxController extends Controller
                 })
                 ->where('millCode','=',\Auth::user()->mill_code)
                 ->where('for','=',$request->get('for'))
-                ->limit(10)
+                ->limit(50)
                 ->get();
             $results = [];
 
