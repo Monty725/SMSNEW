@@ -714,34 +714,65 @@
 </form>
 
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        let gross = document.querySelector('input[name="gtcm"]');
-        let net   = document.querySelector('input[name="ntcm"]');
+    // document.addEventListener("DOMContentLoaded", function() {
+    //     let gross = document.querySelector('input[name="gtcm"]');
+    //     let net   = document.querySelector('input[name="ntcm"]');
+    //
+    //     if (!gross || !net) {
+    //         return;
+    //     }
+    //
+    //     function toggleDisable() {
+    //         if (gross.value.trim() !== "") {
+    //             net.value = "";
+    //             net.disabled = true;
+    //         } else {
+    //             net.disabled = false;
+    //         }
+    //
+    //         if (net.value.trim() !== "") {
+    //             gross.value = "";
+    //             gross.disabled = true;
+    //         } else {
+    //             gross.disabled = false;
+    //         }
+    //     }
+    //
+    //     toggleDisable();
+    //
+    //     gross.addEventListener("input", toggleDisable);
+    //     net.addEventListener("input", toggleDisable);
+    // });
 
-        if (!gross || !net) {
-            return;
-        }
+    document.addEventListener("DOMContentLoaded", function() {
+        const gross = document.querySelector('input[name="gtcm"]');
+        const net   = document.querySelector('input[name="ntcm"]');
+
+        if (!gross || !net) return;
 
         function toggleDisable() {
+            // Disable net if gross has a value
             if (gross.value.trim() !== "") {
-                net.value = "";
-                net.disabled = true;
+                net.value = net.value;  // keep any existing value
+                net.setAttribute("readonly", true);
             } else {
-                net.disabled = false;
+                net.removeAttribute("readonly");
             }
 
+            // Disable gross if net has a value
             if (net.value.trim() !== "") {
-                gross.value = "";
-                gross.disabled = true;
+                gross.value = gross.value; // keep existing value
+                gross.setAttribute("readonly", true);
             } else {
-                gross.disabled = false;
+                gross.removeAttribute("readonly");
             }
         }
 
+        // Run on page load to handle prefilled values
         toggleDisable();
 
+        // Run when user types
         gross.addEventListener("input", toggleDisable);
         net.addEventListener("input", toggleDisable);
     });
 </script>
-</body>
