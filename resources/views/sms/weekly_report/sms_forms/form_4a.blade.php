@@ -20,14 +20,15 @@
         </tr>
         <tr>
             <td><span class="indent"></span> 1.1 Production/Carry-over</td>
-            <td>
-                {!! \App\Swep\ViewHelpers\__form2::textboxOnly('carryOver',[
-                    'class' => 'global-form-changer form4a-input input-sm text-right autonumber_mt',
-                    'id' => 'carryOver4a'
-                ],
-                $wr->form4a->carryOver ?? null
-                ) !!}
-            </td>
+{{--            <td>--}}
+{{--                {!! \App\Swep\ViewHelpers\__form2::textboxOnly('carryOver',[--}}
+{{--                    'class' => 'global-form-changer form4a-input input-sm text-right autonumber_mt',--}}
+{{--                    'id' => 'carryOver4a'--}}
+{{--                ],--}}
+{{--                $wr->form4a->carryOver ?? null--}}
+{{--                ) !!}--}}
+{{--            </td>--}}
+            <td></td>
             <td>
                 {!! \App\Swep\ViewHelpers\__form2::textboxOnly('prev_carryOver',[
                     'class' => 'global-form-changer form4a-input input-sm text-right autonumber_mt',
@@ -46,13 +47,14 @@
                 $wr->form4a->receipts ?? null
                 ) !!}
             </td>
-            <td>
-                {!! \App\Swep\ViewHelpers\__form2::textboxOnly('prev_receipts',[
-                    'class' => 'global-form-changer form4a-input input-sm text-right autonumber_mt',
-                    'id' => 'prev_receipts4a'
-                ],
-                $wr->form4a->prev_receipts ?? null) !!}
-            </td>
+            <td></td>
+{{--            <td>--}}
+{{--                {!! \App\Swep\ViewHelpers\__form2::textboxOnly('prev_receipts',[--}}
+{{--                    'class' => 'global-form-changer form4a-input input-sm text-right autonumber_mt',--}}
+{{--                    'id' => 'prev_receipts4a'--}}
+{{--                ],--}}
+{{--                $wr->form4a->prev_receipts ?? null) !!}--}}
+{{--            </td>--}}
         </tr>
         <tr>
             <td><span class="indent"></span> 1.3 Withdrawals</td>

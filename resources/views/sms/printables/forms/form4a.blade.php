@@ -23,9 +23,12 @@
         <tbody>
         <tr>
             <td>1. Carry-Over</td>
-            <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($form4a['carryOver']['current'] ?? 0,4)}}</td>
-            <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($prevToDateForm4a['carryOver']['current'] ?? 0,4)}}</td>
-            <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($toDateForm4a['carryOver']['current'] ?? 0,4)}}</td>
+{{--            <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($form4a['carryOver']['current'] ?? 0,4)}}</td>--}}
+{{--            <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($prevToDateForm4a['carryOver']['current'] ?? 0,4)}}</td>--}}
+{{--            <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($toDateForm4a['carryOver']['current'] ?? 0,4)}}</td>--}}
+            <td></td>
+            <td></td>
+            <td></td>
             <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($form4a['carryOver']['prev'] ?? 0,4)}}</td>
             <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($prevToDateForm4a['carryOver']['prev'] ?? 0,4)}}</td>
             <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($toDateForm4a['carryOver']['prev'] ?? 0,4)}}</td>
@@ -35,9 +38,12 @@
             <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($form4a['receipts']['current'] ?? 0,4)}}</td>
             <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($prevToDateForm4a['receipts']['current'] ?? 0,4)}}</td>
             <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($toDateForm4a['receipts']['current'] ?? 0,4)}}</td>
-            <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($form4a['receipts']['prev'] ?? 0,4)}}</td>
-            <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($prevToDateForm4a['receipts']['prev'] ?? 0,4)}}</td>
-            <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($toDateForm4a['receipts']['prev'] ?? 0,4)}}</td>
+            <td></td>
+            <td></td>
+            <td></td>
+{{--            <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($form4a['receipts']['prev'] ?? 0,4)}}</td>--}}
+{{--            <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($prevToDateForm4a['receipts']['prev'] ?? 0,4)}}</td>--}}
+{{--            <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($toDateForm4a['receipts']['prev'] ?? 0,4)}}</td>--}}
         </tr>
         <tr>
             <td>3. Withdrawals</td>

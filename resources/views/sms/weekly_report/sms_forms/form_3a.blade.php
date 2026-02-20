@@ -20,13 +20,14 @@
         </tr>
         <tr>
             <td><span class="indent"></span> 1.1 Production/Carry-over</td>
-            <td>
-                {!! \App\Swep\ViewHelpers\__form2::textboxOnly('carryOver',[
-                    'class' => 'global-form-changer global-form-changer form3a-input input-sm text-right autonumber_mt'
-                ],
-                $wr->form3a->carryOver ?? null
-                ) !!}
-            </td>
+{{--            <td>--}}
+{{--                {!! \App\Swep\ViewHelpers\__form2::textboxOnly('carryOver',[--}}
+{{--                    'class' => 'global-form-changer global-form-changer form3a-input input-sm text-right autonumber_mt'--}}
+{{--                ],--}}
+{{--                $wr->form3a->carryOver ?? null--}}
+{{--                ) !!}--}}
+{{--            </td>--}}
+            <td></td>
             <td>
                 {!! \App\Swep\ViewHelpers\__form2::textboxOnly('prev_carryOver',[
                     'class' => 'global-form-changer form3a-input input-sm text-right autonumber_mt'
@@ -44,12 +45,13 @@
                 $wr->form3a->netProd ?? null
                 ) !!}
             </td>
-            <td>
-                {!! \App\Swep\ViewHelpers\__form2::textboxOnly('prev_netProd',[
-                    'class' => 'global-form-changer form3a-input input-sm text-right autonumber_mt'
-                ],
-                $wr->form3a->prev_netProd ?? null) !!}
-            </td>
+            <td></td>
+{{--            <td>--}}
+{{--                {!! \App\Swep\ViewHelpers\__form2::textboxOnly('prev_netProd',[--}}
+{{--                    'class' => 'global-form-changer form3a-input input-sm text-right autonumber_mt'--}}
+{{--                ],--}}
+{{--                $wr->form3a->prev_netProd ?? null) !!}--}}
+{{--            </td>--}}
         </tr>
         <tr>
             <td><span class="indent"></span> 1.3 Retention, Adjustment, Overages,etc.</td>
