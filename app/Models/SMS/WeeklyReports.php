@@ -109,6 +109,7 @@ class WeeklyReports extends Model
             ->where('report_no','<=',$this->report_no * 1)
             ->where(function($query){
                 $query->where('status','=',1)
+                    ->orWhere('status','=',2)
                 ->orWhere('status','=',null);
             })
           ->first();
@@ -132,6 +133,7 @@ class WeeklyReports extends Model
             ->where('report_no','<=',$report_no*1)
             ->where(function($q){
                 $q->where('status','=',1)
+                    ->orWhere('status','=',2)
                     ->orWhere('status','=',null);
             })
             ->first();
@@ -165,6 +167,7 @@ class WeeklyReports extends Model
             ->where('report_no','<=',$report_no * 1)
             ->where(function($q){
                 $q->where('status','=',1)
+                    ->orWhere('status','=',2)
                     ->orWhere('status','=',null);
             })
             ->first();
@@ -193,6 +196,7 @@ class WeeklyReports extends Model
             ->where('report_no','<=',$report_no * 1)
             ->where(function($q){
                 $q->where('status','=',1)
+                    ->orWhere('status','=',2)
                     ->orWhere('status','=',null);
             })
             ->first();
@@ -220,6 +224,7 @@ class WeeklyReports extends Model
             ->where('report_no','<=',$report_no * 1)
             ->where(function($q){
                 $q->where('status','=',1)
+                    ->orWhere('status','=',2)
                     ->orWhere('status','=',null);
             })
             ->first();
@@ -255,6 +260,7 @@ class WeeklyReports extends Model
             ->where('report_no','<=',$report_no*1)
             ->where(function($q){
                 $q->where('status','=',1)
+                    ->orWhere('status','=',2)
                     ->orWhere('status','=',null);
             })
             ->first();
@@ -284,6 +290,7 @@ class WeeklyReports extends Model
             ->where('report_no','<=',$report_no * 1)
             ->where(function($q){
                 $q->where('status','=',1)
+                    ->orWhere('status','=',2)
                     ->orWhere('status','=',null);
             })
             ->first();

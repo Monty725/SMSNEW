@@ -1014,7 +1014,7 @@ class WeeklyReportService
 
     public function updateSignatories($weekly_report_slug){
         $wr = $this->findWeeklyReportBySlug($weekly_report_slug);
-        if($wr->status != 1){
+        if($wr->status != 1 && $wr->status != 2){
             $sigs = Signatories::query()->where('mill_code','=',Auth::user()->mill_code)->get();
             $sArr = [];
             if(!empty($sigs)){

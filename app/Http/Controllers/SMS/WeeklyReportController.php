@@ -722,7 +722,7 @@ class WeeklyReportController extends Controller
         $wr->status  = 1;
         $wr->submitted_at = Carbon::now();
         $wr->user_submitted = Auth::user()->user_id;
-        $this->weeklyReportService->updateSignatories($slug);
+//        $this->weeklyReportService->updateSignatories($slug);
         if($wr->save()){
             $this->statusService->updateStatus($slug,1,'Approved at: '.Carbon::parse($wr->submitted_at)->format('M. d, Y | h:i A'));
             return $wr->only('slug');
@@ -735,7 +735,7 @@ class WeeklyReportController extends Controller
         $wr->status  = null;
         $wr->submitted_at = Carbon::now();
         $wr->user_submitted = Auth::user()->user_id;
-        $this->weeklyReportService->updateSignatories($slug);
+//        $this->weeklyReportService->updateSignatories($slug);
         if($wr->save()){
             $this->statusService->updateStatus($slug,null,'Denied at: '.Carbon::parse($wr->submitted_at)->format('M. d, Y | h:i A'));
             return $wr->only('slug');
