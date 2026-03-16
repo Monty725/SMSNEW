@@ -218,6 +218,7 @@
                 <tr class="withdrawals_header">
                     <td colspan="7"><span class="indent"></span> 3.1. Exports/Domestic/World</td>
                 </tr>
+
                 <tr for="withdrawalsTotal" class="computation">
                     <td class="text-strong text-right">
                         3.1 TOTAL

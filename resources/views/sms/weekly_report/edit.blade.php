@@ -1142,9 +1142,9 @@
 
         function smsNumberFormat(number){
             if(number === null){
-                return '0.000';
+                return '0.0000';
             }else{
-                return $.number(number,3);
+                return $.number(number,4);
             }
         }
 
