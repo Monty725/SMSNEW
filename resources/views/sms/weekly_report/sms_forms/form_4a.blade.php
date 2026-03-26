@@ -19,7 +19,7 @@
             <td colspan="3" class="text-strong info">REFINERY WAREHOUSE</td>
         </tr>
         <tr>
-            <td><span class="indent"></span> 1.1 Production/Carry-over</td>
+            <td><span class="indent"></span> 1.1 Carry-over</td>
 {{--            <td>--}}
 {{--                {!! \App\Swep\ViewHelpers\__form2::textboxOnly('carryOver',[--}}
 {{--                    'class' => 'global-form-changer form4a-input input-sm text-right autonumber_mt',--}}

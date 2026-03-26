@@ -22,7 +22,13 @@
         </thead>
         <tbody>
         <tr>
-            <td>1. Carry-Over</td>
+            <td colspan="7" class="text-strong text-left" style="font-size:13px">1. MILL WAREHOUSE</td>
+        </tr>
+        <tr>
+            <td colspan="7" style="border-top:1px solid #ccc; padding:0;"></td>
+        </tr>
+        <tr>
+            <td style="text-indent: 10px">1.1 Carry-Over</td>
 {{--            <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($form4['carryOver']['current'] ?? 0,4)}}</td>--}}
 {{--            <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($prevToDateForm4['carryOver']['current'] ?? 0,4)}}</td>--}}
 {{--            <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($toDateForm4['carryOver']['current'] ?? 0,4)}}</td>--}}
@@ -34,7 +40,7 @@
             <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($toDateForm4['carryOver']['prev'] ?? 0,4)}}</td>
         </tr>
         <tr>
-            <td>2. Receipts</td>
+            <td style="text-indent: 10px">1.2 Receipts</td>
             <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($form4['receipts']['current'] ?? 0,4)}}</td>
             <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($prevToDateForm4['receipts']['current'] ?? 0,4)}}</td>
             <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($toDateForm4['receipts']['current'] ?? 0,4)}}</td>
@@ -43,7 +49,7 @@
             <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($toDateForm4['receipts']['prev'] ?? 0,4)}}</td>
         </tr>
         <tr>
-            <td>3. Withdrawals</td>
+            <td style="text-indent: 10px">1.3 Withdrawals</td>
             <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($form4['withdrawals']['current'] ?? 0,4)}}</td>
             <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($prevToDateForm4['withdrawals']['current'] ?? 0,4)}}</td>
             <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($toDateForm4['withdrawals']['current'] ?? 0,4)}}</td>
@@ -52,7 +58,7 @@
             <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($toDateForm4['withdrawals']['prev'] ?? 0,4)}}</td>
         </tr>
         <tr>
-            <td>4. Transfers to Refinery</td>
+            <td style="text-indent: 10px">1.4 Transfers to Refinery</td>
             <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($form4['transferToRefinery']['current'] ?? 0,4)}}</td>
             <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($prevToDateForm4['transferToRefinery']['current'] ?? 0,4)}}</td>
             <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($toDateForm4['transferToRefinery']['current'] ?? 0,4)}}</td>
@@ -61,7 +67,7 @@
             <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($toDateForm4['transferToRefinery']['prev'] ?? 0,4)}}</td>
         </tr>
         <tr>
-            <td>5. Transfers to Subsidiary</td>
+            <td style="text-indent: 10px">1.5 Transfers to Subsidiary</td>
             <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($form4['transferToSubsidiary']['current'] ?? 0,4)}}</td>
             <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($prevToDateForm4['transferToSubsidiary']['current'] ?? 0,4)}}</td>
             <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($toDateForm4['transferToSubsidiary']['current'] ?? 0,4)}}</td>
@@ -116,7 +122,7 @@
                 - ($toDateForm4['transferToSubsidiary']['prev'] ?? 0);
         @endphp
         <tr>
-            <td>6. Stock Balance</td>
+            <td style="text-indent: 10px">1.6 Stock Balance</td>
             <td class="text-right">
                 {{ \App\Swep\Helpers\Helper::toNumber($stock_current,4) }}
             </td>
@@ -142,7 +148,10 @@
             </td>
         </tr>
         <tr>
-            <td colspan="7"><br></td>
+            <td colspan="7" class="text-strong text-left" style="font-size:13px">2. SUBSIDIARY WAREHOUSE</td>
+        </tr>
+        <tr>
+            <td colspan="7" style="border-top:1px solid #ccc; padding:0;"></td>
         </tr>
         @if(count($form4['subsidiaries']) > 0)
             @php($total = [])

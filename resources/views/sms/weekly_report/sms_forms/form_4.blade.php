@@ -20,15 +20,15 @@
         </tr>
         <tr>
             <td><span class="indent"></span> 1.1 Production/Carry-over</td>
-{{--            <td>--}}
-{{--                {!! \App\Swep\ViewHelpers\__form2::textboxOnly('carryOver',[--}}
-{{--                    'class' => 'global-form-changer input-sm text-right autonumber_mt',--}}
-{{--                    'id' => 'carryOver'--}}
-{{--                ],--}}
-{{--                $wr->form4->carryOver ?? null--}}
-{{--                ) !!}--}}
-{{--            </td>--}}
-            <td></td>
+            <td>
+                {!! \App\Swep\ViewHelpers\__form2::textboxOnly('carryOver',[
+                    'class' => 'global-form-changer input-sm text-right autonumber_mt',
+                    'id' => 'carryOver'
+                ],
+                $wr->form4->carryOver ?? null
+                ) !!}
+            </td>
+{{--            <td></td>--}}
             <td>
                 {!! \App\Swep\ViewHelpers\__form2::textboxOnly('prev_carryOver',[
                     'class' => 'global-form-changer input-sm text-right autonumber_mt',
