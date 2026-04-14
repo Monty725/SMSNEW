@@ -60,7 +60,13 @@ $rand = \Illuminate\Support\Str::random();
             }
         });
 
+        {{--$(".autonumber_mt_{{$rand}}").each(function(){--}}
+        {{--    new AutoNumeric(this, autonum_settings_mt);--}}
+        {{--});--}}
         $(".autonumber_mt_{{$rand}}").each(function(){
+            if (AutoNumeric.getAutoNumericElement(this)) {
+                AutoNumeric.getAutoNumericElement(this).remove();
+            }
             new AutoNumeric(this, autonum_settings_mt);
         });
     </script>
