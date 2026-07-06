@@ -7,6 +7,7 @@ namespace App\Http\Controllers\SMS\WeeklyReport;
 use App\Http\Controllers\Controller;
 use App\Models\SMS\Form4a\Form4aDetails;
 use App\Models\SMS\Subsidiaries;
+use App\Models\Warehouses;
 use App\SMS\Services\WeeklyReportService;
 use App\Swep\Helpers\Helper;
 use Illuminate\Http\Request;
@@ -48,7 +49,8 @@ class Form4aController extends Controller
                                 'sugarType' => 'REFINED',
                                 'weekly_report_slug' => $request->wr,
                                 'transactionType' => $transactionType,
-                                'warehouseAlias' => $warehouse,
+                                'warehouseAlias' => Warehouses::where('slug', $warehouse)->value('alias'),
+                                'warehouse_slug' => $warehouse,
                                 'current' => Helper::sanitizeAutonum($subsidiary['current'][$slug]),
                                 'prev' => Helper::sanitizeAutonum($subsidiary['prev'][$slug]),
                             ]);
