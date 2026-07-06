@@ -29,12 +29,9 @@
         </tr>
         <tr>
             <td style="text-indent: 10px">1.1 Carry-Over</td>
-{{--            <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($form4['carryOver']['current'] ?? 0,4)}}</td>--}}
-{{--            <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($prevToDateForm4['carryOver']['current'] ?? 0,4)}}</td>--}}
-{{--            <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($toDateForm4['carryOver']['current'] ?? 0,4)}}</td>--}}
-            <td></td>
-            <td></td>
-            <td></td>
+            <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($form4['carryOver']['current'] ?? 0,4)}}</td>
+            <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($prevToDateForm4['carryOver']['current'] ?? 0,4)}}</td>
+            <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($toDateForm4['carryOver']['current'] ?? 0,4)}}</td>
             <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($form4['carryOver']['prev'] ?? 0,4)}}</td>
             <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($prevToDateForm4['carryOver']['prev'] ?? 0,4)}}</td>
             <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($toDateForm4['carryOver']['prev'] ?? 0,4)}}</td>
