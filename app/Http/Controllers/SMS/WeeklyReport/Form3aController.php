@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Models\SMS\Form3\Form3Details;
 use App\Models\SMS\Form3a\Form3aDetails;
 use App\Models\SMS\Subsidiaries;
+use App\Models\Warehouses;
 use App\SMS\Services\WeeklyReportService;
 use App\Swep\Helpers\Helper;
 use Illuminate\Http\Request;
@@ -53,7 +54,8 @@ class Form3aController extends Controller
                                 'sugarType' => 'MOLASSES',
                                 'weekly_report_slug' => $request->wr,
                                 'transactionType' => $transactionType,
-                                'warehouseAlias' => $warehouse,
+                                'warehouseAlias' => Warehouses::where('slug', $warehouse)->value('alias'),
+                                'warehouse_slug' => $warehouse,
                                 'current' => Helper::sanitizeAutonum($subsidiary['current'][$slug]),
                                 'prev' => Helper::sanitizeAutonum($subsidiary['prev'][$slug]),
                             ]);
