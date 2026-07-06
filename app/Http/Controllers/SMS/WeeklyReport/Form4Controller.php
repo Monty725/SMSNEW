@@ -11,6 +11,7 @@ use App\SMS\Services\WeeklyReportService;
 use App\Swep\Helpers\Helper;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use App\Models\Warehouses;
 
 class Form4Controller extends Controller
 {
@@ -21,6 +22,7 @@ class Form4Controller extends Controller
     }
 
     public function store(Request $request){
+//        dd(Warehouses::where('alias', 'Whse 1')->get());
         if($request->type != 'updateOnly'){
             Form4Details::updateOrCreate(
                 ['weekly_report_slug' => $request->wr],
@@ -39,8 +41,10 @@ class Form4Controller extends Controller
                 ]
             );
 
+//            ORIGINAL
             $arr = [];
             if(!empty($request->subsidiaries)){
+
                 foreach ($request->subsidiaries as $transactionType => $subsidiary){
                     if(count($subsidiary['warehouses']) > 0){
                         foreach ($subsidiary['warehouses'] as $slug => $warehouse){
@@ -50,7 +54,8 @@ class Form4Controller extends Controller
                                 'sugarType' => 'RAW',
                                 'weekly_report_slug' => $request->wr,
                                 'transactionType' => $transactionType,
-                                'warehouseAlias' => $warehouse,
+                                'warehouseAlias' => Warehouses::where('slug', $warehouse)->value('alias'),
+                                'warehouse_slug' => $warehouse,
                                 'current' => Helper::sanitizeAutonum($subsidiary['current'][$slug]),
                                 'prev' => Helper::sanitizeAutonum($subsidiary['prev'][$slug]),
                             ]);

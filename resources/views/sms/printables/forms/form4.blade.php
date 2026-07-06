@@ -166,26 +166,26 @@
                 @php($total[$key]['prevPWeek'] = 0)
                 @php($total[$key]['toPDate'] = 0)
                 @if(count($subs) > 0)
-                    @foreach($subs as $alias => $sub)
-                        @if(!empty($sub['obj']))
-                            @if($sub['obj']->for == 'RAW' )
-                                @php($total[$key]['current'] = $total[$key]['current'] + ($sub['current'] ?? 0))
-                                @php($total[$key]['prevCWeek'] += ($prevToDateForm4['subsidiaries'][$key][$alias]['current'] ?? 0))
-                                @php($total[$key]['toCDate'] += ($toDateForm4['subsidiaries'][$key][$alias]['current'] ?? 0))
-                                @php($total[$key]['prev'] = $total[$key]['prev'] + ($sub['prev'] ?? 0))
-                                @php($total[$key]['prevPWeek'] += ($prevToDateForm4['subsidiaries'][$key][$alias]['prev'] ?? 0))
-                                @php($total[$key]['toPDate'] += ($toDateForm4['subsidiaries'][$key][$alias]['prev'] ?? 0))
-                                <tr>
-                                    <td><span class="indent"></span> {{$sub['obj']->name ?? null}} ({{$alias}})</td>
-                                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($sub['current'] ?? 0,4)}}</td>
-                                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($prevToDateForm4['subsidiaries'][$key][$alias]['current'] ?? 0,4)}}</td>
-                                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($toDateForm4['subsidiaries'][$key][$alias]['current'] ?? 0,4)}}</td>
-                                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($sub['prev'] ?? 0,4)}}</td>
-                                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($prevToDateForm4['subsidiaries'][$key][$alias]['prev'] ?? 0,4)}}</td>
-                                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($toDateForm4['subsidiaries'][$key][$alias]['prev'] ?? 0,4)}}</td>
-                                </tr>
-                            @endif
+                    @foreach($subs as $slug => $sub)  {{-- was $alias => $sub --}}
+                    @if(!empty($sub['obj']))
+                        @if($sub['obj']->for == 'RAW' )
+                            @php($total[$key]['current'] = $total[$key]['current'] + ($sub['current'] ?? 0))
+                            @php($total[$key]['prevCWeek'] += ($prevToDateForm4['subsidiaries'][$key][$slug]['current'] ?? 0))
+                            @php($total[$key]['toCDate'] += ($toDateForm4['subsidiaries'][$key][$slug]['current'] ?? 0))
+                            @php($total[$key]['prev'] = $total[$key]['prev'] + ($sub['prev'] ?? 0))
+                            @php($total[$key]['prevPWeek'] += ($prevToDateForm4['subsidiaries'][$key][$slug]['prev'] ?? 0))
+                            @php($total[$key]['toPDate'] += ($toDateForm4['subsidiaries'][$key][$slug]['prev'] ?? 0))
+                            <tr>
+                                <td><span class="indent"></span> {{ $sub['obj']->name ?? null }} ({{ $sub['obj']->alias ?? null }})</td>  {{-- alias shown here --}}
+                                <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($sub['current'] ?? 0,4)}}</td>
+                                <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($prevToDateForm4['subsidiaries'][$key][$slug]['current'] ?? 0,4)}}</td>
+                                <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($toDateForm4['subsidiaries'][$key][$slug]['current'] ?? 0,4)}}</td>
+                                <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($sub['prev'] ?? 0,4)}}</td>
+                                <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($prevToDateForm4['subsidiaries'][$key][$slug]['prev'] ?? 0,4)}}</td>
+                                <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($toDateForm4['subsidiaries'][$key][$slug]['prev'] ?? 0,4)}}</td>
+                            </tr>
                         @endif
+                    @endif
                     @endforeach
                     <tr>
                         <td class="text-right text-strong">TOTAL</td>

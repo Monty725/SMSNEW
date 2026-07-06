@@ -182,6 +182,35 @@ class AjaxController extends Controller
             ]);
         }
 
+//        ORIGINAL
+//        if($for == 'myWarehouses'){
+//            $request = \request();
+//            $whs = Warehouses::query()
+//                ->where(function($query) use($request){
+//                    $query->where('alias','like','%'.$request->get('q').'%')
+//                        ->orWhere('name','like','%'.$request->get('q').'%');
+//                })
+//                ->where('millCode','=',\Auth::user()->mill_code)
+//                ->where('for','=',$request->get('for'))
+//                ->limit(50)
+//                ->get();
+//            $results = [];
+//
+//            if(!empty($whs)){
+//                foreach ($whs as $wh){
+//
+//                    array_push($results,[
+//                        'id' => $wh->alias,
+//                        'text' => $wh->alias.' | '.$wh->name,
+//                    ]);
+//                }
+//            }
+//            return [
+//                'results' => $results,
+//            ];
+//        }
+
+//        NEW
         if($for == 'myWarehouses'){
             $request = \request();
             $whs = Warehouses::query()
@@ -197,10 +226,10 @@ class AjaxController extends Controller
 
             if(!empty($whs)){
                 foreach ($whs as $wh){
-
                     array_push($results,[
-                        'id' => $wh->alias,
-                        'text' => $wh->alias.' | '.$wh->name,
+                        'id' => $wh->slug,                          // unique now
+                        'text' => $wh->alias.' | '.$wh->name,       // still human-readable
+                        'alias' => $wh->alias,
                     ]);
                 }
             }

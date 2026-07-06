@@ -801,27 +801,24 @@ class WeeklyReportService
         //subsidiaries
         if($get == 'toDate'){
             $subs = Subsidiaries::query()
-                ->selectRaw('warehouseAlias, name , transactionType, sum(current) as current, sum(prev) as prev')
+                ->selectRaw('warehouse_slug, warehouses.alias, warehouses.name, transactionType, sum(current) as current, sum(prev) as prev')
                 ->leftJoin('weekly_reports','weekly_reports.slug','=','sms_subsidiaries.weekly_report_slug')
-                ->join('warehouses','warehouses.alias','=','sms_subsidiaries.warehouseAlias')
+                ->join('warehouses','warehouses.slug','=','sms_subsidiaries.warehouse_slug') // <-- join on slug now
                 ->where('sugarType','=','RAW')
                 ->where('crop_year','=',$weekly_report->crop_year)
                 ->where('mill_code','=', $weekly_report->mill_code)
                 ->where('report_no','<=', $report_no != 0 ? $report_no * 1 : $weekly_report->report_no * 1)
-//                PREVIOUS WEEK FIX
-                ->where('report_no','<=', $report_no)
-                ->groupBy('transactionType','alias')
+                ->groupBy('transactionType','warehouse_slug') // <-- group by slug now
                 ->orderBy('sms_subsidiaries.id','asc')
                 ->get();
 
         }else{
             $subs = $weekly_report->form4Subsidiaries()
-                ->selectRaw('warehouseAlias, name , transactionType, sum(current) as current, sum(prev) as prev')
-                ->leftJoin('warehouses','warehouses.alias','=','sms_subsidiaries.warehouseAlias')
-                ->groupBy('transactionType','alias')
+                ->selectRaw('warehouse_slug, warehouses.alias, warehouses.name, transactionType, sum(current) as current, sum(prev) as prev')
+                ->leftJoin('warehouses','warehouses.slug','=','sms_subsidiaries.warehouse_slug') // <-- join on slug now
+                ->groupBy('transactionType','warehouse_slug') // <-- group by slug now
                 ->orderBy('sms_subsidiaries.id','asc')
                 ->get();
-
         }
 
         //list subsidiaries
@@ -829,7 +826,7 @@ class WeeklyReportService
         $warehouseArray = [];
         if(!empty($whs)){
             foreach ($whs as $wh){
-                $warehouseArray[$wh->alias]['obj'] = $wh;
+                $warehouseArray[$wh->slug]['obj'] = $wh; // <-- keyed by slug now
             }
         }
         foreach (Arrays::subsidiaryItems() as $key => $item){
@@ -838,8 +835,8 @@ class WeeklyReportService
 
         if(!empty($subs)){
             foreach ($subs as $sub){
-                $formArray['subsidiaries'][$sub->transactionType][$sub->warehouseAlias]['current'] = $sub->current;
-                $formArray['subsidiaries'][$sub->transactionType][$sub->warehouseAlias]['prev'] = $sub->prev;
+                $formArray['subsidiaries'][$sub->transactionType][$sub->warehouse_slug]['current'] = $sub->current;
+                $formArray['subsidiaries'][$sub->transactionType][$sub->warehouse_slug]['prev'] = $sub->prev;
             }
         }
 
@@ -849,21 +846,20 @@ class WeeklyReportService
         $withdrawKey = 'withdrawals';
         $stockKey = 'stockBalances';
 
-        foreach ($warehouseArray as $alias => $wh) {
+        foreach ($warehouseArray as $slug => $wh) { // <-- was $alias
 
-            $carry = $formArray['subsidiaries'][$carryKey][$alias]['current'] ?? 0;
-            $receipt = $formArray['subsidiaries'][$receiptKey][$alias]['current'] ?? 0;
-            $withdraw = $formArray['subsidiaries'][$withdrawKey][$alias]['current'] ?? 0;
+            $carry = $formArray['subsidiaries'][$carryKey][$slug]['current'] ?? 0;
+            $receipt = $formArray['subsidiaries'][$receiptKey][$slug]['current'] ?? 0;
+            $withdraw = $formArray['subsidiaries'][$withdrawKey][$slug]['current'] ?? 0;
 
-            $formArray['subsidiaries'][$stockKey][$alias]['current'] =
+            $formArray['subsidiaries'][$stockKey][$slug]['current'] =
                 $receipt - $withdraw;
 
-            // same for previous column
-            $carryPrev = $formArray['subsidiaries'][$carryKey][$alias]['prev'] ?? 0;
-            $receiptPrev = $formArray['subsidiaries'][$receiptKey][$alias]['prev'] ?? 0;
-            $withdrawPrev = $formArray['subsidiaries'][$withdrawKey][$alias]['prev'] ?? 0;
+            $carryPrev = $formArray['subsidiaries'][$carryKey][$slug]['prev'] ?? 0;
+            $receiptPrev = $formArray['subsidiaries'][$receiptKey][$slug]['prev'] ?? 0;
+            $withdrawPrev = $formArray['subsidiaries'][$withdrawKey][$slug]['prev'] ?? 0;
 
-            $formArray['subsidiaries'][$stockKey][$alias]['prev'] =
+            $formArray['subsidiaries'][$stockKey][$slug]['prev'] =
                 $carryPrev - $withdrawPrev;
         }
 

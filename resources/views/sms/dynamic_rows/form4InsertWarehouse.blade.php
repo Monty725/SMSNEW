@@ -47,6 +47,7 @@ $rand = \Illuminate\Support\Str::random();
             ],
             $data->prev ?? null) !!}
         </td>
+
     @endif
 </tr>
 
@@ -60,20 +61,22 @@ $rand = \Illuminate\Support\Str::random();
             }
         });
 
-        {{--$(".autonumber_mt_{{$rand}}").each(function(){--}}
-        {{--    new AutoNumeric(this, autonum_settings_mt);--}}
-        {{--});--}}
         $(".autonumber_mt_{{$rand}}").each(function(){
-            if (AutoNumeric.getAutoNumericElement(this)) {
-                AutoNumeric.getAutoNumericElement(this).remove();
-            }
             new AutoNumeric(this, autonum_settings_mt);
         });
     </script>
 @else
+{{--    NEW--}}
     <script>
         $(document).ready(function () {
-            $(".selectWarehouse_{{$rand}}").append('<option value="{{$data->warehouseAlias}}" selected>{{$data->warehouseAlias}}</option>')
+            $(".selectWarehouse_{{$rand}}").append('<option value="{{$data->warehouse_slug}}" selected>{{$data->warehouseAlias}}</option>')
         })
     </script>
+
+{{--    ORIGINAL--}}
+{{--    <script>--}}
+{{--        $(document).ready(function () {--}}
+{{--            $(".selectWarehouse_{{$rand}}").append('<option value="{{$data->warehouseAlias}}" selected>{{$data->warehouseAlias}}</option>')--}}
+{{--        })--}}
+{{--    </script>--}}
 @endif
