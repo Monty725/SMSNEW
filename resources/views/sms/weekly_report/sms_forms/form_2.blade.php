@@ -339,11 +339,12 @@
                 <tr>
                     <td class="text-strong">1. CARRY-OVER</td>
                     <td>
-                        {!! \App\Swep\ViewHelpers\__form2::textboxOnly('carryOver',[
-                            'class' => 'form1-input input-sm text-right autonumber_mt'
-                        ],
-                        $wr->form2->carryOver ?? null
-                        ) !!}
+{{--                        {!! \App\Swep\ViewHelpers\__form2::textboxOnly('carryOver',[--}}
+{{--                            'class' => 'form1-input input-sm text-right autonumber_mt'--}}
+{{--                        ],--}}
+{{--                        $wr->form2->carryOver ?? null--}}
+{{--                        ) !!}--}}
+
 {{--                        {!! \App\Swep\ViewHelpers\__form2::textboxOnly('carryOver',[--}}
 {{--                            'class' => 'form2-input input-sm text-right autonum_mt',--}}
 {{--                            'pattern' => '\d*',--}}
@@ -357,11 +358,11 @@
                     <td class="text-strong text-right updatable" for="carryOver.currentCrop.prevWeek"></td>
                     <td class="text-strong text-right updatable" for="carryOver.currentCrop.toDate"></td>
                     <td>
-{{--                        {!! \App\Swep\ViewHelpers\__form2::textboxOnly('prev_carryOver',[--}}
-{{--                            'class' => 'form2-input input-sm text-right autonum_mt'--}}
-{{--                        ],--}}
-{{--                        $wr->form2->prev_carryOver ?? null--}}
-{{--                        ) !!}--}}
+                        {!! \App\Swep\ViewHelpers\__form2::textboxOnly('prev_carryOver',[
+                            'class' => 'form2-input input-sm text-right autonum_mt'
+                        ],
+                        $wr->form2->prev_carryOver ?? null
+                        ) !!}
                     </td>
                     <td class="text-strong text-right updatable" for="carryOver.prevCrop.prevWeek"></td>
                     <td class="text-strong text-right updatable" for="carryOver.prevCrop.toDate"></td>
