@@ -166,6 +166,7 @@ class Arrays
             'carryOver' => 'Carry Over',
             'receipts' => 'Receipts',
             'withdrawals' => 'Withdrawals',
+            'transferToMillsite' => 'transfer To Millsite',
             'stockBalances' => 'Stock Balances',
         ];
     }

@@ -153,7 +153,7 @@ class WeeklyReports extends Model
 
     public function form3aToDateAsOf($report_no){
         $fieldsToSum = [
-            'carryOver', 'receipts', 'withdrawals', 'transferToRefinery', 'prev_carryOver', 'prev_receipts', 'prev_withdrawals', 'prev_transferToRefinery', 'netProd', 'rao', 'prev_netProd', 'prev_rao',
+            'carryOver', 'receipts', 'withdrawals', 'transferToRefinery', 'prev_carryOver', 'prev_receipts', 'prev_withdrawals', 'prev_transferToRefinery', 'netProd', 'rao', 'prev_netProd', 'prev_rao', 'transferFromSubsidiary', 'prev_transferFromSubsidiary',
         ];
         foreach ($fieldsToSum as $key => $field){
             $fieldsToSum[$key] = ' sum('.$field.') as '.$field;
@@ -182,7 +182,7 @@ class WeeklyReports extends Model
 
     public function form4ToDateAsOf($report_no){
         $fieldsToSum = [
-            'carryOver', 'receipts', 'withdrawals', 'transferToRefinery', 'transferToSubsidiary', 'prev_carryOver', 'prev_receipts', 'prev_withdrawals', 'prev_transferToRefinery', 'prev_transferToSubsidiary',
+            'carryOver', 'receipts', 'withdrawals', 'transferToRefinery', 'transferToSubsidiary', 'prev_carryOver', 'prev_receipts', 'prev_withdrawals', 'prev_transferToRefinery', 'prev_transferToSubsidiary', 'transferFromSubsidiary', 'prev_transferFromSubsidiary',
         ];
         foreach ($fieldsToSum as $key => $field){
             $fieldsToSum[$key] = ' sum('.$field.') as '.$field;
@@ -210,7 +210,7 @@ class WeeklyReports extends Model
 
     public function form4aToDateAsOf($report_no){
         $fieldsToSum = [
-             'carryOver', 'receipts', 'withdrawals', 'transferToRefinery', 'prev_carryOver', 'prev_receipts', 'prev_withdrawals', 'prev_transferToRefinery',
+             'carryOver', 'receipts', 'withdrawals', 'transferToRefinery', 'prev_carryOver', 'prev_receipts', 'prev_withdrawals', 'prev_transferToRefinery', 'transferFromSubsidiary', 'prev_transferFromSubsidiary',
         ];
         foreach ($fieldsToSum as $key => $field){
             $fieldsToSum[$key] = ' sum('.$field.') as '.$field;

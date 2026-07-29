@@ -38,7 +38,7 @@
             </td>
         </tr>
         <tr>
-            <td><span class="indent"></span> 1.2 Receipts</td>
+            <td><span class="indent"></span> 1.2 Receipts from other Mill</td>
             <td>
                 {!! \App\Swep\ViewHelpers\__form2::textboxOnly('receipts',[
                     'class' => 'global-form-changer input-sm text-right autonumber_mt',
@@ -110,7 +110,26 @@
             </td>
         </tr>
         <tr>
-            <td><span class="indent"></span> 1.6 Stock Balance</td>
+            <td><span class="indent"></span> 1.6 Return to Millsite (from Subsidiary Warehouse)</td>
+            <td>
+                {!! \App\Swep\ViewHelpers\__form2::textboxOnly('transferFromSubsidiary',[
+                    'class' => 'global-form-changer input-sm text-right autonumber_mt',
+                    'id' => 'transferFromSubsidiary'
+                ],
+                $wr->form4->transferFromSubsidiary ?? null
+                ) !!}
+            </td>
+            <td>
+                {!! \App\Swep\ViewHelpers\__form2::textboxOnly('prev_transferFromSubsidiary',[
+                    'class' => 'global-form-changer input-sm text-right autonumber_mt',
+                    'id' => 'prev_transferFromSubsidiary'
+                ],
+                $wr->form4->prev_transferFromSubsidiary ?? null
+                ) !!}
+            </td>
+        </tr>
+        <tr>
+            <td><span class="indent"></span> 1.7 Stock Balance</td>
             <td class="text-right text-strong">
                 {!! \App\Swep\ViewHelpers\__form2::textboxOnly('stockBalance',[
                     'class' => 'input-sm text-right',
@@ -202,6 +221,30 @@
             <td class="text-right text-strong"></td>
             <td class="text-right text-strong"></td>
         </tr>
+
+        <tr>
+            <td colspan="3">
+                <span class="indent"></span> 2.4 Transfer To Millsite
+                <button class="btn btn-xs btn-default pull-right insertWarehouseBtn" transactionType="transferToMillsite" sugarType="RAW" before="form4TransferToMillsite"><i class="fa fa-plus"></i> Add</button>
+            </td>
+        </tr>
+        @if(!empty($subsidiaries['RAW']['transferToMillsite']))
+            @foreach($subsidiaries['RAW']['transferToMillsite'] as $key => $raw)
+                @include('sms.dynamic_rows.form4InsertWarehouse',[
+                    'transactionType' => 'transferToMillsite',
+                    'data' => $raw,
+                    'sugarType' => 'RAW',
+                    'defaultWarehouse' => $raw,
+                ])
+            @endforeach
+        @endif
+
+        <tr for="transferToMillsite" class="computation form4TransferToMillsite">
+            <td class="text-strong text-right"> TOTAL</td>
+            <td class="text-right text-strong"></td>
+            <td class="text-right text-strong"></td>
+        </tr>
+
         </tbody>
     </table>
 </form>
@@ -214,22 +257,26 @@
         let withdrawals = parseFloat($('#withdrawals').val().replace(/,/g,'')) || 0;
         let transferToRefinery = parseFloat($('#transferToRefinery').val().replace(/,/g,'')) || 0;
         let transferToSubsidiary = parseFloat($('#transferToSubsidiary').val().replace(/,/g,'')) || 0;
+        let transferFromSubsidiary = parseFloat($('#transferFromSubsidiary').val().replace(/,/g,'')) || 0;
 
         let prev_carryOver = parseFloat($('#prev_carryOver').val().replace(/,/g,'')) || 0;
         let prev_receipts = parseFloat($('#prev_receipts').val().replace(/,/g,'')) || 0;
         let prev_withdrawals = parseFloat($('#prev_withdrawals').val().replace(/,/g,'')) || 0;
         let prev_transferToRefinery = parseFloat($('#prev_transferToRefinery').val().replace(/,/g,'')) || 0;
         let prev_transferToSubsidiary = parseFloat($('#prev_transferToSubsidiary').val().replace(/,/g,'')) || 0;
+        let prev_transferFromSubsidiary = parseFloat($('#prev_transferFromSubsidiary').val().replace(/,/g,'')) || 0;
 
         // Adjust signs if needed
         let total = carryOver
             + receipts
+            + transferFromSubsidiary
             - withdrawals
             - transferToRefinery
             - transferToSubsidiary;
 
         let prev_total = prev_carryOver
             + prev_receipts
+            + prev_transferFromSubsidiary
             - prev_withdrawals
             - prev_transferToRefinery
             - prev_transferToSubsidiary;

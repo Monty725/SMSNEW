@@ -87,12 +87,22 @@
             <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($prevToDateForm3a['transferToRefinery']['prev'] ?? null,4)}}</td>
             <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($toDateForm3a['transferToRefinery']['prev'] ?? null,4)}}</td>
         </tr>
+        <tr>
+            <td style="text-indent: 10px">1.7 Return to Millsite (from Subsidiary Warehouse)</td>
+            <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($form3a['transferFromSubsidiary']['current'] ?? 0,4)}}</td>
+            <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($prevToDateForm3a['transferFromSubsidiary']['current'] ?? 0,4)}}</td>
+            <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($toDateForm3a['transferFromSubsidiary']['current'] ?? 0,4)}}</td>
+            <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($form3a['transferFromSubsidiary']['prev'] ?? 0,4)}}</td>
+            <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($prevToDateForm3a['transferFromSubsidiary']['prev'] ?? 0,4)}}</td>
+            <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($toDateForm3a['transferFromSubsidiary']['prev'] ?? 0,4)}}</td>
+        </tr>
         @php
             // CURRENT WEEK
             $stock_current3a =
                 + ($form3a['netProd']['current'] ?? 0)
                 + ($form3a['rao']['current'] ?? 0)
                 + ($form3a['receipts']['current'] ?? 0)
+                + ($form3a['transferFromSubsidiary']['current'] ?? 0)
                 - ($form3a['withdrawals']['current'] ?? 0)
                 - ($form3a['transferToRefinery']['current'] ?? 0);
 
@@ -100,6 +110,7 @@
                 + ($prevToDateForm3a['netProd']['current'] ?? 0)
                 + ($prevToDateForm3a['rao']['current'] ?? 0)
                 + ($prevToDateForm3a['receipts']['current'] ?? 0)
+                + ($prevToDateForm3a['transferFromSubsidiary']['current'] ?? 0)
                 - ($prevToDateForm3a['withdrawals']['current'] ?? 0)
                 - ($prevToDateForm3a['transferToRefinery']['current'] ?? 0);
 
@@ -107,6 +118,7 @@
                 + ($toDateForm3a['netProd']['current'] ?? 0)
                 + ($toDateForm3a['rao']['current'] ?? 0)
                 + ($toDateForm3a['receipts']['current'] ?? 0)
+                + ($toDateForm3a['transferFromSubsidiary']['current'] ?? 0)
                 - ($toDateForm3a['withdrawals']['current'] ?? 0)
                 - ($toDateForm3a['transferToRefinery']['current'] ?? 0);
 
@@ -116,6 +128,7 @@
                 ($form3a['carryOver']['prev'] ?? 0)
                 + ($form3a['rao']['prev'] ?? 0)
                 + ($form3a['receipts']['prev'] ?? 0)
+                + ($form3a['transferFromSubsidiary']['prev'] ?? 0)
                 - ($form3a['withdrawals']['prev'] ?? 0)
                 - ($form3a['transferToRefinery']['prev'] ?? 0);
 
@@ -123,6 +136,7 @@
                 ($prevToDateForm3a['carryOver']['prev'] ?? 0)
                 + ($prevToDateForm3a['rao']['prev'] ?? 0)
                 + ($prevToDateForm3a['receipts']['prev'] ?? 0)
+                + ($prevToDateForm3a['transferFromSubsidiary']['prev'] ?? 0)
                 - ($prevToDateForm3a['withdrawals']['prev'] ?? 0)
                 - ($prevToDateForm3a['transferToRefinery']['prev'] ?? 0);
 
@@ -130,6 +144,7 @@
                 ($toDateForm3a['carryOver']['prev'] ?? 0)
                 + ($toDateForm3a['rao']['prev'] ?? 0)
                 + ($toDateForm3a['receipts']['prev'] ?? 0)
+                + ($toDateForm3a['transferFromSubsidiary']['prev'] ?? 0)
                 - ($toDateForm3a['withdrawals']['prev'] ?? 0)
                 - ($toDateForm3a['transferToRefinery']['prev'] ?? 0);
         @endphp

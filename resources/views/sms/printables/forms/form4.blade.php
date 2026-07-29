@@ -28,7 +28,7 @@
             <td colspan="7" style="border-top:1px solid #ccc; padding:0;"></td>
         </tr>
         <tr>
-            <td style="text-indent: 10px">1.1 Carry-Over</td>
+            <td style="text-indent: 10px">1.1 Production/Carry-Over</td>
             <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($form4['carryOver']['current'] ?? 0,4)}}</td>
             <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($prevToDateForm4['carryOver']['current'] ?? 0,4)}}</td>
             <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($toDateForm4['carryOver']['current'] ?? 0,4)}}</td>
@@ -37,7 +37,7 @@
             <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($toDateForm4['carryOver']['prev'] ?? 0,4)}}</td>
         </tr>
         <tr>
-            <td style="text-indent: 10px">1.2 Receipts</td>
+            <td style="text-indent: 10px">1.2 Receipts from other Mill</td>
             <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($form4['receipts']['current'] ?? 0,4)}}</td>
             <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($prevToDateForm4['receipts']['current'] ?? 0,4)}}</td>
             <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($toDateForm4['receipts']['current'] ?? 0,4)}}</td>
@@ -72,11 +72,21 @@
             <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($prevToDateForm4['transferToSubsidiary']['prev'] ?? 0,4)}}</td>
             <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($toDateForm4['transferToSubsidiary']['prev'] ?? 0,4)}}</td>
         </tr>
+        <tr>
+            <td style="text-indent: 10px">1.6 Return to Millsite (from Subsidiary Warehouse)</td>
+            <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($form4['transferFromSubsidiary']['current'] ?? 0,4)}}</td>
+            <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($prevToDateForm4['transferFromSubsidiary']['current'] ?? 0,4)}}</td>
+            <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($toDateForm4['transferFromSubsidiary']['current'] ?? 0,4)}}</td>
+            <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($form4['transferFromSubsidiary']['prev'] ?? 0,4)}}</td>
+            <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($prevToDateForm4['transferFromSubsidiary']['prev'] ?? 0,4)}}</td>
+            <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($toDateForm4['transferFromSubsidiary']['prev'] ?? 0,4)}}</td>
+        </tr>
         @php
             // CURRENT WEEK
             $stock_current =
                 ($form4['carryOver']['current'] ?? 0)
                 + ($form4['receipts']['current'] ?? 0)
+                + ($form4['transferFromSubsidiary']['current'] ?? 0)
                 - ($form4['withdrawals']['current'] ?? 0)
                 - ($form4['transferToRefinery']['current'] ?? 0)
                 - ($form4['transferToSubsidiary']['current'] ?? 0);
@@ -84,6 +94,7 @@
             $stock_prevToDate_current =
                 ($prevToDateForm4['carryOver']['current'] ?? 0)
                 + ($prevToDateForm4['receipts']['current'] ?? 0)
+                + ($prevToDateForm4['transferFromSubsidiary']['current'] ?? 0)
                 - ($prevToDateForm4['withdrawals']['current'] ?? 0)
                 - ($prevToDateForm4['transferToRefinery']['current'] ?? 0)
                 - ($prevToDateForm4['transferToSubsidiary']['current'] ?? 0);
@@ -91,6 +102,7 @@
             $stock_toDate_current =
                 ($toDateForm4['carryOver']['current'] ?? 0)
                 + ($toDateForm4['receipts']['current'] ?? 0)
+                + ($toDateForm4['transferFromSubsidiary']['current'] ?? 0)
                 - ($toDateForm4['withdrawals']['current'] ?? 0)
                 - ($toDateForm4['transferToRefinery']['current'] ?? 0)
                 - ($toDateForm4['transferToSubsidiary']['current'] ?? 0);
@@ -100,6 +112,7 @@
             $stock_prev =
                 ($form4['carryOver']['prev'] ?? 0)
                 + ($form4['receipts']['prev'] ?? 0)
+                + ($form4['transferFromSubsidiary']['prev'] ?? 0)
                 - ($form4['withdrawals']['prev'] ?? 0)
                 - ($form4['transferToRefinery']['prev'] ?? 0)
                 - ($form4['transferToSubsidiary']['prev'] ?? 0);
@@ -107,6 +120,7 @@
             $stock_prevToDate_prev =
                 ($prevToDateForm4['carryOver']['prev'] ?? 0)
                 + ($prevToDateForm4['receipts']['prev'] ?? 0)
+                + ($prevToDateForm4['transferFromSubsidiary']['prev'] ?? 0)
                 - ($prevToDateForm4['withdrawals']['prev'] ?? 0)
                 - ($prevToDateForm4['transferToRefinery']['prev'] ?? 0)
                 - ($prevToDateForm4['transferToSubsidiary']['prev'] ?? 0);
@@ -114,12 +128,13 @@
             $stock_toDate_prev =
                 ($toDateForm4['carryOver']['prev'] ?? 0)
                 + ($toDateForm4['receipts']['prev'] ?? 0)
+                + ($toDateForm4['transferFromSubsidiary']['prev'] ?? 0)
                 - ($toDateForm4['withdrawals']['prev'] ?? 0)
                 - ($toDateForm4['transferToRefinery']['prev'] ?? 0)
                 - ($toDateForm4['transferToSubsidiary']['prev'] ?? 0);
         @endphp
         <tr>
-            <td style="text-indent: 10px">1.6 Stock Balance</td>
+            <td style="text-indent: 10px">1.7 Stock Balance</td>
             <td class="text-right">
                 {{ \App\Swep\Helpers\Helper::toNumber($stock_current,4) }}
             </td>

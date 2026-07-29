@@ -93,7 +93,26 @@
             </td>
         </tr>
         <tr>
-            <td><span class="indent"></span> 1.5 Stock Balance</td>
+            <td><span class="indent"></span> 1.5 Return to Millsite (from Subsidiary Warehouse)</td>
+            <td>
+                {!! \App\Swep\ViewHelpers\__form2::textboxOnly('transferFromSubsidiary',[
+                    'class' => 'global-form-changer form4a-input input-sm text-right autonumber_mt',
+                    'id' => 'transferFromSubsidiary4a'
+                ],
+                $wr->form4a->transferFromSubsidiary ?? null
+                ) !!}
+            </td>
+            <td>
+                {!! \App\Swep\ViewHelpers\__form2::textboxOnly('prev_transferFromSubsidiary',[
+                    'class' => 'global-form-changer form4a-input input-sm text-right autonumber_mt',
+                    'id' => 'prev_transferFromSubsidiary4a'
+                ],
+                $wr->form4a->prev_transferFromSubsidiary ?? null
+                ) !!}
+            </td>
+        </tr>
+        <tr>
+            <td><span class="indent"></span> 1.6 Stock Balance</td>
             <td class="text-right text-strong">
             {!! \App\Swep\ViewHelpers\__form2::textboxOnly('stockBalance',[
                 'class' => 'input-sm text-right',
@@ -185,6 +204,30 @@
             <td class="text-right text-strong"></td>
             <td class="text-right text-strong"></td>
         </tr>
+
+        <tr>
+            <td colspan="3">
+                <span class="indent"></span> 2.4 Transfer To Millsite
+                <button type="button" class="btn btn-xs btn-default pull-right insertWarehouseBtn" transactionType="transferToMillsite" sugarType="REFINED"  before="form4aTransferToMillsite"><i class="fa fa-plus"></i> Add</button>
+            </td>
+        </tr>
+        @if(!empty($subsidiaries['REFINED']['transferToMillsite']))
+            @foreach($subsidiaries['REFINED']['transferToMillsite'] as $key => $raw)
+                @include('sms.dynamic_rows.form4InsertWarehouse',[
+                    'transactionType' => 'transferToMillsite',
+                    'data' => $raw,
+                    'sugarType' => 'REFINED',
+                    'defaultWarehouse' => $raw,
+                ])
+            @endforeach
+        @endif
+
+
+        <tr for="transferToMillsite" class="computation form4aTransferToMillsite">
+            <td class="text-strong text-right"> TOTAL</td>
+            <td class="text-right text-strong"></td>
+            <td class="text-right text-strong"></td>
+        </tr>
         </tbody>
     </table>
 </form>
@@ -192,22 +235,26 @@
 <script>
     function calculateStockBalance4a() {
 
-        let carryOver4a = parseFloat($('#carryOver4a').val().replace(/,/g,'')) || 0;
+        // let carryOver4a = parseFloat($('#carryOver4a').val().replace(/,/g,'')) || 0;
         let receipts4a = parseFloat($('#receipts4a').val().replace(/,/g,'')) || 0;
         let withdrawals4a = parseFloat($('#withdrawals4a').val().replace(/,/g,'')) || 0;
         let transferToRefinery4a = parseFloat($('#transferToRefinery4a').val().replace(/,/g,'')) || 0;
+        let transferFromSubsidiary4a = parseFloat($('#transferFromSubsidiary4a').val().replace(/,/g,'')) || 0;
 
         let prev_carryOver4a = parseFloat($('#prev_carryOver4a').val().replace(/,/g,'')) || 0;
-        let prev_receipts4a = parseFloat($('#prev_receipts4a').val().replace(/,/g,'')) || 0;
+        // let prev_receipts4a = parseFloat($('#prev_receipts4a').val().replace(/,/g,'')) || 0;
         let prev_withdrawals4a = parseFloat($('#prev_withdrawals4a').val().replace(/,/g,'')) || 0;
         let prev_transferToRefinery4a = parseFloat($('#prev_transferToRefinery4a').val().replace(/,/g,'')) || 0;
+        let prev_transferFromSubsidiary4a = parseFloat($('#prev_transferFromSubsidiary4a').val().replace(/,/g,'')) || 0;
 
         // Adjust signs if needed
         let total4a = receipts4a
+            + transferFromSubsidiary4a
             - withdrawals4a
             - transferToRefinery4a
 
         let prev_total4a = prev_carryOver4a
+            + prev_transferFromSubsidiary4a
             - prev_withdrawals4a
             - prev_transferToRefinery4a
 
