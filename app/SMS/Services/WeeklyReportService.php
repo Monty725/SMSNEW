@@ -715,7 +715,7 @@ class WeeklyReportService
 
         }
 
-//list subsidiaries
+        //list subsidiaries
         $whs  = Warehouses::query()->where('millCode','=',Auth::user()->mill_code)->get();
         $warehouseArray = [];
         if(!empty($whs)){

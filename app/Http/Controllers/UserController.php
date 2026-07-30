@@ -157,6 +157,21 @@ class UserController extends Controller{
         abort(503,'An error occurred');
     }
 
+    public function resetPass($slug){
+        $user = User::where('slug', $slug)->firstOrFail();
+
+        $defaultPassword = "12345";
+
+        $user->password = Hash::make($defaultPassword);
+        $user->temp_password = $defaultPassword;
+        $user->has_changed_password = null;
+
+        if($user->save()){
+            return $user->only('slug');
+        }
+        abort(503, 'An error occurred');
+    }
+
 
     public function store(Request $request){
         $user = new User();
@@ -289,6 +304,7 @@ class UserController extends Controller{
 
 
     }
+
 
 
 

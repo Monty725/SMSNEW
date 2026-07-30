@@ -156,7 +156,8 @@ Route::group(['prefix'=>'dashboard', 'as' => 'dashboard.',
 
         Route::post('/user/activate/{slug}', 'UserController@activate')->name('user.activate');
         Route::post('/user/deactivate/{slug}', 'UserController@deactivate')->name('user.deactivate');
-        Route::get('/user/{slug}/reset_password', 'UserController@resetPassword')->name('user.reset_password');
+//        Route::get('/user/{slug}/reset_password', 'UserController@resetPassword')->name('user.reset_password');
+        Route::post('/user/{slug}/reset_password', 'UserController@resetPass')->name('user.reset_password');
         Route::patch('/user/reset_password/{slug}', 'UserController@resetPasswordPost')->name('user.reset_password_post');
         Route::get('/user/{slug}/sync_employee', 'UserController@syncEmployee')->name('user.sync_employee');
         Route::patch('/user/sync_employee/{slug}', 'UserController@syncEmployeePost')->name('user.sync_employee_post');
