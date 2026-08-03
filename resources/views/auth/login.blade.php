@@ -584,13 +584,12 @@
                                         </div>
                                     </form>
 
-                                {{-- You can decide if you want to keep the "Forgot username/password?" link.
-                                     If so, you'll need to style it appropriately for the new design.
-                                     For now, I'm removing it to match the second image's simplicity.
-                                <div class="flex-sb-m w-full p-b-30">
-                                    <div><a href="#" class="txt1" data-toggle="modal" data-target="#reset_modal">Forgot username/password? Click here</a> </div>
-                                </div>
-                                --}}
+{{--                                 You can decide if you want to keep the "Forgot username/password?" link.--}}
+{{--                                     If so, you'll need to style it appropriately for the new design.--}}
+{{--                                     For now, I'm removing it to match the second image's simplicity.--}}
+                                    <div class="w-full p-b-30" style="text-align: center; margin-top: 15px;">
+                                        <a href="#" id="forgot_password_link" class="txt1">Forgot username/password? Click here</a>
+                                    </div>
                             </div>
                         </div>
                     </div>
@@ -660,7 +659,7 @@
 </div>
 @include('layouts.js-plugins')
 
-
+<script type="text/javascript" src="{{asset("template/bower_components/jquery/dist/jquery.min.js")}}"></script>
 
 <script type="text/javascript">
     $("#search_username_form").submit(function (e) {
@@ -773,6 +772,55 @@
         $("#loginForm button[type='submit']").attr('disabled','disabled');
         $("#loginForm button[type='submit']").html('<i class="fa fa-spinner fa-spin fa-fw"></i> PLEASE WAIT. . .');
     })
+
+    $("#forgot_password_link").on("click", function(e){
+        e.preventDefault();
+
+        var username = $("#username").val().trim();
+
+        if(username === ""){
+            Swal.fire({
+                icon: 'warning',
+                title: 'Username required',
+                text: 'Please enter your username first, then click "Forgot username/password?" again.'
+            });
+            return;
+        }
+
+        Swal.fire({
+            title: 'Reset password for "'+username+'"?',
+            text: 'This will flag your account for a password reset request.',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, submit request'
+        }).then((result) => {
+            if(result.isConfirmed){
+                $.ajax({
+                    url: '{{ route("auth.forgot_password") }}',
+                    type: 'POST',
+                    data: { username: username },
+                    headers: {
+                        {!! __html::token_header() !!}
+                    },
+                    success: function(res){
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Request submitted',
+                            text: 'An admin will assist you with your password reset.'
+                        });
+                    },
+                    error: function(res){
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: res.responseJSON && res.responseJSON.message ? res.responseJSON.message : 'Something went wrong.'
+                        });
+                    }
+                });
+            }
+        });
+    });
+
 </script>
 
 

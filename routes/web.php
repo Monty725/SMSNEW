@@ -19,6 +19,8 @@ Route::group(['as' => 'auth.'], function () {
 	Route::post('/', 'Auth\LoginController@login')->name('login');
 	Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
 	Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
+    Route::post('/forgot_password','Auth\LoginController@forgot_password')->name('forgot_password');
+
     Route::post('/username_lookup','Auth\AccountRecoveryController@username_lookup')->name('username_lookup');
     Route::post('/reset_password','Auth\AccountRecoveryController@reset_password')->name('reset_password');
     Route::post('/verify_email','Auth\AccountRecoveryController@verify_email')->name('verify_email');

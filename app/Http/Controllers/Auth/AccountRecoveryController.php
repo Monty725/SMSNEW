@@ -142,4 +142,23 @@ class AccountRecoveryController extends Controller
         abort(404);
         return $request;
     }
+
+    public function forgot_password(Request $request){
+
+        $user = User::query()->where('username','=',$request->username)->first();
+
+        if(empty($user)){
+            abort(503,'Cannot find user based on the username provided.');
+        }
+
+        $user->forgot_password = 1;
+
+        if($user->update()){
+            return 1;
+        }
+
+        abort(503,'An error occurred while submitting your request.');
+
+    }
+
 }

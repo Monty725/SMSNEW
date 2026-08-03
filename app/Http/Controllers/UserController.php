@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\PasswordResetNotification;
+use Illuminate\Support\Facades\Mail;
 use App\Http\Requests\User\ChangePasswordFormRequest;
 use App\Http\Requests\User\UserEditFormRequest;
 use App\Models\Employee;
@@ -113,6 +115,18 @@ class UserController extends Controller{
                             return '<span class="label bg-red col-md-12">DEACTIVATED</span>';
                         }
                     })
+                    ->addColumn('forgot_password_flag', function($data){
+                        if($data->forgot_password == 1){
+                            return '<i class="fa fa-exclamation-triangle" 
+                                        style="color: red;" 
+                                        data-toggle="tooltip" 
+                                        title="User requested a password reset"></i>';;
+                        }
+                        return '';
+                    })
+                    ->orderColumn('forgot_password_flag', function ($query, $order) {
+                        $query->orderBy('forgot_password', $order);
+                    })
                     ->escapeColumns([])
                     ->setRowId('slug')
                     ->make(true);
@@ -165,8 +179,18 @@ class UserController extends Controller{
         $user->password = Hash::make($defaultPassword);
         $user->temp_password = $defaultPassword;
         $user->has_changed_password = null;
+        $user->forgot_password = null;
 
         if($user->save()){
+
+            if(!empty($user->email)){
+                try{
+                    Mail::mailer('system')->to($user->email)->send(new PasswordResetNotification($user, $defaultPassword));
+                }catch (\Exception $e){
+                    \Log::error('Failed to send password reset email: '.$e->getMessage());
+                }
+            }
+
             return $user->only('slug');
         }
         abort(503, 'An error occurred');

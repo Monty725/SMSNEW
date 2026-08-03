@@ -66,6 +66,7 @@
               <th class="th-10">Status</th>
               <th class="th-10">Account</th>
               <th class="action">Action</th>
+              <th style="width: 40px;">Flags</th>
             </tr>
             </thead>
             <tbody>
@@ -299,7 +300,8 @@
         { "data": "mill_code" },
         { "data": "is_online" },
         { "data": "account_status" },
-        { "data": "action" }
+        { "data": "action" },
+        { "data": "forgot_password_flag" }
       ],
       "buttons": [
         {!! __js::dt_buttons() !!}
@@ -324,9 +326,16 @@
           "orderable" : false,
           "class" : 'action4'
         },
+        {
+          "targets" : 6,
+          "orderable" : true,
+          "className" : 'text-center',
+          "width" : "40px"
+        },
 
       ],
-      'order': [[2,'desc']],
+      // 'order': [[2,'desc']],
+      'order': [[6,'desc'],[2,'desc']],
       "responsive": false,
       "initComplete": function( settings, json ) {
         $('#tbl_loader').fadeOut(function(){
