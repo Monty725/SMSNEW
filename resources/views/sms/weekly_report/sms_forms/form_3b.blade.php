@@ -41,7 +41,7 @@
                         <tfoot>
                         <tr>
                             <td colspan="4" class="text-right"><strong>Total:</strong></td>
-                            <td id="totalMROQty" class="text-right"><strong>0.000</strong></td>
+                            <td id="totalMROQty" class="text-right"><strong>0.0000</strong></td>
                             <td colspan="1"></td>
                         </tr>
                         </tfoot>
@@ -116,7 +116,7 @@
                         <tfoot>
                         <tr>
                             <td colspan="3" class="text-right"><strong>Total:</strong></td>
-                            <td id="totalQty" class="text-right"><strong>0.000</strong></td>
+                            <td id="totalQty" class="text-right"><strong>0.0000</strong></td>
                             <td colspan="2"></td>
                         </tr>
                         </tfoot>

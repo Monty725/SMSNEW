@@ -58,7 +58,7 @@
                 });
 
                 // Format number with commas
-                let formattedTotal = total.toFixed(3).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                let formattedTotal = total.toFixed(4).replace(/\B(?=(\d{4})+(?!\d))/g, ",");
 
                 // Update the total row
                 $("#totalQty").html(`<strong>${formattedTotal}</strong>`);

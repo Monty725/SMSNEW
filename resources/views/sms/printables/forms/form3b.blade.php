@@ -35,13 +35,13 @@
                     <td>{{$form3bIssuancesOfMro->trader}}</td>
                     <td>{{\Illuminate\Support\Carbon::parse($form3bIssuancesOfMro->date_of_issue)->format('m/d/Y')}}</td>
                     <td>{{$form3bIssuancesOfMro->liens_or}}</td>
-                    <td class="text-right">{{number_format($form3bIssuancesOfMro->qty ?? $form3bIssuancesOfMro->qty_prev,3)}}</td>
+                    <td class="text-right">{{number_format($form3bIssuancesOfMro->qty ?? $form3bIssuancesOfMro->qty_prev,4)}}</td>
                 </tr>
             @endforeach
         @endif
         <tr>
             <td colspan="4" class="text-strong">TOTAL</td>
-            <td class="text-right text-strong">{{number_format( $totals['issuanceTotal'] , 3)}}</td>
+            <td class="text-right text-strong">{{number_format( $totals['issuanceTotal'] ,4)}}</td>
         </tr>
         </tbody>
     </table>
@@ -69,14 +69,14 @@
                     <td>{{$form3bDeliveries->mro_no}}</td>
                     <td>{{\Illuminate\Support\Carbon::parse($form3bDeliveries->date)->format('m/d/Y')}}</td>
                     <td>{{$form3bDeliveries->trader}}</td>
-                    <td class="text-right">{{number_format($form3bDeliveries->qty,3) ?? null}}</td>
+                    <td class="text-right">{{number_format($form3bDeliveries->qty,4) ?? null}}</td>
                     <td>{{$form3bDeliveries->remarks}}</td>
                 </tr>
             @endforeach
         @endif
         <tr>
             <td colspan="3" class="text-strong">TOTAL</td>
-            <td class="text-right text-strong">{{ number_format( $totals['withdrawalsTotal'] ,3) }}</td>
+            <td class="text-right text-strong">{{ number_format( $totals['withdrawalsTotal'] ,4) }}</td>
             <td></td>
         </tr>
         </tbody>

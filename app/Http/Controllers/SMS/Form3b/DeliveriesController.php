@@ -34,7 +34,7 @@ class DeliveriesController extends Controller
                     return $button;
                 })
                 ->editColumn('qty',function($data){
-                    return number_format($data->qty ?? $data->qty_prev,3);
+                    return number_format($data->qty ?? $data->qty_prev,4);
                 })
 
                 ->escapeColumns([])
