@@ -298,11 +298,15 @@
                     <td class="text-strong">
                         6. STOCK BALANCE
                     </td>
-                    <td class="text-right updatable" for="stockBal.currentCrop.thisWeek"></td>
-                    <td class="text-right updatable" for="stockBal.currentCrop.prevWeek"></td>
+{{--                    <td class="text-right updatable" for="stockBal.currentCrop.thisWeek"></td>--}}
+                    <td></td>
+{{--                    <td class="text-right updatable" for="stockBal.currentCrop.prevWeek"></td>--}}
+                    <td></td>
                     <td class="text-right updatable" for="stockBal.currentCrop.toDate"></td>
-                    <td class="text-strong text-right updatable" for="stockBal.prevCrop.thisWeek"></td>
-                    <td class="text-strong text-right updatable" for="stockBal.prevCrop.prevWeek"></td>
+                    <td></td>
+                    <td></td>
+{{--                    <td class="text-strong text-right updatable" for="stockBal.prevCrop.thisWeek"></td>--}}
+{{--                    <td class="text-strong text-right updatable" for="stockBal.prevCrop.prevWeek"></td>--}}
                     <td class="text-strong text-right updatable" for="stockBal.prevCrop.toDate"></td>
                 </tr>
 

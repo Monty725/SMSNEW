@@ -199,11 +199,15 @@
         </tr>
         <tr>
             <td>6. STOCK BALANCE</td>
-            <td class="text-right">{{$newform1['values']['stockBal.currentCrop.thisWeek'] ?? 0 }}</td>
-            <td class="text-right">{{$newform1['values']['stockBal.currentCrop.prevWeek'] ?? 0 }}</td>
+{{--            <td class="text-right">{{$newform1['values']['stockBal.currentCrop.thisWeek'] ?? 0 }}</td>--}}
+{{--            <td class="text-right">{{$newform1['values']['stockBal.currentCrop.prevWeek'] ?? 0 }}</td>--}}
+            <td></td>
+            <td></td>
             <td class="text-right">{{$newform1['values']['stockBal.currentCrop.toDate'] ?? 0 }}</td>
-            <td class="text-right">{{$newform1['values']['stockBal.prevCrop.thisWeek'] ?? 0 }}</td>
-            <td class="text-right">{{$newform1['values']['stockBal.prevCrop.prevWeek'] ?? 0 }}</td>
+            <td></td>
+            <td></td>
+{{--            <td class="text-right">{{$newform1['values']['stockBal.prevCrop.thisWeek'] ?? 0 }}</td>--}}
+{{--            <td class="text-right">{{$newform1['values']['stockBal.prevCrop.prevWeek'] ?? 0 }}</td>--}}
             <td class="text-right">{{$newform1['values']['stockBal.prevCrop.toDate'] ?? 0 }}</td>
         </tr>
         <tr>
