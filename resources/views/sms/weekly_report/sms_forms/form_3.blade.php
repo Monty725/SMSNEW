@@ -611,7 +611,15 @@
 {{--            <td class="text-strong text-right updatable" for="refinedBalance.currentCrop.thisWeek"></td>--}}
 {{--            <td class="text-strong text-right updatable" for="refinedBalance.currentCrop.prevWeek"></td>--}}
 {{--            <td class="text-strong text-right updatable" for="refinedBalance.currentCrop.toDate"></td>--}}
-            <td class="text-strong text-right updatable" for="notCoveredByMsc.prevCrop.thisWeek"></td>
+{{--            <td class="text-strong text-right updatable" for="notCoveredByMsc.prevCrop.thisWeek"></td>--}}
+
+            <td>
+                {!! \App\Swep\ViewHelpers\__form2::textboxOnly('prev_notCoveredByMsc',[
+                    'class' => 'form3-input input-sm text-right autonumber_mt'
+                ],
+                $wr->form3->prev_notCoveredByMsc ?? null
+                ) !!}
+            </td>
             <td class="text-strong text-right updatable" for="notCoveredByMsc.prevCrop.prevWeek"></td>
             <td class="text-strong text-right updatable" for="notCoveredByMsc.prevCrop.toDate"></td>
         </tr>
