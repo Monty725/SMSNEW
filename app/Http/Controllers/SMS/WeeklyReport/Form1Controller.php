@@ -61,8 +61,8 @@ class Form1Controller extends Controller
 //                  'lkgtc_gross' => number_format($lkgtc_gross,2),
 
             //NEW LKGTC_GROSS AND NET FORMULA 11-15-2024
-            'lkgtc_gross' => number_format($lkgtc_gross,3),
-            'lkgtc_net' => number_format($lkgtc_net,3),
+            'lkgtc_gross' => number_format($lkgtc_gross,4),
+            'lkgtc_net' => number_format($lkgtc_net,4),
 
             'tds' => !empty($request->tds) ? Helper::sanitizeAutonum($request->tds) : null,
             'egtcm' => !empty($request->egtcm) ? Helper::sanitizeAutonum($request->egtcm) : null,

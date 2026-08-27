@@ -271,15 +271,15 @@ class WeeklyReportService
         }
         if(!empty($weekly_report->form1)){
             if($weekly_report->form1->gtcm != 0){
-                $formArray['fieldsToFill']['lkgtcGross'] = Helper::toNumber($formArray['lkgtc_gross']['current'],3);
+                $formArray['fieldsToFill']['lkgtcGross'] = Helper::toNumber($formArray['lkgtc_gross']['current'],4);
             }if($weekly_report->form1->ntcm != 0) {
-                $formArray['fieldsToFill']['lkgtc_net'] = Helper::toNumber($formArray['lkgtc_net']['current'], 3);
+                $formArray['fieldsToFill']['lkgtc_net'] = Helper::toNumber($formArray['lkgtc_net']['current'], 4);
             }else{
                 $formArray['fieldsToFill']['lkgtcGross'] = 0;
             }
 
             if($weekly_report->form1->egtcm != 0){
-                $formArray['fieldsToFill']['lkgtc_gross_syrup'] = Helper::toNumber($formArray['lkgtc_gross_syrup']['current'],3);
+                $formArray['fieldsToFill']['lkgtc_gross_syrup'] = Helper::toNumber($formArray['lkgtc_gross_syrup']['current'],4);
             }else{
                 $formArray['fieldsToFill']['lkgtc_gross_syrup'] = 0;
             }
