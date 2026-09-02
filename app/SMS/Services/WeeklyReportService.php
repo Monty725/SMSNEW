@@ -741,6 +741,7 @@ class WeeklyReportService
 
 //        STOCK BALANCE ON PRINT LOUIS
         $carryKey = 'carryOver';
+        $raoKey = 'rao';
         $receiptKey = 'receipts';
         $withdrawKey = 'withdrawals';
         $transferKey = 'transferToMillsite';
@@ -749,21 +750,23 @@ class WeeklyReportService
         foreach ($warehouseArray as $slug => $wh) {
 
             $carry = $formArray['subsidiaries'][$carryKey][$slug]['current'] ?? 0;
+            $rao = $formArray['subsidiaries'][$raoKey][$slug]['current'] ?? 0;
             $receipt = $formArray['subsidiaries'][$receiptKey][$slug]['current'] ?? 0;
             $withdraw = $formArray['subsidiaries'][$withdrawKey][$slug]['current'] ?? 0;
             $transfer = $formArray['subsidiaries'][$transferKey][$slug]['current'] ?? 0;
 
             $formArray['subsidiaries'][$stockKey][$slug]['current'] =
-                $receipt - $transfer - $withdraw;
+                $receipt + $rao - $transfer - $withdraw;
 
             // same for previous column
             $carryPrev = $formArray['subsidiaries'][$carryKey][$slug]['prev'] ?? 0;
+            $raoPrev = $formArray['subsidiaries'][$raoKey][$slug]['prev'] ?? 0;
             $receiptPrev = $formArray['subsidiaries'][$receiptKey][$slug]['prev'] ?? 0;
             $withdrawPrev = $formArray['subsidiaries'][$withdrawKey][$slug]['prev'] ?? 0;
-            $transferPrev = $formArray['subsidiaries'][$transferKey][$slug]['current'] ?? 0;
+            $transferPrev = $formArray['subsidiaries'][$transferKey][$slug]['prev'] ?? 0;
 
             $formArray['subsidiaries'][$stockKey][$slug]['prev'] =
-                $carryPrev + $receiptPrev - $transferPrev - $withdrawPrev;
+                $carryPrev + $receiptPrev + $raoPrev - $transferPrev - $withdrawPrev;
         }
 
         foreach (Arrays::subsidiaryItems() as $key => $item){

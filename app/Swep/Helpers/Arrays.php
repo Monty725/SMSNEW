@@ -164,11 +164,11 @@ class Arrays
     public static function subsidiaryItems(){
         return [
             'carryOver' => 'Carry Over',
+            'rao' => 'Retention, Adjustment, Overages, Etc.',
             'receipts' => 'Receipts',
             'withdrawals' => 'Withdrawals',
-            'transferToMillsite' => 'transfer To Millsite',
+            'transferToMillsite' => 'Transfer To Millsite',
             'stockBalances' => 'Stock Balances',
-            'rao' => 'Retention, Adjustment, Overages, Etc.',
         ];
     }
 
