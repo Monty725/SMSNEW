@@ -73,6 +73,7 @@ class DeliveriesController extends Controller
         $d->start_of_withdrawal = $request->start_of_withdrawal;
         $d->sugar_class = $request->sugar_class;
         $d->remarks = $request->remarks;
+        $d->end_of_withdrawal = $request->end_of_withdrawal;
         if($request->cropCharge == 'PREVIOUS'){
             $d->qty_prev = Helper::sanitizeAutonum($request->qty);
             $d->qty = null;
@@ -106,6 +107,7 @@ class DeliveriesController extends Controller
         $d->for_swapping = $request->for_swapping;
         $d->qty = $request->qty;
         $d->remarks = $request->remarks;
+        $d->end_of_withdrawal = $request->end_of_withdrawal;
         if($request->cropCharge == 'PREVIOUS'){
             $d->qty_prev = Helper::sanitizeAutonum($request->qty);
             $d->qty = null;

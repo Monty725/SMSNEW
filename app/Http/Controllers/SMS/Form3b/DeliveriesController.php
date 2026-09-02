@@ -56,6 +56,7 @@ class DeliveriesController extends Controller
         $d->qty_prev = null;
         $d->qty_current = null;
         $d->remarks = $request->remarks;
+        $d->date_end = $request->date_end;
         if($request->cropCharge == 'CURRENT'){
             $d->qty_current = Helper::sanitizeAutonum($request->qty);
         }else{
@@ -89,6 +90,7 @@ class DeliveriesController extends Controller
         $d->qty_prev = null;
         $d->qty_current = null;
         $d->remarks = $request->remarks;
+        $d->date_end = $request->date_end;
         if($request->cropCharge == 'CURRENT'){
             $d->qty_current = Helper::sanitizeAutonum($request->qty);
         }else{

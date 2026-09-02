@@ -15,7 +15,16 @@
             "serverSide": true,
             "ajax" : '{{route("dashboard.form3b_deliveries.index")}}?weekly_report_slug={{$wr->slug}}',
             "columns": [
-                { "data": "date" },
+                // { "data": "date" },
+                {
+                    "data": "date",
+                    "render": function(data, type, row) {
+                        if (row.date_end) {
+                            return data + ' to ' + row.date_end;
+                        }
+                        return data;
+                    }
+                },
                 { "data": "mro_no" },
                 { "data": "trader" },
                 { "data": "qty" },

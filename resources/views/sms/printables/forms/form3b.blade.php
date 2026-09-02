@@ -67,7 +67,13 @@
                 @endphp
                 <tr>
                     <td>{{$form3bDeliveries->mro_no}}</td>
-                    <td>{{\Illuminate\Support\Carbon::parse($form3bDeliveries->date)->format('m/d/Y')}}</td>
+{{--                    <td>{{\Illuminate\Support\Carbon::parse($form3bDeliveries->date)->format('m/d/Y')}}</td>--}}
+                    <td>
+                        {{ \Illuminate\Support\Carbon::parse($form3bDeliveries->date)->format('m/d/Y') }}
+                        @if($form3bDeliveries->date_end)
+                            to {{ \Illuminate\Support\Carbon::parse($form3bDeliveries->date_end)->format('m/d/Y') }}
+                        @endif
+                    </td>
                     <td>{{$form3bDeliveries->trader}}</td>
                     <td class="text-right">{{number_format($form3bDeliveries->qty,4) ?? null}}</td>
                     <td>{{$form3bDeliveries->remarks}}</td>

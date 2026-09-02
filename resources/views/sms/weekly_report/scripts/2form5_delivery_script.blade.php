@@ -18,7 +18,16 @@
             "columns": [
                 { "data": "sro_no" },
                 { "data": "trader" },
-                { "data": "start_of_withdrawal" },
+                // { "data": "start_of_withdrawal" },
+                {
+                    "data": "start_of_withdrawal",
+                    "render": function(data, type, row) {
+                        if (row.end_of_withdrawal) {
+                            return data + ' to ' + row.end_of_withdrawal;
+                        }
+                        return data;
+                    }
+                },
                 { "data": "sugar_class" },
                 { "data": "qty" },
                 { "data": "action"}

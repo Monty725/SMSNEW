@@ -46,6 +46,13 @@
     ],
     (!empty($delivery)) ? $delivery : null
     ) !!}
+    {!! \App\Swep\ViewHelpers\__form2::textbox('end_of_withdrawal',[
+        'label' => 'End of Withdrawal',
+        'cols' => 4,
+        'type' => 'date',
+    ],
+    (!empty($delivery)) ? $delivery : null
+    ) !!}
     {!! \App\Swep\ViewHelpers\__form2::select('sugar_class',[
         'label' => 'Sugar Class:',
         'cols' => 4,

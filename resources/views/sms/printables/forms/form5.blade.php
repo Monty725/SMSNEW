@@ -65,6 +65,7 @@
         <thead>
         <tr>
             <th rowspan="2" class="text-center">SRO No.</th>
+            <th rowspan="2" class="text-center">Date of Withdrawal</th>
             <th rowspan="2" class="text-center">Trader/Owner</th>
             <th colspan="{{count($usedSugarClassesArray)}}" class="text-center">Sugar Class</th>
             <th rowspan="2" class="text-center">Remarks</th>
@@ -85,6 +86,12 @@
             @foreach($wr->form5Deliveries as $form5Deliveries)
                 <tr>
                     <td>{{$form5Deliveries->sro_no}}</td>
+                    <td>
+                        {{ \Illuminate\Support\Carbon::parse($form5Deliveries->start_of_withdrawal)->format('m/d/Y') }}
+                        @if($form5Deliveries->end_of_withdrawal)
+                            to {{ \Illuminate\Support\Carbon::parse($form5Deliveries->end_of_withdrawal)->format('m/d/Y') }}
+                        @endif
+                    </td>
                     <td>{{$form5Deliveries->trader}}</td>
                     @foreach($usedSugarClassesArray as $class)
                         @if($form5Deliveries->sugar_class == $class)
@@ -107,7 +114,7 @@
             @endforeach
         @endif
         <tr>
-            <td colspan="2"></td>
+            <td colspan="3"></td>
             @foreach($usedSugarClassesArray as $class)
                 <td class="text-right">
                     {{number_format($totals[$class] , 4)}}
