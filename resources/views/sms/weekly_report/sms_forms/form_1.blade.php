@@ -519,6 +519,29 @@
                 </div>
 
                 <div class="col-md-12">
+                    <div class="box box-sm box-default box-solid">
+                        <div class="box-header with-border"  style="background-color: #4477a3;color: white;">
+                            <p class="no-margin">
+                                13. Date of Bidding
+                                <small id="filter-notifier" class="label bg-blue blink"></small>
+                            </p>
+                        </div>
+                        <div class="box-body" style="">
+                            <div class="row">
+                                {!! \App\Swep\ViewHelpers\__form2::textbox('dateOfBidding',[
+                                'label' => "Date of Bidding:",
+                                'cols' => 2,
+                                'class' => 'form1-input autonum_distFactor',
+                                'container_class' => 'dateOfBidding',
+                                'type' => 'date',
+                                ],
+                                $wr->form1->date_of_bidding ?? null
+                                ) !!}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
                     @php
                         $a = 'prices';
                     @endphp
@@ -526,7 +549,7 @@
                         <div class="box box-sm box-default box-solid">
                             <div class="box-header with-border"  style="background-color: #4477a3;color: white;">
                                 <p class="no-margin">
-                                    13. Mill District Price Monitoring
+                                    14. Mill District Price Monitoring
                                     <small id="filter-notifier" class="label bg-blue blink"></small>
                                 </p>
                             </div>
@@ -634,14 +657,14 @@
                     <div class="box box-sm box-default box-solid">
                         <div class="box-header with-border"  style="background-color: #4477a3;color: white;">
                             <p class="no-margin">
-                                14. Sugar Distribution Factor
+                                15. Sugar Distribution Factor
                                 <small id="filter-notifier" class="label bg-blue blink"></small>
                             </p>
                         </div>
                         <div class="box-body" style="">
                             <div class="row">
                                 {!! \App\Swep\ViewHelpers\__form2::textbox('distFactor',[
-                                'label' => "14. Distribution Factor:",
+                                'label' => "Distribution Factor:",
                                 'cols' => 4,
                                 'class' => 'form1-input text-right autonum_distFactor',
                                 'container_class' => 'distFactor',
@@ -656,7 +679,7 @@
                     <div class="box box-sm box-default box-solid">
                         <div class="box-header with-border"  style="background-color: #4477a3;color: white;">
                             <p class="no-margin">
-                                15. Quedan Issuances Series & No. of PCS.
+                                16. Quedan Issuances Series & No. of PCS.
                                 <small id="filter-notifier" class="label bg-blue blink"></small>
                                 <button class="btn btn-xs pull-right btn-success add_seriesNos_btn" for="RAW" style="background-color: #e3e3e3" data="form1SeriesNos" type="button"><i class="fa fa-plus"></i> ADD</button>
                             </p>

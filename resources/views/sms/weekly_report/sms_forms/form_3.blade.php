@@ -672,6 +672,31 @@
         <p>Withdrawals of Molasses were transferred to <b>FORM 3B DELIVERIES</b></p>
     </div>
 
+    <div class="box box-sm box-default box-solid">
+        <div class="box-header with-border"  style="background-color: #4477a3;color: white;">
+            <p class="no-margin">
+                13. Date of Bidding:
+                <small id="filter-notifier" class="label bg-blue blink"></small>
+            </p>
+        </div>
+        <div class="box-body" style="">
+            <div class="row">
+                <div class="col-md-4">
+
+                    <div class="row">
+                        {!! \App\Swep\ViewHelpers\__form2::textbox('form3DateOfBidding',[
+                            'label' => 'Date of Bidding:',
+                            'cols' => 12,
+                            'class' => 'form3-input autonum',
+                            'type' => 'date',
+                        ],
+                        $wr->form3->form3_date_of_bidding ?? null
+                        ) !!}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="box box-sm box-default box-solid">
         <div class="box-header with-border"  style="background-color: #4477a3;color: white;">

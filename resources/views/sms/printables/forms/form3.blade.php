@@ -210,16 +210,20 @@
                 <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($toDateForm3['totalBalance']['prev'] ?? null, 3)}}</td>
             </tr>
             <tr>
-                <td class="text-strong">6. Molasses Price (Php/MT)</td>
-                <td class="text-strong text-right">₱ {{\App\Swep\Helpers\Helper::toNumber($wr->form3->price ?? null,2,'')}}</td>
-                <td colspan="5"></td>
+                <td colspan="1" class="text-strong">6. Date of Bidding:</td>
+                <td colspan="2" class="text-center">
+                    {{ $wr->form3->form3_date_of_bidding ? Carbon::parse($wr->form3->form3_date_of_bidding)->format('m/d/Y') : '' }}
+                </td>
+                <td colspan="3" class="text-strong">7. Molasses Price (Php/MT)</td>
+                <td colspan="3" class="text-strong text-right">₱ {{\App\Swep\Helpers\Helper::toNumber($wr->form3->price ?? null,2,'')}}</td>
+{{--                <td colspan="5"></td>--}}
             </tr>
         </tbody>
     </table>
     <table class="table-bordered " style="width: 100%">
 
         <tr>
-            <td colspan="4" class="text-strong">7. Molasses Storage Certificates:</td>
+            <td colspan="4" class="text-strong">8. Molasses Storage Certificates:</td>
         </tr>
 
 
@@ -251,7 +255,7 @@
 
         <tr>
             <td colspan="2">
-                8. Molasses Distribution Factor:
+                9. Molasses Distribution Factor:
             </td>
             <td colspan="2">
                 {{$wr->form3->distFactor ?? null}}

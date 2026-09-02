@@ -51,6 +51,7 @@ class Form3Controller extends Controller
                 'storageCertRefined' => $request->storageCertRefined,
                 'distFactor' => Helper::sanitizeAutonum($request->distFactor),
                 'remarks' => $request->remarks,
+                'form3_date_of_bidding' => $request->form3DateOfBidding,
             ]
         );
         $arr = [];
@@ -105,6 +106,7 @@ class Form3Controller extends Controller
                     'storageCertRefined' => $request->storageCertRefined,
                     'distFactor' => Helper::sanitizeAutonum($request->distFactor),
                     'remarks' => $request->remarks,
+                    'form3_date_of_bidding' => $request->form3_date_of_bidding,
                 ]
             );
             $arr = [];

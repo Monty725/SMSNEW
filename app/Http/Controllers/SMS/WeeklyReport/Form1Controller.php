@@ -84,6 +84,7 @@ class Form1Controller extends Controller
             'retail_refined' => !empty($request->retailRefined) ? Helper::sanitizeAutonum($request->retailRefined) : null,
             'dist_factor' => !empty($request->distFactor) ? Helper::sanitizeAutonum($request->distFactor) : null,
             'remarks' => !empty($request->remarks) ? Helper::sanitizeAutonum($request->remarks) : null,
+            'date_of_bidding' => !empty($request->dateOfBidding) ? Helper::sanitizeAutonum($request->dateOfBidding) : null,
 
         ];
 
@@ -183,6 +184,7 @@ class Form1Controller extends Controller
                     'retail_refined' => !empty($request->retailRefined) ? Helper::sanitizeAutonum($request->retailRefined) : null,
                     'dist_factor' => !empty($request->distFactor) ? Helper::sanitizeAutonum($request->distFactor) : null,
                     'remarks' => !empty($request->remarks) ? Helper::sanitizeAutonum($request->remarks) : null,
+                    'date_of_bidding' => !empty($request->dateOfBidding) ? Helper::sanitizeAutonum($request->dateOfBidding) : null,
 
             ];
 

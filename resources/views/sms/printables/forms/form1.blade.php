@@ -421,7 +421,13 @@
 
         @endphp
         <tr>
-            <td colspan="6">13. Mill District Price Monitoring</td>
+            <td colspan="2">13. Date of Bidding:</td>
+            <td colspan="8" class="text-center">
+                {{ $wr->form1->date_of_bidding ? Carbon::parse($wr->form1->date_of_bidding)->format('m/d/Y') : '' }}
+            </td>
+        </tr>
+        <tr>
+            <td colspan="6">14. Mill District Price Monitoring</td>
             <td colspan="2">WHOLSESALE(PESO/LKG)</td>
             <td colspan="2">RETAIL(PESO/KILO)</td>
         </tr>
@@ -472,13 +478,13 @@
         </tr>
 
         <tr>
-            <td>14. Sugar Distribution Factor: </td>
+            <td>15. Sugar Distribution Factor: </td>
             <td colspan="9">
                 {{ \App\Swep\Helpers\Helper::toNumber($wr->form1->dist_factor ?? 0,10) }}
             </td>
         </tr>
         <tr>
-            <td>15. Remarks: </td>
+            <td>16. Remarks: </td>
             <td colspan="9">
                 @php
                     $currentNet = \App\Swep\Helpers\Helper::toNumber($form1['lkgtc_net']['current'] ?? 0, 4);
