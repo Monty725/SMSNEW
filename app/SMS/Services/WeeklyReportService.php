@@ -335,6 +335,10 @@ class WeeklyReportService
         $formArray['otherMills'] = $this->makeCurrentPrev($relation->otherMills ?? null, $relation->prev_otherMills ?? null);
         $formArray['otherMills']['prev'] = $get=='toDate' ? $relation->prev_otherMills  : $weekly_report->form2->prev_otherMills ?? null;
 
+        //FORM2 OLD CROP COMPUTATION
+        $formArray['oldCrop'] = $this->makeCurrentPrev($relation->old_crop ?? null, $relation->prev_old_crop ?? null);
+        $formArray['oldCrop']['prev'] = $get=='toDate' ? $relation->prev_old_crop  : $weekly_report->form2->prev_old_crop ?? null;
+
         //FORM2 IMPORTED COMPUTATION
         $formArray['imported'] = $this->makeCurrentPrev($relation->imported ?? null, $relation->prev_imported ?? null);
         $formArray['imported']['prev'] = $get=='toDate' ? $relation->prev_imported  : $weekly_report->form2->prev_imported ?? null;
@@ -351,6 +355,7 @@ class WeeklyReportService
             'notCoveredBySro' => $this->makeCurrentPrev($relation->notCoveredBySro ?? null, $relation->prev_notCoveredBySro ?? null),
             'otherMills' => $this->makeCurrentPrev($relation->otherMills ?? null, $relation->prev_otherMills ?? null),
             'imported' => $this->makeCurrentPrev($relation->imported ?? null, $relation->prev_imported ?? null),
+            'oldCrop' => $this->makeCurrentPrev($relation->old_crop ?? null, $relation->prev_old_crop ?? null),
         ];
 
         $formArray['totalReceipts']['current'] = array_sum(array_column($formArray['receipts'],'current'));

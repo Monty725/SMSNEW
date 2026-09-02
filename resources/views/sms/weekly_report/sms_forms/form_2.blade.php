@@ -442,7 +442,29 @@
                 </tr>
 
                 <tr>
-                    <td><span class="indent"></span>2.3 Imported</td>
+                    <td><span class="indent"></span>2.3 Old Crop w/ SRO</td>
+                    <td>
+                        {!! \App\Swep\ViewHelpers\__form2::textboxOnly('old_crop',[
+                            'class' => 'form2-input input-sm text-right autonumber_mt'
+                        ],
+                        $wr->form2->old_crop ?? null
+                        ) !!}
+                    </td>
+                    <td class="text-strong text-right updatable" for="oldCrop.currentCrop.prevWeek"></td>
+                    <td class="text-strong text-right updatable" for="oldCrop.currentCrop.toDate"></td>
+                    <td>
+                        {!! \App\Swep\ViewHelpers\__form2::textboxOnly('prev_old_crop',[
+                            'class' => 'form2-input input-sm text-right autonumber_mt'
+                        ],
+                        $wr->form2->prev_old_crop ?? null
+                        ) !!}
+                    </td>
+                    <td class="text-strong text-right updatable" for="oldCrop.prevCrop.prevWeek"></td>
+                    <td class="text-strong text-right updatable" for="oldCrop.prevCrop.toDate"></td>
+                </tr>
+
+                <tr>
+                    <td><span class="indent"></span>2.4 Imported</td>
                     <td>
                         {!! \App\Swep\ViewHelpers\__form2::textboxOnly('imported',[
                             'class' => 'form2-input input-sm text-right autonumber_mt'

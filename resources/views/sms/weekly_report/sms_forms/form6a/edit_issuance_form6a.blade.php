@@ -2,6 +2,31 @@
 
 @php($rand = \Illuminate\Support\Str::random())
 <div class="row">
+    {!! \App\Swep\ViewHelpers\__form2::iRadioH('consumption',[
+        'cols' => 6,
+        'label' => 'Domestic/Imported:',
+        'options' => [
+            'DOMESTIC' => 'Domestic',
+            'IMPORTED' => 'Imported',
+//            'ADVANCE'  => 'Advance Refining',
+        ]
+    ],
+    $issuance->consumption ?? 'DOMESTIC'
+    ) !!}
+
+    {!! \App\Swep\ViewHelpers\__form2::iRadioH('cropCharge',[
+        'cols' => 6,
+        'label' => 'Crop:',
+        'options' => [
+            'CURRENT' => 'Current Crop',
+            'PREVIOUS' => 'Previous Crop',
+        ]
+    ],
+     !empty($issuance->refined_qty) ? 'CURRENT' : 'PREVIOUS'
+//     !empty($issuance->refined_qty) ? 'CURRENT' : 'CURRENT'
+    ) !!}
+</div>
+<div class="row">
     {!! \App\Swep\ViewHelpers\__form2::textbox('date_of_issue',[
         'label' => 'Date of Issue',
         'cols' => 4,
@@ -87,32 +112,6 @@ $issuance->refined_qty ?? $issuance->prev_refined_qty ?? null
         'cols' => 8,
     ],
     $issuance->mill_source ?? null
-    ) !!}
-</div>
-
-<div class="row">
-    {!! \App\Swep\ViewHelpers\__form2::iRadioH('consumption',[
-        'cols' => 6,
-        'label' => 'Domestic/Imported:',
-        'options' => [
-            'DOMESTIC' => 'Domestic',
-            'IMPORTED' => 'Imported',
-//            'ADVANCE'  => 'Advance Refining',
-        ]
-    ],
-    $issuance->consumption ?? 'DOMESTIC'
-    ) !!}
-
-    {!! \App\Swep\ViewHelpers\__form2::iRadioH('cropCharge',[
-        'cols' => 6,
-        'label' => 'Crop:',
-        'options' => [
-            'CURRENT' => 'Current Crop',
-            'PREVIOUS' => 'Previous Crop',
-        ]
-    ],
-     !empty($issuance->refined_qty) ? 'CURRENT' : 'PREVIOUS'
-//     !empty($issuance->refined_qty) ? 'CURRENT' : 'CURRENT'
     ) !!}
 </div>
 

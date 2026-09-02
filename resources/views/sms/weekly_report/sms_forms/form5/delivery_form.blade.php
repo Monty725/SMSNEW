@@ -1,5 +1,29 @@
 @php($rand = \Illuminate\Support\Str::random())
 <div class="row">
+
+    {!! \App\Swep\ViewHelpers\__form2::iRadioH('cropCharge',[
+        'cols' => 6,
+        'label' => 'Crop:',
+        'options' => [
+            'CURRENT' => 'Current Crop',
+            'PREVIOUS' => 'Previous Crop',
+        ]
+    ],
+     !empty($delivery->qty_prev) ? 'PREVIOUS' : 'CURRENT'
+    ) !!}
+
+    {!! \App\Swep\ViewHelpers\__form2::iCheckH('refining',[
+        'cols' => 6,
+        'label' => 'Refining:',
+        'options' => [
+            'forRefining' => 'For Refining',
+        ]
+    ],
+     ($delivery->refining ?? 0 == 1) ? 'forRefining' : ''
+    ) !!}
+</div>
+
+<div class="row">
     {!! \App\Swep\ViewHelpers\__form2::textbox('sro_no',[
         'label' => 'SRO No.',
         'cols' => 4,
@@ -29,18 +53,18 @@
     ],
     (!empty($delivery)) ? $delivery : null
     ) !!}
-    {!! \App\Swep\ViewHelpers\__form2::select('for_swapping',[
-        'label' => 'For Swapping:',
-        'cols' => 4,
-        'options' => \App\Swep\Helpers\Arrays::sugarClassesForSwapping(),
-    ],
-    (!empty($delivery)) ? $delivery : null
-    ) !!}
+{{--    {!! \App\Swep\ViewHelpers\__form2::select('for_swapping',[--}}
+{{--        'label' => 'For Swapping:',--}}
+{{--        'cols' => 4,--}}
+{{--        'options' => \App\Swep\Helpers\Arrays::sugarClassesForSwapping(),--}}
+{{--    ],--}}
+{{--    (!empty($delivery)) ? $delivery : null--}}
+{{--    ) !!}--}}
 </div>
 <div class="row">
 
     {!! \App\Swep\ViewHelpers\__form2::textbox('qty',[
-        'label' => 'Qty. (MT)',
+        'label' => 'Qty. (LKG)',
         'cols' => 5,
         'class' => 'autonumber_mt_'.$rand,
     ],
@@ -55,29 +79,7 @@
     ) !!}
 </div>
 
-<div class="row">
 
-    {!! \App\Swep\ViewHelpers\__form2::iRadioH('cropCharge',[
-        'cols' => 6,
-        'label' => 'Crop:',
-        'options' => [
-            'CURRENT' => 'Current Crop',
-            'PREVIOUS' => 'Previous Crop',
-        ]
-    ],
-     !empty($delivery->qty_prev) ? 'PREVIOUS' : 'CURRENT'
-    ) !!}
-
-    {!! \App\Swep\ViewHelpers\__form2::iCheckH('refining',[
-        'cols' => 6,
-        'label' => 'Refining:',
-        'options' => [
-            'forRefining' => 'For Refining',
-        ]
-    ],
-     ($delivery->refining ?? 0 == 1) ? 'forRefining' : ''
-    ) !!}
-</div>
 
 
 <script>

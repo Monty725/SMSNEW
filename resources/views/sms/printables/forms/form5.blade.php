@@ -13,7 +13,7 @@
     @endphp
     @include('sms.printables.forms.header',['formName' => 'SMS Form No. 5'])
     <h4 class="no-margin"><b>SUGAR RELEASE ORDER AND DELIVERY REPORT - RAW</b> </h4>
-    <p class="no-margin"><i>(Figures in MT)</i></p>
+    <p class="no-margin"><i>(Figures in 50-Kg Bags)</i></p>
 
     <p class="text-left">A. Issuances of SRO</p>
     <table class="table-bordered details-top-right-table" style="width: 100%">
@@ -21,11 +21,12 @@
         <tr>
             <th class="text-center">SRO No.</th>
             <th class="text-center">Trader/Owner</th>
+            <th class="text-center">CEAs, COCs, Etc.</th>
             <th class="text-center">Date of Issue</th>
             <th class="text-center">Liens OR #.</th>
             <th class="text-center">Sugar Class</th>
-{{--            <th class="text-center">Qty 50-Kg Bags</th>--}}
-            <th class="text-center">Qty MT</th>
+            <th class="text-center">Qty 50-Kg Bags</th>
+{{--            <th class="text-center">Qty LKG</th>--}}
         </tr>
         </thead>
         <tbody>
@@ -36,6 +37,7 @@
                 <tr>
                     <td>{{$form5IssuancesOfSro->sro_no}}</td>
                     <td>{{$form5IssuancesOfSro->trader}}</td>
+                    <td>{{$form5IssuancesOfSro->cea}}</td>
                     <td class="text-center">{{Carbon::parse($form5IssuancesOfSro->date_of_issue)->format('m/d/Y')}}</td>
                     <td class="text-center">{{$form5IssuancesOfSro->liens_or}}</td>
                     <td class="text-center">

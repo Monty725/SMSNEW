@@ -206,10 +206,33 @@
             <td class="text-right text-strong"></td>
         </tr>
 
+        <tr>
+            <td colspan="3">
+                <span class="indent"></span> 2.2 Retention, Adjustment, Overages, Etc.
+                <button type="button" class="btn btn-xs btn-default pull-right insertWarehouseBtn" transactionType="rao"  sugarType="MOLASSES" before="form3aRaoTotal"><i class="fa fa-plus"></i> Add</button>
+            </td>
+        </tr>
+        @if(!empty($subsidiaries['MOLASSES']['rao']))
+            @foreach($subsidiaries['MOLASSES']['rao'] as $key => $raw)
+                @include('sms.dynamic_rows.form4InsertWarehouse',[
+                    'transactionType' => 'rao',
+                    'data' => $raw,
+                    'sugarType' => 'MOLASSES',
+                    'defaultWarehouse' => $raw,
+                ])
+            @endforeach
+        @endif
+
+
+        <tr for="rao" class="computation form3aRaoTotal">
+            <td class="text-strong text-right"> TOTAL</td>
+            <td class="text-right text-strong"></td>
+            <td class="text-right text-strong"></td>
+        </tr>
 
         <tr>
             <td colspan="3">
-                <span class="indent"></span> 2.2 Receipts
+                <span class="indent"></span> 2.3 Receipts
                 <button type="button" class="btn btn-xs btn-default pull-right insertWarehouseBtn" transactionType="receipts"  sugarType="MOLASSES" before="form3aReceiptsTotal"><i class="fa fa-plus"></i> Add</button>
             </td>
         </tr>
@@ -233,7 +256,7 @@
 
         <tr>
             <td colspan="3">
-                <span class="indent"></span> 2.3 Withdrawals
+                <span class="indent"></span> 2.4 Withdrawals
                 <button type="button" class="btn btn-xs btn-default pull-right insertWarehouseBtn" transactionType="withdrawals" sugarType="MOLASSES"  before="form3aWithdrawalsTotal"><i class="fa fa-plus"></i> Add</button>
             </td>
         </tr>
@@ -257,7 +280,7 @@
 
         <tr>
             <td colspan="3">
-                <span class="indent"></span> 2.4 Transfer To Millsite
+                <span class="indent"></span> 2.5 Transfer To Millsite
                 <button type="button" class="btn btn-xs btn-default pull-right insertWarehouseBtn" transactionType="transferToMillsite" sugarType="MOLASSES"  before="form3aTransferToMillsite"><i class="fa fa-plus"></i> Add</button>
             </td>
         </tr>

@@ -168,6 +168,7 @@ class Arrays
             'withdrawals' => 'Withdrawals',
             'transferToMillsite' => 'transfer To Millsite',
             'stockBalances' => 'Stock Balances',
+            'rao' => 'Retention, Adjustment, Overages, Etc.',
         ];
     }
 

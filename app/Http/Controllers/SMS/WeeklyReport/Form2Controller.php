@@ -39,6 +39,7 @@ class Form2Controller extends Controller
                 'overage'=> Helper::sanitizeAutonum($request->overage),
                 'prodReturn'=> Helper::sanitizeAutonum($request->prodReturn),
                 'form2_unquedanned'=> Helper::sanitizeAutonum($request->form2_unquedanned),
+                'old_crop'=> Helper::sanitizeAutonum($request->old_crop),
 
                 'prev_carryOver'=> Helper::sanitizeAutonum($request->prev_carryOver),
                 'prev_coveredBySro'=> Helper::sanitizeAutonum($request->prev_coveredBySro),
@@ -48,13 +49,13 @@ class Form2Controller extends Controller
                 'prev_advance_refining'=> Helper::sanitizeAutonum($request->prev_advance_refining),
                 'prev_melted'=> Helper::sanitizeAutonum($request->prev_melted),
                 'prev_rawWithdrawals'=> Helper::sanitizeAutonum($request->prev_rawWithdrawals),
-
                 'prev_refinedCarryOver'=> Helper::sanitizeAutonum($request->prev_refinedCarryOver),
                 'prev_prodDomestic'=> Helper::sanitizeAutonum($request->prev_prodDomestic),
                 'prev_prodImported'=> Helper::sanitizeAutonum($request->prev_prodImported),
                 'prev_overage'=> Helper::sanitizeAutonum($request->prev_overage),
                 'prev_prodReturn'=> Helper::sanitizeAutonum($request->prev_prodReturn),
                 'form2_prev_unquedanned'=> Helper::sanitizeAutonum($request->form2_prev_unquedanned),
+                'prev_old_crop'=> Helper::sanitizeAutonum($request->prev_old_crop),
 
                 'remarks' => $request->remarks,
             ]
@@ -96,6 +97,7 @@ class Form2Controller extends Controller
                     'prodImported'=> Helper::sanitizeAutonum($request->prodImported),
                     'overage'=> Helper::sanitizeAutonum($request->overage),
                     'prodReturn'=> Helper::sanitizeAutonum($request->prodReturn),
+                    'old_crop'=> Helper::sanitizeAutonum($request->old_crop),
 
                     'prev_carryOver'=> Helper::sanitizeAutonum($request->prev_carryOver),
                     'prev_coveredBySro'=> Helper::sanitizeAutonum($request->prev_coveredBySro),
@@ -105,12 +107,12 @@ class Form2Controller extends Controller
                     'prev_advance_refining'=> Helper::sanitizeAutonum($request->prev_advance_refining),
                     'prev_melted'=> Helper::sanitizeAutonum($request->prev_melted),
                     'prev_rawWithdrawals'=> Helper::sanitizeAutonum($request->prev_rawWithdrawals),
-
                     'prev_refinedCarryOver'=> Helper::sanitizeAutonum($request->prev_refinedCarryOver),
                     'prev_prodDomestic'=> Helper::sanitizeAutonum($request->prev_prodDomestic),
                     'prev_prodImported'=> Helper::sanitizeAutonum($request->prev_prodImported),
                     'prev_overage'=> Helper::sanitizeAutonum($request->prev_overage),
                     'prev_prodReturn'=> Helper::sanitizeAutonum($request->prev_prodReturn),
+                    'prev_old_crop'=> Helper::sanitizeAutonum($request->prev_old_crop),
 
                     'remarks' => $request->remarks,
                 ]

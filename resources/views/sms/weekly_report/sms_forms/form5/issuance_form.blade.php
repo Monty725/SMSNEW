@@ -1,5 +1,28 @@
 @php($rand = \Illuminate\Support\Str::random())
 <div class="row">
+
+    {!! \App\Swep\ViewHelpers\__form2::iRadioH('cropCharge',[
+        'cols' => 6,
+        'label' => 'Crop:',
+        'options' => [
+            'CURRENT' => 'Current Crop',
+            'PREVIOUS' => 'Previous Crop',
+        ]
+    ],
+     !empty($issuance->qty_prev) ? 'PREVIOUS' : 'CURRENT'
+    ) !!}
+
+    {!! \App\Swep\ViewHelpers\__form2::iCheckH('refining',[
+        'cols' => 6,
+        'label' => 'Refining:',
+        'options' => [
+            'forRefining' => 'For Refining',
+        ]
+    ],
+     ($issuance->refining ?? 0 == 1) ? 'forRefining' : ''
+    ) !!}
+</div>
+<div class="row">
     {!! \App\Swep\ViewHelpers\__form2::textbox('sro_no',[
         'label' => 'SRO No.',
         'cols' => 4,
@@ -10,14 +33,6 @@
         'label' => 'Trader/Owner:',
         'cols' => 8,
         'list' => 'traders',
-    ],
-    (!empty($issuance)) ? $issuance : null
-    ) !!}
-</div>
-<div class="row">
-    {!! \App\Swep\ViewHelpers\__form2::textbox('cea',[
-        'label' => 'CEA/COCs, Letter Authority, Etc.',
-        'cols' => 12,
     ],
     (!empty($issuance)) ? $issuance : null
     ) !!}
@@ -46,7 +61,7 @@
     (!empty($issuance)) ? $issuance : null
     ) !!}
     {!! \App\Swep\ViewHelpers\__form2::textbox('qty',[
-        'label' => 'Qty. (MT)',
+        'label' => 'Qty. (LKG)',
         'cols' => 6,
         'class' => 'autonumber_mt_'.$rand,
     ],
@@ -54,26 +69,11 @@
     ) !!}
 </div>
 <div class="row">
-
-    {!! \App\Swep\ViewHelpers\__form2::iRadioH('cropCharge',[
-        'cols' => 6,
-        'label' => 'Crop:',
-        'options' => [
-            'CURRENT' => 'Current Crop',
-            'PREVIOUS' => 'Previous Crop',
-        ]
+    {!! \App\Swep\ViewHelpers\__form2::textbox('cea',[
+        'label' => 'CEA/COCs, Letter Authority, Etc.',
+        'cols' => 12,
     ],
-     !empty($issuance->qty_prev) ? 'PREVIOUS' : 'CURRENT'
-    ) !!}
-
-    {!! \App\Swep\ViewHelpers\__form2::iCheckH('refining',[
-        'cols' => 6,
-        'label' => 'Refining:',
-        'options' => [
-            'forRefining' => 'For Refining',
-        ]
-    ],
-     ($issuance->refining ?? 0 == 1) ? 'forRefining' : ''
+    (!empty($issuance)) ? $issuance : null
     ) !!}
 </div>
 

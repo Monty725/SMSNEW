@@ -119,7 +119,28 @@
             </td>
         </tr>
         <tr>
-            <td colspan><span class="indent"></span> 2.3. Imported</td>
+            <td colspan><span class="indent"></span> 2.3. Old Crop w/ SRO</td>
+            <td class="text-right">
+                {{$newform2['values']['oldCrop.currentCrop.thisWeek'] ?? 0 }}
+            </td>
+            <td class="text-right">
+                {{$newform2['values']['oldCrop.currentCrop.prevWeek'] ?? 0 }}
+            </td>
+            <td class="text-right">
+                {{$newform2['values']['oldCrop.currentCrop.toDate'] ?? 0 }}
+            </td>
+            <td class="text-right">
+                {{$newform2['values']['oldCrop.prevCrop.thisWeek'] ?? 0 }}
+            </td>
+            <td class="text-right">
+                {{$newform2['values']['oldCrop.prevCrop.prevWeek'] ?? 0 }}
+            </td>
+            <td class="text-right">
+                {{$newform2['values']['oldCrop.prevCrop.toDate'] ?? 0 }}
+            </td>
+        </tr>
+        <tr>
+            <td colspan><span class="indent"></span> 2.4. Imported</td>
             <td class="text-right">
                 {{$newform2['values']['imported.currentCrop.thisWeek'] ?? 0 }}
             </td>

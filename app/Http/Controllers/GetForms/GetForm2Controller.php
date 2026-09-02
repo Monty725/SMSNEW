@@ -393,6 +393,14 @@ class GetForm2Controller extends Controller
         $arr["otherMills"]["prevCrop"]["prevWeek"]=$this->formatValue2($prevWeek->prev_otherMills);
         $arr["otherMills"]["prevCrop"]["toDate"]=$this->formatValue2($toDate->prev_otherMills);
 
+        //OLD CROP COMPUTATION
+        $arr["oldCrop"]["currentCrop"]["thisWeek"]=$this->formatValue2($thisWeek->old_crop);
+        $arr["oldCrop"]["currentCrop"]["prevWeek"]=$this->formatValue2($prevWeek->old_crop);
+        $arr["oldCrop"]["currentCrop"]["toDate"]=$this->formatValue2($toDate->old_crop);
+        $arr["oldCrop"]["prevCrop"]["thisWeek"]=$this->formatValue2($thisWeek->prev_old_crop);
+        $arr["oldCrop"]["prevCrop"]["prevWeek"]=$this->formatValue2($prevWeek->prev_old_crop);
+        $arr["oldCrop"]["prevCrop"]["toDate"]=$this->formatValue2($toDate->prev_old_crop);
+
         //IMPORTED COMPUTATION
         $arr["imported"]["currentCrop"]["thisWeek"]=$this->formatValue2($thisWeek->imported);
         $arr["imported"]["currentCrop"]["prevWeek"]=$this->formatValue2($prevWeek->imported);
@@ -519,14 +527,14 @@ class GetForm2Controller extends Controller
         //NEW TOTAL RECEIPT
         $arr["totalReceipt"] = [
             "currentCrop"=>[
-                "thisWeek"=>$this->formatValue2($thisWeek->coveredBySro + $thisWeek->otherMills + $thisWeek->imported + $thisWeek->advance_refining + $thisWeek->notCoveredBySro),
-                "prevWeek"=>$this->formatValue2($prevWeek->coveredBySro + $prevWeek->otherMills + $prevWeek->imported + $prevWeek->advance_refining + $prevWeek->notCoveredBySro),
-                "toDate"=>$this->formatValue2($toDate->coveredBySro + $toDate->otherMills + $toDate->imported + $toDate->advance_refining + $toDate->notCoveredBySro),
+                "thisWeek"=>$this->formatValue2($thisWeek->coveredBySro + $thisWeek->otherMills + $thisWeek->imported + $thisWeek->advance_refining + $thisWeek->notCoveredBySro + $thisWeek->old_crop),
+                "prevWeek"=>$this->formatValue2($prevWeek->coveredBySro + $prevWeek->otherMills + $prevWeek->imported + $prevWeek->advance_refining + $prevWeek->notCoveredBySro + $prevWeek->old_crop),
+                "toDate"=>$this->formatValue2($toDate->coveredBySro + $toDate->otherMills + $toDate->imported + $toDate->advance_refining + $toDate->notCoveredBySro + $toDate->old_crop),
             ],
             "prevCrop"=>[
-                "thisWeek"=>$this->formatValue2($thisWeek->prev_coveredBySro + $thisWeek->prev_otherMills + $thisWeek->prev_imported + $thisWeek->prev_advance_refining + $thisWeek->prev_notCoveredBySro),
-                "prevWeek"=>$this->formatValue2($prevWeek->prev_coveredBySro + $prevWeek->prev_otherMills + $prevWeek->prev_imported + $prevWeek->prev_advance_refining + $prevWeek->prev_notCoveredBySro),
-                "toDate"=>$this->formatValue2($toDate->prev_coveredBySro + $toDate->prev_otherMills + $toDate->prev_imported + $toDate->prev_advance_refining + $toDate->prev_notCoveredBySro),
+                "thisWeek"=>$this->formatValue2($thisWeek->prev_coveredBySro + $thisWeek->prev_otherMills + $thisWeek->prev_imported + $thisWeek->prev_advance_refining + $thisWeek->prev_notCoveredBySro + $thisWeek->prev_old_crop),
+                "prevWeek"=>$this->formatValue2($prevWeek->prev_coveredBySro + $prevWeek->prev_otherMills + $prevWeek->prev_imported + $prevWeek->prev_advance_refining + $prevWeek->prev_notCoveredBySro + $prevWeek->prev_old_crop),
+                "toDate"=>$this->formatValue2($toDate->prev_coveredBySro + $toDate->prev_otherMills + $toDate->prev_imported + $toDate->prev_advance_refining + $toDate->prev_notCoveredBySro + $toDate->prev_old_crop),
             ],
         ];
 
