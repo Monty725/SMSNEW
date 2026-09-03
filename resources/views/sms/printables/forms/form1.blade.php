@@ -271,7 +271,7 @@
         </tr>
 
         <tr>
-            <td>11. LKG/TC, Gross</td>
+            <td>11. A. LKG/TC, Gross</td>
             <td class="text-right">
                 {{ \App\Swep\Helpers\Helper::toNumber($form1['lkgtc_gross']['current']?? null,4) }}
             </td>
@@ -292,6 +292,30 @@
                 </td>
             @else
                 <td colspan="3"><span class="text-strong">B: </span></td>
+            @endif
+        </tr>
+
+        <tr>
+            <td>11. B. LKG/TC, Net</td>
+            <td class="text-right">
+                {{ \App\Swep\Helpers\Helper::toNumber($form1['lkgtc_net']['current'] ?? null,4) }}
+            </td>
+            <td class="text-right">
+                {{ \App\Swep\Helpers\Helper::toNumber($prevToDateForm1['lkgtc_net']['current'] ?? null,4) }}
+            </td>
+            <td class="text-right">
+                {{ \App\Swep\Helpers\Helper::toNumber($toDateForm1['lkgtc_net']['current'] ?? null,4) }}
+            </td>
+
+            @if(!empty($details_arr['RAW']['seriesNos']['C']))
+                <td colspan="3">
+                    <span class="text-strong">C: </span>
+                    @foreach($details_arr['RAW']['seriesNos']['C'] as $sn)
+                        {{$sn->seriesFrom ?? null}} - {{$sn->seriesTo ?? null}}  ({{$sn->noOfPcs ?? null}} pcs),
+                    @endforeach
+                </td>
+            @else
+                <td colspan="3"><span class="text-strong">C: </span></td>
             @endif
         </tr>
 
@@ -377,15 +401,15 @@
             <td class="text-right">
                 {{ \App\Swep\Helpers\Helper::toNumber($wr->toDateForm1()->share_planter ?? null,4) }}
             </td>
-            @if(!empty($details_arr['RAW']['seriesNos']['C']))
+            @if(!empty($details_arr['RAW']['seriesNos']['D']))
                 <td colspan="3">
-                    <span class="text-strong">C: </span>
-                    @foreach($details_arr['RAW']['seriesNos']['C'] as $sn)
+                    <span class="text-strong">D: </span>
+                    @foreach($details_arr['RAW']['seriesNos']['D'] as $sn)
                         {{$sn->seriesFrom ?? null}} - {{$sn->seriesTo ?? null}}  ({{$sn->noOfPcs ?? null}} pcs),
                     @endforeach
                 </td>
             @else
-                <td colspan="3"><span class="text-strong">C: </span></td>
+                <td colspan="3"><span class="text-strong">D: </span></td>
             @endif
         </tr>
 
@@ -400,16 +424,10 @@
             <td class="text-right">
                 {{ \App\Swep\Helpers\Helper::toNumber($wr->toDateForm1()->share_miller ?? null,4) }}
             </td>
-            @if(!empty($details_arr['RAW']['seriesNos']['D']))
-                <td colspan="3">
-                    <span class="text-strong">D: </span>
-                    @foreach($details_arr['RAW']['seriesNos']['D'] as $sn)
-                        {{$sn->seriesFrom ?? null}} - {{$sn->seriesTo ?? null}}  ({{$sn->noOfPcs ?? null}} pcs),
-                    @endforeach
-                </td>
-            @else
-                <td colspan="3"><span class="text-strong">D: </span></td>
-            @endif
+            <td colspan="2">13. Date of Bidding:</td>
+            <td colspan="1" class="text-center">
+                {{ $wr->form1->date_of_bidding ? Carbon::parse($wr->form1->date_of_bidding)->format('m/d/Y') : '' }}
+            </td>
         </tr>
 
         </tbody>
@@ -420,12 +438,6 @@
             $a = 'prices';
 
         @endphp
-        <tr>
-            <td colspan="2">13. Date of Bidding:</td>
-            <td colspan="8" class="text-center">
-                {{ $wr->form1->date_of_bidding ? Carbon::parse($wr->form1->date_of_bidding)->format('m/d/Y') : '' }}
-            </td>
-        </tr>
         <tr>
             <td colspan="6">14. Mill District Price Monitoring</td>
             <td colspan="2">WHOLSESALE(PESO/LKG)</td>
@@ -486,16 +498,16 @@
         <tr>
             <td>16. Remarks: </td>
             <td colspan="9">
-                @php
-                    $currentNet = \App\Swep\Helpers\Helper::toNumber($form1['lkgtc_net']['current'] ?? 0, 4);
-                @endphp
+{{--                @php--}}
+{{--                    $currentNet = \App\Swep\Helpers\Helper::toNumber($form1['lkgtc_net']['current'] ?? 0, 4);--}}
+{{--                @endphp--}}
 
-                @if ($currentNet !== '0.000')
-                    LKGTC/NET:
-                    Current: {{ $currentNet }} ||&nbsp;
-                    Previous: {{ \App\Swep\Helpers\Helper::toNumber($prevToDateForm1['lkgtc_net']['current'] ?? 0, 4) }} ||&nbsp;
-                    To Date: {{ \App\Swep\Helpers\Helper::toNumber($toDateForm1['lkgtc_net']['current'] ?? 0, 4) }} ||&nbsp;
-                @endif
+{{--                @if ($currentNet !== '0.000')--}}
+{{--                    LKGTC/NET:--}}
+{{--                    Current: {{ $currentNet }} ||&nbsp;--}}
+{{--                    Previous: {{ \App\Swep\Helpers\Helper::toNumber($prevToDateForm1['lkgtc_net']['current'] ?? 0, 4) }} ||&nbsp;--}}
+{{--                    To Date: {{ \App\Swep\Helpers\Helper::toNumber($toDateForm1['lkgtc_net']['current'] ?? 0, 4) }} ||&nbsp;--}}
+{{--                @endif--}}
                 {{ $wr->form1->remarks ?? null}}
             </td>
         </tr>

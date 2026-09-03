@@ -59,6 +59,76 @@
         </tbody>
     </table>
     <br>
+
+{{--OLD DELIVERIES START--}}
+
+{{--    <p class="text-left">B. Delivery</p>--}}
+{{--    <table class="table-bordered details-top-right-table" style="width: 100%">--}}
+{{--        <thead>--}}
+{{--        <tr>--}}
+{{--            <th rowspan="2" class="text-center">SRO No.</th>--}}
+{{--            <th rowspan="2" class="text-center">Date of Withdrawal</th>--}}
+{{--            <th rowspan="2" class="text-center">Trader/Owner</th>--}}
+{{--            <th colspan="{{count($usedSugarClassesArray)}}" class="text-center">Sugar Class</th>--}}
+{{--            <th rowspan="2" class="text-center">Remarks</th>--}}
+{{--        </tr>--}}
+{{--        <tr>--}}
+{{--            @php($totals = [])--}}
+{{--            @foreach($usedSugarClassesArray as $class)--}}
+{{--                @php($totals[$class] = 0)--}}
+{{--                <td class="text-center" style="width: 10%">--}}
+{{--                    {{$class}}--}}
+{{--                </td>--}}
+{{--            @endforeach--}}
+{{--        </tr>--}}
+{{--        </thead>--}}
+{{--        <tbody>--}}
+
+{{--        @if(!empty($wr->form5Deliveries))--}}
+{{--            @foreach($wr->form5Deliveries as $form5Deliveries)--}}
+{{--                <tr>--}}
+{{--                    <td>{{$form5Deliveries->sro_no}}</td>--}}
+{{--                    <td>--}}
+{{--                        {{ \Illuminate\Support\Carbon::parse($form5Deliveries->start_of_withdrawal)->format('m/d/Y') }}--}}
+{{--                        @if($form5Deliveries->end_of_withdrawal)--}}
+{{--                            to {{ \Illuminate\Support\Carbon::parse($form5Deliveries->end_of_withdrawal)->format('m/d/Y') }}--}}
+{{--                        @endif--}}
+{{--                    </td>--}}
+{{--                    <td>{{$form5Deliveries->trader}}</td>--}}
+{{--                    @foreach($usedSugarClassesArray as $class)--}}
+{{--                        @if($form5Deliveries->sugar_class == $class)--}}
+{{--                            <td class="text-right">--}}
+
+{{--                                @if($form5Deliveries->qty != null)--}}
+{{--                                    @php($totals[$class] = $totals[$class] + $form5Deliveries->qty)--}}
+{{--                                    {{number_format($form5Deliveries->qty,4)}}--}}
+{{--                                @else--}}
+{{--                                    @php($totals[$class] = $totals[$class] + $form5Deliveries->qty_prev)--}}
+{{--                                    {{number_format($form5Deliveries->qty_prev,4)}}--}}
+{{--                                @endif--}}
+{{--                            </td>--}}
+{{--                        @else--}}
+{{--                            <td></td>--}}
+{{--                        @endif--}}
+{{--                    @endforeach--}}
+{{--                    <td>{{($form5Deliveries->refining == 1) ? 'For Refining':''}} {{$form5Deliveries->remarks}} {{$form5Deliveries->qty_prev != null ?  'PREVIOUS' : null}}</td>--}}
+{{--                </tr>--}}
+{{--            @endforeach--}}
+{{--        @endif--}}
+{{--        <tr>--}}
+{{--            <td colspan="3"></td>--}}
+{{--            @foreach($usedSugarClassesArray as $class)--}}
+{{--                <td class="text-right">--}}
+{{--                    {{number_format($totals[$class] , 4)}}--}}
+{{--                </td>--}}
+{{--            @endforeach--}}
+{{--        </tr>--}}
+{{--        </tbody>--}}
+{{--    </table>--}}
+
+{{--OLD DELIVERIES END--}}
+{{--NEW DELIVERIES START--}}
+
     <p class="text-left">B. Delivery</p>
 
     <table class="table-bordered details-top-right-table" style="width: 100%">
@@ -67,62 +137,381 @@
             <th rowspan="2" class="text-center">SRO No.</th>
             <th rowspan="2" class="text-center">Date of Withdrawal</th>
             <th rowspan="2" class="text-center">Trader/Owner</th>
-            <th colspan="{{count($usedSugarClassesArray)}}" class="text-center">Sugar Class</th>
+
+            <th colspan="{{ count($usedSugarClassesArray) + 1 }}" class="text-center">
+                Sugar Class
+            </th>
+
             <th rowspan="2" class="text-center">Remarks</th>
         </tr>
+
         <tr>
             @php($totals = [])
+            @php($previousTotals = [])
+            @php($refiningTotals = [])
+            @php($previousRefiningTotals = [])
+
             @foreach($usedSugarClassesArray as $class)
+
                 @php($totals[$class] = 0)
+                @php($previousTotals[$class] = 0)
+
                 <td class="text-center" style="width: 10%">
-                    {{$class}}
+                    {{ $class }}
                 </td>
+
+                @if($class == 'B')
+
+                    @php($refiningTotals[$class] = 0)
+                    @php($previousRefiningTotals[$class] = 0)
+
+                    <td class="text-center" style="width: 10%">
+                        B-Refining
+                    </td>
+
+                @endif
+
             @endforeach
         </tr>
         </thead>
+
         <tbody>
 
-        @if(!empty($wr->form5Deliveries))
-            @foreach($wr->form5Deliveries as $form5Deliveries)
-                <tr>
-                    <td>{{$form5Deliveries->sro_no}}</td>
-                    <td>
-                        {{ \Illuminate\Support\Carbon::parse($form5Deliveries->start_of_withdrawal)->format('m/d/Y') }}
-                        @if($form5Deliveries->end_of_withdrawal)
-                            to {{ \Illuminate\Support\Carbon::parse($form5Deliveries->end_of_withdrawal)->format('m/d/Y') }}
-                        @endif
-                    </td>
-                    <td>{{$form5Deliveries->trader}}</td>
-                    @foreach($usedSugarClassesArray as $class)
-                        @if($form5Deliveries->sugar_class == $class)
-                            <td class="text-right">
+        {{-- ===================================================== --}}
+        {{-- CURRENT CROP DIVIDER --}}
+        {{-- ===================================================== --}}
 
-                                @if($form5Deliveries->qty != null)
-                                    @php($totals[$class] = $totals[$class] + $form5Deliveries->qty)
-                                    {{number_format($form5Deliveries->qty,4)}}
+        <tr>
+            <td colspan="{{ 5 + count($usedSugarClassesArray) }}"
+                class="text-center"
+                style="font-weight: bold; background-color: #f2f2f2;">
+                CURRENT CROP
+            </td>
+        </tr>
+
+
+        {{-- ===================================================== --}}
+        {{-- CURRENT DELIVERIES --}}
+        {{-- ===================================================== --}}
+
+        @if(!empty($wr->form5Deliveries))
+
+            @foreach($wr->form5Deliveries as $form5Deliveries)
+
+                @if($form5Deliveries->qty_prev == null)
+
+                    <tr>
+                        <td>
+                            {{ $form5Deliveries->sro_no }}
+                        </td>
+
+                        <td>
+                            {{ \Illuminate\Support\Carbon::parse($form5Deliveries->start_of_withdrawal)->format('m/d/Y') }}
+
+                            @if($form5Deliveries->end_of_withdrawal)
+                                to
+                                {{ \Illuminate\Support\Carbon::parse($form5Deliveries->end_of_withdrawal)->format('m/d/Y') }}
+                            @endif
+                        </td>
+
+                        <td>
+                            {{ $form5Deliveries->trader }}
+                        </td>
+
+
+                        @foreach($usedSugarClassesArray as $class)
+
+                            {{-- NORMAL SUGAR CLASS --}}
+                            @if(
+                                $form5Deliveries->sugar_class == $class &&
+                                !($class == 'B' && $form5Deliveries->refining == 1)
+                            )
+
+                                <td class="text-right">
+
+                                    @if($form5Deliveries->qty != null)
+
+                                        @php($totals[$class] += $form5Deliveries->qty)
+
+                                        {{ number_format($form5Deliveries->qty, 4) }}
+
+                                    @endif
+
+                                </td>
+
+                            @else
+
+                                <td></td>
+
+                            @endif
+
+
+                            {{-- B-REFINING --}}
+                            @if($class == 'B')
+
+                                @if(
+                                    $form5Deliveries->sugar_class == 'B' &&
+                                    $form5Deliveries->refining == 1
+                                )
+
+                                    <td class="text-right">
+
+                                        @if($form5Deliveries->qty != null)
+
+                                            @php($refiningTotals['B'] += $form5Deliveries->qty)
+
+                                            {{ number_format($form5Deliveries->qty, 4) }}
+
+                                        @endif
+
+                                    </td>
+
                                 @else
-                                    @php($totals[$class] = $totals[$class] + $form5Deliveries->qty_prev)
-                                    {{number_format($form5Deliveries->qty_prev,4)}}
+
+                                    <td></td>
+
                                 @endif
-                            </td>
-                        @else
-                            <td></td>
-                        @endif
-                    @endforeach
-                    <td>{{($form5Deliveries->refining == 1) ? 'For Refining':''}} {{$form5Deliveries->remarks}} {{$form5Deliveries->qty_prev != null ?  'PREVIOUS' : null}}</td>
-                </tr>
+
+                            @endif
+
+                        @endforeach
+
+
+                        <td>
+{{--                            {{ ($form5Deliveries->refining == 1) ? 'For Refining' : '' }}--}}
+                            {{ $form5Deliveries->remarks }}
+                        </td>
+
+                    </tr>
+
+                @endif
+
             @endforeach
+
         @endif
+
+
+        {{-- ===================================================== --}}
+        {{-- CURRENT TOTALS --}}
+        {{-- ===================================================== --}}
+
         <tr>
             <td colspan="3"></td>
+
             @foreach($usedSugarClassesArray as $class)
+
+                {{-- Normal Total --}}
                 <td class="text-right">
-                    {{number_format($totals[$class] , 4)}}
+                    <strong>
+                        {{ number_format($totals[$class], 4) }}
+                    </strong>
                 </td>
+
+                {{-- B-Refining Total --}}
+                @if($class == 'B')
+
+                    <td class="text-right">
+                        <strong>
+                            {{ number_format($refiningTotals['B'], 4) }}
+                        </strong>
+                    </td>
+
+                @endif
+
             @endforeach
+
+            <td></td>
         </tr>
+
+
+        {{-- ===================================================== --}}
+        {{-- PREVIOUS CROP DIVIDER --}}
+        {{-- ===================================================== --}}
+
+        <tr>
+            <td colspan="{{ 5 + count($usedSugarClassesArray) }}"
+                class="text-center"
+                style="font-weight: bold; background-color: #f2f2f2;">
+                PREVIOUS
+            </td>
+        </tr>
+
+
+        {{-- ===================================================== --}}
+        {{-- PREVIOUS DELIVERIES --}}
+        {{-- ===================================================== --}}
+
+        @if(!empty($wr->form5Deliveries))
+
+            @foreach($wr->form5Deliveries as $form5Deliveries)
+
+                @if($form5Deliveries->qty_prev != null)
+
+                    <tr>
+                        <td>
+                            {{ $form5Deliveries->sro_no }}
+                        </td>
+
+                        <td>
+                            {{ \Illuminate\Support\Carbon::parse($form5Deliveries->start_of_withdrawal)->format('m/d/Y') }}
+
+                            @if($form5Deliveries->end_of_withdrawal)
+                                to
+                                {{ \Illuminate\Support\Carbon::parse($form5Deliveries->end_of_withdrawal)->format('m/d/Y') }}
+                            @endif
+                        </td>
+
+                        <td>
+                            {{ $form5Deliveries->trader }}
+                        </td>
+
+
+                        @foreach($usedSugarClassesArray as $class)
+
+                            {{-- NORMAL PREVIOUS SUGAR CLASS --}}
+                            @if(
+                                $form5Deliveries->sugar_class == $class &&
+                                !($class == 'B' && $form5Deliveries->refining == 1)
+                            )
+
+                                <td class="text-right">
+
+                                    @php($previousTotals[$class] += $form5Deliveries->qty_prev)
+
+                                    {{ number_format($form5Deliveries->qty_prev, 4) }}
+
+                                </td>
+
+                            @else
+
+                                <td></td>
+
+                            @endif
+
+
+                            {{-- B-REFINING --}}
+                            @if($class == 'B')
+
+                                @if(
+                                    $form5Deliveries->sugar_class == 'B' &&
+                                    $form5Deliveries->refining == 1
+                                )
+
+                                    <td class="text-right">
+
+                                        @php($previousRefiningTotals['B'] += $form5Deliveries->qty_prev)
+
+                                        {{ number_format($form5Deliveries->qty_prev, 4) }}
+
+                                    </td>
+
+                                @else
+
+                                    <td></td>
+
+                                @endif
+
+                            @endif
+
+                        @endforeach
+
+
+                        <td>
+{{--                            {{ ($form5Deliveries->refining == 1) ? 'For Refining' : '' }}--}}
+                            {{ $form5Deliveries->remarks }}
+                        </td>
+
+                    </tr>
+
+                @endif
+
+            @endforeach
+
+        @endif
+
+
+        {{-- ===================================================== --}}
+        {{-- PREVIOUS TOTALS --}}
+        {{-- ===================================================== --}}
+
+        <tr>
+            <td colspan="3"></td>
+
+            @foreach($usedSugarClassesArray as $class)
+
+                {{-- Normal Previous Total --}}
+                <td class="text-right">
+                    <strong>
+                        {{ number_format($previousTotals[$class], 4) }}
+                    </strong>
+                </td>
+
+                {{-- B-Refining Previous Total --}}
+                @if($class == 'B')
+
+                    <td class="text-right">
+                        <strong>
+                            {{ number_format($previousRefiningTotals['B'], 4) }}
+                        </strong>
+                    </td>
+
+                @endif
+
+            @endforeach
+
+            <td></td>
+        </tr>
+
+
+        {{-- ===================================================== --}}
+        {{-- OVERALL TOTAL --}}
+        {{-- ===================================================== --}}
+
+        <tr style="font-weight: bold; border-top: 2px solid #000;">
+
+            <td colspan="3">
+                <strong>OVERALL TOTAL</strong>
+            </td>
+
+            @foreach($usedSugarClassesArray as $class)
+
+                {{-- Normal Overall Total --}}
+                <td class="text-right">
+                    <strong>
+                        {{ number_format(
+                            $totals[$class] + $previousTotals[$class],
+                            4
+                        ) }}
+                    </strong>
+                </td>
+
+                {{-- B-Refining Overall Total --}}
+                @if($class == 'B')
+
+                    <td class="text-right">
+                        <strong>
+                            {{ number_format(
+                                $refiningTotals['B'] + $previousRefiningTotals['B'],
+                                4
+                            ) }}
+                        </strong>
+                    </td>
+
+                @endif
+
+            @endforeach
+
+            <td></td>
+
+        </tr>
+
         </tbody>
     </table>
+
+{{--    NEW DELIVERIES END--}}
+
+
+
     <br>
     <p class="text-left">C. Served SRO <small><i>(To be transmitted to SRA with Permit Portion, Ledger of Withdrawals & Listing*)</i></small></p>
     <table  class="table-bordered details-top-right-table" style="width: 100%">
