@@ -705,7 +705,7 @@ class WeeklyReportService
                 ->where('crop_year','=',$weekly_report->crop_year)
                 ->where('mill_code','=', $weekly_report->mill_code)
                 ->where('report_no','<=', $report_no != 0 ? $report_no * 1 : $weekly_report->report_no * 1)
-                ->where('report_no','<=', $report_no)
+//                ->where('report_no','<=', $report_no)
                 ->groupBy('transactionType','warehouse_slug')
                 ->orderBy('sms_subsidiaries.id','asc')
                 ->get();
