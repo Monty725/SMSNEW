@@ -149,7 +149,7 @@
                 - ($toDateForm3a['transferToRefinery']['prev'] ?? 0);
         @endphp
         <tr>
-            <td style="text-indent: 10px">1.7 Stock Balance</td>
+            <td style="text-indent: 10px">1.8 Stock Balance</td>
             <td class="text-right">{{ \App\Swep\Helpers\Helper::toNumber($stock_current3a,4) }}</td>
             <td class="text-right">{{ \App\Swep\Helpers\Helper::toNumber($stock_prevToDate_current3a,4) }}</td>
             <td class="text-right">{{ \App\Swep\Helpers\Helper::toNumber($stock_toDate_current3a,4) }}</td>
