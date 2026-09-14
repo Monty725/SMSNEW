@@ -15,31 +15,68 @@ class IssuanceOfMroController
 {
     public function index(){
         if(\request()->ajax()){
+
             $issuances = IssuancesOfMro::query()
                 ->where('weekly_report_slug','=',\request('weekly_report_slug'));
+
+            // Get totals for all MRO issuances
+            $totalCurrentIssuances = (clone $issuances)->sum('qty');
+            $totalPrevIssuances = (clone $issuances)->sum('qty_prev');
+
+            $totalIssuances = $totalCurrentIssuances + $totalPrevIssuances;
+
             return DataTables::of($issuances)
+
                 ->addColumn('action',function($data){
                     $destroy_route = "'".route("dashboard.form3b_issuanceOfSro.destroy","slug")."'";
                     $slug = "'".$data->slug."'";
+
                     $button = '<div class="btn-group">
-                                    <button type="button" data="'.$data->slug.'" uri="'.route("dashboard.form3b_issuanceOfSro.edit",$data->slug).'" class="btn btn-sm view_form5Issuance_btn btn-xs form5_edit_btn" data-toggle="modal" data-target="#form5_editModal" title="Edit" data-placement="top">
-                                        <i class="fa fa-edit"></i>
-                                    </button>
-                                    <button type="button" data="'.$data->slug.'" onclick="delete_data('.$slug.','.$destroy_route.')" class="btn btn-sm btn-danger btn-xs " data-toggle="tooltip" title="Delete" data-placement="top">
-                                        <i class="fa fa-trash"></i>
-                                    </button>
-                                  
-                                </div>';
+                                <button type="button"
+                                    data="'.$data->slug.'"
+                                    uri="'.route("dashboard.form3b_issuanceOfSro.edit",$data->slug).'"
+                                    class="btn btn-sm view_form5Issuance_btn btn-xs form5_edit_btn"
+                                    data-toggle="modal"
+                                    data-target="#form5_editModal"
+                                    title="Edit"
+                                    data-placement="top">
+                                    <i class="fa fa-edit"></i>
+                                </button>
+
+                                <button type="button"
+                                    data="'.$data->slug.'"
+                                    onclick="delete_data('.$slug.','.$destroy_route.')"
+                                    class="btn btn-sm btn-danger btn-xs"
+                                    data-toggle="tooltip"
+                                    title="Delete"
+                                    data-placement="top">
+                                    <i class="fa fa-trash"></i>
+                                </button>
+                            </div>';
+
                     return $button;
-                })->editColumn('qty',function($data){
+                })
+
+                ->editColumn('qty',function($data){
                     if(!empty($data->qty)){
                         return number_format($data->qty,4);
                     }else{
                         return number_format($data->qty_prev,4);
                     }
                 })
+
                 ->escapeColumns([])
+
                 ->setRowId('slug')
+
+                ->with([
+                    'totals' => [
+                        'totalCurrentIssuances' => number_format($totalCurrentIssuances,4,'.',''),
+                        'totalPrevIssuances' => number_format($totalPrevIssuances,4,'.',''),
+                        'totalIssuances' => number_format($totalIssuances,4,'.',''),
+                    ]
+                ])
+
                 ->toJson();
         }
     }

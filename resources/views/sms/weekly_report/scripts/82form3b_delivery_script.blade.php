@@ -58,29 +58,52 @@
                     "processing": "<center><img style='width: 70px' src='{{asset("images/loader.gif")}}'></center>",
                 },
             "drawCallback": function(settings){
-                // console.log(form3b_deliveries_tbl.page.info().page);
 
-                let total = 0;
-                $("#form3b_deliveries_table tbody tr").each(function(){
-                    let qty = parseFloat($(this).find("td:eq(3)").text().replace(/,/g, '')) || 0;
-                    total += qty;
-                });
+                // Get totals from the controller
+                if (settings.json && settings.json.totals) {
 
-                // Format number with commas
-                let formattedTotal = total.toFixed(4).replace(/\B(?=(\d{4})+(?!\d))/g, ",");
+                    // TOTAL Current
+                    $("dt[for='form3bTotalCurrentDelivery']")
+                        .html(settings.json.totals.totalCurrentDeliveries);
 
-                // Update the total row
-                $("#totalQty").html(`<strong>${formattedTotal}</strong>`);
+                    // TOTAL Previous
+                    $("dt[for='form3bTotalPrevDelivery']")
+                        .html(settings.json.totals.totalPrevDeliveries);
 
+                    // TOTAL Overall
+                    $("dt[for='form3bTotalDelivery']")
+                        .html(settings.json.totals.totalDeliveries);
+
+                    // TOTAL displayed at the bottom of the table
+                    $("#totalQty").html(
+                        "<strong>" +
+                        settings.json.totals.totalDeliveries +
+                        "</strong>"
+                    );
+                }
+
+                // Keep the edit links working with the current DataTable page
                 $("#form3b_deliveries_table a[for='linkToEdit']").each(function () {
+
                     let orig_uri = $(this).attr('href');
-                    $(this).attr('href',orig_uri+'?page='+form3b_deliveries_tbl.page.info().page);
+
+                    $(this).attr(
+                        'href',
+                        orig_uri + '?page=' + form3b_deliveries_tbl.page.info().page
+                    );
+
                 });
 
+                // Initialize tooltips
                 $('[data-toggle="tooltip"]').tooltip();
                 $('[data-toggle="modal"]').tooltip();
+
+                // Highlight newly added delivery
                 if(active_form3b_deliveries != ''){
-                    $("#form3b_deliveries_table #"+active_form3b_deliveries).addClass('success');
+
+                    $("#form3b_deliveries_table #" + active_form3b_deliveries)
+                        .addClass('success');
+
                 }
             }
         });

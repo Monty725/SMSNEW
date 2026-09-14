@@ -49,29 +49,41 @@
                     "processing": "<center><img style='width: 70px' src='{{asset("images/loader.gif")}}'></center>",
                 },
             "drawCallback": function(settings){
-                // console.log(servedSros_tbl.page.info().page);
 
-                let total = 0;
-                $("#form3b_issuance_table tbody tr").each(function(){
-                    let qty = parseFloat($(this).find("td:eq(4)").text().replace(/,/g, '')) || 0;
-                    total += qty;
-                });
+                if (settings.json && settings.json.totals) {
 
-                // Format number with commas
-                let formattedTotal = total.toFixed(4).replace(/\B(?=(\d{4})+(?!\d))/g, ",");
+                    $("dt[for='form3bTotalCurrentIssuance']")
+                        .html(settings.json.totals.totalCurrentIssuances);
 
-                // Update the total row
-                $("#totalMROQty").html(`<strong>${formattedTotal}</strong>`);
+                    $("dt[for='form3bTotalPrevIssuance']")
+                        .html(settings.json.totals.totalPrevIssuances);
+
+                    $("dt[for='form3bTotalIssuance']")
+                        .html(settings.json.totals.totalIssuances);
+
+                    // Update footer total
+                    $("#totalMROQty").html(
+                        "<strong>" +
+                        settings.json.totals.totalIssuances +
+                        "</strong>"
+                    );
+                }
 
                 $("#form3b_issuance_table a[for='linkToEdit']").each(function () {
                     let orig_uri = $(this).attr('href');
-                    $(this).attr('href',orig_uri+'?page='+form3b_issuance_tbl.page.info().page);
+
+                    $(this).attr(
+                        'href',
+                        orig_uri + '?page=' + form3b_issuance_tbl.page.info().page
+                    );
                 });
 
                 $('[data-toggle="tooltip"]').tooltip();
                 $('[data-toggle="modal"]').tooltip();
+
                 if(active_form3b_issuance != ''){
-                    $("#form3b_issuance_table #"+active_form3b_issuance).addClass('success');
+                    $("#form3b_issuance_table #"+active_form3b_issuance)
+                        .addClass('success');
                 }
             }
         });

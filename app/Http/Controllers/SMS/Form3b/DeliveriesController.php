@@ -16,29 +16,63 @@ class DeliveriesController extends Controller
 {
     public function index(){
         if(\request()->ajax()){
+
             $deliveries = Deliveries::query()
                 ->where('weekly_report_slug','=',\request('weekly_report_slug'));
+
+            // Calculate totals from all delivery records
+            $totalCurrentDeliveries = (clone $deliveries)->sum('qty_current');
+            $totalPrevDeliveries = (clone $deliveries)->sum('qty_prev');
+
+            $totalDeliveries = $totalCurrentDeliveries + $totalPrevDeliveries;
+
             return DataTables::of($deliveries)
+
                 ->addColumn('action',function($data){
                     $destroy_route = "'".route("dashboard.form3b_deliveries.destroy","slug")."'";
                     $slug = "'".$data->slug."'";
+
                     $button = '<div class="btn-group">
-                                    <button type="button" data="'.$data->slug.'" uri="'.route("dashboard.form3b_deliveries.edit",$data->slug).'" class="btn btn-sm view_form3bIssuance_btn btn-xs form5_edit_btn" data-toggle="modal" data-target="#form5_editModal" title="Edit" data-placement="top">
-                                        <i class="fa fa-edit"></i>
-                                    </button>
-                                    <button type="button" data="'.$data->slug.'" onclick="delete_data('.$slug.','.$destroy_route.')" class="btn btn-sm btn-danger btn-xs " data-toggle="tooltip" title="Delete" data-placement="top">
-                                        <i class="fa fa-trash"></i>
-                                    </button>
-                                  
-                                </div>';
+                                <button type="button"
+                                    data="'.$data->slug.'"
+                                    uri="'.route("dashboard.form3b_deliveries.edit",$data->slug).'"
+                                    class="btn btn-sm view_form3bIssuance_btn btn-xs form5_edit_btn"
+                                    data-toggle="modal"
+                                    data-target="#form5_editModal"
+                                    title="Edit"
+                                    data-placement="top">
+                                    <i class="fa fa-edit"></i>
+                                </button>
+
+                                <button type="button"
+                                    data="'.$data->slug.'"
+                                    onclick="delete_data('.$slug.','.$destroy_route.')"
+                                    class="btn btn-sm btn-danger btn-xs"
+                                    data-toggle="tooltip"
+                                    title="Delete"
+                                    data-placement="top">
+                                    <i class="fa fa-trash"></i>
+                                </button>
+                            </div>';
+
                     return $button;
                 })
+
                 ->editColumn('qty',function($data){
                     return number_format($data->qty ?? $data->qty_prev,4);
                 })
 
                 ->escapeColumns([])
                 ->setRowId('slug')
+
+                ->with([
+                    'totals' => [
+                        'totalCurrentDeliveries' => number_format($totalCurrentDeliveries,4,'.',''),
+                        'totalPrevDeliveries' => number_format($totalPrevDeliveries,4,'.',''),
+                        'totalDeliveries' => number_format($totalDeliveries,4,'.',''),
+                    ]
+                ])
+
                 ->toJson();
         }
     }
