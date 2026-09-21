@@ -1,7 +1,7 @@
 <div id="form2" style="break-after: page">
     @include('sms.printables.forms.header',['formName' => 'SMS Form No. 3'])
     <h4 class="no-margin"><b>WEEKLY REPORT ON MOLASSES</b></h4>
-    <i>Figures in Metric Tons </i>
+    <i>(Figures in Metric Tons) </i>
 
     <table class="table-bordered " style="width: 100%">
         <thead>

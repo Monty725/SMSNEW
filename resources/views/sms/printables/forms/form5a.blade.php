@@ -9,7 +9,7 @@
         ];
     @endphp
     <h4 class="no-margin"><b>SUGAR RELEASE ORDER AND DELIVERY REPORT - REFINED</b> </h4>
-    <p class="no-margin"><i>(Figures in 50-Kg Bags)</i></p>
+    <p class="no-margin"><i>(Figures in Lkg-bags)</i></p>
 
     <p class="text-left">A. Issuances of Refined Sugar Release Order</p>
 

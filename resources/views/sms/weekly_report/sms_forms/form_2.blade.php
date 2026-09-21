@@ -634,30 +634,30 @@
                     <td class="text-right updatable" for="prodImported.prevCrop.prevWeek"></td>
                     <td class="text-right updatable" for="prodImported.prevCrop.toDate"></td>
                 </tr>
-                <tr>
-                    <td class="text-strong"><span class="indent"></span> 6.3. OVERAGES </td>
-                    <td>
-                        {!! \App\Swep\ViewHelpers\__form2::textboxOnly('overage',[
-                            'class' => 'form2-input input-sm text-right autonumber_mt'
-                        ],
-                        $wr->form2->overage ?? null
-                        ) !!}
-                    </td>
-                    <td class="text-right updatable" for="overage.currentCrop.prevWeek"></td>
-                    <td class="text-right updatable" for="overage.currentCrop.toDate"></td>
+{{--                <tr>--}}
+{{--                    <td class="text-strong"><span class="indent"></span> 6.3. OVERAGES </td>--}}
+{{--                    <td>--}}
+{{--                        {!! \App\Swep\ViewHelpers\__form2::textboxOnly('overage',[--}}
+{{--                            'class' => 'form2-input input-sm text-right autonumber_mt'--}}
+{{--                        ],--}}
+{{--                        $wr->form2->overage ?? null--}}
+{{--                        ) !!}--}}
+{{--                    </td>--}}
+{{--                    <td class="text-right updatable" for="overage.currentCrop.prevWeek"></td>--}}
+{{--                    <td class="text-right updatable" for="overage.currentCrop.toDate"></td>--}}
 
-                    <td>
-                        {!! \App\Swep\ViewHelpers\__form2::textboxOnly('prev_overage',[
-                            'class' => 'form2-input input-sm text-right autonumber_mt'
-                        ],
-                        $wr->form2->prev_overage ?? null
-                        ) !!}
-                    </td>
+{{--                    <td>--}}
+{{--                        {!! \App\Swep\ViewHelpers\__form2::textboxOnly('prev_overage',[--}}
+{{--                            'class' => 'form2-input input-sm text-right autonumber_mt'--}}
+{{--                        ],--}}
+{{--                        $wr->form2->prev_overage ?? null--}}
+{{--                        ) !!}--}}
+{{--                    </td>--}}
 
 {{--                    <td class="text-right updatable" for="overage.prevCrop.thisWeek"></td>--}}
-                    <td class="text-right updatable" for="overage.prevCrop.prevWeek"></td>
-                    <td class="text-right updatable" for="overage.prevCrop.toDate"></td>
-                </tr>
+{{--                    <td class="text-right updatable" for="overage.prevCrop.prevWeek"></td>--}}
+{{--                    <td class="text-right updatable" for="overage.prevCrop.toDate"></td>--}}
+{{--                </tr>--}}
                 <tr for="totalRefined" class="computation">
                     <td class="text-strong text-right"> <i>TOTAL REFINED</i> </td>
                     <td class="text-right updatable" for="totalRefined.currentCrop.thisWeek"></td>

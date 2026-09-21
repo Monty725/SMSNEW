@@ -1,7 +1,7 @@
 <div id="form2" style="break-after: page">
     @include('sms.printables.forms.header',['formName' => 'SMS Form No. 2'])
     <h4 class="no-margin"><b>WEEKLY REPORT ON REFINED SUGAR</b></h4>
-    <p class="no-margin"><i>(Figures in 50-Kg Bags)</i></p>
+    <p class="no-margin"><i>(Figures in Lkg-bags)</i></p>
 {{--    <p class="no-margin"><i>(Figures in Metric Tons)</i></p>--}}
     <table class="table-bordered " style="width: 100%">
         <thead>
@@ -328,27 +328,27 @@
                 {{$newform2['values']['prodImported.prevCrop.toDate'] ?? 0 }}
             </td>
         </tr>
-        <tr>
-            <td><span class="indent"></span> 6.3 OVERAGES</td>
-            <td class="text-right">
-                {{$newform2['values']['overage.currentCrop.thisWeek'] ?? 0 }}
-            </td>
-            <td class="text-right">
-                {{$newform2['values']['overage.currentCrop.prevWeek'] ?? 0 }}
-            </td>
-            <td class="text-right">
-                {{$newform2['values']['overage.currentCrop.toDate'] ?? 0 }}
-            </td>
-            <td class="text-right">
-                {{$newform2['values']['overage.prevCrop.thisWeek'] ?? 0 }}
-            </td>
-            <td class="text-right">
-                {{$newform2['values']['overage.prevCrop.prevWeek'] ?? 0 }}
-            </td>
-            <td class="text-right">
-                {{$newform2['values']['overage.prevCrop.toDate'] ?? 0 }}
-            </td>
-        </tr>
+{{--        <tr>--}}
+{{--            <td><span class="indent"></span> 6.3 OVERAGES</td>--}}
+{{--            <td class="text-right">--}}
+{{--                {{$newform2['values']['overage.currentCrop.thisWeek'] ?? 0 }}--}}
+{{--            </td>--}}
+{{--            <td class="text-right">--}}
+{{--                {{$newform2['values']['overage.currentCrop.prevWeek'] ?? 0 }}--}}
+{{--            </td>--}}
+{{--            <td class="text-right">--}}
+{{--                {{$newform2['values']['overage.currentCrop.toDate'] ?? 0 }}--}}
+{{--            </td>--}}
+{{--            <td class="text-right">--}}
+{{--                {{$newform2['values']['overage.prevCrop.thisWeek'] ?? 0 }}--}}
+{{--            </td>--}}
+{{--            <td class="text-right">--}}
+{{--                {{$newform2['values']['overage.prevCrop.prevWeek'] ?? 0 }}--}}
+{{--            </td>--}}
+{{--            <td class="text-right">--}}
+{{--                {{$newform2['values']['overage.prevCrop.toDate'] ?? 0 }}--}}
+{{--            </td>--}}
+{{--        </tr>--}}
         <tr>
             <td class="text-right text-strong">TOTAL REFINED</td>
             <td class="text-right text-strong">

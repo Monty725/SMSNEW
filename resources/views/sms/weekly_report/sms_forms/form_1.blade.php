@@ -400,7 +400,7 @@
 {{--                                <td class="text-right updatable" for="manufactured.currentCrop.prevWeek"></td>--}}
                                 <div class="row">
                                     {!! \App\Swep\ViewHelpers\__form2::textbox('tdc',[
-                                        'label' => "9. Tons Due Cane",
+                                        'label' => "9. Tons Sugar Due Cane",
                                         'cols' => 4,
                                         'class' => 'form1-input text-right autonumber_mt',
                                         'container_class' => 'tdc',
@@ -427,12 +427,12 @@
                                 </div>
 
                                 <p class="page-header-sm text-info" style="border-bottom: 1px solid #cedbe1">
-                                    <b>LKG/TC</b>
+                                    <b>LKg/TC</b>
                                 </p>
 
                                 <div class="row">
                                     {!! \App\Swep\ViewHelpers\__form2::textbox('lkgtc_gross',[
-                                        'label' => "11A. LKG/TC Gross",
+                                        'label' => "11A. LKg/TC Gross",
                                         'cols' => 4,
                                         'class' => 'form1-input text-right updatable',
                                         'container_class' => 'lkgtc_gross',
@@ -445,7 +445,7 @@
 
 {{--                                    DRY RUN ADDITION--}}
                                     {!! \App\Swep\ViewHelpers\__form2::textbox('lkgtc_net',[
-                                        'label' => "11B. LKG/TC NET",
+                                        'label' => "11B. LKg/TC NET",
                                         'cols' => 4,
                                         'class' => 'form1-input text-right updatable',
                                         'container_class' => 'lkgtc_net',
@@ -505,7 +505,7 @@
                                    $wr->form1->share_planter ?? null
                                    ) !!}
                                     {!! \App\Swep\ViewHelpers\__form2::textbox('shareMiller',[
-                                        'label' => "12B. Miller's Share:",
+                                        'label' => "12B. Mill's Share:",
                                         'cols' => 4,
                                         'class' => 'form1-input text-right autonumber_mt',
                                         'container_class' => 'shareMiller',
@@ -522,7 +522,7 @@
                     <div class="box box-sm box-default box-solid">
                         <div class="box-header with-border"  style="background-color: #4477a3;color: white;">
                             <p class="no-margin">
-                                13. Date of Bidding
+                                Date of Bidding
                                 <small id="filter-notifier" class="label bg-blue blink"></small>
                             </p>
                         </div>
@@ -549,7 +549,7 @@
                         <div class="box box-sm box-default box-solid">
                             <div class="box-header with-border"  style="background-color: #4477a3;color: white;">
                                 <p class="no-margin">
-                                    14. Mill District Price Monitoring
+                                    13. Mill District Price Monitoring
                                     <small id="filter-notifier" class="label bg-blue blink"></small>
                                 </p>
                             </div>
@@ -657,7 +657,7 @@
                     <div class="box box-sm box-default box-solid">
                         <div class="box-header with-border"  style="background-color: #4477a3;color: white;">
                             <p class="no-margin">
-                                15. Sugar Distribution Factor
+                                14. Sugar Distribution Factor
                                 <small id="filter-notifier" class="label bg-blue blink"></small>
                             </p>
                         </div>
@@ -679,7 +679,7 @@
                     <div class="box box-sm box-default box-solid">
                         <div class="box-header with-border"  style="background-color: #4477a3;color: white;">
                             <p class="no-margin">
-                                16. Quedan Issuances Series & No. of PCS.
+                                15. Quedan Issuances Series & No. of PCS.
                                 <small id="filter-notifier" class="label bg-blue blink"></small>
                                 <button class="btn btn-xs pull-right btn-success add_seriesNos_btn" for="RAW" style="background-color: #e3e3e3" data="form1SeriesNos" type="button"><i class="fa fa-plus"></i> ADD</button>
                             </p>

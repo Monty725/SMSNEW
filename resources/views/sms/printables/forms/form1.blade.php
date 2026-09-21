@@ -2,7 +2,7 @@
     @include('sms.printables.forms.header',['formName' => 'SMS Form No. 1'])
 
     <h4 class="no-margin"><b>WEEKLY REPORT ON RAW SUGAR</b></h4>
-    <p class="no-margin"><i>(Figures in 50-Kg Bags)</i></p>
+    <p class="no-margin"><i>(Figures in Lkg-bags)</i></p>
 {{--    <p class="no-margin"><i>(Figures in Metric Tons)</i></p>--}}
     <table class="table-bordered " style="width: 100%">
         <thead>
@@ -232,7 +232,7 @@
 
 
         <tr>
-            <td>9. TONS DUE CANE</td>
+            <td>9. TONS SUGAR DUE CANE</td>
             <td class="text-right">
                 {{ \App\Swep\Helpers\Helper::toNumber($form1['tdc']['current'] ?? null,4) }}
             </td>
@@ -243,7 +243,7 @@
                 {{ \App\Swep\Helpers\Helper::toNumber($wr->toDateForm1()->tdc ?? null,4) }}
             </td>
             <td class="text-strong" colspan="3">
-                QUEDAN ISSUANCES
+                15. QUEDAN ISSUANCES
             </td>
         </tr>
 
@@ -271,7 +271,7 @@
         </tr>
 
         <tr>
-            <td>11. A. LKG/TC, Gross</td>
+            <td>11. A. LKg/TC, Gross</td>
             <td class="text-right">
                 {{ \App\Swep\Helpers\Helper::toNumber($form1['lkgtc_gross']['current']?? null,4) }}
             </td>
@@ -296,7 +296,7 @@
         </tr>
 
         <tr>
-            <td>11. B. LKG/TC, Net</td>
+            <td>11. B. LKg/TC, Net</td>
             <td class="text-right">
                 {{ \App\Swep\Helpers\Helper::toNumber($form1['lkgtc_net']['current'] ?? null,4) }}
             </td>
@@ -414,7 +414,7 @@
         </tr>
 
         <tr>
-            <td>12. B. MILLER'S SHARE	</td>
+            <td>12. B. MILL'S SHARE	</td>
             <td class="text-right">
                 {{ \App\Swep\Helpers\Helper::toNumber($wr->form1->share_miller ?? null,4) }}
             </td>
@@ -424,10 +424,10 @@
             <td class="text-right">
                 {{ \App\Swep\Helpers\Helper::toNumber($wr->toDateForm1()->share_miller ?? null,4) }}
             </td>
-            <td colspan="2">13. Date of Bidding:</td>
-            <td colspan="1" class="text-center">
-                {{ $wr->form1->date_of_bidding ? Carbon::parse($wr->form1->date_of_bidding)->format('m/d/Y') : '' }}
-            </td>
+{{--            <td colspan="2">Date of Bidding:</td>--}}
+{{--            <td colspan="1" class="text-center">--}}
+{{--                {{ $wr->form1->date_of_bidding ? Carbon::parse($wr->form1->date_of_bidding)->format('m/d/Y') : '' }}--}}
+{{--            </td>--}}
         </tr>
 
         </tbody>
@@ -439,7 +439,14 @@
 
         @endphp
         <tr>
-            <td colspan="6">14. Mill District Price Monitoring</td>
+            <td colspan="6">13. Mill District Price Monitoring</td>
+        </tr>
+        <tr>
+            <td colspan="1">Date of Bidding:</td>
+            <td colspan="2" class="text-center">
+                {{ $wr->form1->date_of_bidding ? Carbon::parse($wr->form1->date_of_bidding)->format('m/d/Y') : '' }}
+            </td>
+            <td colspan="3"></td>
             <td colspan="2">WHOLSESALE(PESO/LKG)</td>
             <td colspan="2">RETAIL(PESO/KILO)</td>
         </tr>
@@ -490,13 +497,13 @@
         </tr>
 
         <tr>
-            <td>15. Sugar Distribution Factor: </td>
+            <td>14. Sugar Distribution Factor: </td>
             <td colspan="9">
                 {{ \App\Swep\Helpers\Helper::toNumber($wr->form1->dist_factor ?? 0,10) }}
             </td>
         </tr>
         <tr>
-            <td>16. Remarks: </td>
+            <td>Remarks: </td>
             <td colspan="9">
 {{--                @php--}}
 {{--                    $currentNet = \App\Swep\Helpers\Helper::toNumber($form1['lkgtc_net']['current'] ?? 0, 4);--}}
