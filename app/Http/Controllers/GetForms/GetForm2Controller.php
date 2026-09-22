@@ -527,14 +527,14 @@ class GetForm2Controller extends Controller
         //NEW TOTAL RECEIPT
         $arr["totalReceipt"] = [
             "currentCrop"=>[
-                "thisWeek"=>$this->formatValue2($thisWeek->coveredBySro + $thisWeek->otherMills + $thisWeek->imported + $thisWeek->advance_refining + $thisWeek->notCoveredBySro),
-                "prevWeek"=>$this->formatValue2($prevWeek->coveredBySro + $prevWeek->otherMills + $prevWeek->imported + $prevWeek->advance_refining + $prevWeek->notCoveredBySro),
-                "toDate"=>$this->formatValue2($toDate->coveredBySro + $toDate->otherMills + $toDate->imported + $toDate->advance_refining + $toDate->notCoveredBySro),
+                "thisWeek"=>$this->formatValue2($thisWeek->coveredBySro + $thisWeek->otherMills + $thisWeek->imported + $thisWeek->notCoveredBySro),
+                "prevWeek"=>$this->formatValue2($prevWeek->coveredBySro + $prevWeek->otherMills + $prevWeek->imported + $prevWeek->notCoveredBySro),
+                "toDate"=>$this->formatValue2($toDate->coveredBySro + $toDate->otherMills + $toDate->imported + $toDate->notCoveredBySro),
             ],
             "prevCrop"=>[
-                "thisWeek"=>$this->formatValue2($thisWeek->prev_coveredBySro + $thisWeek->prev_otherMills + $thisWeek->prev_imported + $thisWeek->prev_advance_refining + $thisWeek->prev_notCoveredBySro),
-                "prevWeek"=>$this->formatValue2($prevWeek->prev_coveredBySro + $prevWeek->prev_otherMills + $prevWeek->prev_imported + $prevWeek->prev_advance_refining + $prevWeek->prev_notCoveredBySro),
-                "toDate"=>$this->formatValue2($toDate->prev_coveredBySro + $toDate->prev_otherMills + $toDate->prev_imported + $toDate->prev_advance_refining + $toDate->prev_notCoveredBySro),
+                "thisWeek"=>$this->formatValue2($thisWeek->prev_coveredBySro + $thisWeek->prev_otherMills + $thisWeek->prev_imported + $thisWeek->prev_notCoveredBySro),
+                "prevWeek"=>$this->formatValue2($prevWeek->prev_coveredBySro + $prevWeek->prev_otherMills + $prevWeek->prev_imported + $prevWeek->prev_notCoveredBySro),
+                "toDate"=>$this->formatValue2($toDate->prev_coveredBySro + $toDate->prev_otherMills + $toDate->prev_imported + $toDate->prev_notCoveredBySro),
             ],
         ];
 
