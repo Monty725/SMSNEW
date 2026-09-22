@@ -42,7 +42,7 @@
                 <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($toDateForm3['production']['rao']['prev'] ?? null, 3)}}</td>
             </tr>
             <tr>
-                <td><span class="indent"></span> 1.3 Manufactured, Refined</td>
+                <td><span class="indent"></span> 1.3 Manufactured, Refinery</td>
                 <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($form3['production']['manufacturedRefined']['current'] ?? null ,3)}}</td>
                 <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($prevToDateForm3['production']['manufacturedRefined']['current'] ?? null ,3)}}</td>
                 <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($toDateForm3['production']['manufacturedRefined']['current'] ?? null, 3)}}</td>
@@ -51,7 +51,7 @@
                 <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($toDateForm3['production']['manufacturedRefined']['prev'] ?? null, 3)}}</td>
             </tr>
             <tr>
-                <td><span class="indent"></span> 1.4  Retention, Adjustment, Overages, etc., Refined</td>
+                <td><span class="indent"></span> 1.4  Retention, Adjustment, Overages, etc., Refinery</td>
                 <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($form3['production']['raoRefined']['current'] ?? null ,3)}}</td>
                 <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($prevToDateForm3['production']['raoRefined']['current'] ?? null ,3)}}</td>
                 <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($toDateForm3['production']['raoRefined']['current'] ?? null, 3)}}</td>
@@ -138,7 +138,7 @@
             @endif
 
             <tr>
-                <td colspan="7"><span class="indent"></span> REFINED:</td>
+                <td colspan="7"><span class="indent"></span> REFINERY:</td>
             </tr>
             @if(!empty($form3['withdrawalsRefined']) || !empty($prevToDateForm3['withdrawalsRefined']) || !empty($toDateForm3['withdrawalsRefined']))
                 @php
@@ -192,7 +192,7 @@
                 <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($toDateForm3['balanceRaw']['prev'] ?? null, 3)}}</td>
             </tr>
             <tr>
-                <td><span class="indent"></span> 5.2 Refined</td>
+                <td><span class="indent"></span> 5.2 Refinery</td>
                 <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($form3['balanceRefined']['current'] ?? null ,3)}}</td>
                 <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($prevToDateForm3['balanceRefined']['current'] ?? null ,3)}}</td>
                 <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($toDateForm3['balanceRefined']['current'] ?? null, 3)}}</td>
@@ -242,14 +242,14 @@
 
         @if(!empty($details_arr['MOLASSES']['seriesNos']['REFINED']))
             <td colspan="2">
-                <span class="text-strong">REFINED :</span>
+                <span class="text-strong">REFINERY :</span>
                 @foreach($details_arr['MOLASSES']['seriesNos']['REFINED'] as $sn)
                     {{$sn->seriesFrom}} - {{$sn->seriesTo}} ({{$sn->noOfPcs}}) pcs,
                 @endforeach
             </td>
         @else
             <td colspan="2">
-                <span class="text-strong">REFINED :</span>
+                <span class="text-strong">REFINERY :</span>
             </td>
         @endif
 

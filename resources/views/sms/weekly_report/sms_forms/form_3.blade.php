@@ -314,7 +314,7 @@
         </tr>
         <tr>
             <td>
-                <span class="indent"> 1.3 Manufactued, Refined</span>
+                <span class="indent"> 1.3 Manufactured, Refinery</span>
             </td>
             <td>
                 {!! \App\Swep\ViewHelpers\__form2::textboxOnly('manufacturedRefined',[
@@ -337,7 +337,7 @@
         </tr>
         <tr>
             <td>
-                <span class="indent"> 1.4 Retention, Adj., Overages, etc. - Refined</span>
+                <span class="indent"> 1.4 Retention, Adj., Overages, etc. - Refinery</span>
             </td>
             <td>
                 {!! \App\Swep\ViewHelpers\__form2::textboxOnly('raoRefined',[
@@ -524,7 +524,7 @@
         </tr>
 
         <tr>
-            <td colspan="7" class="text-strong"><span class="indent"></span> REFINED</td>
+            <td colspan="7" class="text-strong"><span class="indent"></span> REFINERY</td>
         </tr>
 
         <tr>
@@ -577,7 +577,7 @@
 
         <tr class="computation" for="totalWithdrawalsRefined">
             <td class="text-right">
-                <i>TOTAL REFINED</i>
+                <i>TOTAL REFINERY</i>
             </td>
             <td class="text-right updatable" for="totalRefinedWith.currentCrop.thisWeek"></td>
             <td class="text-right updatable" for="totalRefinedWith.currentCrop.prevWeek"></td>
@@ -641,7 +641,7 @@
 
         <tr class="computation" for="balanceRefined">
             <td> <span class="indent"></span>
-                5.2 Refined
+                5.2 Refinery
             </td>
             <td class="text-right updatable" for="refinedBalance.currentCrop.thisWeek"></td>
             <td class="text-right updatable" for="refinedBalance.currentCrop.prevWeek"></td>
