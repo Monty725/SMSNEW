@@ -1,7 +1,7 @@
 <div id="form5a" style="break-after: page">
     @include('sms.printables.forms.header',['formName' => 'SMS Form No. 6A'])
 
-    <h4 class="no-margin"><b>QUEDAN REGISTRY</b> </h4>
+    <h4 class="no-margin"><b>QUEDAN REGISTRY - REFINED</b> </h4>
     <p class="no-margin"><i>(Report on Raw Sugar Receipts, Refined Sugar Due and Refined Sugar Quedan Issuances)</i></p>
 
     <p class="text-left">A. Raw Sugar Receipts</p>
@@ -100,7 +100,7 @@
     <table class="table-bordered" style="width: 100%">
         <thead>
         <tr>
-            <th>Ref SRO No.</th>
+            <th>Delivery No.</th>
             <th>Trader/Tollee</th>
             <th>Refined Quedan SN.</th>
             <th>Refined Sugar (Lkg)</th>
@@ -146,7 +146,7 @@
             if ($show) {
                 @endphp
                 <tr>
-                    <td>{{ $data->sro_no }}</td>
+                    <td>{{ $data->delivery_no }}</td>
                     <td>{{ $data->trader }}</td>
                     <td>{{ $data->rsq_no }}</td>
                     <td class="text-right">{{ number_format($qty, 2) }}</td>

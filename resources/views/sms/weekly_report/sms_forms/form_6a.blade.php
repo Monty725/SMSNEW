@@ -1,7 +1,7 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 
 <div class="form-title" style="background-color: #4477a3;">
-    <h4> QUEDAN REGISTRY
+    <h4> QUEDAN REGISTRY - REFINED
     </h4>
 </div>
 <div class="row">
@@ -103,7 +103,7 @@
 <table class="table table-bordered table-condensed">
     <thead>
     <tr class="bg-primary">
-        <th>Refined SRO No.</th>
+        <th>Delivery No.</th>
         <th>Trader/Tollee</th>
         <th>Refined Quedan SN.</th>
         <th>Current Refined Sugar (Lkg)</th>
@@ -131,7 +131,7 @@
                     $refinedTotal += $data->refined_qty;
                 @endphp
                 <tr>
-                    <td>{{$data->sro_no}}</td>
+                    <td>{{$data->delivery_no}}</td>
                     <td>{{$data->trader}}</td>
                     <td>{{$data->rsq_no}}</td>
                     <td class="text-right">{{number_format($data->refined_qty,2)}}</td>

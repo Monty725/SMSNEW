@@ -8,7 +8,7 @@
             'qtyPremium' => 0,
         ];
     @endphp
-    <h4 class="no-margin"><b>SUGAR RELEASE ORDER AND DELIVERY REPORT - REFINED</b> </h4>
+    <h4 class="no-margin"><b>SUGAR RELEASE ORDER (REF SRO) AND DELIVERY REPORT - REFINED</b> </h4>
     <p class="no-margin"><i>(Figures in Lkg-bags)</i></p>
 
     <p class="text-left">A. Issuances of Refined Sugar Release Order</p>

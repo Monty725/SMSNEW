@@ -1,6 +1,6 @@
 
 <div class="form-title" style="background-color: #b3885a;">
-    <h4>  MILLSITE & SUBSIDIARY WAREHOUSE INVENTORY REPORT - REFINED
+    <h4>  MILL SITE & SUBSIDIARY WAREHOUSE INVENTORY REPORT - REFINED
     </h4>
 </div>
 
