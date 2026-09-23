@@ -37,6 +37,7 @@ class Form4aController extends Controller
                     'prev_withdrawals' => Helper::sanitizeAutonum($request->prev_withdrawals) ,
                     'prev_transferToRefinery' => Helper::sanitizeAutonum($request->prev_transferToRefinery) ,
                     'prev_transferFromSubsidiary' => Helper::sanitizeAutonum($request->prev_transferFromSubsidiary) ,
+                    'remarks' => !empty($request->remarks) ? Helper::sanitizeAutonum($request->remarks) : null,
                 ]
             );
 

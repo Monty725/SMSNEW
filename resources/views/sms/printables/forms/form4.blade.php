@@ -37,7 +37,7 @@
             <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($toDateForm4['carryOver']['prev'] ?? 0,4)}}</td>
         </tr>
         <tr>
-            <td style="text-indent: 10px">1.2 Receipts from other Mill</td>
+            <td style="text-indent: 10px">1.2 Receipts from other Mills/Sources</td>
             <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($form4['receipts']['current'] ?? 0,4)}}</td>
             <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($prevToDateForm4['receipts']['current'] ?? 0,4)}}</td>
             <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($toDateForm4['receipts']['current'] ?? 0,4)}}</td>
@@ -236,6 +236,12 @@
                     + $total['stockBalances']['toPDate']
                     + $stock_toDate_prev
                 ) }}
+            </td>
+        </tr>
+        <tr>
+            <td>Remarks: </td>
+            <td colspan="9">
+                {{ $wr->form4->remarks ?? null}}
             </td>
         </tr>
     </table>

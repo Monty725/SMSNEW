@@ -61,7 +61,7 @@
             <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($toDateForm3a['rao']['prev'] ?? null,4)}}</td>
         </tr>
         <tr>
-            <td style="text-indent: 10px">1.4 Receipts</td>
+            <td style="text-indent: 10px">1.4 Receipts from other mills/sources</td>
             <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($form3a['receipts']['current'] ?? null,4)}}</td>
             <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($prevToDateForm3a['receipts']['current'] ?? null,4)}}</td>
             <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($toDateForm3a['receipts']['current'] ?? null,4)}}</td>
@@ -235,6 +235,12 @@
                     + $total['stockBalances']['toPDate']
                     + $stock_toDate_prev3a
                 ) }}
+            </td>
+        </tr>
+        <tr>
+            <td>Remarks: </td>
+            <td colspan="9">
+                {{ $wr->form3a->remarks ?? null}}
             </td>
         </tr>
     </table>

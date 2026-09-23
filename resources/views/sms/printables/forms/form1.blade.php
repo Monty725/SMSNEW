@@ -168,11 +168,15 @@
             @foreach($rowsbalance as $sugarclass => $balance)
                 <tr>
                     <td><span class="indent"></span><span class="indent"></span> {{$sugarclass}}</td>
-                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($balance["currentCrop"]["thisWeek"] ?? 0,4)}}</td>
-                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($balance["currentCrop"]["prevWeek"] ?? 0 ,4)}}</td>
+{{--                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($balance["currentCrop"]["thisWeek"] ?? 0,4)}}</td>--}}
+{{--                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($balance["currentCrop"]["prevWeek"] ?? 0 ,4)}}</td>--}}
+                    <td></td>
+                    <td></td>
                     <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($balance["currentCrop"]["toDate"] ?? 0 ,4)}}</td>
-                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($balance["prevCrop"]["thisWeek"] ?? 0,4)}}</td>
-                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($balance["prevCrop"]["prevWeek"] ?? 0 ,4)}}</td>
+                    <td></td>
+                    <td></td>
+{{--                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($balance["prevCrop"]["thisWeek"] ?? 0,4)}}</td>--}}
+{{--                    <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($balance["prevCrop"]["prevWeek"] ?? 0 ,4)}}</td>--}}
                     <td class="text-right">{{\App\Swep\Helpers\Helper::toNumber($balance["prevCrop"]["toDate"] ?? 0 ,4)}}</td>
                 </tr>
             @endforeach
@@ -180,11 +184,15 @@
 
         <tr>
             <td class="text-right">TOTAL</td>
-             <td class="text-right text-strong">{{$newform1['values']['totalBalance.currentCrop.thisWeek'] ?? 0 }}</td>
-             <td class="text-right text-strong">{{$newform1['values']['totalBalance.currentCrop.prevWeek'] ?? 0 }}</td>
+{{--             <td class="text-right text-strong">{{$newform1['values']['totalBalance.currentCrop.thisWeek'] ?? 0 }}</td>--}}
+{{--             <td class="text-right text-strong">{{$newform1['values']['totalBalance.currentCrop.prevWeek'] ?? 0 }}</td>--}}
+            <td></td>
+            <td></td>
              <td class="text-right text-strong">{{$newform1['values']['totalBalance.currentCrop.toDate'] ?? 0 }}</td>
-             <td class="text-right text-strong">{{$newform1['values']['totalBalance.prevCrop.thisWeek'] ?? 0 }}</td>
-             <td class="text-right text-strong">{{$newform1['values']['totalBalance.prevCrop.prevWeek'] ?? 0 }}</td>
+            <td></td>
+            <td></td>
+{{--             <td class="text-right text-strong">{{$newform1['values']['totalBalance.prevCrop.thisWeek'] ?? 0 }}</td>--}}
+{{--             <td class="text-right text-strong">{{$newform1['values']['totalBalance.prevCrop.prevWeek'] ?? 0 }}</td>--}}
              <td class="text-right text-strong">{{$newform1['values']['totalBalance.prevCrop.toDate'] ?? 0 }}</td>
         </tr>
 

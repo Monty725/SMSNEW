@@ -230,6 +230,24 @@
         </tr>
         </tbody>
     </table>
+    <div class="box-header with-border"  style="background-color: #4477a3;color: white;">
+        <p class="no-margin">
+            Remarks
+            <small id="filter-notifier" class="label bg-blue blink"></small>
+        </p>
+    </div>
+    <div class="box-body" style="">
+        <div class="row">
+            {!! \App\Swep\ViewHelpers\__form2::textbox('remarks',[
+                'label' => "Remarks:",
+                'cols' => 12,
+                'class' => 'form1-input',
+                'container_class' => 'remarks',
+            ],
+            $wr->form4a->remarks ?? null
+            ) !!}
+        </div>
+    </div>
 </form>
 
 <script>

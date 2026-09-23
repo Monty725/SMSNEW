@@ -40,6 +40,7 @@ class Form4Controller extends Controller
                     'prev_transferToRefinery' => Helper::sanitizeAutonum($request->prev_transferToRefinery) ,
                     'prev_transferToSubsidiary' => Helper::sanitizeAutonum($request->prev_transferToSubsidiary) ,
                     'prev_transferFromSubsidiary' => Helper::sanitizeAutonum($request->prev_transferFromSubsidiary) ,
+                    'remarks' => !empty($request->remarks) ? Helper::sanitizeAutonum($request->remarks) : null,
                 ]
             );
 

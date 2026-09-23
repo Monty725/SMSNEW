@@ -38,7 +38,7 @@
             </td>
         </tr>
         <tr>
-            <td><span class="indent"></span> 1.2 Receipts from other Mill</td>
+            <td><span class="indent"></span> 1.2 Receipts from other Mills/Sources</td>
             <td>
                 {!! \App\Swep\ViewHelpers\__form2::textboxOnly('receipts',[
                     'class' => 'global-form-changer input-sm text-right autonumber_mt',
@@ -200,7 +200,31 @@
 
         <tr>
             <td colspan="3">
-                <span class="indent"></span> 2.3 Withdrawals
+                <span class="indent"></span> 2.3 Receipts from other mills/sources
+                <button class="btn btn-xs btn-default pull-right insertWarehouseBtn" transactionType="receiptsFromOtherMills"  sugarType="RAW" before="form4ReceiptsFromOtherMillsTotal"><i class="fa fa-plus"></i> Add</button>
+            </td>
+        </tr>
+        @if(!empty($subsidiaries['RAW']['receiptsFromOtherMills']))
+            @foreach($subsidiaries['RAW']['receiptsFromOtherMills'] as $key => $raw)
+                @include('sms.dynamic_rows.form4InsertWarehouse',[
+                    'transactionType' => 'receiptsFromOtherMills',
+                    'data' => $raw,
+                    'sugarType' => 'RAW',
+                    'defaultWarehouse' => $raw,
+                ])
+            @endforeach
+        @endif
+
+
+        <tr for="receiptsFromOtherMills" class="computation form4ReceiptsFromOtherMillsTotal">
+            <td class="text-strong text-right"> TOTAL</td>
+            <td class="text-right text-strong"></td>
+            <td class="text-right text-strong"></td>
+        </tr>
+
+        <tr>
+            <td colspan="3">
+                <span class="indent"></span> 2.4 Withdrawals
                 <button class="btn btn-xs btn-default pull-right insertWarehouseBtn" transactionType="withdrawals" sugarType="RAW"  before="form4WithdrawalsTotal"><i class="fa fa-plus"></i> Add</button>
             </td>
         </tr>
@@ -224,7 +248,7 @@
 
         <tr>
             <td colspan="3">
-                <span class="indent"></span> 2.4 Transfer To Millsite
+                <span class="indent"></span> 2.5 Transfer To Millsite
                 <button class="btn btn-xs btn-default pull-right insertWarehouseBtn" transactionType="transferToMillsite" sugarType="RAW" before="form4TransferToMillsite"><i class="fa fa-plus"></i> Add</button>
             </td>
         </tr>
@@ -247,6 +271,24 @@
 
         </tbody>
     </table>
+    <div class="box-header with-border"  style="background-color: #4477a3;color: white;">
+        <p class="no-margin">
+            Remarks
+            <small id="filter-notifier" class="label bg-blue blink"></small>
+        </p>
+    </div>
+    <div class="box-body" style="">
+        <div class="row">
+            {!! \App\Swep\ViewHelpers\__form2::textbox('remarks',[
+                'label' => "Remarks:",
+                'cols' => 12,
+                'class' => 'form1-input',
+                'container_class' => 'remarks',
+            ],
+            $wr->form4->remarks ?? null
+            ) !!}
+        </div>
+    </div>
 </form>
 
 <script>

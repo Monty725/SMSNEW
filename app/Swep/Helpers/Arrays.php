@@ -166,6 +166,7 @@ class Arrays
             'carryOver' => 'Carry Over',
             'rao' => 'Retention, Adjustment, Overages, Etc.',
             'receipts' => 'Receipts',
+            'receiptsFromOtherMills' => 'Receipts from other Mills/Sources',
             'withdrawals' => 'Withdrawals',
             'transferToMillsite' => 'Transfer To Millsite',
             'stockBalances' => 'Stock Balances',
@@ -204,15 +205,19 @@ class Arrays
 
     public static function calendar(){
         $arr = [];
+        $arr2  = [];
         $calendar = Calendar::query()
             ->orderBy('crop_year', 'desc')
             ->orderBy('report_no','asc')
             ->get();
         if(count($calendar) > 0){
             foreach ($calendar as $c){
+//                if(isset($arr2[$c->crop_year][$c->slug])){dd($c->slug);}
+//                $arr2[$c->crop_year][$c->slug] = 1;
                 $arr[$c->crop_year][$c->slug] = str_pad($c->display_report_no,2,'0',STR_PAD_LEFT).' - '.Carbon::parse($c->week_ending)->format('F d, Y');
             }
         }
+//        dd($arr,$calendar,$arr2);
         return $arr;
     }
 

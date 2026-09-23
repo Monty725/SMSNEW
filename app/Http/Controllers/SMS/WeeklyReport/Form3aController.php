@@ -41,6 +41,7 @@ class Form3aController extends Controller
                     'prev_netProd' => Helper::sanitizeAutonum($request->prev_netProd) ,
                     'rao' => Helper::sanitizeAutonum($request->rao) ,
                     'prev_rao' => Helper::sanitizeAutonum($request->prev_rao) ,
+                    'remarks' => !empty($request->remarks) ? Helper::sanitizeAutonum($request->remarks) : null,
                     'prev_transferFromSubsidiary' => Helper::sanitizeAutonum($request->prev_transferFromSubsidiary) ,
                 ]
             );
