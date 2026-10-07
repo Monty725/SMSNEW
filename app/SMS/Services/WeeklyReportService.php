@@ -704,7 +704,8 @@ class WeeklyReportService
                 ->where('sugarType','=','MOLASSES')
                 ->where('crop_year','=',$weekly_report->crop_year)
                 ->where('mill_code','=', $weekly_report->mill_code)
-                ->where('report_no','<=', $report_no != 0 ? $report_no * 1 : $weekly_report->report_no * 1)
+//                ->where('report_no','<=', $report_no != 0 ? $report_no * 1 : $weekly_report->report_no * 1)
+                ->where('report_no','<=',$report_no ?? $weekly_report->report_no * 1)
 //                ->where('report_no','<=', $report_no)
                 ->groupBy('transactionType','warehouse_slug')
                 ->orderBy('sms_subsidiaries.id','asc')
@@ -721,7 +722,10 @@ class WeeklyReportService
         }
 
         //list subsidiaries
-        $whs  = Warehouses::query()->where('millCode','=',Auth::user()->mill_code)->get();
+//        $whs  = Warehouses::query()->where('millCode','=',Auth::user()->mill_code)->get();
+        $whs = Warehouses::query()
+            ->where('millCode', '=', $weekly_report->mill_code)
+            ->get();
         $warehouseArray = [];
         if(!empty($whs)){
             foreach ($whs as $wh){
@@ -828,7 +832,8 @@ class WeeklyReportService
                 ->where('sugarType','=','RAW')
                 ->where('crop_year','=',$weekly_report->crop_year)
                 ->where('mill_code','=', $weekly_report->mill_code)
-                ->where('report_no','<=', $report_no != 0 ? $report_no * 1 : $weekly_report->report_no * 1)
+//                ->where('report_no','<=', $report_no != 0 ? $report_no * 1 : $weekly_report->report_no * 1)
+                ->where('report_no','<=',$report_no ?? $weekly_report->report_no * 1)
                 ->groupBy('transactionType','warehouse_slug') // <-- group by slug now
                 ->orderBy('sms_subsidiaries.id','asc')
                 ->get();
@@ -843,7 +848,10 @@ class WeeklyReportService
         }
 
         //list subsidiaries
-        $whs  = Warehouses::query()->where('millCode','=',Auth::user()->mill_code)->get();
+//        $whs  = Warehouses::query()->where('millCode','=',Auth::user()->mill_code)->get();
+        $whs = Warehouses::query()
+            ->where('millCode', '=', $weekly_report->mill_code)
+            ->get();
         $warehouseArray = [];
         if(!empty($whs)){
             foreach ($whs as $wh){
@@ -942,7 +950,8 @@ class WeeklyReportService
                 ->where('sugarType','=','REFINED')
                 ->where('crop_year','=',$weekly_report->crop_year)
                 ->where('mill_code','=', $weekly_report->mill_code)
-                ->where('report_no','<=', $report_no != 0 ? $report_no * 1 : $weekly_report->report_no * 1)
+//                ->where('report_no','<=', $report_no != 0 ? $report_no * 1 : $weekly_report->report_no * 1)
+                ->where('report_no','<=',$report_no ?? $weekly_report->report_no * 1)
 //                ->where('report_no','<=', $report_no)
                 ->groupBy('transactionType','warehouse_slug')
                 ->orderBy('sms_subsidiaries.id','asc')
@@ -959,7 +968,10 @@ class WeeklyReportService
         }
 
 //list subsidiaries
-        $whs  = Warehouses::query()->where('millCode','=',Auth::user()->mill_code)->get();
+//        $whs  = Warehouses::query()->where('millCode','=',Auth::user()->mill_code)->get();
+        $whs = Warehouses::query()
+            ->where('millCode', '=', $weekly_report->mill_code)
+            ->get();
         $warehouseArray = [];
         if(!empty($whs)){
             foreach ($whs as $wh){
