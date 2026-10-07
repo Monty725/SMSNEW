@@ -131,10 +131,11 @@
             @endforeach
         @endif
     </table>
-    <table class="sign-table cols-2">
+    <table class="sign-table cols-3">
         <tr>
-            <td>Certified: (Refinery Representative):</td>
-            <td>Verified: (SRA Representative)</td>
+            <td>Certified (Refinery Representative):</td>
+            <td>Verified (Planter's Representative):</td>
+            <td>Verified (SRA Representative):</td>
         </tr>
         <tr >
             <td>
@@ -143,7 +144,9 @@
             <td>
                 <u>{{$signatories['form5a']['sign2']['name'] ?? null}}</u>
             </td>
-
+            <td>
+                <u>{{$signatories['form5a']['sign3']['name'] ?? null}}</u>
+            </td>
         </tr>
         <tr >
             <td>
@@ -152,7 +155,9 @@
             <td>
                 {{$signatories['form5a']['sign2']['position'] ?? null}}
             </td>
-
+            <td>
+                {{$signatories['form5a']['sign3']['position'] ?? null}}
+            </td>
         </tr>
     </table>
 </div>

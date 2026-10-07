@@ -273,8 +273,9 @@
 
     <table class="sign-table cols-3">
         <tr>
-            <td>Certified:</td>
-            <td>Verified:</td>
+            <td>Certified (Refinery Representative):</td>
+            <td>Verified (Planter's Representative):</td>
+            <td>Verified (SRA Representative):</td>
         </tr>
 
         <tr >
@@ -284,7 +285,9 @@
             <td>
                 <u>{{$signatories['form6a']['sign2']['name'] ?? null}}</u>
             </td>
-
+            <td>
+                <u>{{$signatories['form6a']['sign3']['name'] ?? null}}</u>
+            </td>
         </tr>
         <tr >
             <td>
@@ -292,6 +295,9 @@
             </td>
             <td>
                 {{$signatories['form6a']['sign2']['position'] ?? null}}
+            </td>
+            <td>
+                {{$signatories['form6a']['sign3']['position'] ?? null}}
             </td>
         </tr>
     </table>

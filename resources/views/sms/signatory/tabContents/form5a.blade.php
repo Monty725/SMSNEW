@@ -35,7 +35,7 @@
         <div class="panel">
             <div class="box box-sm box-default box-solid">
                 <div class="box-header with-border">
-                    <p class="no-margin">Verified: (SRA Representative)<small id="filter-notifier" class="label bg-blue blink"></small></p>
+                    <p class="no-margin">Verified: (Planter's Representative)<small id="filter-notifier" class="label bg-blue blink"></small></p>
                     <div class="box-tools pull-right">
                     </div>
                 </div>
@@ -54,6 +54,35 @@
                             'container_class' =>'signatories_'.$form.'_sign2_position',
                         ],
                         $signatories[$form]['sign2']['position'] ?? null
+                        ) !!}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="panel">
+            <div class="box box-sm box-default box-solid">
+                <div class="box-header with-border">
+                    <p class="no-margin">Verified: (SRA Representative)<small id="filter-notifier" class="label bg-blue blink"></small></p>
+                    <div class="box-tools pull-right">
+                    </div>
+                </div>
+                <div class="box-body" style="">
+                    <div class="row">
+                        {!! \App\Swep\ViewHelpers\__form2::textbox('signatories['.$form.'][sign3][name]',[
+                            'label' => 'Name:',
+                            'cols' => 12,
+                            'container_class' =>'signatories_'.$form.'_sign3_name',
+                        ],
+                        $signatories[$form]['sign3']['name'] ?? null
+                        ) !!}
+                        {!! \App\Swep\ViewHelpers\__form2::textbox('signatories['.$form.'][sign3][position]',[
+                            'label' => 'Position:',
+                            'cols' => 12,
+                            'container_class' =>'signatories_'.$form.'_sign3_position',
+                        ],
+                        $signatories[$form]['sign3']['position'] ?? null
                         ) !!}
                     </div>
                 </div>
