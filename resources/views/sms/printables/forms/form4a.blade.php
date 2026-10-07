@@ -165,7 +165,6 @@
             $subsidiaryNumber = 0;
 
             // Initialize totals for every allowed subsidiary
-            // so keys such as stockBalances always exist.
             $total = [];
 
             foreach ($allowedSubsidiaries as $subsidiaryKey) {
@@ -180,176 +179,165 @@
             }
         @endphp
 
-        @if(count($form4a['subsidiaries']) > 0)
+        @foreach($allowedSubsidiaries as $key)
 
-            @foreach($form4a['subsidiaries'] as $key => $subs)
+            @php
+                $subsidiaryNumber++;
 
-                @if(in_array($key, $allowedSubsidiaries))
+                // Get the subsidiary data if it exists.
+                // Otherwise use an empty array.
+                $subs = $form4a['subsidiaries'][$key] ?? [];
 
-                    @php
-                        // Store only warehouses that have data
-                        // in ANY of the six columns.
-                        $validSubs = [];
-                    @endphp
+                // Only warehouses with values will be stored here.
+                $validSubs = [];
+            @endphp
 
-                    @if(count($subs) > 0)
+            {{-- Always display the subsidiary heading --}}
+            <tr>
+                <td colspan="7" class="text-strong">
+                    2.{{ $subsidiaryNumber }}
+                    {{ \App\Swep\Helpers\Arrays::subsidiaryItems()[$key] }}
+                </td>
+            </tr>
 
-                        {{-- FIRST PASS: determine which warehouses should be displayed --}}
-                        @foreach($subs as $slug => $sub)
+            {{-- Determine which warehouses should be displayed --}}
+            @if(count($subs) > 0)
 
-                            @if(!empty($sub['obj']) && $sub['obj']->for == 'REFINED')
+                @foreach($subs as $slug => $sub)
 
-                                @php
-                                    $currentValue =
-                                        $sub['current'] ?? 0;
+                    @if(!empty($sub['obj']) && $sub['obj']->for == 'REFINED')
 
-                                    $prevCWeekValue =
-                                        $prevToDateForm4a['subsidiaries'][$key][$slug]['current'] ?? 0;
+                        @php
+                            $currentValue =
+                                $sub['current'] ?? 0;
 
-                                    $toCDateValue =
-                                        $toDateForm4a['subsidiaries'][$key][$slug]['current'] ?? 0;
+                            $prevCWeekValue =
+                                $prevToDateForm4a['subsidiaries'][$key][$slug]['current'] ?? 0;
 
-                                    $prevValue =
-                                        $sub['prev'] ?? 0;
+                            $toCDateValue =
+                                $toDateForm4a['subsidiaries'][$key][$slug]['current'] ?? 0;
 
-                                    $prevPWeekValue =
-                                        $prevToDateForm4a['subsidiaries'][$key][$slug]['prev'] ?? 0;
+                            $prevValue =
+                                $sub['prev'] ?? 0;
 
-                                    $toPDateValue =
-                                        $toDateForm4a['subsidiaries'][$key][$slug]['prev'] ?? 0;
+                            $prevPWeekValue =
+                                $prevToDateForm4a['subsidiaries'][$key][$slug]['prev'] ?? 0;
 
-                                    // Show the warehouse if ANY of the
-                                    // six columns contains a value.
-                                    $warehouseHasData =
-                                        $currentValue != 0 ||
-                                        $prevCWeekValue != 0 ||
-                                        $toCDateValue != 0 ||
-                                        $prevValue != 0 ||
-                                        $prevPWeekValue != 0 ||
-                                        $toPDateValue != 0;
-                                @endphp
+                            $toPDateValue =
+                                $toDateForm4a['subsidiaries'][$key][$slug]['prev'] ?? 0;
 
-                                @if($warehouseHasData)
+                            // Show warehouse only if ANY of the six
+                            // columns contains a non-zero value.
+                            $warehouseHasData =
+                                $currentValue != 0 ||
+                                $prevCWeekValue != 0 ||
+                                $toCDateValue != 0 ||
+                                $prevValue != 0 ||
+                                $prevPWeekValue != 0 ||
+                                $toPDateValue != 0;
+                        @endphp
 
-                                    @php
-                                        $validSubs[$slug] = [
-                                            'sub' => $sub,
-                                            'current' => $currentValue,
-                                            'prevCWeek' => $prevCWeekValue,
-                                            'toCDate' => $toCDateValue,
-                                            'prev' => $prevValue,
-                                            'prevPWeek' => $prevPWeekValue,
-                                            'toPDate' => $toPDateValue,
-                                        ];
-
-                                        // Add ONLY displayed warehouses to totals.
-                                        $total[$key]['current'] += $currentValue;
-                                        $total[$key]['prevCWeek'] += $prevCWeekValue;
-                                        $total[$key]['toCDate'] += $toCDateValue;
-                                        $total[$key]['prev'] += $prevValue;
-                                        $total[$key]['prevPWeek'] += $prevPWeekValue;
-                                        $total[$key]['toPDate'] += $toPDateValue;
-                                    @endphp
-
-                                @endif
-
-                            @endif
-
-                        @endforeach
-
-                        {{-- SECOND PASS: display only if there are valid warehouses --}}
-                        @if(count($validSubs) > 0)
+                        @if($warehouseHasData)
 
                             @php
-                                $subsidiaryNumber++;
+                                $validSubs[$slug] = [
+                                    'sub' => $sub,
+                                    'current' => $currentValue,
+                                    'prevCWeek' => $prevCWeekValue,
+                                    'toCDate' => $toCDateValue,
+                                    'prev' => $prevValue,
+                                    'prevPWeek' => $prevPWeekValue,
+                                    'toPDate' => $toPDateValue,
+                                ];
+
+                                // Add only displayed warehouses to totals
+                                $total[$key]['current'] += $currentValue;
+                                $total[$key]['prevCWeek'] += $prevCWeekValue;
+                                $total[$key]['toCDate'] += $toCDateValue;
+                                $total[$key]['prev'] += $prevValue;
+                                $total[$key]['prevPWeek'] += $prevPWeekValue;
+                                $total[$key]['toPDate'] += $toPDateValue;
                             @endphp
-
-                            <tr>
-                                <td colspan="7" class="text-strong">
-                                    2.{{ $subsidiaryNumber }}
-                                    {{ \App\Swep\Helpers\Arrays::subsidiaryItems()[$key] }}
-                                </td>
-                            </tr>
-
-                            {{-- Display valid warehouses --}}
-                            @foreach($validSubs as $slug => $warehouse)
-
-                                @php
-                                    $sub = $warehouse['sub'];
-                                @endphp
-
-                                <tr>
-                                    <td>
-                                        <span class="indent"></span>
-                                        {{ $sub['obj']->name ?? null }}
-                                        ({{ $sub['obj']->alias ?? null }})
-                                    </td>
-
-                                    <td class="text-right">
-                                        {{ \App\Swep\Helpers\Helper::toNumber($warehouse['current'],4) }}
-                                    </td>
-
-                                    <td class="text-right">
-                                        {{ \App\Swep\Helpers\Helper::toNumber($warehouse['prevCWeek'],4) }}
-                                    </td>
-
-                                    <td class="text-right">
-                                        {{ \App\Swep\Helpers\Helper::toNumber($warehouse['toCDate'],4) }}
-                                    </td>
-
-                                    <td class="text-right">
-                                        {{ \App\Swep\Helpers\Helper::toNumber($warehouse['prev'],4) }}
-                                    </td>
-
-                                    <td class="text-right">
-                                        {{ \App\Swep\Helpers\Helper::toNumber($warehouse['prevPWeek'],4) }}
-                                    </td>
-
-                                    <td class="text-right">
-                                        {{ \App\Swep\Helpers\Helper::toNumber($warehouse['toPDate'],4) }}
-                                    </td>
-                                </tr>
-
-                            @endforeach
-
-                            {{-- TOTAL --}}
-                            <tr>
-                                <td class="text-right text-strong">TOTAL</td>
-
-                                <td class="text-right text-strong">
-                                    {{ \App\Swep\Helpers\Helper::toNumber($total[$key]['current'],4) }}
-                                </td>
-
-                                <td class="text-right text-strong">
-                                    {{ \App\Swep\Helpers\Helper::toNumber($total[$key]['prevCWeek'],4) }}
-                                </td>
-
-                                <td class="text-right text-strong">
-                                    {{ \App\Swep\Helpers\Helper::toNumber($total[$key]['toCDate'],4) }}
-                                </td>
-
-                                <td class="text-right text-strong">
-                                    {{ \App\Swep\Helpers\Helper::toNumber($total[$key]['prev'],4) }}
-                                </td>
-
-                                <td class="text-right text-strong">
-                                    {{ \App\Swep\Helpers\Helper::toNumber($total[$key]['prevPWeek'],4) }}
-                                </td>
-
-                                <td class="text-right text-strong">
-                                    {{ \App\Swep\Helpers\Helper::toNumber($total[$key]['toPDate'],4) }}
-                                </td>
-                            </tr>
 
                         @endif
 
                     @endif
 
-                @endif
+                @endforeach
+
+            @endif
+
+            {{-- Display only warehouses with values --}}
+            @foreach($validSubs as $slug => $warehouse)
+
+                @php
+                    $sub = $warehouse['sub'];
+                @endphp
+
+                <tr>
+                    <td>
+                        <span class="indent"></span>
+                        {{ $sub['obj']->name ?? null }}
+                        ({{ $sub['obj']->alias ?? null }})
+                    </td>
+
+                    <td class="text-right">
+                        {{ \App\Swep\Helpers\Helper::toNumber($warehouse['current'],4) }}
+                    </td>
+
+                    <td class="text-right">
+                        {{ \App\Swep\Helpers\Helper::toNumber($warehouse['prevCWeek'],4) }}
+                    </td>
+
+                    <td class="text-right">
+                        {{ \App\Swep\Helpers\Helper::toNumber($warehouse['toCDate'],4) }}
+                    </td>
+
+                    <td class="text-right">
+                        {{ \App\Swep\Helpers\Helper::toNumber($warehouse['prev'],4) }}
+                    </td>
+
+                    <td class="text-right">
+                        {{ \App\Swep\Helpers\Helper::toNumber($warehouse['prevPWeek'],4) }}
+                    </td>
+
+                    <td class="text-right">
+                        {{ \App\Swep\Helpers\Helper::toNumber($warehouse['toPDate'],4) }}
+                    </td>
+                </tr>
 
             @endforeach
 
-        @endif
+            {{-- Always display TOTAL --}}
+            <tr>
+                <td class="text-right text-strong">TOTAL</td>
+
+                <td class="text-right text-strong">
+                    {{ \App\Swep\Helpers\Helper::toNumber($total[$key]['current'],4) }}
+                </td>
+
+                <td class="text-right text-strong">
+                    {{ \App\Swep\Helpers\Helper::toNumber($total[$key]['prevCWeek'],4) }}
+                </td>
+
+                <td class="text-right text-strong">
+                    {{ \App\Swep\Helpers\Helper::toNumber($total[$key]['toCDate'],4) }}
+                </td>
+
+                <td class="text-right text-strong">
+                    {{ \App\Swep\Helpers\Helper::toNumber($total[$key]['prev'],4) }}
+                </td>
+
+                <td class="text-right text-strong">
+                    {{ \App\Swep\Helpers\Helper::toNumber($total[$key]['prevPWeek'],4) }}
+                </td>
+
+                <td class="text-right text-strong">
+                    {{ \App\Swep\Helpers\Helper::toNumber($total[$key]['toPDate'],4) }}
+                </td>
+            </tr>
+
+        @endforeach
 
         </tbody>
 
