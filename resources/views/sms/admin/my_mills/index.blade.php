@@ -21,7 +21,8 @@
 
 {{--                    ORIGINAL OLD TABLE--}}
                     @if(!empty($calendar))
-                        @foreach(collect($calendar)->sortKeysDesc() as $crop_year => $months)
+{{--                        @foreach(collect($calendar)->sortKeysDesc() as $crop_year => $months)--}}
+                        @foreach(collect($calendar)->sortKeysDesc()->take(2) as $crop_year => $months)
                             <div class="panel">
                                 <div class="box box-sm box-default box-solid">
                                     <div class="box-header with-border">
