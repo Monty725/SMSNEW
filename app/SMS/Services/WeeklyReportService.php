@@ -917,22 +917,10 @@ class WeeklyReportService
     public function form4aComputation($slug, $get = '',$report_no = 0){
         $formArray = [];
         $weekly_report = $this->findWeeklyReportBySlug($slug);
-
-//        ORIGINAL
-//        if($get == 'toDate'){
-////            $relation = $weekly_report->form4aToDateAsOf($report_no != 0 ? $report_no : $weekly_report->report_no * 1);
-//            $relation = $weekly_report->form4aToDateAsOf($report_no ?? $weekly_report->report_no * 1);
-//        }else{
-//            $relation = $weekly_report->form4a;
-//        }
-
-        if ($get == 'toDate') {
-            $effectiveReportNo = ($report_no != 0)
-                ? ($report_no * 1)
-                : ($weekly_report->report_no * 1);
-
-            $relation = $weekly_report->form4aToDateAsOf($effectiveReportNo);
-        } else {
+        if($get == 'toDate'){
+//            $relation = $weekly_report->form4aToDateAsOf($report_no != 0 ? $report_no : $weekly_report->report_no * 1);
+            $relation = $weekly_report->form4aToDateAsOf($report_no ?? $weekly_report->report_no * 1);
+        }else{
             $relation = $weekly_report->form4a;
         }
 
@@ -962,11 +950,9 @@ class WeeklyReportService
                 ->where('sugarType','=','REFINED')
                 ->where('crop_year','=',$weekly_report->crop_year)
                 ->where('mill_code','=', $weekly_report->mill_code)
-//                CURRENT WORKING
-//                ->where('report_no','<=', $report_no != 0 ? $report_no * 1 : $weekly_report->report_no * 1)
+                ->where('report_no','<=', $report_no != 0 ? $report_no * 1 : $weekly_report->report_no * 1)
 //                ->where('report_no','<=',$report_no ?? $weekly_report->report_no * 1)
 //                ->where('report_no','<=', $report_no)
-                ->where('report_no', '<=', $effectiveReportNo)
                 ->groupBy('transactionType','warehouse_slug')
                 ->orderBy('sms_subsidiaries.id','asc')
                 ->get();
