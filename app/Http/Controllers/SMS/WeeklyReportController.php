@@ -50,7 +50,8 @@ class WeeklyReportController extends Controller
         if(\request()->ajax()){
             $reports = WeeklyReports::query()
                 ->with(['cropYear','calendar'])
-                ->where('mill_code','=',Auth::user()->mill_code);
+                ->where('mill_code','=',Auth::user()->mill_code)
+                ->where('crop_year', '=', '2026-2027');
             return \DataTables::of($reports)
                 ->addColumn('action',function($data){
                     $destroy_route = "'".route("dashboard.weekly_report.destroy","slug")."'";
