@@ -28,14 +28,14 @@
                 $refinedTotal = 0;
             @endphp
             @foreach($wr->form5aIssuancesOfSro as $data)
-                @if(is_null($data->here_only) && is_null($data->quedan_only) && is_null($data->is_deleted_raw))
+                @if(is_null($data->here_only) && is_null($data->quedan_only) && is_null($data->is_deleted_raw) && is_null($data->is_updatedwithrsq_5a))
                     @php
 
                         $rawTotal = $rawTotal + $data->raw_qty + + $data->prev_raw_qty;
                         $refinedTotal = $refinedTotal + $data->refined_qty + + $data->prev_refined_qty;
                     @endphp
                 @endif
-                @if(is_null($data->here_only) && is_null($data->quedan_only) && is_null($data->is_deleted_raw))
+                @if(is_null($data->here_only) && is_null($data->quedan_only) && is_null($data->is_deleted_raw) && is_null($data->is_updatedwithrsq_5a))
                     <tr>
                         <td>{{$data->delivery_no}}</td>
                         <td>{{$data->trader}}</td>
@@ -116,13 +116,13 @@
                     $qty = 0;
                     $label = ''; // Optional: 'Current' or 'Previous'
 
-                    if ($data->refined_qty > 0 && is_null($data->here_only) && !empty($data->rsq_no) && is_null($data->is_deleted_quedan)) {
+                    if ($data->refined_qty > 0 && is_null($data->here_only) && !empty($data->rsq_no) && is_null($data->is_deleted_quedan) && is_null($data->is_updatedwithrsq_5a)) {
                         $show = true;
                         $qty = $data->refined_qty;
                         $label = 'Curr';
                     }
 
-                    if ($data->prev_refined_qty > 0 && is_null($data->here_only) && !empty($data->rsq_no) && is_null($data->is_deleted_quedan)) {
+                    if ($data->prev_refined_qty > 0 && is_null($data->here_only) && !empty($data->rsq_no) && is_null($data->is_deleted_quedan) && is_null($data->is_updatedwithrsq_5a)) {
                         // If both current and previous exist, you'll need two rows
                         if ($show) {
                             // Display current first

@@ -133,6 +133,7 @@ class IssuanceOfSroController extends Controller
         $i->is_deleted_quedan = $request->is_deleted_quedan;
         $i->is_deleted_raw = $request->is_deleted_raw;
         $i->quedan_only = $request->quedan_only;
+        $i->is_updatedwithrsq_5a = 1;
         if($request->cropCharge == 'CURRENT'){
             $i->refined_qty = Helper::sanitizeAutonum($request->refined_qty);
             $i->prev_refined_qty = null;
