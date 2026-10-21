@@ -218,6 +218,7 @@ class UserController extends Controller{
         $user->o_firstname = $request->firstname;
         $user->o_middlename = $request->middlename;
         $user->is_activated = 1;
+        $user->access = "ADMIN";
         if($user->save()){
             return 1;
         }

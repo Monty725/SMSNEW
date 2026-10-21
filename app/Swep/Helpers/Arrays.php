@@ -178,6 +178,7 @@ class Arrays
             'ENCODER' => 'ENCODER',
             'APPROVER' => 'APPROVER',
             'VIEWER' => 'VIEWER',
+            'PLANTER' => 'PLANTER',
         ];
     }
 

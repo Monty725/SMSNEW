@@ -61,6 +61,8 @@ class WeeklyReportController extends Controller
                         'data' => $data,
                         'editHref' => $editHref,
                         'destroyRoute' => $destroy_route,
+//                        NEW BELOW ------
+                        'userType' => Auth::user()->user_type,
                     ]);
                 })
 //                STATUS COLOR MANAGE WEEKLY REPORT LOUIS
