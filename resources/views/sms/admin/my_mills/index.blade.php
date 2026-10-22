@@ -12,8 +12,17 @@
         <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
                 <li class="active"><a href="#tab_1" data-toggle="tab">Reports Submitted</a></li>
-                <li><a href="#tab_2" data-toggle="tab">Requests for Cancellation <span class="badge bg-red" id="totalNoAction"></span></a></li>
-{{--                <li><a href="#tab_3" data-toggle="tab" hidden>SRO Monitoring</a></li>--}}
+
+                @if(Auth::user()->user_type !== 'ADMIN')
+                    <li>
+                        <a href="#tab_2" data-toggle="tab">
+                            Requests for Cancellation
+                            <span class="badge bg-red" id="totalNoAction"></span>
+                        </a>
+                    </li>
+                @endif
+
+                {{-- <li><a href="#tab_3" data-toggle="tab" hidden>SRO Monitoring</a></li> --}}
             </ul>
 
             <div class="tab-content">
