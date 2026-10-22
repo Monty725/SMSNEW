@@ -26,6 +26,13 @@
                         <td>Report No:</td>
                         <td class="text-strong">{{\Illuminate\Support\Facades\Request::get('report_no')}}</td>
                     </tr>
+                    <tr>
+                        <td></td>
+                        <td>Week Ending:</td>
+                        <td>
+                            <b>{{ $weekEnding ? \Illuminate\Support\Carbon::parse($weekEnding)->format('F d, Y') : '-' }}</b>
+                        </td>
+                    </tr>
                     </tbody>
                 </table>
             </td>
@@ -61,147 +68,101 @@
             @php
                 $ct = 0;
                 $totals = [];
-                $template = [];
-                for ($x = 0;$x < 6; $x++){
-                    $template[$x] = 0;
-                }
+                $template = array_fill(0, 6, 0);
+
+                // [path inside form1]  (all values come from number_format, so sanitizeAutonum is enough)
+                $columns = [
+                    0 => 'gtcm.currentCrop.thisWeek',
+                    1 => 'gtcm.currentCrop.prevWeek',
+                    2 => 'gtcm.currentCrop.toDate',
+                    3 => 'manufactured.currentCrop.thisWeek',
+                    4 => 'manufactured.currentCrop.prevWeek',
+                    5 => 'manufactured.currentCrop.toDate',
+                ];
+
+                $num = function ($form1, $path) {
+                    return \App\Swep\Helpers\Helper::sanitizeAutonum((string) data_get($form1, $path, '0'));
+                };
+
+                // '-' for null, empty, non-numeric, or anything that rounds to zero at the given decimals
+                $dash = function ($value, $decimals = 4) {
+                    if ($value === null || $value === '' || !is_numeric($value)) {
+                        return '-';
+                    }
+                    $value = round($value, $decimals);
+                    return $value == 0
+                        ? '-'
+                        : \App\Swep\Helpers\Helper::toNumber($value, $decimals, '-');
+                };
+
+                // LKG/TC = manufactured * 20 / gtcm, or null when gtcm is 0
+                $ratio = function ($manufactured, $gtcm) {
+                    return $gtcm != 0 ? ($manufactured * 20 / $gtcm) : null;
+                };
             @endphp
+
             @foreach($millsArray as $group => $mills)
-                @php
-                    $totals[$group] = $template;
-                @endphp
+                @php $totals[$group] = $template; @endphp
+
                 @foreach($mills as $mill_code => $mill)
                     @php
                         $ct++;
+                        $form1 = $mill['form1'] ?? [];
+                        $hasData = !empty($form1);
+                        $cells = [];
+                        $lkgThisWeek = null;
+                        $lkgToDate = null;
+
+                        if ($hasData) {
+                            foreach ($columns as $i => $path) {
+                                $cells[$i] = $num($form1, $path);
+                                $totals[$group][$i] += $cells[$i];
+                            }
+                            $lkgThisWeek = $num($form1, 'lkgtc_gross.currentCrop.thisWeek');
+                            $lkgToDate   = $num($form1, 'lkgtc_gross.currentCrop.toDate');
+                        }
                     @endphp
-                    @if(!empty($mill['form1']))
-                        @php
-                            $prevManufactured = $mill['form1']['toDate']['manufactured']['prev'] ?? 0;
-                            $currentManufactured = $mill['form1']['toDate']['manufactured']['current'] ?? 0;
-                            $currentWithdrawals = $mill['form1']['toDate']['withdrawalsTotal']['current'] ?? 0;
-                            $prevWithdrawals = $mill['form1']['toDate']['withdrawalsTotal']['prev'] ?? 0;
-                            $currentTransfers = $mill['form1']['toDate']['transfersToRefinery']['current'] ?? 0;
-                            $prevTransfers = $mill['form1']['toDate']['transfersToRefinery']['prev'] ?? 0;
-                        @endphp
-                    @else
-                        @php
-                            $prevManufactured = 0;
-                            $currentManufactured = 0;
-                            $currentWithdrawals = 0;
-                            $prevWithdrawals = 0;
-                            $currentTransfers = 0;
-                            $prevTransfers = 0;
-                        @endphp
-                    @endif
 
                     <tr>
-                        <td>{{$ct}}</td>
-                        <td>{{$mill_code}}</td>
+                        <td>{{ $ct }}</td>
+                        <td>{{ $mill_code }}</td>
                         <td></td>
                         <td></td>
-                        <td class="text-right">
-                            @if(!empty($weeklyReportsArray[$mill_code]))
-                                @php
-                                    $totals[$group][0] += Helper::sanitizeAutonum($weeklyReportsArray[$mill_code]['values']['gtcm']['currentCrop']['thisWeek'] ?? null);
-                                @endphp
-                                {{ \App\Swep\Helpers\Helper::toNumber(Helper::sanitizeAutonum($weeklyReportsArray[$mill_code]['values']['gtcm']['currentCrop']['thisWeek'] ?? 0),4,'-') }}
-                            @endif
-                        </td>
-                        <td class="text-right">
-                            @if(!empty($weeklyReportsArray[$mill_code]))
-                                @php
-                                    $totals[$group][1] += Helper::sanitizeAutonum($weeklyReportsArray[$mill_code]['values']['gtcm']['currentCrop']['prevWeek'] ?? null);
-                                @endphp
-                                {{ \App\Swep\Helpers\Helper::toNumber(Helper::sanitizeAutonum($weeklyReportsArray[$mill_code]['values']['gtcm']['currentCrop']['prevWeek'] ?? 0),4,'-') }}
-                            @endif
-                        </td>
-                        <td class="text-right">
-                            @if(!empty($weeklyReportsArray[$mill_code]))
-                                @php
-                                    $totals[$group][2] += Helper::sanitizeAutonum($weeklyReportsArray[$mill_code]['values']['gtcm']['currentCrop']['toDate'] ?? null);
-                                @endphp
-                                {{ \App\Swep\Helpers\Helper::toNumber(Helper::sanitizeAutonum($weeklyReportsArray[$mill_code]['values']['gtcm']['currentCrop']['toDate'] ?? 0),4,'-') }}
-                            @endif
-                        </td>
-                        <td class="text-right">
-                            @if(!empty($weeklyReportsArray[$mill_code]))
-                                @php($totals[$group][3] += Helper::sanitizeAutonum($weeklyReportsArray[$mill_code]['values']['manufactured']['currentCrop']['thisWeek']))
-                                {{\App\Swep\Helpers\Helper::toNumber(Helper::sanitizeAutonum($weeklyReportsArray[$mill_code]['values']['manufactured']['currentCrop']['thisWeek'] ?? 0),4,'-')}}
-                            @endif
-                        </td>
-                        <td class="text-right">
-                            @if(!empty($weeklyReportsArray[$mill_code]))
-                                @php($totals[$group][4] += Helper::sanitizeAutonum($weeklyReportsArray[$mill_code]['values']['manufactured']['currentCrop']['prevWeek']))
-                                {{\App\Swep\Helpers\Helper::toNumber(Helper::sanitizeAutonum($weeklyReportsArray[$mill_code]['values']['manufactured']['currentCrop']['prevWeek'] ?? 0),4,'-')}}
-                            @endif
-                        </td>
-                        <td class="text-right">
-                            @if(!empty($weeklyReportsArray[$mill_code]))
-                                @php($totals[$group][5] += Helper::sanitizeAutonum($weeklyReportsArray[$mill_code]['values']['manufactured']['currentCrop']['toDate']))
-                                {{\App\Swep\Helpers\Helper::toNumber(Helper::sanitizeAutonum($weeklyReportsArray[$mill_code]['values']['manufactured']['currentCrop']['toDate'] ?? 0),4,'-')}}
-                            @endif
-                        </td>
-                        <td class="text-right">
-                            @if(!empty($weeklyReportsArray[$mill_code]))
-                                {{\App\Swep\Helpers\Helper::toNumber(Helper::sanitizeAutonum($weeklyReportsArray[$mill_code]['values']['lkgtc_gross']['currentCrop']['thisWeek'] ?? 0),4,'-')}}
-                            @endif
-                        </td>
-                        <td class="text-right">
-                            @if(!empty($weeklyReportsArray[$mill_code]))
-                                {{\App\Swep\Helpers\Helper::toNumber(Helper::sanitizeAutonum($weeklyReportsArray[$mill_code]['values']['lkgtc_gross']['currentCrop']['toDate'] ?? 0),4,'-')}}
-                            @endif
-                        </td>
-
-
+                        @for($i = 0; $i < 6; $i++)
+                            <td class="text-right">{{ $hasData ? $dash($cells[$i], 4) : '-' }}</td>
+                        @endfor
+                        <td class="text-right">{{ $hasData ? $dash($lkgThisWeek, 4) : '-' }}</td>
+                        <td class="text-right">{{ $hasData ? $dash($lkgToDate, 4) : '-' }}</td>
                     </tr>
                 @endforeach
 
-                <tr class="text-strong" style="background-color: #f8ffeb">
-                    <td colspan="2" class="text-right">
-                        {{$group}} Subtotal
-                    </td>
-                    <td></td>
-                    <td></td>
-                    @if(!empty($totals[$group]))
-                        @foreach($totals[$group] as $value)
-                            <td class="text-right">{{number_format($value,4)}}</td>
-                        @endforeach
-                    @endif
-                    @if($totals[$group][0] != 0)
-                        <td class="text-right">
-                            {{number_format($totals[$group][3] * 20 / $totals[$group][0],3)}}
-                        </td>
-                    @else
-                        <td></td>
-                    @endif
-                    @if($totals[$group][2] != 0)
-                        <td class="text-right">
-                            {{number_format($totals[$group][5] * 20 / $totals[$group][2],3)}}
-                        </td>
-                    @else
-                        <td></td>
-                    @endif
+                <tr class="text-strong" style="background-color: #f8ffeb;">
+                    <td colspan="2" class="text-right" style="background-color: #f8ffeb;">{{ $group }} Subtotal</td>
+                    <td style="background-color: #f8ffeb;"></td>
+                    <td style="background-color: #f8ffeb;"></td>
+                    @foreach($totals[$group] as $value)
+                        <td class="text-right" style="background-color: #f8ffeb;">{{ $dash($value, 4) }}</td>
+                    @endforeach
+                    <td class="text-right" style="background-color: #f8ffeb;">{{ $dash($ratio($totals[$group][3], $totals[$group][0]), 3) }}</td>
+                    <td class="text-right" style="background-color: #f8ffeb;">{{ $dash($ratio($totals[$group][5], $totals[$group][2]), 3) }}</td>
                 </tr>
             @endforeach
-            <tr class="text-strong">
-                <td colspan="2">TOTAL</td>
-                <td></td>
-                <td></td>
-                @foreach($template as $key => $val)
-                    <td class="text-right">{{number_format(array_sum(array_column($totals,$key)),3)}}</td>
+
+            @php
+                $grand = [];
+                foreach ($template as $key => $val) {
+                    $grand[$key] = array_sum(array_column($totals, $key));
+                }
+            @endphp
+            <tr class="text-strong" style="background-color: #fff3a0;">
+                <td colspan="2" style="background-color: #fff3a0;">TOTAL</td>
+                <td style="background-color: #fff3a0;"></td>
+                <td style="background-color: #fff3a0;"></td>
+                @foreach($grand as $value)
+                    <td class="text-right" style="background-color: #fff3a0;">{{ $dash($value, 3) }}</td>
                 @endforeach
-                @if(array_sum(array_column($totals,0)) != 0)
-                    <td class="text-right">{{number_format(array_sum(array_column($totals,3)) * 20 / array_sum(array_column($totals,0)),3)}}</td>
-                @else
-                    <td></td>
-                @endif
-
-                @if(array_sum(array_column($totals,2)) != 0)
-                    <td class="text-right">{{number_format(array_sum(array_column($totals,5)) * 20 / array_sum(array_column($totals,2)),3)}}</td>
-                @else
-                    <td></td>
-                @endif
-
+                <td class="text-right" style="background-color: #fff3a0;">{{ $dash($ratio($grand[3], $grand[0]), 3) }}</td>
+                <td class="text-right" style="background-color: #fff3a0;">{{ $dash($ratio($grand[5], $grand[2]), 3) }}</td>
             </tr>
         @endif
         </tbody>

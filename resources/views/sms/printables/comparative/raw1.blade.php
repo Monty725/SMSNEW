@@ -26,14 +26,21 @@
                         <td>Report No:</td>
                         <td class="text-strong">{{\Illuminate\Support\Facades\Request::get('report_no')}}</td>
                     </tr>
+                    <tr>
+                        <td></td>
+                        <td>Week Ending:</td>
+                        <td>
+                            <b>{{ $weekEnding ? \Illuminate\Support\Carbon::parse($weekEnding)->format('F d, Y') : '-' }}</b>
+                        </td>
+                    </tr>
                     </tbody>
                 </table>
             </td>
         </tr>
     </table>
 
-{{--    <p class="text-strong">RAW SUGAR PRODUCTION, WITHDRAWALS & STOCK BALANCES IN (In LKG Bags)</p>--}}
-    <p class="text-strong">RAW SUGAR PRODUCTION, WITHDRAWALS & STOCK BALANCES (In Metric Tons)</p>
+    <p class="text-strong">RAW SUGAR PRODUCTION, WITHDRAWALS & STOCK BALANCES IN (In LKG Bags)</p>
+{{--    <p class="text-strong">RAW SUGAR PRODUCTION, WITHDRAWALS & STOCK BALANCES (In Metric Tons)</p>--}}
 
 
     <table class="table table-bordered">
@@ -87,6 +94,15 @@
                         ? \App\Swep\Helpers\Helper::sanitize($value)
                         : \App\Swep\Helpers\Helper::sanitizeAutonum($value);
                 };
+                $dash = function ($value, $multiplier = 1) {
+                    if ($value === null || $value === '' || !is_numeric($value)) {
+                        return '-';
+                    }
+                    $value = round($value * $multiplier, 3);
+                    return $value == 0
+                        ? '-'
+                        : \App\Swep\Helpers\Helper::toNumber($value, 3, '-');
+                };
             @endphp
 
             @foreach($comparativeArray as $group => $mills)
@@ -124,9 +140,7 @@
                         <td>{{ $mill_code }}</td>
                         @for($i = 0; $i < 11; $i++)
                             <td class="text-right">
-                                @if($hasData)
-                                    {{ Helper::toNumber($cells[$i], 3, '-') }}
-                                @endif
+                                {{ $hasData ? $dash($cells[$i]) : '-' }}
                             </td>
                         @endfor
                     </tr>
@@ -135,7 +149,7 @@
                 <tr class="text-strong" style="background-color: #f8ffeb">
                     <td colspan="2" class="text-right">{{ $group }} Subtotal</td>
                     @foreach($totals[$group] as $value)
-                        <td class="text-right">{{ number_format($value, 3) }}</td>
+                        <td class="text-right">{{ $dash($value) }}</td>
                     @endforeach
                 </tr>
             @endforeach
@@ -143,13 +157,13 @@
             <tr class="text-strong">
                 <td colspan="2">TOTAL (MT)</td>
                 @foreach($template as $key => $val)
-                    <td class="text-right">{{ number_format(array_sum(array_column($totals, $key)), 3) }}</td>
+                    <td class="text-right">{{ $dash(array_sum(array_column($totals, $key))) }}</td>
                 @endforeach
             </tr>
             <tr class="text-strong">
                 <td colspan="2">TOTAL (LKG)</td>
                 @foreach($template as $key => $val)
-                    <td class="text-right">{{ number_format(array_sum(array_column($totals, $key)) * 20, 3) }}</td>
+                    <td class="text-right">{{ $dash(array_sum(array_column($totals, $key)), 20) }}</td>
                 @endforeach
             </tr>
         @endif
