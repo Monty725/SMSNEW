@@ -179,6 +179,7 @@ class Arrays
             'APPROVER' => 'APPROVER',
             'VIEWER' => 'VIEWER',
             'PLANTER' => 'PLANTER',
+            'ADMIN' => 'ADMIN',
         ];
     }
 

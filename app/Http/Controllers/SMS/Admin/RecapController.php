@@ -52,69 +52,46 @@ class RecapController
     }
 
 //    INJECT ON FUNCTION ------------------
-    public function raw1(Request $request, GetForm1Controller $getForm1Controller){
-//        dd($getform1Controller);
-        $weeklyreports = WeeklyReports::query()
-            ->where("report_no","=", 4)
-            ->where("status","=", 1)
-            ->get();
-
-
-//        CODE START RECAP ------------------
-        $submittedReports = $weeklyreports->mapWithKeys(function ($weeklyreport){
-            return [
-                $weeklyreport->mill_code=>$weeklyreport
-            ];
-        });
-        $weeklyReportsArray = [];
-        foreach($submittedReports as $mill_code=>$submittedReport)
-        {
-            $weeklyReportsArray[$mill_code] = $getForm1Controller->getForm1($submittedReport->slug, false);
-        }
-//        dd($submittedReports);
-//        CODE END --------------------------
-
-//        dd($getForm1Controller->getForm1($weeklyreports->first()->slug, false));
+    public function raw1(Request $request, GetForm1Controller $getForm1Controller)
+    {
         $report_no = $request->report_no * 1;
         $crop_year = $request->crop_year;
 
+        // Pre-fill every mill so the view still shows mills with no submitted report
         $comparativeArray = [];
-        $mills = SugarMills::query()->get();
-        if(!empty($mills)){
-            foreach ($mills as $mill){
-                $comparativeArray[$mill->group][$mill->slug] = [
-                    'weeklyReportSlug' => null,
-                    'newform1' => [],
-                ];
-            }
+        foreach (SugarMills::query()->get() as $mill) {
+            $comparativeArray[$mill->group][$mill->slug] = [
+                'weeklyReportSlug' => null,
+                'form1'            => [],   // values from GetForm1Controller
+            ];
         }
 
-        //populate slugs
+        // One query: submitted reports for the requested report no. and crop year
         $wrs = WeeklyReports::query()
             ->with('sugarMill')
-            ->select('slug','mill_code')
-            ->where('status','=',1)
-            ->where('report_no','=',$report_no)
-            ->where('crop_year','=',$crop_year)
+            ->select('slug', 'mill_code')
+            ->where('status', '=', 1)
+            ->where('report_no', '=', $report_no)
+            ->where('crop_year', '=', $crop_year)
             ->get();
-        if(!empty($wrs)){
-            foreach ($wrs as $wr){
-                $comparativeArray[$wr->sugarMill->group][$wr->sugarMill->slug]['weeklyReportSlug'] = $wr->slug;
-                $comparativeArray[$wr->sugarMill->group][$wr->sugarMill->slug]['newform1'] = [
-                    'thisWeek' => $this->weeklyReportService->computation($wr->slug,'',$report_no),
-                    'prevToDate' => $this->weeklyReportService->computation($wr->slug,'toDate',$report_no - 1),
-                    'toDate' => $this->weeklyReportService->computation($wr->slug,'toDate',$report_no),
-                ];
+
+        foreach ($wrs as $wr) {
+            $mill = $wr->sugarMill;
+            if (!$mill) {
+                continue;
             }
+
+            // isDotted = false -> nested arrays instead of "a.b.c" flat keys
+            $form1 = $getForm1Controller->getForm1($wr->slug, false);
+
+            $comparativeArray[$mill->group][$mill->slug]['weeklyReportSlug'] = $wr->slug;
+            $comparativeArray[$mill->group][$mill->slug]['form1'] = $form1['values'];
+            $comparativeArray[$mill->group][$mill->slug]['rows']  = $form1['rows'];
         }
-//        dd($weeklyReportsArray);
+
         return view('sms.printables.comparative.raw1')->with([
             'comparativeArray' => $comparativeArray,
-//            ADD HERE RECAP ---------------
-            'weeklyReportsArray' => $weeklyReportsArray
-//            ADD END ------------------
         ]);
-
     }
 
     public function molPWS(Request $request, GetForm3Controller $getForm3Controller){

@@ -8,51 +8,70 @@
 @endsection
 
 @section('modal-body')
-    <div class="row">
-        <div class="col-md-12">
-            Submitted at: {{ Carbon::parse($wr->submitted_at)->format('F d, Y | h:i A') }}
+    @if(Auth::user()->user_type != 'ADMIN')
+        <div class="row">
+            <div class="col-md-12">
+                Submitted at: {{ Carbon::parse($wr->submitted_at)->format('F d, Y | h:i A') }}
 
-            <!-- Print Button -->
-            <button class="btn btn-default pull-right btn-sm"
-                    id="print_btn_{{$rand}}"
-                    style="margin-bottom:10px;">
-                <i class="fa fa-print"></i> Print
-            </button>
+                <!-- Print Button -->
+                <button class="btn btn-default pull-right btn-sm"
+                        id="print_btn_{{$rand}}"
+                        style="margin-bottom:10px;">
+                    <i class="fa fa-print"></i> Print
+                </button>
 
-            @if($wr->status == 2)
-                <!-- Divider -->
-                <span class="pull-right"
-                      style="margin: 0 12px; border-left: 1px solid #ccc; height: 30px; margin-top: 5px;">
+                @if($wr->status == 2)
+                    <!-- Divider -->
+                    <span class="pull-right"
+                          style="margin: 0 12px; border-left: 1px solid #ccc; height: 30px; margin-top: 5px;">
                 </span>
 
-                <!-- Approve -->
-                <a href="#"
-                   class="btn btn-success pull-right btn-sm approveBtn"
-                   style="margin-bottom:10px; margin-right:5px;"
-                   data-slug="{{ $wr->slug }}"
-                   data-report-no="{{ $wr->report_no }}"
-                   data-week-ending="{{ \Carbon\Carbon::parse($wr->week_ending)->format('F d, Y') }}"
-                   data-crop-year="{{ $wr->crop_year ?? '' }}"
-                   data-toggle="tooltip"
-                   title="Approve weekly report">
-                    <i class="fa fa-check"></i> Approve
-                </a>
+                    <!-- Approve -->
+                    <a href="#"
+                       class="btn btn-success pull-right btn-sm approveBtn"
+                       style="margin-bottom:10px; margin-right:5px;"
+                       data-slug="{{ $wr->slug }}"
+                       data-report-no="{{ $wr->report_no }}"
+                       data-week-ending="{{ \Carbon\Carbon::parse($wr->week_ending)->format('F d, Y') }}"
+                       data-crop-year="{{ $wr->crop_year ?? '' }}"
+                       data-toggle="tooltip"
+                       title="Approve weekly report">
+                        <i class="fa fa-check"></i> Approve
+                    </a>
 
-                <!-- Deny -->
-                <a href="#"
-                   class="btn btn-danger pull-right btn-sm denyBtn"
-                   style="margin-bottom:10px; margin-right:5px;"
-                   data-slug="{{ $wr->slug }}"
-                   data-report-no="{{ $wr->report_no }}"
-                   data-week-ending="{{ \Carbon\Carbon::parse($wr->week_ending)->format('F d, Y') }}"
-                   data-crop-year="{{ $wr->crop_year ?? '' }}"
-                   data-toggle="tooltip"
-                   title="Deny weekly report">
-                    <i class="fa fa-times"></i> Deny
-                </a>
-            @endif
+                    <!-- Deny -->
+                    <a href="#"
+                       class="btn btn-danger pull-right btn-sm denyBtn"
+                       style="margin-bottom:10px; margin-right:5px;"
+                       data-slug="{{ $wr->slug }}"
+                       data-report-no="{{ $wr->report_no }}"
+                       data-week-ending="{{ \Carbon\Carbon::parse($wr->week_ending)->format('F d, Y') }}"
+                       data-crop-year="{{ $wr->crop_year ?? '' }}"
+                       data-toggle="tooltip"
+                       title="Deny weekly report">
+                        <i class="fa fa-times"></i> Deny
+                    </a>
+                @endif
+            </div>
         </div>
-    </div>
+    @endif
+    @if(Auth::user()->user_type == 'ADMIN' && $wr->status == 2)
+        <div class="row">
+            <div class="col-md-12">
+                Submitted at: {{ Carbon::parse($wr->submitted_at)->format('F d, Y | h:i A') }}
+
+                <button class="btn btn-default pull-right btn-sm"
+                        id="print_btn_{{$rand}}"
+                        style="margin-bottom:10px; margin-left:10px;">
+                    <i class="fa fa-print"></i> Print
+                </button>
+
+                <b class="pull-right" style="margin-right:10px; margin-top:5px;">
+                    For Regulation Officer's Approval
+                </b>
+            </div>
+        </div>
+    @endif
     <div id="loaderContainer_{{$rand}}">
         <h1 class="text-center" style="font-size: 72px; padding: 150px">
             <i class="fa fa-spin fa-spinner"></i>

@@ -42,7 +42,10 @@
 
 {{--    NEW CODE--}}
 @if(!empty($calendar))
-    @foreach(array_reverse(array_keys($calendar)) as $crop_year)
+    @foreach(collect(array_reverse(array_keys($calendar)))
+    ->filter(function ($crop_year) {
+        return $crop_year >= '2026-2027';
+    }) as $crop_year)
         <div class="panel">
             <div class="box box-sm box-default box-solid">
                 <div class="box-header with-border">
