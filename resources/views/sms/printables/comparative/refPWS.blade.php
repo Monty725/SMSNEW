@@ -114,6 +114,13 @@
             @foreach($millsArray as $group => $mills)
                 @php $totals[$group] = $template; @endphp
 
+                {{-- Group header --}}
+                <tr class="text-strong">
+                    <td></td>
+                    <td style="background-color: #e9e9e9; text-align: center">{{ $group }}</td>
+                    <td colspan="{{ 2 + count($template) }}"></td>
+                </tr>
+
                 @foreach($mills as $mill_code => $mill)
                     @php
                         $ct++;
@@ -147,8 +154,9 @@
                     </tr>
                 @endforeach
 
+                {{-- Group subtotal --}}
                 <tr class="text-strong">
-                    <td colspan="2" class="text-right">{{ $group }} Subtotal</td>
+                    <td colspan="2" class="text-right">Subtotal</td>
                     <td></td>
                     <td></td>
                     @foreach($totals[$group] as $value)
@@ -214,22 +222,20 @@
                 @php
                     $ct = 0;
                     $totals = [];
-                    $template = array_fill(0, 15, 0);
+                    $template = array_fill(0, 11, 0);
 
                     // [path inside form2, sanitizer method name]
                     $columns = [
-                        0  => ['carryOver.prevCrop.toDate',              'sanitize'],
-                        1  => ['totalReceipt.currentCrop.thisWeek',      'sanitize'],
-                        2  => ['totalReceipt.currentCrop.prevWeek',      'sanitize'],
-                        3  => ['totalReceipt.currentCrop.toDate',        'sanitize'],
-                        4  => ['melted.currentCrop.thisWeek',            'sanitize'],
-                        5  => ['melted.currentCrop.toDate',              'sanitize'],
-                        6  => ['melted.prevCrop.thisWeek',               'sanitize'],
-                        7  => ['melted.prevCrop.toDate',                 'sanitize'],
-                        8  => ['rawWithdrawals.currentCrop.thisWeek',    'sanitize'],
-                        9  => ['rawWithdrawals.currentCrop.toDate',      'sanitize'],
-                        10 => ['rawWithdrawals.prevCrop.thisWeek',       'sanitize'],
-                        11 => ['rawWithdrawals.prevCrop.toDate',         'sanitize'],
+                        0 => ['prodNet.prevCrop.toDate',                    'sanitize'],
+                        1 => ['prodNet.currentCrop.thisWeek',               'sanitize'],
+                        2 => ['prodNet.currentCrop.prevWeek',               'sanitize'],
+                        3 => ['prodNet.currentCrop.toDate',                 'sanitize'],
+                        4 => ['totalWithdrawalOverall.currentCrop.thisWeek','sanitizeAutonum'],
+                        5 => ['totalWithdrawalOverall.currentCrop.toDate',  'sanitizeAutonum'],
+                        6 => ['totalWithdrawalOverall.prevCrop.thisWeek',   'sanitizeAutonum'],
+                        7 => ['totalWithdrawalOverall.prevCrop.toDate',     'sanitizeAutonum'],
+                        8 => ['stockBalance.currentCrop.toDate',            'sanitize'],
+                        9 => ['stockBalance.prevCrop.toDate',               'sanitize'],
                     ];
 
                     $num = function ($form2, $path, $method) {
@@ -254,6 +260,13 @@
                 @foreach($millsArray as $group => $mills)
                     @php $totals[$group] = $template; @endphp
 
+                    {{-- Group header --}}
+                    <tr class="text-strong">
+                        <td></td>
+                        <td style="background-color: #e9e9e9; text-align: center">{{ $group }}</td>
+                        <td colspan="{{ 2 + count($template) }}"></td>
+                    </tr>
+
                     @foreach($mills as $mill_code => $mill)
                         @php
                             $ct++;
@@ -265,19 +278,8 @@
                                 foreach ($columns as $i => $col) {
                                     $cells[$i] = $num($form2, $col[0], $col[1]);
                                 }
-
-                                // Col 12: current crop balance = receipt - melted - raw withdrawals (to date)
-                                $cells[12] = $num($form2, 'totalReceipt.currentCrop.toDate', 'sanitize')
-                                           - $num($form2, 'melted.currentCrop.toDate', 'sanitize')
-                                           - $num($form2, 'rawWithdrawals.currentCrop.toDate', 'sanitize');
-
-                                // Col 13: previous crop balance = receipt - melted - raw withdrawals (to date)
-                                $cells[13] = $num($form2, 'totalReceipt.prevCrop.toDate', 'sanitize')
-                                           - $num($form2, 'melted.prevCrop.toDate', 'sanitize')
-                                           - $num($form2, 'rawWithdrawals.prevCrop.toDate', 'sanitize');
-
-                                // Col 14: current + previous crop balance
-                                $cells[14] = $cells[12] + $cells[13];
+                                // Col 10: stock balance (current crop) + stock balance (previous crop)
+                                $cells[10] = $cells[8] + $cells[9];
 
                                 foreach ($cells as $i => $val) {
                                     $totals[$group][$i] += $val;
@@ -288,7 +290,9 @@
                         <tr>
                             <td>{{ $ct }}</td>
                             <td>{{ $mill_code }}</td>
-                            @for($i = 0; $i < 15; $i++)
+                            <td></td>
+                            <td></td>
+                            @for($i = 0; $i < 11; $i++)
                                 <td class="text-right">
                                     {{ $hasData ? $dash($cells[$i]) : '-' }}
                                 </td>
@@ -296,8 +300,11 @@
                         </tr>
                     @endforeach
 
+                    {{-- Group subtotal --}}
                     <tr class="text-strong">
-                        <td colspan="2" class="text-right">{{ $group }} Subtotal</td>
+                        <td colspan="2" class="text-right">Subtotal</td>
+                        <td></td>
+                        <td></td>
                         @foreach($totals[$group] as $value)
                             <td class="text-right text-strong">{{ $dash($value) }}</td>
                         @endforeach
@@ -306,6 +313,8 @@
 
                 <tr class="text-strong">
                     <td colspan="2">TOTAL (LKG)</td>
+                    <td></td>
+                    <td></td>
                     @foreach($template as $key => $val)
                         <td class="text-right">{{ $dash(array_sum(array_column($totals, $key))) }}</td>
                     @endforeach

@@ -20,16 +20,43 @@ class RecapController
     }
 
     /**
-     * Week ending of the submitted reports for the requested report no. and crop year.
-     * max() so one mill with a different date can't make the result arbitrary.
+     * Mills that should appear in recaps.
      */
-    private function getWeekEnding($report_no, $crop_year)
+    private const GROUP_ORDER = ['Luzon', 'Negros', 'Panay', 'E. Visayas', "Mindanao"];
+
+    private function recapMills()
+    {
+        $placeholders = implode(',', array_fill(0, count(self::GROUP_ORDER), '?'));
+
+        return SugarMills::query()
+            ->where('for_recap', '=', 1)
+            ->orderByRaw("FIELD(`group`, {$placeholders}) = 0")   // groups not in the list go last
+            ->orderByRaw("FIELD(`group`, {$placeholders})", array_merge(self::GROUP_ORDER, self::GROUP_ORDER))
+            ->orderBy('group', 'asc')                              // alphabetical among unlisted groups
+            ->orderBy('ordering', 'asc');
+    }
+
+    /**
+     * Submitted reports for the report no. / crop year, limited to recap mills.
+     */
+    private function recapReports($report_no, $crop_year)
     {
         return WeeklyReports::query()
             ->where('status', '=', 1)
             ->where('report_no', '=', $report_no)
             ->where('crop_year', '=', $crop_year)
-            ->max('week_ending');
+            ->whereHas('sugarMill', function ($query) {
+                $query->where('for_recap', '=', 1);
+            });
+    }
+
+    /**
+     * Week ending of the submitted reports (recap mills only).
+     * max() so one mill with a different date can't make the result arbitrary.
+     */
+    private function getWeekEnding($report_no, $crop_year)
+    {
+        return $this->recapReports($report_no, $crop_year)->max('week_ending');
     }
 
     public function comparativeGtcm(Request $request)
@@ -38,13 +65,11 @@ class RecapController
         $crop_year = $request->crop_year;
         $comparativeGtcmArray = [];
 
-        $wrs = WeeklyReports::query()
-            ->where('status', '=', 1)
-            ->where('report_no', '=', $report_no)
-            ->where('crop_year', '=', $crop_year)
+        $wrs = $this->recapReports($report_no, $crop_year)
+            ->with(['sugarMill', 'form1'])
             ->get();
 
-        foreach (SugarMills::query()->get() as $mill) {
+        foreach ($this->recapMills()->get() as $mill) {
             $comparativeGtcmArray[$mill->group][$mill->slug] = [];
         }
 
@@ -70,19 +95,16 @@ class RecapController
         $crop_year = $request->crop_year;
 
         $comparativeArray = [];
-        foreach (SugarMills::query()->get() as $mill) {
+        foreach ($this->recapMills()->get() as $mill) {
             $comparativeArray[$mill->group][$mill->slug] = [
                 'weeklyReportSlug' => null,
                 'form1'            => [],
             ];
         }
 
-        $wrs = WeeklyReports::query()
+        $wrs = $this->recapReports($report_no, $crop_year)
             ->with('sugarMill')
             ->select('slug', 'mill_code')
-            ->where('status', '=', 1)
-            ->where('report_no', '=', $report_no)
-            ->where('crop_year', '=', $crop_year)
             ->get();
 
         foreach ($wrs as $wr) {
@@ -112,19 +134,16 @@ class RecapController
         $crop_year = $request->crop_year;
 
         $comparativeArray = [];
-        foreach (SugarMills::query()->get() as $mill) {
+        foreach ($this->recapMills()->get() as $mill) {
             $comparativeArray[$mill->group][$mill->slug] = [
                 'weeklyReportSlug' => null,
                 'form3'            => [],
             ];
         }
 
-        $wrs = WeeklyReports::query()
+        $wrs = $this->recapReports($report_no, $crop_year)
             ->with('sugarMill')
             ->select('slug', 'mill_code')
-            ->where('status', '=', 1)
-            ->where('report_no', '=', $report_no)
-            ->where('crop_year', '=', $crop_year)
             ->get();
 
         foreach ($wrs as $wr) {
@@ -153,7 +172,7 @@ class RecapController
         $crop_year = $request->crop_year;
 
         $comparativeArray = [];
-        $mills = SugarMills::query()
+        $mills = $this->recapMills()
             ->where('has_refinery', '=', 1)
             ->get();
 
@@ -164,14 +183,11 @@ class RecapController
             ];
         }
 
-        $wrs = WeeklyReports::query()
+        $wrs = $this->recapReports($report_no, $crop_year)
             ->with('sugarMill')
             ->select('slug', 'mill_code')
-            ->where('status', '=', 1)
-            ->where('report_no', '=', $report_no)
-            ->where('crop_year', '=', $crop_year)
             ->whereHas('sugarMill', function ($query) {
-                return $query->where('has_refinery', '=', 1);
+                $query->where('has_refinery', '=', 1);
             })
             ->get();
 
@@ -201,19 +217,16 @@ class RecapController
         $crop_year = $request->crop_year;
 
         $comparativeArray = [];
-        foreach (SugarMills::query()->get() as $mill) {
+        foreach ($this->recapMills()->get() as $mill) {
             $comparativeArray[$mill->group][$mill->slug] = [
                 'weeklyReportSlug' => null,
                 'form1'            => [],
             ];
         }
 
-        $wrs = WeeklyReports::query()
+        $wrs = $this->recapReports($report_no, $crop_year)
             ->with('sugarMill')
             ->select('slug', 'mill_code')
-            ->where('status', '=', 1)
-            ->where('report_no', '=', $report_no)
-            ->where('crop_year', '=', $crop_year)
             ->get();
 
         foreach ($wrs as $wr) {

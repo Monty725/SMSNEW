@@ -104,6 +104,13 @@
             @foreach($millsArray as $group => $mills)
                 @php $totals[$group] = $template; @endphp
 
+                {{-- Group header --}}
+                <tr class="text-strong">
+                    <td></td>
+                    <td style="background-color: #e9e9e9; text-align: center">{{ $group }}</td>
+                    <td colspan="{{ 4 + count($template) }}"></td>
+                </tr>
+
                 @foreach($mills as $mill_code => $mill)
                     @php
                         $ct++;
@@ -136,8 +143,9 @@
                     </tr>
                 @endforeach
 
+                {{-- Group subtotal --}}
                 <tr class="text-strong" style="background-color: #f8ffeb;">
-                    <td colspan="2" class="text-right" style="background-color: #f8ffeb;">{{ $group }} Subtotal</td>
+                    <td colspan="2" class="text-right" style="background-color: #f8ffeb;">Subtotal</td>
                     <td style="background-color: #f8ffeb;"></td>
                     <td style="background-color: #f8ffeb;"></td>
                     @foreach($totals[$group] as $value)

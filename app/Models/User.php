@@ -113,4 +113,8 @@ class User extends Authenticatable{
         return $this->hasMany(MillAssignment::class,'user_id','user_id');
     }
 
+    public function scopeForRecap($query)
+    {
+        return $query->where('for_recap', 1);
+    }
 }
