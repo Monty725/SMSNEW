@@ -36,7 +36,7 @@
         </tr>
     </table>
 
-    <p class="text-strong">REFINED SUGAR PRODUCTION, WITHDRAWALS, and STOCK BALANCES ( In 50 KILO-BAG)</p>
+    <p class="text-strong">REFINED SUGAR PRODUCTION, WITHDRAWALS, and STOCK BALANCES (In LKG Bags)</p>
 
     <table class="table table-bordered">
         <thead>
