@@ -80,6 +80,11 @@
                         'cols' => 4,
                         'label' => 'Address:'
                     ]) !!}
+                    {!! \App\Swep\ViewHelpers\__form2::select('area',[
+                        'cols' => 2,
+                        'label' => 'Area:',
+                        'options' => \App\Swep\Helpers\Arrays::areaTypes(),
+                    ]) !!}
                 </div>
                 <div class="row">
                     {!! \App\Swep\ViewHelpers\__form2::textbox('o_lastname',[

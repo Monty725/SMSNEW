@@ -17,9 +17,11 @@ Edit
                         <ul class="nav nav-pills nav-stacked">
                             <li role="presentation" class="active"><a href="#tab_1_{{$rand}}" data-toggle="tab" aria-expanded="false">ACCESS</a></li>
 
-                            @foreach($by_category as $category => $menus)
-                                <li role="presentation" class=""><a href="#tab_{{($category == null) ? 'NoCategory' : $category}}_{{$rand}}" data-toggle="tab" aria-expanded="false">{{($category == null) ? 'No Category' : \App\Swep\ViewHelpers\__html::sidenav_labeler($category)}}</a></li>
-                            @endforeach
+                            @if (auth()->user()->user_type !== 'ADMIN')
+                                @foreach($by_category as $category => $menus)
+                                    <li role="presentation" class=""><a href="#tab_{{($category == null) ? 'NoCategory' : $category}}_{{$rand}}" data-toggle="tab" aria-expanded="false">{{($category == null) ? 'No Category' : \App\Swep\ViewHelpers\__html::sidenav_labeler($category)}}</a></li>
+                                @endforeach
+                            @endif
 
 
                         </ul>
@@ -29,6 +31,7 @@ Edit
             <div class="col-md-10">
                 <div class="tab-content">
                     <div class="tab-pane active" id="tab_1_{{$rand}}">
+                        @if (auth()->user()->user_type !== 'ADMIN')
                         <div class="row">
                             {!! \App\Swep\ViewHelpers\__form2::select('mill_code',[
                                 'label' => 'Mill Code:',
@@ -36,6 +39,7 @@ Edit
                                 'options' => \App\Swep\Helpers\Arrays::millCodes(),
                             ],$user->mill_code) !!}
                         </div>
+                        @endif
                         <b>MILL ASSIGNMENT (FOR SPRO Only)</b>
                         <div class="row">
                             @php

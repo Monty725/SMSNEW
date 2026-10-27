@@ -183,6 +183,13 @@ class Arrays
         ];
     }
 
+    public static function areaTypes(){
+        return [
+            'VIS' => 'VISAYAS',
+            'LM' => 'LUZON & MINDANAO',
+        ];
+    }
+
     public static function geogLocs(){
         return [
             'LM' => 'LM',

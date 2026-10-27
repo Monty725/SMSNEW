@@ -68,6 +68,16 @@ class UserController extends Controller{
 //            ->leftJoin('hr_employees','users.employee_no','=', 'hr_employees.employee_no')
 //        ->addSelect(['users.*','hr_employees.fullname as fullname']);
         $users = User::query();
+
+        $viewer = Auth::user();
+        if($viewer->user_type === 'ADMIN'){
+            if(empty($viewer->area)){
+                $users->whereRaw('1 = 0'); // no area assigned: show nothing
+            }else{
+                $users->where('area', $viewer->area);
+            }
+        }
+
         if(request()->ajax()){
             if(request()->has('draw')){
                 if($request->has('is_online') || $request->has('is_active')){
@@ -217,6 +227,7 @@ class UserController extends Controller{
         $user->o_lastname = $request->o_lastname;
         $user->o_firstname = $request->firstname;
         $user->o_middlename = $request->middlename;
+        $user->area = $request->area;
         $user->is_activated = 1;
         $user->access = "ADMIN";
         if($user->save()){
