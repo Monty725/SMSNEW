@@ -4,37 +4,34 @@
 @section('wrapper')
     <table class="" style="width: 100%;">
         <tr>
-            <td style="width: 30%">
-                <p class="no-margin text-strong">THE ADMINISTRATOR</p>
-                <p class="no-margin">SUGAR REGULATORY ADMINISTRATION</p>
-                <p class="no-margin">SRA, DILIMAN, QUEZON CITY</p>
-            </td>
-            <td class="text-center">
-                <p class="text-strong">SUGAR REGULATORY ADMINISTRATION</p>
-                <p class="text-strong"> REGULATION DEPARTMENT</p>
-            </td>
             <td style="width: 30%" class="text-top">
+                {{-- <p class="no-margin text-strong">THE ADMINISTRATOR</p>--}}
+                {{-- <p class="no-margin">SUGAR REGULATORY ADMINISTRATION</p>--}}
+                {{-- <p class="no-margin">SRA, DILIMAN, QUEZON CITY</p>--}}
                 <table class="tbl-condensed" style="width: 100%">
                     <tbody>
                     <tr>
-                        <td style="width: 50%"></td>
-                        <td>Crop year:</td>
-                        <td class="text-strong">{{ $cropYear }}</td>
+                        <td style="width: 40%">Crop year:</td>
+                        <td class="text-strong">{{ \Illuminate\Support\Facades\Request::get('crop_year') }}</td>
                     </tr>
                     <tr>
-                        <td></td>
                         <td>Report No:</td>
-                        <td class="text-strong">{{ $reportNo }}</td>
+                        <td class="text-strong">{{ \Illuminate\Support\Facades\Request::get('report_no') }}</td>
                     </tr>
                     <tr>
-                        <td></td>
                         <td>Week Ending:</td>
-                        <td class="text-strong">
-                            {{ $weekEnding ? \Illuminate\Support\Carbon::parse($weekEnding)->format('F d, Y') : '-' }}
+                        <td>
+                            <b>{{ $weekEnding ? \Illuminate\Support\Carbon::parse($weekEnding)->format('F d, Y') : '-' }}</b>
                         </td>
                     </tr>
                     </tbody>
                 </table>
+            </td>
+            <td class="text-center text-top">
+                <p class="text-strong">SUGAR REGULATORY ADMINISTRATION</p>
+                <p class="text-strong">REGULATION DEPARTMENT</p>
+            </td>
+            <td style="width: 30%" class="text-top">
             </td>
         </tr>
     </table>

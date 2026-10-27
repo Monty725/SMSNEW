@@ -11,10 +11,14 @@
 </div>
 <div class="nav-tabs-custom">
     <ul class="nav nav-tabs">
-        <li class="active"><a href="#tab_1" data-toggle="tab">RAW PROD., W/D & STOCK BALANCES</a></li>
-        <li><a href="#tab_3" data-toggle="tab" >REF PROD., W/D & STOCK BALANCES</a></li>
-        <li><a href="#tab_2" data-toggle="tab">MOL PROD., W/D & STOCK BALANCES</a></li>
-        <li><a href="#tab_4" data-toggle="tab">GTCM, TSDC, LKG/TONNE CANE</a></li>
+{{--        <li class="active"><a href="#tab_1" data-toggle="tab">RAW PROD., W/D & STOCK BALANCES</a></li>--}}
+{{--        <li><a href="#tab_3" data-toggle="tab" >REF PROD., W/D & STOCK BALANCES</a></li>--}}
+{{--        <li><a href="#tab_2" data-toggle="tab">MOL PROD., W/D & STOCK BALANCES</a></li>--}}
+{{--        <li><a href="#tab_4" data-toggle="tab">GTCM, TSDC, LKG/TONNE CANE</a></li>--}}
+        <li class="active"><a href="#tab_1" data-toggle="tab">RAW SUGAR SUMMARY</a></li>
+        <li><a href="#tab_3" data-toggle="tab" >REFINED SUGAR SUMMARY</a></li>
+        <li><a href="#tab_2" data-toggle="tab">MOLASSES SUMMARY</a></li>
+        <li><a href="#tab_4" data-toggle="tab">TONS DUE CANE SUMMARY</a></li>
     </ul>
     <div class="tab-content">
         <div class="tab-pane active" id="tab_1">
