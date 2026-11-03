@@ -51,7 +51,7 @@
             @endforeach
         @endif
         <tr>
-            <td colspan="5" class="text-strong">
+            <td colspan="6" class="text-strong">
                 TOTAL
             </td>
             <td class="text-strong text-right">
