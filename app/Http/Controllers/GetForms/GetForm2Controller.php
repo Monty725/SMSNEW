@@ -83,6 +83,8 @@ class GetForm2Controller extends Controller
         //GET THIS WEEK VALUES FOR ISSUANCES
         $deliveries = $weeklyReport->form5aIssuancesOfSro()
             ->whereNull('here_only')
+            ->whereNull('is_deleted_5a')
+            ->whereNull('is_updatedwithrsq_5a')
             ->whereNotNull('rsq_no')
             ->selectRaw('consumption,sum(refined_qty) as currentTotal, sum(prev_refined_qty) as prevTotal')
             ->groupBy('consumption') //FIX FOR THE IF ELSE LOGIC FILTERED BY DOMESTIC
