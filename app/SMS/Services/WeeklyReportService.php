@@ -1022,7 +1022,7 @@ class WeeklyReportService
             $carryPrev = $formArray['subsidiaries'][$carryKey][$slug]['prev'] ?? 0;
             $receiptPrev = $formArray['subsidiaries'][$receiptKey][$slug]['prev'] ?? 0;
             $withdrawPrev = $formArray['subsidiaries'][$withdrawKey][$slug]['prev'] ?? 0;
-            $transferPrev = $formArray['subsidiaries'][$transferKey][$slug]['current'] ?? 0;
+            $transferPrev = $formArray['subsidiaries'][$transferKey][$slug]['prev'] ?? 0;
 
             $formArray['subsidiaries'][$stockKey][$slug]['prev'] =
                 $carryPrev - $withdrawPrev - $transferPrev;
